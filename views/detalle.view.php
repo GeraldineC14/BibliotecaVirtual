@@ -113,7 +113,7 @@
     <footer class="text-white bg-dark">
         <div class="container text-center py-4 py-lg-5">
             
-            <p class="text-white-50 mb-0">Copyright © 2024 By IA TECH</p>
+            <p class="text-white-50 mb-0">Copyright © 2023 By IA TECH</p>
         </div>
     </footer>
 
