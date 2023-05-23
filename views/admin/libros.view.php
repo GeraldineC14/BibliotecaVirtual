@@ -355,6 +355,33 @@ session_start();
                                 </div>
                             </div>
                         </div>
+
+
+                         <!-- Zona Modal editar PDF-->
+                         <div class="modal fade" id="modal-pdf-editar" tabindex="-1" aria-labelledby="modalPdf"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">  
+                                        <h4>EDITAR PDF</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" id="formulario-pdf" autocomplete="off">
+                                            <!-- Creación de controles -->
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Footer -->
@@ -814,6 +841,35 @@ session_start();
     
             });
         });
+
+
+
+        // MODAL EDITAR PDF
+        $("#tabla-libros tbody").on("click", ".editarpdf", function () {
+                    idbook = $(this).data("idbook");
+                    $.ajax({
+                        url: '../../controllers/biblioteca.controller.php',
+                        type: 'GET',
+                        data: { 'operacion': 'getBinarios', 'idbook': idbook },
+                        success: function (result) {
+                            let registros = JSON.parse(result);
+                            let nuevaFila = ``;
+                            pdf = (registros['url'] == null) ? 'sin-pdf.png' : registros['url'];
+                            nuevaFila = `
+
+                            <div class="ExternalFiles">
+                            <div class="pdf">
+                                <iframe src='../PDF/${pdf}' width='100%' heigth='100%'></iframe>
+                            </div>
+                        </div>
+                    
+                    `;
+                            $("#formulario-pdf").append(nuevaFila);
+                            $("#modal-pdf-editar").modal("show");
+                        }
+
+                    });
+                });
 
         //Eventos
         $("#mostrar-modal-registro").click(abrirModalRegistro);
