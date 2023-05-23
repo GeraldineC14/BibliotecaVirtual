@@ -97,7 +97,7 @@ session_start();
 					  });
 	
 					  setTimeout(function(){
-						window.location.href = "admin/admin.view.php";
+						window.location.href = "prestamos.view.php";
 					  }, 1500)
 					}else{
 					  Swal.fire({
@@ -112,29 +112,29 @@ session_start();
 				  }
 				});
 				$("#acceder").click(login);   
-		  }
+		  	}
 	
-		  	function validar_correo(){
-        var esvalido = document.getElementById('email');
-        var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-        
-        if(exprecion.test(esvalido.value)){
-          
-          login();
-    
-        }else{
-          Swal.fire({
-              title   : "Error",
-              text    : "Correo no autorizado",
-              icon    : "error",
-              footer  : "Horacio Zeballos Gámez",
-              confirmButtonText   : "Aceptar",
-              confirmButtonColor  : "#38AD4D"
-              });
-        }
-		  }      
-		  
-		  	$('#showPass').on('click', function(){
+			function validar_correo(){
+				var esvalido = document.getElementById('email');
+				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+				
+				if(exprecion.test(esvalido.value)){
+				
+				login();
+			
+				}else{
+				Swal.fire({
+					title   : "Error",
+					text    : "Correo no autorizado",
+					icon    : "error",
+					footer  : "Horacio Zeballos Gámez",
+					confirmButtonText   : "Aceptar",
+					confirmButtonColor  : "#38AD4D"
+					});
+				}
+			}      
+			
+			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey");
 				if(passInput.attr('type')==='password')
 				{
@@ -143,7 +143,7 @@ session_start();
 				passInput.attr('type','password');
 				}
 			});
-		  
+			
 			$("#acceder").click(validar_correo);
 		  
 	
