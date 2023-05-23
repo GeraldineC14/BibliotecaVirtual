@@ -496,6 +496,7 @@ session_start();
                                 <td>
                                     <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}'> 
                                     <i class="fa-sharp fa-solid fa-file-pdf fa-xl" style="color: #f71823;"></i>
+                                    <a href='#' data-idbook='${registro['idbook']}' class = ' editarpdf'><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #00ffaa;"></i></a>
                                     </a>
                                 </td>
 
