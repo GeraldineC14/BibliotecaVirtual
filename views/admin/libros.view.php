@@ -495,9 +495,9 @@ session_start();
                                 <td>${registro['locationresponsible']}</td>
                                 <td>
                                     <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}'> 
-                                    <i class="fa-sharp fa-solid fa-file-pdf fa-xl" style="color: #f71823;"></i>
-                                    <a href='#' data-idbook='${registro['idbook']}' class = ' editarpdf'><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #00ffaa;"></i></a>
+                                    <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
                                     </a>
+                                    <a href='#' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
                                 </td>
 
                                 <td>
@@ -505,15 +505,14 @@ session_start();
                                         data-idbook='${registro['idbook']}'
                                         data-lightbox='demo'
                                         data-title='${registro['descriptions']}'
-                                        class='btn btn-success btn-sm'
                                         title='Mostrar portada del libro'>
-                                        <i class='fa-solid fa-eye'></i>
+                                        <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='#' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #00ffaa;"></i></a>
+                                    <a href='#' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
                                 </td>
                                 <td>
-                                    <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash fa-2xl" style="color: #e60000;"></i></a>
-                                    <a href='#' data-idbook='${registro['idbook']}' data-idcategorie='${registro['idcategorie']} ' class = ' editar'><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #00ffaa;"></i></a>
+                                    <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
+                                    <a href='#' data-idbook='${registro['idbook']}' data-idcategorie='${registro['idcategorie']} ' class = ' editar'><i class="fa-solid fa-pen-to-square fa-xl" style="color: #4aa9c9;"></i>  </a>
                                 </td>
                             </tr>
                         `;
