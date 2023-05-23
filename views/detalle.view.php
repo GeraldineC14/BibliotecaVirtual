@@ -28,78 +28,6 @@
         </div>
     </nav>
     
-    <!-- Modal de prestamo -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros" tabindex="-1" aria-labelledby="titulo-modal-libros" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header bg-primary text-light">
-              <h5 class="modal-title" id="titulo-modal-libros">Solicitud de Prestamo</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span class="text-light" aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="" id="formulario-libros" autocomplete="off">
-                  <!-- Creación de controles -->
-                    <div class="row">
-                        <div class="col-md-8 form-group">
-                            <label for="nombrecompleto">Nombre Completo:</label>
-                            <input type="text" id="nombrecompleto" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="nivel">Nivel:</label>
-                            <select name="nivel" id="nivel" class="form-control form-control-sm">
-                                <option selected value="">Seleccione:</option>
-                                <option value="">Inicial</option>
-                                <option value="">Primaria</option>
-                                <option value="">Secundaria</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="grado">Grado:</label>
-                            <input type="number" id="grado" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="seccion">Sección:</label>
-                            <input type="text" id="seccion" class="form-control form-control-sm">
-                        </div>
-                    </div> 
-                    <div class="form-group">
-                        <label for="titulo">Titulo:</label>
-                        <input type="text" id="titulo" class="form-control form-control-sm" readonly>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 form-group">
-                            <label for="autor">Autor:</label>
-                            <input type="text" id="autor" class="form-control form-control-sm" readonly>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="disponibles">Disponibles:</label>
-                            <input type="number" id="disponibles" class="form-control form-control-sm" readonly>
-                        </div>
-                    </div> 
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="fecha1">Fecha Recojo:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha1" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>" max="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 10 days"));?>"/>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>" max="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 15 days"));?>"/>
-                        </div>
-                    </div>      
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" id="guardar-libro" class="btn btn-sm btn-primary">Guardar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- Fin Modal de prestamo -->
 
     <div class="container" style="margin-top: 48px;padding-right: 0px;padding-left: 0px;margin-bottom: 53px;"> 
         <!-- Resumen de los libros -->
@@ -129,7 +57,7 @@
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
-        idbook2 = <?php echo $_GET["data3"];?>
+        idbook2 = <?php echo $_GET["resumen"];?>
         
         function VistaResumen(){
                 $.ajax({
@@ -161,7 +89,7 @@
                                         <div class="btn-group" role="group">
                                         <a href="PDF/${pdf}" target="_blank" class="btn btn-success" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
                                         <a href="PDF/${pdf}" download="${registros['descriptions']}.pdf" class="btn btn-warning" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                                        <a class="btn btn-primary prestamos" data-idbook='${registros['idbook']}' type="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                                        <a href='prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -170,27 +98,6 @@
                     }
                 });
         }
-
-        $(".resumen").on("click", ".prestamos", function(){
-            idbook = $(this).data("idbook");
-                $.ajax({
-                    url: '../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: {
-                        'operacion' : 'getLibro', 
-                        'idbook': idbook
-                    },
-                    success: function(result){
-                        $("#titulo").val(result['descriptions']);
-                        $("#autor").val(result['author']);
-                        $("#disponibles").val(result['amount']);
-
-                        $("#modal-libros").modal("show");
-                        console.log(result);
-                    }
-                });
-            });
 
 
         //Funciones de carga automatica

@@ -119,7 +119,7 @@
                                     <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
                                     <p class="card-text">${registro['author']}</p>
                                     <div>
-                                        <a href='./views/detalle.view.php?data3=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                                        <a href='./views/detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
                                     </div>
                                 </div>
                             </div>
