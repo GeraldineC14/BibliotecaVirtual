@@ -78,7 +78,8 @@
             <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos"></div>    
         </div>
     </div>
-    <!-- Footer -->
+    
+    <!-- Enlace de apoyos -->
     <h2 class="text-center" style="font-family: 'Archivo Black', sans-serif;margin-bottom: 25px;">Enlaces de apoyo</h2>
     <div class="container" style="margin-bottom: 39px;">
         <div class="row">
@@ -88,6 +89,7 @@
         </div>
     </div>
     <section style="margin-left: 42px;margin-top: 29px;margin-bottom: 33px;width: 300px;margin-right: -2px;padding-right: 1px;"></section>
+    <!-- Footer -->
     <footer class="text-white bg-dark">
         <div class="container text-center py-4 py-lg-5">
             <p class="text-white-50 mb-0">Copyright © 2023 Desarrollado por IA TECH</p>
