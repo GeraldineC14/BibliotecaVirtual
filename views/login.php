@@ -97,7 +97,7 @@ session_start();
 					  });
 	
 					  setTimeout(function(){
-						window.location.href = "prestamos.view.php";
+						window.location.href = document.referrer;
 					  }, 1500)
 					}else{
 					  Swal.fire({
