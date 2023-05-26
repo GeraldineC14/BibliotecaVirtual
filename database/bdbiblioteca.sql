@@ -1,309 +1,323 @@
 -- BD
 	CREATE DATABASE library;
 	USE library;
-
--- TB N°1 categories
-	CREATE TABLE categories(
-		idcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
-		categoryname	 VARCHAR(50) NOT NULL,
-		registrationdate DATETIME NOT NULL DEFAULT NOW()
-
-	)ENGINE=INNODB;
 	
+-- BOOKS:
+	-- TB N°1 categories
+		CREATE TABLE categories(
+			idcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
+			categoryname	 VARCHAR(50) NOT NULL,
+			registrationdate DATETIME NOT NULL DEFAULT NOW()
 
--- REGISTRATION OF CATEGORIES:
-	INSERT INTO categories (categoryname) VALUES
-			('Biibliografia, Ciencias Puras'),	
-			('Bibliografia, Filología Linguística'),
-			('Biibliografia, literatura Latina')
+		)ENGINE=INNODB;
+		
+
+	-- REGISTRATION OF CATEGORIES:
+		INSERT INTO categories (categoryname) VALUES
+				('Biibliografia, Ciencias Puras'),	
+				('Bibliografia, Filología Linguística'),
+				('Biibliografia, literatura Latina')
+				
+		SELECT * FROM books;		
+
+	-- TB N°2 subcategories
+		CREATE TABLE subcategories(
+			idsubcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
+			idcategorie	 INT NOT NULL,
+			subcategoryname	 VARCHAR(100) NOT NULL,
+			registrationdate DATETIME NOT NULL DEFAULT NOW(),
+			CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
+		)ENGINE=INNODB;
+
+
+	-- REGISTRATION OF SUBCATEGORIES:
+		INSERT INTO subcategories (idcategorie, subcategoryname) VALUES
+				(1,'Módulo Base Biblioteca para secundaria - Ciencias Puras'),
+				(1,'Matemática/Secundaria'),
+				(2,'Módulo Base Biblioteca para secundaria - Filología Linguistica'),
+				(2,'Textos Ingles/Secundaria'),
+				(2,'Enciclopedias Tematicas'),
+				(3,'Módulo Base Biblioteca para secundaria - Literatura Latina'),
+				(3,'Obras Literarias'),
+				(3,'Lenguaje y Literatura')
+
+
+	-- TB N°3 BOOKS
+		CREATE  TABLE books(
+			idbook			INT AUTO_INCREMENT PRIMARY KEY,
+			idcategorie		INT NOT NULL,
+			idsubcategorie		INT NOT NULL,
+			codes			VARCHAR(30) NOT NULL,
+			amount			VARCHAR(30) NOT NULL,
+			descriptions		VARCHAR(150) NOT NULL,
+			author			VARCHAR(150) NOT NULL,
+			state			VARCHAR(30) NOT NULL,
+			locationresponsible	VARCHAR(50) NOT NULL,
+			url			VARCHAR(250) NULL,
+			frontpage		VARCHAR(50) NULL,
+			registrationdate 	DATETIME NOT NULL DEFAULT NOW(),
+			state2 			CHAR(1) NOT NULL DEFAULT '1',
+			summary			VARCHAR (1500) NULL,
+			CONSTRAINT fk_idcategorie_categories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie),
+			CONSTRAINT fk_idsubcategorie_subcategories FOREIGN KEY (idsubcategorie) REFERENCES subcategories (idsubcategorie)
 			
-	SELECT * FROM books;		
-
--- TB N°2 subcategories
-	CREATE TABLE subcategories(
-		idsubcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
-		idcategorie	 INT NOT NULL,
-		subcategoryname	 VARCHAR(100) NOT NULL,
-		registrationdate DATETIME NOT NULL DEFAULT NOW(),
-		CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
-	)ENGINE=INNODB;
+		)ENGINE= INNODB;
 
 
--- REGISTRATION OF SUBCATEGORIES:
-	INSERT INTO subcategories (idcategorie, subcategoryname) VALUES
-			(1,'Módulo Base Biblioteca para secundaria - Ciencias Puras'),
-			(1,'Matemática/Secundaria'),
-			(2,'Módulo Base Biblioteca para secundaria - Filología Linguistica'),
-			(2,'Textos Ingles/Secundaria'),
-			(2,'Enciclopedias Tematicas'),
-			(3,'Módulo Base Biblioteca para secundaria - Literatura Latina'),
-			(3,'Obras Literarias'),
-			(3,'Lenguaje y Literatura')
+	-- TB N°4 BOOKS chinchanos
+		CREATE  TABLE BooksChinchanos(
+			idbookchinchano		INT AUTO_INCREMENT PRIMARY KEY,
+			descriptions		VARCHAR(150) NOT NULL,
+			author			VARCHAR(150) NOT NULL,
+			url			VARCHAR(250) NULL,
+			frontpage		VARCHAR(50) NULL,
+			registrationdate 	DATETIME NOT NULL DEFAULT NOW(),
+			state 			CHAR(1) DEFAULT '1' 	
+		)ENGINE= INNODB;
+			
 
+	-- PROCEDIMIENTOS ALMACENADOS
+	-- VISTA ADMIN:
+		-- N°1 list books admin view:
+			DELIMITER $$
+			CREATE PROCEDURE spu_books_list()
+			BEGIN
+				SELECT  b.idbook, b.idcategorie, ca.categoryname, c.subcategoryname, b.codes, b.amount, b.descriptions,
+					b.author, b.state, b.locationresponsible, b.url, b.frontpage
+					FROM books b
+				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
+				INNER JOIN categories ca ON ca.idcategorie = b.idcategorie
+				WHERE b.state2 = "1";
+			END $$
 
--- TB N°3 BOOKS
-	CREATE  TABLE books(
-		idbook			INT AUTO_INCREMENT PRIMARY KEY,
-		idcategorie		INT NOT NULL,
-		idsubcategorie		INT NOT NULL,
-		codes			VARCHAR(30) NOT NULL,
-		amount			VARCHAR(30) NOT NULL,
-		descriptions		VARCHAR(150) NOT NULL,
-		author			VARCHAR(150) NOT NULL,
-		state			VARCHAR(30) NOT NULL,
-		locationresponsible	VARCHAR(50) NOT NULL,
-		url			VARCHAR(250) NULL,
-		frontpage		VARCHAR(50) NULL,
-		registrationdate 	DATETIME NOT NULL DEFAULT NOW(),
-		state2 			CHAR(1) NOT NULL DEFAULT '1',
-		summary			VARCHAR (1500) NULL,
-		CONSTRAINT fk_idcategorie_categories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie),
-		CONSTRAINT fk_idsubcategorie_subcategories FOREIGN KEY (idsubcategorie) REFERENCES subcategories (idsubcategorie)
+			CALL spu_books_list();
+
+		-- N°2 Register of books
+			DELIMITER $$
+				CREATE PROCEDURE spu_books_register
+				(
+					IN _idcategorie		INT,
+					IN _idsubcategorie	INT,
+					IN _amount 		VARCHAR(30),
+					IN _descriptions 	VARCHAR(150),
+					IN _author		VARCHAR(150),
+					IN _state 		VARCHAR(30),
+					IN _locationresponsible VARCHAR(50),
+					IN _url			VARCHAR(150),
+					IN _frontpage		VARCHAR(150)
+				)
+				
+				BEGIN
+					DECLARE maximo VARCHAR (30);	
+					DECLARE num INT;
+					DECLARE cod VARCHAR (30);	
+					SET maximo = (SELECT MAX(codes) FROM books);
+					SET num = (SELECT LTRIM(RIGHT(maximo,3)));
+					
+					IF num>=1 AND num<=8 THEN
+					 SET num=num+1;
+					 SET cod = (SELECT CONCAT('C00', CAST(num AS CHAR)));
+					ELSEIF num>=9 AND num<=98 THEN
+					 SET num=num+1;
+					 SET cod = (SELECT CONCAT('C0', CAST(num AS CHAR)));
+					ELSEIF num>=99 AND num<=998 THEN
+					 SET num=num+1;
+					 SET cod = (SELECT CONCAT('C', CAST(num AS CHAR)));
+					ELSE 
+					 SET cod = (SELECT 'C001');
+					END IF;
+					
+					IF _url = '' THEN SET _url = NULL; END IF;
+					IF _frontpage = '' THEN SET _frontpage = NULL; END IF;
+
+					INSERT INTO books(idcategorie,idsubcategorie,codes,amount,descriptions,author,state,locationresponsible,url,frontpage)VALUES(_idcategorie,_idsubcategorie,cod,_amount,_descriptions,_author,_state,_locationresponsible,_url,_frontpage);
+			END $$
+			
+			CALL spu_books_register('1','1','1','1','1','1','1','1','1');
+			
+		-- N°3 Delete book	
+			DELIMITER $$
+			CREATE PROCEDURE spu_books_delete(IN _idbook INT)
+			BEGIN
+				UPDATE books SET state2 = '0' WHERE idbook = _idbook;
+			END $$
+			
+		-- N°4 obtain book
+			DELIMITER $$
+			CREATE PROCEDURE spu_books_obtain(
+			IN _idbook INT
+			)
+			BEGIN
+			SELECT  idbook,idcategorie,idsubcategorie,amount, descriptions,
+					author, state, locationresponsible
+					FROM books 
+				WHERE state2 = "1" AND idbook = _idbook;
+			END $$
+			
+			CALL spu_books_obtain(2);
 		
-	)ENGINE= INNODB;
-
-
--- TB N°4 BOOKS chinchanos
-	CREATE  TABLE BooksChinchanos(
-		idbookchinchano		INT AUTO_INCREMENT PRIMARY KEY,
-		descriptions		VARCHAR(150) NOT NULL,
-		author			VARCHAR(150) NOT NULL,
-		url			VARCHAR(250) NULL,
-		frontpage		VARCHAR(50) NULL,
-		registrationdate 	DATETIME NOT NULL DEFAULT NOW(),
-		state 			CHAR(1) DEFAULT '1' 	
-	)ENGINE= INNODB;
-		
-
--- PROCEDIMIENTOS ALMACENADOS
--- VISTA ADMIN:
-	-- N°1 list books admin view:
-		DELIMITER $$
-		CREATE PROCEDURE spu_books_list()
-		BEGIN
-			SELECT  b.idbook, b.idcategorie, ca.categoryname, c.subcategoryname, b.codes, b.amount, b.descriptions,
-				b.author, b.state, b.locationresponsible, b.url, b.frontpage
-				FROM books b
-			INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
-			INNER JOIN categories ca ON ca.idcategorie = b.idcategorie
-			WHERE b.state2 = "1";
-		END $$
-
-		CALL spu_books_list();
-
-	-- N°2 Register of books
-		DELIMITER $$
-			CREATE PROCEDURE spu_books_register
+		-- N°5 Edit book record
+			DELIMITER $$
+			CREATE PROCEDURE spu_books_update
 			(
+				IN _idbook		INT,
 				IN _idcategorie		INT,
 				IN _idsubcategorie	INT,
-				IN _amount 		VARCHAR(30),
-				IN _descriptions 	VARCHAR(150),
-				IN _author		VARCHAR(150),
-				IN _state 		VARCHAR(30),
-				IN _locationresponsible VARCHAR(50),
-				IN _url			VARCHAR(150),
-				IN _frontpage		VARCHAR(150)
+				IN _amount		VARCHAR(30),
+				IN _descriptions	VARCHAR(150),
+				IN _author		VARCHAR (150),
+				IN _state		VARCHAR(30),
+				IN _locationresponsible VARCHAR(50)
 			)
-			
 			BEGIN
-				DECLARE maximo VARCHAR (30);	
-				DECLARE num INT;
-				DECLARE cod VARCHAR (30);	
-				SET maximo = (SELECT MAX(codes) FROM books);
-				SET num = (SELECT LTRIM(RIGHT(maximo,3)));
+
+				UPDATE books SET
+					idcategorie 		= _idcategorie,
+					idsubcategorie 		= _idsubcategorie,
+					amount 			= _amount,
+					descriptions 		= _descriptions,
+					author 			= _author,
+					state 			= _state,
+					locationresponsible 	= _locationresponsible
+				WHERE idbook = _idbook;
+			END $$
+			
+			CALL('1','1','1','02','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B0','Biblioteca escolar');
 				
-				IF num>=1 AND num<=8 THEN
-				 SET num=num+1;
-				 SET cod = (SELECT CONCAT('C00', CAST(num AS CHAR)));
-				ELSEIF num>=9 AND num<=98 THEN
-				 SET num=num+1;
-				 SET cod = (SELECT CONCAT('C0', CAST(num AS CHAR)));
-				ELSEIF num>=99 AND num<=998 THEN
-				 SET num=num+1;
-				 SET cod = (SELECT CONCAT('C', CAST(num AS CHAR)));
-				ELSE 
-				 SET cod = (SELECT 'C001');
+			SELECT* FROM books;
+			
+		-- N°6 List categories - admin
+			DELIMITER $$
+			CREATE PROCEDURE spu_categories_list()
+			BEGIN
+				SELECT idcategorie, categoryname
+					FROM categories;
+			END $$
+			
+			CALL spu_categories_list();
+			
+		-- N°7 List subcategories
+			-- Editar
+			DELIMITER $$
+			CREATE PROCEDURE spu_subcategories2_list(
+			)
+			BEGIN
+				SELECT idsubcategorie, subcategoryname
+					FROM subcategories;
+			END $$
+			
+			CALL spu_subcategories2_list();
+			
+			-- Registrar
+			DELIMITER $$
+			CREATE PROCEDURE spu_subcategories_list( IN _idcategorie INT
+			)
+			BEGIN
+				SELECT idsubcategorie, subcategoryname
+					FROM subcategories
+					WHERE _idcategorie = idcategorie;
+			END $$
+			
+			CALL spu_subcategories_list(1);
+			
+		-- N°8 list booksChinchanos admin view:
+			DELIMITER $$
+			CREATE PROCEDURE spu_bookChinchanos_list()
+			BEGIN
+				SELECT  idbookChinchano, descriptions, author, state, url, frontpage
+					FROM BooksChinchanos
+				WHERE state = "1";
+			END $$
+
+			CALL spu_bookChinchanos_list();
+			
+		-- N°9 obtain pdf/frontpage
+			DELIMITER $$
+			CREATE PROCEDURE spu_binarios_obtain(
+			IN _idbook INT
+			)
+			BEGIN
+			SELECT  idbook,frontpage,url
+					FROM books 
+				WHERE state2 = "1" AND idbook = _idbook;
+			END $$
+			
+			CALL spu_binarios_obtain(2);
+
+	-- VISTA PRINCIPAL:
+		-- N°1 list book
+
+			DELIMITER $$
+				CREATE PROCEDURE spu_booksmainview_list(
+				)
+				BEGIN
+					SELECT  idbook,descriptions,author,frontpage
+						FROM books
+					WHERE state2 = 1 AND idbook <=6;
+			END $$
+
+			CALL spu_booksmainview_list();
+		
+		-- N°2 view summary		
+			DELIMITER $$
+				CREATE PROCEDURE spu_booksummaries_list(IN _idbook INT)
+				BEGIN
+					SELECT  idbook,summary, author, frontpage,descriptions, url, amount
+						FROM books 
+					WHERE idbook = _idbook;			
+			END $$
+			CALL spu_booksummaries_list(2);
+		
+		-- N°3 List books subcategory
+			DELIMITER $$
+			CREATE PROCEDURE spu_bookssubcategory_list(
+				IN _idsubcategorie INT
+			)
+			BEGIN
+				SELECT  b.idbook,b.descriptions, b.author,b.frontpage
+					FROM books b
+				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
+				WHERE _idsubcategorie = b.idsubcategorie;
+			END $$
+
+			CALL spu_bookssubcategory_list(1);
+			
+		
+			
+		-- N°4 List categories
+			DELIMITER $$
+			CREATE PROCEDURE spu_mainviewcategories_list()
+			BEGIN
+				SELECT s.idcategorie, b.idsubcategorie, s.categoryname, b.subcategoryname
+					FROM subcategories b
+				INNER JOIN categories s ON s.idcategorie = b.idcategorie;
+				
+			END $$
+			
+			CALL spu_mainviewcategories_list();
+		
+			
+		-- N°5 seeker
+			DELIMITER $$
+			 CREATE PROCEDURE spu_books_lookfor(
+				IN _type CHAR(1),
+				IN _look VARCHAR(150)
+			)
+			BEGIN
+				IF _type = "n" THEN
+					SELECT idbook,frontpage, descriptions, author
+					FROM books
+					WHERE descriptions LIKE CONCAT('%',_look,'%');
 				END IF;
 				
-				IF _url = '' THEN SET _url = NULL; END IF;
-				IF _frontpage = '' THEN SET _frontpage = NULL; END IF;
-
-				INSERT INTO books(idcategorie,idsubcategorie,codes,amount,descriptions,author,state,locationresponsible,url,frontpage)VALUES(_idcategorie,_idsubcategorie,cod,_amount,_descriptions,_author,_state,_locationresponsible,_url,_frontpage);
-		END $$
-		
-		CALL spu_books_register('1','1','1','1','1','1','1','1','1');
-		
-	-- N°3 Delete book	
-		DELIMITER $$
-		CREATE PROCEDURE spu_books_delete(IN _idbook INT)
-		BEGIN
-			UPDATE books SET state2 = '0' WHERE idbook = _idbook;
-		END $$
-		
-	-- N°4 obtain book
-		DELIMITER $$
-		CREATE PROCEDURE spu_books_obtain(
-		IN _idbook INT
-		)
-		BEGIN
-		SELECT  idbook,idcategorie,idsubcategorie,amount, descriptions,
-				author, state, locationresponsible
-				FROM books 
-			WHERE state2 = "1" AND idbook = _idbook;
-		END $$
-		
-		CALL spu_books_obtain(2);
-	
-	-- N°5 Edit book record
-		DELIMITER $$
-		CREATE PROCEDURE spu_books_update
-		(
-			IN _idbook		INT,
-			IN _idcategorie		INT,
-			IN _idsubcategorie	INT,
-			IN _amount		VARCHAR(30),
-			IN _descriptions	VARCHAR(150),
-			IN _author		VARCHAR (150),
-			IN _state		VARCHAR(30),
-			IN _locationresponsible VARCHAR(50)
-		)
-		BEGIN
-
-			UPDATE books SET
-				idcategorie 		= _idcategorie,
-				idsubcategorie 		= _idsubcategorie,
-				amount 			= _amount,
-				descriptions 		= _descriptions,
-				author 			= _author,
-				state 			= _state,
-				locationresponsible 	= _locationresponsible
-			WHERE idbook = _idbook;
-		END $$
-		
-		CALL('1','1','1','02','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B0','Biblioteca escolar');
-			
-		SELECT* FROM books;
-		
-	-- N°6 List categories - admin
-		DELIMITER $$
-		CREATE PROCEDURE spu_categories_list()
-		BEGIN
-			SELECT idcategorie, categoryname
-				FROM categories;
-		END $$
-		
-		CALL spu_categories_list();
-		
-	-- N°7 List subcategories
-		-- Editar
-		DELIMITER $$
-		CREATE PROCEDURE spu_subcategories2_list(
-		)
-		BEGIN
-			SELECT idsubcategorie, subcategoryname
-				FROM subcategories;
-		END $$
-		
-		CALL spu_subcategories2_list();
-		
-		-- Registrar
-		DELIMITER $$
-		CREATE PROCEDURE spu_subcategories_list( IN _idcategorie INT
-		)
-		BEGIN
-			SELECT idsubcategorie, subcategoryname
-				FROM subcategories
-				WHERE _idcategorie = idcategorie;
-		END $$
-		
-		CALL spu_subcategories_list(1);
-		
-	-- N°8 list booksChinchanos admin view:
-		DELIMITER $$
-		CREATE PROCEDURE spu_bookChinchanos_list()
-		BEGIN
-			SELECT  idbookChinchano, descriptions, author, state, url, frontpage
-				FROM BooksChinchanos
-			WHERE state = "1";
-		END $$
-
-		CALL spu_bookChinchanos_list();
-
--- VISTA PRINCIPAL:
-	-- N°9 list book
-
-		DELIMITER $$
-			CREATE PROCEDURE spu_booksmainview_list(
-			)
-			BEGIN
-				SELECT  idbook,descriptions,author,frontpage
+				IF _type = "a" THEN 
+					SELECT idbook,frontpage, descriptions, author
 					FROM books
-				WHERE state2 = 1 AND idbook <=6;
-		END $$
+					WHERE author LIKE CONCAT('%',_look,'%');
+				END IF;
+			END $$
 
-		CALL spu_booksmainview_list();
-	
-	-- N°10 view summary		
-		DELIMITER $$
-			CREATE PROCEDURE spu_booksummaries_list(IN _idbook INT)
-			BEGIN
-				SELECT  idbook,summary, author, frontpage,descriptions, url, amount
-					FROM books 
-				WHERE idbook = _idbook;			
-		END $$
-		CALL spu_booksummaries_list(2);
-	
-	-- N°11 List books subcategory
-		DELIMITER $$
-		CREATE PROCEDURE spu_bookssubcategory_list(
-			IN _idsubcategorie INT
-		)
-		BEGIN
-			SELECT  b.idbook,b.descriptions, b.author,b.frontpage
-				FROM books b
-			INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
-			WHERE _idsubcategorie = b.idsubcategorie;
-		END $$
-
-		CALL spu_bookssubcategory_list(1);
-		
-	
-		
-	-- N°12 List categories
-		DELIMITER $$
-		CREATE PROCEDURE spu_mainviewcategories_list()
-		BEGIN
-			SELECT s.idcategorie, b.idsubcategorie, s.categoryname, b.subcategoryname
-				FROM subcategories b
-			INNER JOIN categories s ON s.idcategorie = b.idcategorie;
-			
-		END $$
-		
-		CALL spu_mainviewcategories_list();
-	
-		
-	-- N°13 seeker
-		DELIMITER $$
-		 CREATE PROCEDURE spu_books_lookfor(
-			IN _type CHAR(1),
-			IN _look VARCHAR(150)
-		)
-		BEGIN
-			IF _type = "n" THEN
-				SELECT idbook,frontpage, descriptions, author
-				FROM books
-				WHERE descriptions LIKE CONCAT('%',_look,'%');
-			END IF;
-			
-			IF _type = "a" THEN 
-				SELECT idbook,frontpage, descriptions, author
-				FROM books
-				WHERE author LIKE CONCAT('%',_look,'%');
-			END IF;
-		END $$
-
-		CALL spu_books_lookfor("a","edi");
+			CALL spu_books_lookfor("a","edi");
 
 -- USERS:
 	-- Tb users:
@@ -322,90 +336,136 @@
 		)ENGINE = INNODB;
 			
 	-- PROCEDIMIENTO ALMACENADO:
-	-- N°1 Register Users:
-		DELIMITER $$
-		CREATE PROCEDURE spu_users_register
-		(
-			IN _surnames		VARCHAR(30),
-			IN _namess		VARCHAR(30),
-			IN _email		VARCHAR(100),
-			IN _accesslevel		VARCHAR(100),
-			IN _accesskey		VARCHAR(100)	
-		)
-		BEGIN
-			INSERT INTO users (surnames, namess, email, accesskey, accesslevel) VALUES
-			(_surnames, _namess, _email, _accesskey, _accesslevel);
-		END $$
-		SELECT * FROM books
-		
-	-- N°2 Login:
-		DELIMITER $$ 
-		CREATE PROCEDURE spu_users_login(IN _email VARCHAR(100))
-		BEGIN
-			SELECT idusers, surnames, namess, email, accesskey, accesslevel
-				FROM users
-				WHERE email = _email AND state = '1';
-		END $$
-		
-		CALL spu_users_login('felix@gmail.com');
-		
-		
-	-- N°3 List Users
-		DELIMITER $$
-		CREATE PROCEDURE spu_users_list()
-		BEGIN
-			SELECT  idusers, surnames, namess, email, accesslevel
-				FROM users
-				WHERE state = "1";
-		END $$
-		
-		CALL spu_users_list();
-		
-	-- N°4 Disable Users
-		DELIMITER $$
-		CREATE PROCEDURE spu_users_disable(IN _idusers INT)
-		BEGIN
-			UPDATE users SET state = '0' WHERE idusers = _idusers;
-		END $$
-		
-		SELECT * FROM users;
-		
-	-- N°5 Edit users 
-		DELIMITER $$
-		CREATE PROCEDURE spu_users_update
-		(
-			IN _idusers	INT,
-			IN _namess	VARCHAR(30),
-			IN _surnames	VARCHAR(100),
-			IN _email	VARCHAR(100),
-			IN _accesslevel	VARCHAR(100),
-			IN _accesskey	VARCHAR(100)
-		)
-		BEGIN
+	-- VISTA ADMIN:
+		-- N°1 Register Users:
+			DELIMITER $$
+			CREATE PROCEDURE spu_users_register
+			(
+				IN _surnames		VARCHAR(30),
+				IN _namess		VARCHAR(30),
+				IN _email		VARCHAR(100),
+				IN _accesslevel		VARCHAR(100),
+				IN _accesskey		VARCHAR(100)	
+			)
+			BEGIN
+				INSERT INTO users (surnames, namess, email, accesskey, accesslevel) VALUES
+				(_surnames, _namess, _email, _accesskey, _accesslevel);
+			END $$
+			
+		-- N°2 Login:
+			DELIMITER $$ 
+			CREATE PROCEDURE spu_users_login(IN _email VARCHAR(100))
+			BEGIN
+				SELECT idusers, surnames, namess, email, accesskey, accesslevel
+					FROM users
+					WHERE email = _email AND state = '1';
+			END $$
+			
+			CALL spu_users_login('felix@gmail.com');
+			
+			
+		-- N°3 List Users
+			DELIMITER $$
+			CREATE PROCEDURE spu_users_list()
+			BEGIN
+				SELECT  idusers, surnames, namess, email, accesslevel
+					FROM users
+					WHERE state = "1";
+			END $$
+			
+			CALL spu_users_list();
+			
+		-- N°4 Disable Users
+			DELIMITER $$
+			CREATE PROCEDURE spu_users_disable(IN _idusers INT)
+			BEGIN
+				UPDATE users SET state = '0' WHERE idusers = _idusers;
+			END $$
+			
+			SELECT * FROM users;
+			
+		-- N°5 Edit users 
+			DELIMITER $$
+			CREATE PROCEDURE spu_users_update
+			(
+				IN _idusers	INT,
+				IN _namess	VARCHAR(30),
+				IN _surnames	VARCHAR(100),
+				IN _email	VARCHAR(100),
+				IN _accesslevel	VARCHAR(100),
+				IN _accesskey	VARCHAR(100)
+			)
+			BEGIN
 
-			UPDATE users SET
-				namess 		= _namess,
-				surnames 	= _surnames,
-				email 		= _email,
-				accesslevel 	= _accesslevel,
-				accesskey 	= _accesskey
+				UPDATE users SET
+					namess 		= _namess,
+					surnames 	= _surnames,
+					email 		= _email,
+					accesslevel 	= _accesslevel,
+					accesskey 	= _accesskey
+					
+				WHERE idusers = _idusers;
+			END $$
+			
+			CALL spu_users_update('17','4','4','4@','D','P');
+			
+		-- N°6 obtain users
+			DELIMITER $$
+			CREATE PROCEDURE spu_users_obtain(
+			IN _idusers INT
+			)
+			BEGIN
+			SELECT  idusers, namess, surnames, accesslevel,email,accesskey
+					FROM users 
+				WHERE state = "1" AND idusers = _idusers;
+			END $$
+
+-- BOOK LOANS:
+	-- Tb. Loans
+		CREATE TABLE loans
+		(
+			idloan		INT AUTO_INCREMENT PRIMARY KEY,
+			idbook 		INT 		NOT NULL,
+			idusers		INT 		NOT NULL,
+			amount		VARCHAR(30)	NOT NULL,
+			loan_date	DATETIME 	NOT NULL DEFAULT NOW(),
+			return_date	DATETIME 	NOT NULL,
+			observation	VARCHAR(200)	NULL,
+			state		CHAR(1) 	NOT NULL DEFAULT '1',
+			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
+			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
+		)ENGINE = INNODB;
+		
+		INSERT INTO loans (idbook,idusers,amount,return_date)VALUES('1','1',2,'2023-05-10');
+		SELECT * FROM loans;
+		
+	-- PROCEDIMIENTOS ALMACENADOS
+	-- VISTA ADMIN:
+		-- N°1 list loans
+			DELIMITER $$
+				CREATE PROCEDURE spu_loans_list()
+				BEGIN
+					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+						s.loan_date, s.return_date, s.amount, s.state
+					FROM loans s
+						INNER JOIN books b ON b.idbook = s.idbook
+						INNER JOIN users u ON u.idusers = s.idusers
+					WHERE s.state = "1";
+			END $$
 				
-			WHERE idusers = _idusers;
-		END $$
-		
-		CALL spu_users_update('17','4','4','4@','D','P');
-		
-	-- N°6 obtain users
-		DELIMITER $$
-		CREATE PROCEDURE spu_users_obtain(
-		IN _idusers INT
-		)
-		BEGIN
-		SELECT  idusers, namess, surnames, accesslevel,email,accesskey
-				FROM users 
-			WHERE state = "1" AND idusers = _idusers;
-		END $$
-		
+				CALL spu_loans_list();
+				
+		-- N°2 List users loans
+			DELIMITER $$
+				CREATE PROCEDURE spu_usersloans_list()
+				BEGIN
+					SELECT idusers, CONCAT(namess, ' ' , surnames)AS Users
+					FROM users;
+			END $$
+			CALL spu_usersloans_list();
+			
+
+			
 		
 	
 -- DATA:

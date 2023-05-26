@@ -6,9 +6,9 @@
 session_start();
 
 $_SESSION['login'] = false;
-$_SESSION['idusers'] = "";
-$_SESSION['surnames'] = "";
-$_SESSION['namess'] = "";
+$_SESSION['ses_idusers'] = "";
+$_SESSION['ses_surnames'] = "";
+$_SESSION['ses_namess'] = "";
 
 require_once '../models/Usuario.php';
 
@@ -44,9 +44,9 @@ require_once '../models/Usuario.php';
                         $resultado["namess"] = $data['namess'];
     
                         $_SESSION['login'] = true;
-                        $_SESSION['surnames'] = $data['surnames'];
-                        $_SESSION['namess'] = $data['namess'];
-                        $_SESSION['idusers'] = $data['idusers'];
+                        $_SESSION['ses_surnames'] = $data['surnames'];
+                        $_SESSION['ses_namess'] = $data['namess'];
+                        $_SESSION['ses_idusers'] = $data['idusers'];
     
                     } else {
                         // La contraseña es incorrecta
@@ -76,8 +76,10 @@ require_once '../models/Usuario.php';
         }
 
         if($_GET['operacion'] == 'cerrar-sesion'){
-            session_destroy();
+            session_start();
             session_unset();
+            session_destroy();
+          
             header("location:../index.php");
         }
 
