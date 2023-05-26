@@ -428,15 +428,15 @@
 			idbook 		INT 		NOT NULL,
 			idusers		INT 		NOT NULL,
 			amount		VARCHAR(30)	NOT NULL,
-			loan_date	DATETIME 	NOT NULL DEFAULT NOW(),
+			loan_date	DATETIME 	NOT NULL,
 			return_date	DATETIME 	NOT NULL,
 			observation	VARCHAR(200)	NULL,
 			state		CHAR(1) 	NOT NULL DEFAULT '1',
+			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
-		INSERT INTO loans (idbook,idusers,amount,return_date)VALUES('1','1',2,'2023-05-10');
 		SELECT * FROM loans;
 		
 	-- PROCEDIMIENTOS ALMACENADOS
@@ -480,7 +480,8 @@
 					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
 			END $$
 			
-			CALL
+			CALL spu_loans_register('1','25','2');
+			
 				
 -- ZONA SOCIAL:
 	-- tb. social
