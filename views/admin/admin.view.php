@@ -156,7 +156,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-book fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +190,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-book-open-reader fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-truck-ramp-box fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +241,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@ session_start();
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-user fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +274,7 @@ session_start();
                                             CONFIGURACION</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-gears fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
