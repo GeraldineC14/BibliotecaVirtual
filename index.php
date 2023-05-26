@@ -12,18 +12,20 @@
     <link rel="stylesheet" href="assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="assets/img/favicon.ico" />
 </head>
-<body>
-    <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-danger py-3">
+<body>   
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-danger py-3">
         <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="index.php"><img src="assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e" width="70" height="70"><span style="font-family: 'Archivo Black', sans-serif;font-size: 22px;">Horacio Zeballos</span></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-5"><span class="sr-only"></span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
+                <!-- usuario-no-logueado -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link active text-dark" href="index.php">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link active text-dark" href="index.php">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="index.php">Crea tu Cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="views/login.php">Ingresa</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
-                    <li class="nav-item"></li>
-                </ul><a class="btn btn-primary ml-lg-2" role="button" href="views/login.php" style="background: rgb(214,153,18);font-size: 20px;">Acceder</a>
+                </ul>
             </div>
         </div>
-    </nav>
+</nav>
     <div class="container">
         <div class="carousel slide carousel-fade" data-ride="carousel" id="carousel-1" style="margin-right: 0px;padding-bottom: 0px;">
             <div class="carousel-inner">
