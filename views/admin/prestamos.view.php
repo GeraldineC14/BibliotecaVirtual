@@ -88,6 +88,9 @@ session_start();
                 <!-- INICIO PERFIL -->
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
                           <font face="impact"><h2 >Módulo de prestamos</h2></font>
                         </form>

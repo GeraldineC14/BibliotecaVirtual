@@ -88,6 +88,9 @@ session_start();
                 <!-- INICIO PERFIL -->
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
                         <ul class="navbar-nav flex-nowrap ml-auto">
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
@@ -122,7 +125,7 @@ session_start();
                 <!-- CONTENEDOR DE DATOS -->
                 <main class="app-content ml-5 mt-5">
                     <div class="row">
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Docentes</h4>
@@ -134,7 +137,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small info coloured-icon"><i class="icon fa fa-book fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Libros</h4>
@@ -146,7 +149,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small warning coloured-icon"><i class="icon fa fa-address-book-o fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Autor</h4>
@@ -158,7 +161,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small danger coloured-icon"><i class="icon fa fa-tags fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Categoria</h4>
@@ -170,7 +173,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small warning coloured-icon"><i class="icon fa fa-graduation-cap fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Estudiantes</h4>
@@ -182,7 +185,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small danger coloured-icon"><i class="icon fa fa-hourglass-start fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Prestamos</h4>
@@ -194,7 +197,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small info coloured-icon"><i class="icon fa fa-list-alt fa-3x"></i>
                                 <a class="info" href="#">
                                     <h4>Subcategorias</h4>
@@ -206,7 +209,7 @@ session_start();
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md col-lg-3">
                             <div class="widget-small primary coloured-icon"><i class="icon fa fa-cogs fa-3x"></i>
                                 <a class="info" href="#">
                                     <h5>Configuracion</h5>
@@ -214,17 +217,17 @@ session_start();
                             </div>
                         </div>
                     </div>
-<br>
+                    <br>
                     <!-- Aqui se llama el grafico de barras -->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="tile">
                                 <h3 class="tile-title">Libros Disponibles</h3>
-                                <div class="embed-responsive embed-responsive-16by9">
+                                <!-- <div class="embed-responsive embed-responsive-16by9">
                                     <canvas class="embed-responsive-item" id="reportePrestamo"></canvas>
-                                </div>
+                                </div> -->
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </main>
                 <!-- FIN CONTENEDOR DATOS -->
