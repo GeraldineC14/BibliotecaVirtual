@@ -44,7 +44,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                     <!-- Creación de controles -->
                     <div class="form-group">
                         <label for="nombrecompleto">Nombre Completo:</label>
-                        <input type="text" id="nombrecompleto" class="form-control form-control-sm">
+                        <input type="text" id="nombrecompleto" class="form-control form-control-sm" readonly>
                         
                     </div>
                     <div class="form-group">
@@ -77,7 +77,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                     </div>      
                     <div class="form-group">
                         <label for="observacion">Observaciones:</label>
-                        <textarea class="form-control" name="" id="" rows="4" placeholder="Grado: 2do, Seccion: 'B'"></textarea>
+                        <textarea class="form-control" name="" id="" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
                     </div>
                 </form>
             </div>
@@ -116,6 +116,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         $("#titulo").val(result['descriptions']);
                         $("#autor").val(result['author']);
                         $("#disponibles").val(result['amount']);
+                        $("#nombrecompleto").val('<?php echo $_SESSION['ses_namess'];?> <?php echo $_SESSION['ses_surnames'];?>');
                     }
                 });
         }
