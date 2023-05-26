@@ -446,7 +446,7 @@
 				CREATE PROCEDURE spu_loans_list()
 				BEGIN
 					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-						s.loan_date, s.return_date, s.amount, s.state
+						s.observation, s.loan_date, s.return_date, s.amount, s.state
 					FROM loans s
 						INNER JOIN books b ON b.idbook = s.idbook
 						INNER JOIN users u ON u.idusers = s.idusers

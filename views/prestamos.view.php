@@ -62,7 +62,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="cantidad">Cantidad:</label>
-                            <input type="number" id="cantidad" class="form-control form-control-sm" >
+                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm" min="1" max="#disponibles">
                         </div>
                     </div> 
                     <div class="row">
@@ -77,7 +77,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                     </div>      
                     <div class="form-group">
                         <label for="observacion">Observaciones:</label>
-                        <textarea class="form-control" name="" id="" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
+                        <textarea class="form-control" id="observacion" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
                     </div>
                 </form>
             </div>
