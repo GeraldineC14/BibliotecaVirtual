@@ -39,9 +39,7 @@ session_start();
                     </div>
                 </a>
                 <!-- -->
-
-                <hr class="sidebar-divider my-0" />
-
+                
                 <!-- INICIO SECCIONES SIDEBAR -->
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
@@ -50,6 +48,7 @@ session_start();
                             <span>INICIO</span>
                         </a>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                             aria-expanded="true" aria-controls="collapseUtilities">
@@ -61,8 +60,8 @@ session_start();
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Registrar:</h6>
                                 <a class="collapse-item" href="libros.view.php">Libros</a>
-                                <a class="collapse-item" href="utilities-border.html">Categorias</a>
-                                <a class="collapse-item" href="utilities-animation.html">Subcategorias</a>
+                                <a class="collapse-item" href="category.view.php">Categorias</a>
+                                <a class="collapse-item" href="subcategory.view.php">Subcategorias</a>
                             </div>
                         </div>
                     </li>
@@ -72,6 +71,7 @@ session_start();
                             <span>PRESTAMOS</span>
                         </a>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
                         <a class="nav-link" href="usuarios.view.php">
                             <i class="fa-solid fa-user-plus fa-xl"></i>

@@ -42,6 +42,8 @@ session_start();
                 </a>
                 <!-- -->
 
+                <hr class="sidebar-divider my-0" />
+
                 <!-- INICIO SECCIONES SIDEBAR -->
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
@@ -102,7 +104,7 @@ session_start();
                             <i class="fas fa-bars"></i>
                         </button>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
-                          <font face="impact"><h2 >Módulo de Libros</h2></font>
+                          <font face="impact"><h2 >Módulo de Categorias</h2></font>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">
                             <div class="d-none d-sm-block topbar-divider"></div>
