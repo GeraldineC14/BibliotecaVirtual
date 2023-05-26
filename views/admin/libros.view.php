@@ -358,11 +358,11 @@ session_start();
 
 
                          <!-- Zona Modal editar PDF-->
-                         <div class="modal fade" id="modal-pdf-editar" tabindex="-1" aria-labelledby="modalPdf"
+                        <div class="modal" id="modal-pdf-editar" tabindex="-1" aria-labelledby="modalPdf"
                             aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header">  
+                                    <div class="modal-header bg-primary text-light">  
                                         <h4>EDITAR PDF</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -375,9 +375,11 @@ session_start();
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Cerrar</button>
-
+                                        <button type="button" id="cancelar-modal-portada"
+                                            class="btn btn-sm btn-secondary" class="close"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" id="guardar-portada-editar"
+                                            class="btn btn-sm btn-primary">Modificar</button>
                                     </div>
                                 </div>
                             </div>
@@ -857,11 +859,15 @@ session_start();
                             pdf = (registros['url'] == null) ? 'sin-pdf.png' : registros['url'];
                             nuevaFila = `
 
-                            <div class="ExternalFiles">
-                            <div class="pdf">
-                                <iframe src='../PDF/${pdf}' width='100%' heigth='100%'></iframe>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="pdf">PDF</label>
+                                    <input id="pdf" class="form-control" type="file" name="pdf">
+                                </div>
                             </div>
-                        </div>
+                            <div class="pdf">
+                                <iframe src='../PDF/${pdf}' width='100%' height='450'></iframe>
+                            </div> 
                     
                     `;
                             $("#formulario-pdf").append(nuevaFila);
