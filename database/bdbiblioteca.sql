@@ -466,8 +466,21 @@
 			
 		-- N°3 Register loans
 			DELIMITER $$
-				CREATE PROCEDURE spu_loans_register()
+				CREATE PROCEDURE spu_loans_register(
+					IN _idbook		INT,
+					IN _idusers		INT,
+					IN _observation		VARCHAR(100),
+					IN _loan_date		DATETIME,
+					IN _return_date		DATETIME,
+					IN _amount		VARCHAR(30)
+				
+				)
 				BEGIN
+					INSERT INTO loans(idbook,idusers,observation,loaloan_date,return_date,amount)
+					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
+			END $$
+			
+			CALL
 				
 -- ZONA SOCIAL:
 	-- tb. social
