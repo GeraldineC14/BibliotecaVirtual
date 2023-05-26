@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=341 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -308,7 +308,9 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (333,2,4,'C261','1','1','1','1','1','1','1','2023-04-21 15:27:16','1',NULL),
 (334,1,1,'C262','1','prueba ajax','ajax','b','ajax','','','2023-04-21 15:29:38','1',NULL),
 (335,2,4,'C263','1','PRUEBAS AJAX 2','AJAX 2','B','AJAX2',NULL,NULL,'2023-04-21 15:43:22','1',NULL),
-(340,2,4,'C264','1','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL);
+(340,2,4,'C264','2','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL),
+(351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
+(352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -344,6 +346,31 @@ insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`) value
 (1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08'),
 (2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06'),
 (3,'Biibliografia, literatura Latina','2023-03-21 10:37:22');
+
+/*Table structure for table `loans` */
+
+DROP TABLE IF EXISTS `loans`;
+
+CREATE TABLE `loans` (
+  `idloan` int(11) NOT NULL AUTO_INCREMENT,
+  `idbook` int(11) NOT NULL,
+  `idusers` int(11) NOT NULL,
+  `amount` varchar(30) NOT NULL,
+  `loan_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `return_date` datetime NOT NULL,
+  `observation` varchar(200) DEFAULT NULL,
+  `state` char(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idloan`),
+  KEY `fk_idbook_idbook` (`idbook`),
+  KEY `fk_idusers_idusers` (`idusers`),
+  CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
+  CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `loans` */
+
+insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`) values 
+(3,1,1,'2','2023-05-10 10:31:40','2023-05-10 00:00:00',NULL,'1');
 
 /*Table structure for table `subcategories` */
 
@@ -387,27 +414,33 @@ CREATE TABLE `users` (
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `ul_email_usu` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
 (1,'Geraldine','Castilla Felix','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','E','2023-04-25 12:19:02',NULL,'1'),
 (3,'Arteaga','Miguel','miguel@midominio.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
-(4,'prueba','prueba','prueba@gmail.com','$2y$10$s4FHqgnFtUwMAPwKrNnDXOBX6miEnr.QIQmtf4xUhZYcv.wdzQUCK','E','2023-04-26 09:02:26',NULL,'1'),
-(7,'p','pr','p','E','$','2023-04-27 19:36:06',NULL,'1'),
-(8,'o','o','o','E','$','2023-04-27 19:45:54',NULL,'1'),
-(9,'i','i','i','E','$','2023-04-27 19:48:10',NULL,'1'),
-(10,'ko','ko','ko','E','$','2023-04-27 19:50:05',NULL,'1'),
-(12,'preouba','preuba','preub','E','$','2023-05-01 09:11:16',NULL,'1'),
-(13,'lkdfmdl','lkdfn','flkmd','E','$','2023-05-01 09:28:09',NULL,'1'),
-(14,'lkdm','dm','kcmd','$2y$10$aQgrvS39P2xljohpMTUInuknjMD50JOP0R..tr62AclO59.SLJUaS','E','2023-05-01 09:31:57',NULL,'1'),
-(15,'finañ','preubafinañ','fina@xn--gmai-jqa','$2y$10$SZUCX06jmiL48dkI2fX2K.5.8BZrnBrgOXNe0vqqpMDs2q0BBQfH2','E','2023-05-01 09:33:22',NULL,'1'),
-(16,'prueba','prueba','prueba20@gmail.com','$2y$10$R8IY3eB1cQFPpLvOrdnUC.Sg7HnJ77ZlCOH/25wZhO0SgGREGqJqq','E','2023-05-01 09:42:26',NULL,'1'),
-(17,'5','5','10@gmail.com','$2y$10$RzTYMOloSEoCP5L2DkJNqe.brM5YHDdS3u/LAVOhWRyFYhgVQ2Q8a','D','2023-05-01 09:55:45',NULL,'1'),
-(18,'11','11','11','$2y$10$PebbMwFFZGUmyya74R0TweagzqkzGlGVs.6hWzO5UTB/WPeHj6FVC','E','2023-05-01 10:14:48',NULL,'1'),
-(19,'PRUEBA FINAL','preuba50','50','$2y$10$V3UyDtaHM51OCw/KI/.sWOIVC5O6ZfBBzrItU97XZj9OjIsmQoAmK','E','2023-05-01 10:29:39',NULL,'1'),
-(20,'PREUBA FINAL','PRUEBA FINAL','PREUBA@','$2y$10$4gmVobhXQlx.KGHs8nAG7eSFeLpLbRR4fQOS2MLecUzVfZPsFcbuK','D','2023-05-01 10:31:52',NULL,'1');
+(21,'editar','Prueba editar','editar@midominio.com','$2y$10$Ye7zX/POExz.4oXwdrtzLeZ4gzbOWDQU90maGUb9H6j8fjoacYZFa','D','2023-05-05 15:51:00',NULL,'1'),
+(22,'prueba2','Jose','prueba2@midominio.com','$2y$10$OU.s./3dPL6pta66rv/svOuqnj0XhTIVFpAH/C/d37dJ3uV11FTOS','E','2023-05-05 15:55:33',NULL,'1'),
+(23,'FELIPA avalos','Diego','FELIPA@midominio.com','$2y$10$Z0fUEu7Irl1ovGcPLEVateRpxdVuGZdKh4pRQ9tHel.HfdgrY8ed6','D','2023-05-05 17:19:40',NULL,'1'),
+(24,'prueba','prueba','prueba@gmail.com','$2y$10$TZkHmOwJYfQOulIoiGZaFebvnM/nGQK3eND.1Gg7QjSP7Wb0WkjXq','E','2023-05-09 12:07:17',NULL,'1');
+
+/* Procedure structure for procedure `spu_binarios_obtain` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_binarios_obtain` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_binarios_obtain`(
+		IN _idbook INT
+		)
+BEGIN
+		SELECT  idbook,frontpage,url
+				FROM books 
+			WHERE state2 = "1" AND idbook = _idbook;
+		END */$$
+DELIMITER ;
 
 /* Procedure structure for procedure `spu_bookChinchanos_list` */
 
@@ -435,20 +468,6 @@ BEGIN
 			FROM books b
 		INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
 		WHERE _idsubcategorie = b.idsubcategorie;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_booksEs_list` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_booksEs_list` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksEs_list`()
-BEGIN
-		SELECT descriptions,frontpage,author
-			FROM books 
-		WHERE state2 = "1";
 	END */$$
 DELIMITER ;
 
@@ -650,6 +669,23 @@ BEGIN
 		END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_loans_list` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_loans_list` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`()
+BEGIN
+				SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+					s.loan_date, s.return_date, s.amount, s.state
+				FROM loans s
+					INNER JOIN books b ON b.idbook = s.idbook
+					INNER JOIN users u ON u.idusers = s.idusers
+				WHERE s.state = "1";
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_mainviewcategories_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_mainviewcategories_list` */;
@@ -708,6 +744,19 @@ BEGIN
 		END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_usersloans_list` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usersloans_list` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usersloans_list`()
+BEGIN
+				SELECT idusers, CONCAT(namess, ' ' , surnames)as Users
+				FROM users;
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_users_disable` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_users_disable` */;
@@ -758,7 +807,7 @@ DELIMITER $$
 		IN _idusers INT
 		)
 BEGIN
-		SELECT  idusers, namess, surnames, accesslevel,email
+		SELECT  idusers, namess, surnames, accesslevel,email,accesskey
 				FROM users 
 			WHERE state = "1" AND idusers = _idusers;
 		END */$$
