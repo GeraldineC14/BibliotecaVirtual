@@ -174,7 +174,7 @@ session_start();
                                         alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
                                         $("#formulario-usuario")[0].reset();
                                         setTimeout(function(){
-                                            window.location.href = 'login.php';
+                                            window.location.href = document.referrer;
                                         }, 1500)
                                     }
                                 });
@@ -184,46 +184,25 @@ session_start();
                 }
             }
 
-			function Validar_correo(){
-				datos['accesslevel'] =   $("#accesslevel").val();
-				if(datos['accesslevel'] == "D"){
-					var esvalido = document.getElementById('email');
-					var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-					if(exprecion.test(esvalido.value)){
-						registrar();
-					}else{
-						Swal.fire({
-							title   : "Error",
-							text    : "Correo no autorizado",
-							icon    : "error",
-							footer  : "Horacio Zeballos Gámez",
-							confirmButtonText   : "Aceptar",
-							confirmButtonColor  : "#38AD4D"
-						});
-					}
+			function validar_correo(){
+				var esvalido = document.getElementById('email');
+				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+				
+				if(exprecion.test(esvalido.value)){
+				
+				login();
+			
 				}else{
-					let email = document.getElementById('email');
-					let dominios = new Array('gmail.com','hotmail.com', 'outlook.es'); //creo un arreglo con los dominios aceptados
-					let value = email.value.split('@'); //split() funciona para dividir una cadena en un array pasando un caracter como delimitador
-
-					if(dominios.indexOf(value[1]) == -1){ //.indexOf() sirve para encontrar un elemento en un array
-						Swal.fire({
-							title   : "Error",
-							text    : `Correos autorizados: ${dominios}`,
-							icon    : "error",
-							footer  : "Horacio Zeballos Gámez",
-							confirmButtonText   : "Aceptar",
-							confirmButtonColor  : "#38AD4D"
-						});
-					}else{
-						registrar();
-					}
+				Swal.fire({
+					title   : "Error",
+					text    : "Correo no autorizado",
+					icon    : "error",
+					footer  : "Horacio Zeballos Gámez",
+					confirmButtonText   : "Aceptar",
+					confirmButtonColor  : "#38AD4D"
+					});
 				}
-					
-			}
-			
-			
-
+			}      
 			
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey,#accesskey2");
@@ -235,7 +214,7 @@ session_start();
 				}
 			});
 			
-			$("#acceder").click(Validar_correo);
+			$("#acceder").click(validar_correo);
 			$("#guardar").click(registrar);
 		  
 	
