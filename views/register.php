@@ -34,28 +34,54 @@ session_start();
 						<div class="login-wrap p-4 p-md-5">
 							<div class="d-flex">
 								<div class="w-100">
-									<h3 class="mb-4">Iniciar Sesión</h3>
+									<h3 class="mb-4">Registrar Usuario</h3>
 								</div>
 							</div>
-							<form action="#" class="signin-form" autocomplete="off">
-								<div class="form-group mb-3">
-									<label class="label" for="name">Correo</label>
-									<input type="text" class="form-control" id="email" placeholder="correo@dominio.com" required>
+							<form action="#" class="signup-form">
+                                <div class="row form-group mb-3">
+                                    <div class="col">
+                                        <label class="label">Nombres</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                        <label class="label">Apellidos</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+								<div class="row form-group mb-3">
+									<div class="col">
+										<label class="label" for="name">Correo</label>
+										<input type="email" class="form-control" id="email" placeholder="correo@dominio.com" required>
+									</div>
+									<div class="col">
+										<label class="label">Tipo de Acceso</label>
+                                        <select class="form-control">
+											<option value="#" selected>Seleccione:</option>
+											<option value="E">Estudiante</option>
+											<option value="D">Docente</option>
+										</select>
+									</div>
 								</div>
-								<div class="form-group mb-3">
-									<label class="label" for="password">Contraseña</label>
-									<input type="password" class="form-control" id="accesskey"placeholder="**********" required>
+                                <div class="row form-group">
+                                    <div class="col">
+                                        <label class="label" for="password">Contraseña</label>
+                                        <input type="password" class="form-control" id="accesskey"placeholder="**********" required>
+                                    </div>
+                                    <div class="col">
+                                        <label class="label" for="password">Repetir contraseña</label>
+                                        <input type="password" class="form-control" id="accesskey2"placeholder="**********" required>
+                                    </div>
 								</div>
-								<div class="form-group form-check mb-3">
-									<input type="checkbox" class="form-check-input" id="showPass">
-									<label class="form-check-label" for="showPass">Mostrar contraseña</label>
+								<div class="form-check mb-3">
+									<input class="form-check-input" type="checkbox" id="showPass">
+                                    <label class="form-check-label" for="showPass">Mostrar Contraseña</label>
 								</div>
 								<div class="text-center mb-3">
 									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
 									<a href="../index.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
-									<a href="register.php" class="form-link">No tienes una cuenta?</a>
+									<a href="login.php" class="form-link">Ya tienes una cuenta?</a>
 								</div>
 							</form>
 						</div>
@@ -139,7 +165,7 @@ session_start();
 			}      
 			
 			$('#showPass').on('click', function(){
-				var passInput=$("#accesskey");
+				var passInput=$("#accesskey,#accesskey2");
 				if(passInput.attr('type')==='password')
 				{
 					passInput.attr('type','text');
