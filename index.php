@@ -19,7 +19,6 @@
                 <!-- usuario-no-logueado -->
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link active text-dark" href="index.php">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active text-dark" href="views/register.php">Crea tu Cuenta</a></li>
                     <li class="nav-item"><a class="nav-link active text-dark" href="views/login.php">Ingresa</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
                 </ul>

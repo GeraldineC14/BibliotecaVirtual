@@ -64,12 +64,12 @@ session_start();
 								</div>
                                 <div class="row form-group">
                                     <div class="col">
-                                        <label class="label" for="password">Contraseña</label>
+                                        <label class="label" for="accesskey">Contraseña</label>
                                         <input type="password" class="form-control" id="accesskey"placeholder="**********" required>
                                     </div>
                                     <div class="col">
-                                        <label class="label" for="password">Repetir contraseña</label>
-                                        <input type="password" class="form-control" id="accesskey2"placeholder="**********" required>
+                                        <label class="label" for="repetir">Repetir contraseña</label>
+                                        <input type="password" class="form-control" id="repetir"placeholder="**********" required>
                                     </div>
 								</div>
 								<div class="form-check mb-3">
@@ -78,7 +78,7 @@ session_start();
 								</div>
 								<div class="text-center mb-3">
 									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
-									<a href="../index.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
+									<a href="login.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
 									<a href="login.php" class="form-link">Ya tienes una cuenta?</a>
@@ -174,7 +174,7 @@ session_start();
                                         alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
                                         $("#formulario-usuario")[0].reset();
                                         setTimeout(function(){
-                                            window.location.href = document.referrer;
+                                            window.location.href = 'login.php';
                                         }, 1500)
                                     }
                                 });
@@ -184,25 +184,46 @@ session_start();
                 }
             }
 
-			function validar_correo(){
-				var esvalido = document.getElementById('email');
-				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-				
-				if(exprecion.test(esvalido.value)){
-				
-				login();
-			
+			function Validar_correo(){
+				datos['accesslevel'] =   $("#accesslevel").val();
+				if(datos['accesslevel'] == "D"){
+					var esvalido = document.getElementById('email');
+					var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+					if(exprecion.test(esvalido.value)){
+						registrar();
+					}else{
+						Swal.fire({
+							title   : "Error",
+							text    : "Correo no autorizado",
+							icon    : "error",
+							footer  : "Horacio Zeballos Gámez",
+							confirmButtonText   : "Aceptar",
+							confirmButtonColor  : "#38AD4D"
+						});
+					}
 				}else{
-				Swal.fire({
-					title   : "Error",
-					text    : "Correo no autorizado",
-					icon    : "error",
-					footer  : "Horacio Zeballos Gámez",
-					confirmButtonText   : "Aceptar",
-					confirmButtonColor  : "#38AD4D"
-					});
+					let email = document.getElementById('email');
+					let dominios = new Array('gmail.com','hotmail.com', 'outlook.es'); //creo un arreglo con los dominios aceptados
+					let value = email.value.split('@'); //split() funciona para dividir una cadena en un array pasando un caracter como delimitador
+
+					if(dominios.indexOf(value[1]) == -1){ //.indexOf() sirve para encontrar un elemento en un array
+						Swal.fire({
+							title   : "Error",
+							text    : `Correos autorizados: ${dominios}`,
+							icon    : "error",
+							footer  : "Horacio Zeballos Gámez",
+							confirmButtonText   : "Aceptar",
+							confirmButtonColor  : "#38AD4D"
+						});
+					}else{
+						registrar();
+					}
 				}
-			}      
+					
+			}
+			
+			
+
 			
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey,#accesskey2");
@@ -214,7 +235,7 @@ session_start();
 				}
 			});
 			
-			$("#acceder").click(validar_correo);
+			$("#acceder").click(Validar_correo);
 			$("#guardar").click(registrar);
 		  
 	
