@@ -464,7 +464,16 @@
 			END $$
 			CALL spu_usersloans_list();
 			
-
+		-- N°3 Register loans
+			DELIMITER $$
+				CREATE PROCEDURE spu_loans_register()
+				BEGIN
+				
+-- ZONA SOCIAL:
+	-- tb. social
+	
+	-- PROCEDIMIENTO ALMACENADO
+	-- VISTA PRINCIPAL:
 			
 		
 	
