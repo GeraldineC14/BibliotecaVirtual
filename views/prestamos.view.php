@@ -42,32 +42,11 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
             <div class="card-body">
                 <form action="" id="formulario-libros" autocomplete="off">
                     <!-- Creación de controles -->
-                    <div class="row">
-                        <div class="col-md-8 form-group">
-                            <label for="nombrecompleto">Nombre Completo:</label>
-                            <input type="text" id="nombrecompleto" class="form-control form-control-sm">
-                            
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="nivel">Nivel:</label>
-                            <select name="nivel" id="nivel" class="form-control form-control-sm">
-                                <option selected value="">Seleccione:</option>
-                                <option value="">Inicial</option>
-                                <option value="">Primaria</option>
-                                <option value="">Secundaria</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="nombrecompleto">Nombre Completo:</label>
+                        <input type="text" id="nombrecompleto" class="form-control form-control-sm">
+                        
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="grado">Grado:</label>
-                            <input type="number" id="grado" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="seccion">Sección:</label>
-                            <input type="text" id="seccion" class="form-control form-control-sm">
-                        </div>
-                    </div> 
                     <div class="form-group">
                         <label for="titulo">Titulo:</label>
                         <input type="text" id="titulo" class="form-control form-control-sm" readonly>
@@ -92,6 +71,10 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                             <input type="date" class="form-control form-control-sm" id="fecha2" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>" max="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 15 days"));?>"/>
                         </div>
                     </div>      
+                    <div class="form-group">
+                        <label for="observacion">Observaciones:</label>
+                        <textarea class="form-control" name="" id="" rows="4" placeholder="Grado: 2do, Seccion: 'B'"></textarea>
+                    </div>
                 </form>
             </div>
             <div class="card-footer text-center">
