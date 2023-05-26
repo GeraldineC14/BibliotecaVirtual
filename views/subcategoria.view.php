@@ -16,12 +16,13 @@
     <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-danger py-3">
         <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="../index.php"><img src="../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e" width="70" height="70"><span style="font-family: 'Archivo Black', sans-serif;font-size: 22px;">Horacio Zeballos</span></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-5"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="register.php">Crea tu Cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="views/login.php">Ingresa</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
-                    <li class="nav-item"></li>
-                </ul><a class="btn btn-primary ml-lg-2" role="button" href="login.php" style="background: rgb(214,153,18);font-size: 20px;">Acceder</a>
-            </div>
+            </ul>
+        </div>
         </div>
     </nav>
     <div class="container">

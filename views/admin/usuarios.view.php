@@ -297,7 +297,7 @@
     $(document).ready(function(){
         var idusers = 0;
         var datosNuevos = true;
-        datos={
+        var datos={
             'operacion' : "",
             'namess'  : "",
             'surnames'  : "",
