@@ -43,29 +43,31 @@
                     <div class="card-header  text-center">
                         <h3>Comentarios</h3>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Geraldine Castilla Felix</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat laboriosam repudiandae iste officiis fuga sequi quo fugiat libero nobis repellat nihil obcaecati, quaerat natus possimus eum explicabo inventore doloremque.</p>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Piero Alexander Arias Tasayco</h5>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi fugit quisquam possimus voluptatibus at. Possimus, atque? Ullam autem rerum magni hic magnam. Impedit molestias vitae illo ex, dolore possimus ullam.</p>                        
+                    <div class="datos">
+                        <div class="card-body">
+                            <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Geraldine Castilla Felix</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat laboriosam repudiandae iste officiis fuga sequi quo fugiat libero nobis repellat nihil obcaecati, quaerat natus possimus eum explicabo inventore doloremque.</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Piero Alexander Arias Tasayco</h5>
+                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi fugit quisquam possimus voluptatibus at. Possimus, atque? Ullam autem rerum magni hic magnam. Impedit molestias vitae illo ex, dolore possimus ullam.</p>                        
+                        </div>
                     </div>
                     
                     <div class="card-footer text-muted">
                         <form action="">
                             <div class="row">
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-8 form-group">
                                     <label for="comentario">Escribe un comentario:</label>
                                     <textarea class="form-control" name="" id="comentario"></textarea>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-2 form-group">
                                     <label for="">Puntuación</label>
-                                    <p class="clasificacion">
+                                    <p class="clasificacion mt-3">
                                         <input id="radio1-comentario" type="radio" name="estrellas" value="5">
                                         <label for="radio1-comentario">★</label>
                                         <input id="radio2-comentario" type="radio" name="estrellas" value="4">
@@ -77,6 +79,9 @@
                                         <input id="radio5-comentario" type="radio" name="estrellas" value="1">
                                         <label for="radio5-comentario">★</label>
                                     </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary mt-5" type="submit">Enviar</button>
                                 </div>
                             </div>     
                         </form>
@@ -148,6 +153,29 @@
                     }
                 });
         }
+
+        function listarComentarios(){
+            $.ajax({
+                url: '',
+                type: 'GET',
+                data: {'operacion':'listarComentarios'},
+                success: function(result){
+                    let registros = JSON.parse(result);
+                    let nuevaFila2 = ``;
+
+                    registros.forEach(registro => {
+                        nuevaFila2 = `
+                            <div class="card-body">
+                                <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
+                            </div>
+                        `;
+                        $(".datos").append(nuevaFila2);
+                    });
+                }
+            });
+        }
+            
 
 
         //Funciones de carga automatica

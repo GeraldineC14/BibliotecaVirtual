@@ -471,6 +471,17 @@
 				
 -- ZONA SOCIAL:
 	-- tb. social
+		CREATE TABLE comments(
+			id_comment		INT	AUTO_INCREMENT PRIMARY KEY ,
+			id_book			INT NOT NULL,
+			id_users		INT NOT NULL,
+			commentary		VARCHAR NOT NULL(150),
+			score			INT NOT NULL,
+			commentary_date	DATETIME NOT NULL DEFAULT(NOW),
+						
+			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
+			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
+		)ENGINE = INNODB;
 	
 	-- PROCEDIMIENTO ALMACENADO
 	-- VISTA PRINCIPAL:
