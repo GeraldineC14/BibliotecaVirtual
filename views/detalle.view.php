@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
+    <link rel="stylesheet" href="../assets/css/puntuacion.css">
     <!-- LightBox -->
     <link rel="stylesheet" href="../vendor/lightbox/css/lightbox.min.css">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
@@ -40,34 +41,44 @@
             <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-header  text-center">
-                        Comentarios
+                        <h3>Comentarios</h3>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <h5 class="card-title">Geraldine Castilla Felix</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat laboriosam repudiandae iste officiis fuga sequi quo fugiat libero nobis repellat nihil obcaecati, quaerat natus possimus eum explicabo inventore doloremque.</p>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>                        
+                        <h5 class="card-title">Piero Alexander Arias Tasayco</h5>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi fugit quisquam possimus voluptatibus at. Possimus, atque? Ullam autem rerum magni hic magnam. Impedit molestias vitae illo ex, dolore possimus ullam.</p>                        
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>                        
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>                        
-                    </div>
+                    
                     <div class="card-footer text-muted">
                         <form action="">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Escribe tu comentario:</label>
-                                <input type="text" class="form-control">
-                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="comentario">Escribe un comentario:</label>
+                                    <textarea class="form-control" name="" id="comentario"></textarea>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="">Puntuación</label>
+                                    <p class="clasificacion">
+                                        <input id="radio1-comentario" type="radio" name="estrellas" value="5">
+                                        <label for="radio1-comentario">★</label>
+                                        <input id="radio2-comentario" type="radio" name="estrellas" value="4">
+                                        <label for="radio2-comentario">★</label>
+                                        <input id="radio3-comentario" type="radio" name="estrellas" value="3">
+                                        <label for="radio3-comentario">★</label>
+                                        <input id="radio4-comentario" type="radio" name="estrellas" value="2">
+                                        <label for="radio4-comentario">★</label>
+                                        <input id="radio5-comentario" type="radio" name="estrellas" value="1">
+                                        <label for="radio5-comentario">★</label>
+                                    </p>
+                                </div>
+                            </div>     
                         </form>
                     </div>
                 </div>
