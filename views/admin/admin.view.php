@@ -15,14 +15,16 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../assets/css/popups.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
     <link rel="shortcut icon" href="../../assets/img/favicon.ico" />
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <!-- INICIO SIDEBAR LEFT -->
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 toggled">
+        <nav
+            class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 toggled">
             <div class="container-fluid d-flex flex-column p-0">
                 <!-- INICIO LOGO -->
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
@@ -36,8 +38,6 @@ session_start();
                 </a>
                 <!--  -->
 
-                <hr class="sidebar-divider my-0" />
-
                 <!-- INICIO SECCIONES SIDEBAR -->
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
@@ -46,6 +46,7 @@ session_start();
                             <span>INICIO</span>
                         </a>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                             aria-expanded="true" aria-controls="collapseUtilities">
@@ -57,8 +58,8 @@ session_start();
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Registrar:</h6>
                                 <a class="collapse-item" href="libros.view.php">Libros</a>
-                                <a class="collapse-item" href="utilities-border.html">Categorias</a>
-                                <a class="collapse-item" href="utilities-animation.html">Subcategorias</a>
+                                <a class="collapse-item" href="category.view.php">Categorias</a>
+                                <a class="collapse-item" href="subcategory.view.php">Subcategorias</a>
                             </div>
                         </div>
                     </li>
@@ -68,6 +69,7 @@ session_start();
                             <span>PRESTAMOS</span>
                         </a>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
                         <a class="nav-link" href="usuarios.view.php">
                             <i class="fa-solid fa-user-plus fa-xl"></i>
@@ -85,7 +87,9 @@ session_start();
 
                 <!-- INICIO POPUP BIENVENIDA -->
                 <div class="notificacion">
-                    <p>Bienvenido, <?= $_SESSION['ses_namess']?> 👋</p>
+                    <p>Bienvenido,
+                        <?= $_SESSION['ses_namess']?> 👋
+                    </p>
                     <span class="notification_progress"></span>
                 </div>
                 <!-- -->
@@ -106,9 +110,14 @@ session_start();
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow">
                                     <!-- NOMBRE USUARIO & IMAGEN -->
-                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['ses_namess']?> <?= $_SESSION['ses_surnames']?> </span>
-                                        <img class="border rounded-circle img-profile" src="../../assets/img/perfil.jpg" />
+                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown"
+                                        href="">
+                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small">
+                                            <?= $_SESSION['ses_namess']?>
+                                            <?= $_SESSION['ses_surnames']?>
+                                        </span>
+                                        <img class="border rounded-circle img-profile"
+                                            src="../../assets/img/perfil.jpg" />
                                     </a>
                                     <!--  -->
 
@@ -119,7 +128,8 @@ session_start();
                                             &nbsp;Perfil
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">
+                                        <a class="dropdown-item"
+                                            href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             &nbsp;Salir
                                         </a>
@@ -133,111 +143,143 @@ session_start();
                 <!-- FIN PERFIL -->
 
                 <!-- CONTENEDOR DE DATOS -->
-                <main class="app-content ml-5 mt-5">
+                <main class="app-content ml-5 mt-5 mr-5">
                     <div class="row">
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Docentes</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Libros -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Libros</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small info coloured-icon"><i class="icon fa fa-book fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Libros</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Docentes -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Docentes</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small warning coloured-icon"><i class="icon fa fa-address-book-o fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Autor</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Estudiantes -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Estudiantes</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small danger coloured-icon"><i class="icon fa fa-tags fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Categoria</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Prestamos -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Prestamos</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small warning coloured-icon"><i class="icon fa fa-graduation-cap fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Estudiantes</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Categoria -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Categorias</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small danger coloured-icon"><i class="icon fa fa-hourglass-start fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Prestamos</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Subcategoria -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Subcategoria</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small info coloured-icon"><i class="icon fa fa-list-alt fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h4>Subcategorias</h4>
-                                    <p>
-                                        <b>
-                                            <!-- Aqui se llama los datos, con los contadores -->
-                                        </b>
-                                    </p>
-                                </a>
+                        <!-- Autores -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters success-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Autores</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md col-lg-3">
-                            <div class="widget-small primary coloured-icon"><i class="icon fa fa-cogs fa-3x"></i>
-                                <a class="info" href="#">
-                                    <h5>Configuracion</h5>
-                                </a>
+                        <!-- Configuración -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                            CONFIGURACION</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <br>
-                    <!-- Aqui se llama el grafico de barras -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="tile">
-                                <h3 class="tile-title">Libros Disponibles</h3>
-                                <!-- <div class="embed-responsive embed-responsive-16by9">
-                                    <canvas class="embed-responsive-item" id="reportePrestamo"></canvas>
-                                </div> -->
-                            </div>
-                        </div>  
                     </div>
                 </main>
                 <!-- FIN CONTENEDOR DATOS -->

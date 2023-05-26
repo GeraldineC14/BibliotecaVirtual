@@ -26,7 +26,6 @@ session_start();
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
                     <div class="sidebar-brand-text mx-3"><span>Horacio</span></div>
                 </a>
-                <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
                         <a class="nav-link" href="admin.view.php">
@@ -34,12 +33,24 @@ session_start();
                             <span>INICIO</span>
                         </a>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
-                        <a class="nav-link" href="libros.view.php">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                            aria-expanded="true" aria-controls="collapseUtilities">
                             <i class="fa-solid fa-book fa-xl"></i>
                             <span>LIBROS</span>
                         </a>
+                        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Registrar:</h6>
+                                <a class="collapse-item" href="libros.view.php">Libros</a>
+                                <a class="collapse-item" href="category.view.php">Categorias</a>
+                                <a class="collapse-item" href="subcategory.view.php">Subcategorias</a>
+                            </div>
+                        </div>
                     </li>
+                    <hr class="sidebar-divider">
                     <li class="nav-item">
                         <a class="nav-link" href="prestamos.view.php">
                             <i class="fa-solid fa-file-signature fa-xl"></i>
