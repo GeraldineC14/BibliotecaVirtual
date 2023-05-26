@@ -51,10 +51,20 @@ session_start();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="libros.view.php">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                            aria-expanded="true" aria-controls="collapseUtilities">
                             <i class="fa-solid fa-book fa-xl"></i>
                             <span>LIBROS</span>
                         </a>
+                        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Registrar:</h6>
+                                <a class="collapse-item" href="libros.view.php">Libros</a>
+                                <a class="collapse-item" href="utilities-border.html">Categorias</a>
+                                <a class="collapse-item" href="utilities-animation.html">Subcategorias</a>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="prestamos.view.php">
