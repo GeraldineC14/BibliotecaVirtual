@@ -52,13 +52,17 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         <input type="text" id="titulo" class="form-control form-control-sm" readonly>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 form-group">
+                        <div class="col-md-6 form-group">
                             <label for="autor">Autor:</label>
                             <input type="text" id="autor" class="form-control form-control-sm" readonly>
                         </div>
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-3 form-group">
                             <label for="disponibles">Disponibles:</label>
                             <input type="number" id="disponibles" class="form-control form-control-sm" readonly>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="cantidad">Cantidad:</label>
+                            <input type="number" id="cantidad" class="form-control form-control-sm" >
                         </div>
                     </div> 
                     <div class="row">
