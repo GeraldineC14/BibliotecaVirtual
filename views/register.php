@@ -64,12 +64,12 @@ session_start();
 								</div>
                                 <div class="row form-group">
                                     <div class="col">
-                                        <label class="label" for="password">Contraseña</label>
+                                        <label class="label" for="accesskey">Contraseña</label>
                                         <input type="password" class="form-control" id="accesskey"placeholder="**********" required>
                                     </div>
                                     <div class="col">
-                                        <label class="label" for="password">Repetir contraseña</label>
-                                        <input type="password" class="form-control" id="accesskey2"placeholder="**********" required>
+                                        <label class="label" for="repetir">Repetir contraseña</label>
+                                        <input type="password" class="form-control" id="repetir"placeholder="**********" required>
                                     </div>
 								</div>
 								<div class="form-check mb-3">
@@ -78,7 +78,7 @@ session_start();
 								</div>
 								<div class="text-center mb-3">
 									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
-									<a href="../index.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
+									<a href="login.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
 									<a href="login.php" class="form-link">Ya tienes una cuenta?</a>
@@ -103,47 +103,87 @@ session_start();
 
 	  <script>
 		$(document).ready(function (){
-	
-		  	function login(){
-				let email = $("#email").val();
-				let accesskey = $("#accesskey").val();
-				$.ajax({
-				  url: '../controllers/usuario.controller.php',
-				  type: 'GET',
-				  dataType: 'JSON',
-				  data: {
-					'operacion': 'login',
-					'email': email,
-					'accesskey' : accesskey},
-				  success: function(result){
-					if(result.acceso){
-					  Swal.fire({
-						title   : "Perfecto",
-						text    : `Bienvenido al sistema ${result.surnames} ${result.namess}`,
-						icon    : "success",
-						showConfirmButton   : false,
-						timer   : 1500,
-						timerProgressBar    : true
-					  });
-	
-					  setTimeout(function(){
-						window.location.href = "prestamos.view.php";
-					  }, 1500)
-					}else{
-					  Swal.fire({
-						title   : "Error",
-						text    : result.mensaje,
-						icon    : "error",
-						footer  : "Horacio Zeballos Gámez",
-						confirmButtonText   : "Aceptar",
-						confirmButtonColor  : "#38AD4D"
-					  });
-					}
-				  }
-				});
-				$("#acceder").click(login);   
-		  	}
-	
+			var datos={
+				'operacion' : "",
+				'namess'  : "",
+				'surnames'  : "",
+				'email'  : "",
+				'accesskey'  : "",
+				'repetir'  : "",
+				'accesslevel'  : ""
+        	};
+			function alertar(textoMensaje = ""){
+                Swal.fire({
+                    title   : 'Usuarios',
+                    text    :  textoMensaje,
+                    icon    :  'info',
+                    footer  :   'SENATI - Ingenieria de Software',
+                    timer   :   2000,
+                    confirmButtonText   :   'Aceptar'
+                });
+            }
+           
+            function alertarToast(titulo = "",textoMensaje = "", icono = ""){
+                Swal.fire({
+                    title   : titulo,
+                    text    : textoMensaje,
+                    icon    : icono,
+                    toast   : true,
+                    position : 'bottom-end',
+                    showConfirmButton   : false,
+                    timer   : 1500,
+                    timerProgressBar    : true
+                });
+            }
+
+            function registrar(){
+
+				datos['surnames']    =   $("#surnames").val();
+				datos['namess']      =   $("#namess").val();
+				datos['email']       =   $("#email").val();
+				datos['accesslevel'] =   $("#accesslevel").val();
+				datos['accesskey']   =   $("#accesskey").val();
+				datos['repetir']     =   $("#repetir").val();
+
+				datos['operacion']  = "registrarUsuario";
+
+                if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
+                	alertar("Complete el formulario por favor")
+                }else{
+                    if(datos['accesskey'] !== datos['repetir']){
+                    	alertarToast("Ha sucecido un error","Las claves no coinciden","error")
+                	}else{
+
+                        Swal.fire({
+                            title   : "Registro",
+                            text    : "¿Los datos ingresados son correctos?",
+                            icon    : "question",
+                            footer  : "Horacio Zeballos Gámez",
+                            confirmButtonText   : "Aceptar",
+                            confirmButtonColor  : "#38AD4D",
+                            showCancelButton    : true,
+                            cancelButtonText    : "Cancelar",
+                            cancelButtonColor   : "#D3280A"
+                        }).then(result => {
+                            if(result.isConfirmed){
+                                $.ajax({
+                                    url: '../controllers/usuario.controller.php',
+                                    type: 'GET',
+                                    data: datos,
+                                    success: function(result){
+                                        alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
+                                        $("#formulario-usuario")[0].reset();
+                                        setTimeout(function(){
+                                            window.location.href = document.referrer;
+                                        }, 1500)
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+
 			function validar_correo(){
 				var esvalido = document.getElementById('email');
 				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
@@ -175,6 +215,7 @@ session_start();
 			});
 			
 			$("#acceder").click(validar_correo);
+			$("#guardar").click(registrar);
 		  
 	
 		});

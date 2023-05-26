@@ -52,7 +52,7 @@ session_start();
 								</div>
 								<div class="text-center mb-3">
 									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
-									<a href="../index.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
+									<a href="../index.php"  class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
 									<a href="register.php" class="form-link">No tienes una cuenta?</a>
@@ -117,26 +117,6 @@ session_start();
 				});
 				$("#acceder").click(login);   
 		  	}
-	
-			function validar_correo(){
-				var esvalido = document.getElementById('email');
-				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-				
-				if(exprecion.test(esvalido.value)){
-				
-				login();
-			
-				}else{
-				Swal.fire({
-					title   : "Error",
-					text    : "Correo no autorizado",
-					icon    : "error",
-					footer  : "Horacio Zeballos Gámez",
-					confirmButtonText   : "Aceptar",
-					confirmButtonColor  : "#38AD4D"
-					});
-				}
-			}      
 			
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey");
@@ -148,7 +128,7 @@ session_start();
 				}
 			});
 			
-			$("#acceder").click(validar_correo);
+			$("#acceder").click(login);
 		  
 	
 		});
