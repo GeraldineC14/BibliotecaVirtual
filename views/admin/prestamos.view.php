@@ -161,6 +161,7 @@ session_start();
                                                     <th>#</th>
                                                     <th>Libro</th>
                                                     <th>Usuario</th>
+                                                    <th>Observación</th>
                                                     <th>Fecha de solicitud</th>
                                                     <th>Fecha de devolución</th>
                                                     <th>Cantidad</th>
@@ -369,11 +370,13 @@ session_start();
                         tabla.destroy();
                         $("#tabla-prestamos tbody").html("");
                         registros.forEach(registro =>{
+                            observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
                             nuevaFila=`
                             <tr>
                                 <td>${registro['idloan']}</td>
                                 <td>${registro['descriptions']}</td>
                                 <td>${registro['Usuario']}</td>
+                                <td>${observacion}</td>
                                 <td>${registro['loan_date']}</td>
                                 <td>${registro['return_date']}</td>
                                 <td>${registro['amount']}</td>
