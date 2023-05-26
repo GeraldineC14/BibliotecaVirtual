@@ -102,68 +102,8 @@ session_start();
   	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	  <script>
-		$(document).ready(function (){
-	
-		  	function login(){
-				let email = $("#email").val();
-				let accesskey = $("#accesskey").val();
-				$.ajax({
-				  url: '../controllers/usuario.controller.php',
-				  type: 'GET',
-				  dataType: 'JSON',
-				  data: {
-					'operacion': 'login',
-					'email': email,
-					'accesskey' : accesskey},
-				  success: function(result){
-					if(result.acceso){
-					  Swal.fire({
-						title   : "Perfecto",
-						text    : `Bienvenido al sistema ${result.surnames} ${result.namess}`,
-						icon    : "success",
-						showConfirmButton   : false,
-						timer   : 1500,
-						timerProgressBar    : true
-					  });
-	
-					  setTimeout(function(){
-						window.location.href = "prestamos.view.php";
-					  }, 1500)
-					}else{
-					  Swal.fire({
-						title   : "Error",
-						text    : result.mensaje,
-						icon    : "error",
-						footer  : "Horacio Zeballos Gámez",
-						confirmButtonText   : "Aceptar",
-						confirmButtonColor  : "#38AD4D"
-					  });
-					}
-				  }
-				});
-				$("#acceder").click(login);   
-		  	}
-	
-			function validar_correo(){
-				var esvalido = document.getElementById('email');
-				var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-				
-				if(exprecion.test(esvalido.value)){
-				
-				login();
-			
-				}else{
-				Swal.fire({
-					title   : "Error",
-					text    : "Correo no autorizado",
-					icon    : "error",
-					footer  : "Horacio Zeballos Gámez",
-					confirmButtonText   : "Aceptar",
-					confirmButtonColor  : "#38AD4D"
-					});
-				}
-			}      
-			
+		$(document).ready(function (){  
+			//Mostrar la contraseña en las input de contraseña y repetir contraseña
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey,#accesskey2");
 				if(passInput.attr('type')==='password')
@@ -173,10 +113,6 @@ session_start();
 				passInput.attr('type','password');
 				}
 			});
-			
-			$("#acceder").click(validar_correo);
-		  
-	
 		});
 	  </script>
 
