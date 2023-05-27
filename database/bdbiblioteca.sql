@@ -11,15 +11,12 @@
 
 		)ENGINE=INNODB;
 		
-
 	-- REGISTRATION OF CATEGORIES:
 		INSERT INTO categories (categoryname) VALUES
 				('Biibliografia, Ciencias Puras'),	
 				('Bibliografia, Filología Linguística'),
 				('Biibliografia, literatura Latina')
-				
-		SELECT * FROM books;		
-
+					
 	-- TB N°2 subcategories
 		CREATE TABLE subcategories(
 			idsubcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +25,6 @@
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
 		)ENGINE=INNODB;
-
 
 	-- REGISTRATION OF SUBCATEGORIES:
 		INSERT INTO subcategories (idcategorie, subcategoryname) VALUES
@@ -186,11 +182,11 @@
 				
 			SELECT* FROM books;
 			
-		-- N°6 List categories - admin
+		-- N°6 List categories
 			DELIMITER $$
 			CREATE PROCEDURE spu_categories_list()
 			BEGIN
-				SELECT idcategorie, categoryname
+				SELECT idcategorie, categoryname,registrationdate
 					FROM categories;
 			END $$
 			
@@ -220,6 +216,19 @@
 			
 			CALL spu_subcategories_list(1);
 			
+			-- Mostrar 
+			DELIMITER $$
+			CREATE PROCEDURE spu_subcategories3_list(
+			)
+			BEGIN
+				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
+					FROM subcategories sub
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
+			END $$
+			
+			CALL spu_subcategories3_list();
+			
+			
 		-- N°8 list booksChinchanos admin view:
 			DELIMITER $$
 			CREATE PROCEDURE spu_bookChinchanos_list()
@@ -243,6 +252,87 @@
 			END $$
 			
 			CALL spu_binarios_obtain(2);
+			
+		-- N°10 Register categorie
+			DELIMITER $$
+				CREATE PROCEDURE spu_register_categorie(
+					IN _categoryname VARCHAR(50)
+				)
+				BEGIN
+					INSERT INTO categories(categoryname)
+					VALUES(_categoryname);
+			END$$
+			
+			CALL spu_register_categorie('pruebadb');
+			
+			-- N°10.1 Obtain categorie
+			
+				DELIMITER $$
+					CREATE PROCEDURE spu_obtain_categorie(
+						IN _idcategorie INT
+					)
+					BEGIN
+						SELECT idcategorie, categoryname 
+							FROM categories
+						WHERE idcategorie = _idcategorie;
+				END $$
+			
+				CALL spu_obtain_categorie(1);
+			
+			-- N°10.2 Edit categorie
+				DELIMITER $$
+					CREATE PROCEDURE spu_edit_categorie(
+						IN _idcategorie INT,
+						IN _categoryname VARCHAR(50)
+					)
+					BEGIN
+						UPDATE categories SET
+							idcategorie 	= _idcategorie,
+							categoryname	= _categoryname
+						WHERE idcategorie = _idcategorie; 	
+				END $$
+		
+		-- N°11 Register subcategories
+			DELIMITER $$
+				CREATE PROCEDURE spu_register_subcategorie(
+					IN _idcategorie		INT,
+					IN _subcategoryname 	VARCHAR(50)
+				)
+				BEGIN
+					INSERT INTO subcategories(idcategorie, subcategoryname)
+					VALUES(_idcategorie,_subcategoryname);
+			END$$
+			
+			-- N°11.1 Obtain subcategorie
+			
+				DELIMITER $$
+					CREATE PROCEDURE spu_obtain_subcategorie(
+						IN _idsubcategorie INT
+					)
+					BEGIN
+						SELECT idcategorie,idsubcategorie, subcategoryname 
+							FROM subcategories
+						WHERE idsubcategorie = _idsubcategorie;
+				END $$
+			
+				CALL spu_obtain_subcategorie(1);
+			
+			-- N°11.2 Edit subcategorie
+				DELIMITER $$
+					CREATE PROCEDURE spu_edit_subcategorie(
+						IN _idcategorie INT,
+						IN _idsubcategorie INT,
+						IN _subcategoryname VARCHAR(50)
+					)
+					BEGIN
+						UPDATE subcategories SET
+							idcategorie 	= _idcategorie,
+							idsubcategorie 	= _idsubcategorie,
+							subcategoryname	= _subcategoryname
+						WHERE idsubcategorie = _idsubcategorie; 	
+				END $$
+		
+		
 
 	-- VISTA PRINCIPAL:
 		-- N°1 list book
@@ -473,14 +563,13 @@
 					IN _loan_date		DATETIME,
 					IN _return_date		DATETIME,
 					IN _amount		VARCHAR(30)
-				
 				)
 				BEGIN
-					INSERT INTO loans(idbook,idusers,observation,loaloan_date,return_date,amount)
+					INSERT INTO loans(idbook,idusers,observation,loan_date,return_date,amount)
 					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
 			END $$
 			
-			CALL spu_loans_register('1','25','2');
+			CALL spu_loans_register('1','25','muy poco','2023-05-26','2023-05-27','1');
 			
 				
 -- ZONA SOCIAL:

@@ -13,6 +13,17 @@ if(isset($_GET['operacion'])){
         echo json_encode($dataprestamo);
     }
 
+    if($_GET['operacion'] == 'registrarPrestamos'){
+        $datosSolicitados = [
+            "idbook"         => $_GET['idbook'],
+            "idusers"        => $_GET['idusers'],
+            "observation"    => $_GET['observation'],
+            "loan_date"      => $_GET['loan_date'],
+            "return_date"    => $_GET['return_date'],
+            "amount"         => $_GET['amount']
+        ];
+        $prestamo->registrarPrestamos($datosSolicitados);
+    }
 }
 
 

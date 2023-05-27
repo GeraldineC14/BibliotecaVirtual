@@ -34,8 +34,8 @@
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Registro:</h6>
                                 <a class="collapse-item" href="libros.view.php">Libros</a>
-                                <a class="collapse-item" href="category.view.php">Categorias</a>
-                                <a class="collapse-item" href="subcategory.view.php">Subcategorias</a>
+                                <a class="collapse-item" href="categoria.view.php">Categorias</a>
+                                <a class="collapse-item" href="subcategoria.view.php">Subcategorias</a>
                             </div>
                         </div>
                     </li>

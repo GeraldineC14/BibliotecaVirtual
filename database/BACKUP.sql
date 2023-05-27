@@ -338,14 +338,17 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
 insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`) values 
 (1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08'),
 (2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06'),
-(3,'Biibliografia, literatura Latina','2023-03-21 10:37:22');
+(3,'Biibliografia, literatura Latina','2023-03-21 10:37:22'),
+(4,'edit','2023-05-27 09:45:28'),
+(5,'PRUEBA USO','2023-05-27 09:50:08'),
+(6,'PRUEBA CON','2023-05-27 11:05:59');
 
 /*Table structure for table `loans` */
 
@@ -356,21 +359,24 @@ CREATE TABLE `loans` (
   `idbook` int(11) NOT NULL,
   `idusers` int(11) NOT NULL,
   `amount` varchar(30) NOT NULL,
-  `loan_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `loan_date` datetime NOT NULL,
   `return_date` datetime NOT NULL,
   `observation` varchar(200) DEFAULT NULL,
   `state` char(1) NOT NULL DEFAULT '1',
+  `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idloan`),
   KEY `fk_idbook_idbook` (`idbook`),
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
-insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`) values 
-(3,1,1,'2','2023-05-10 10:31:40','2023-05-10 00:00:00',NULL,'1');
+insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
+(1,1,25,'1','2023-05-26 00:00:00','2023-05-27 00:00:00','muy poco','1','2023-05-26 17:09:12'),
+(8,1,25,'1','2023-05-26 00:00:00','2023-05-26 00:00:00','ko','1','2023-05-26 21:29:29'),
+(10,2,25,'1','2023-05-29 00:00:00','2023-05-31 00:00:00','prueba completa','1','2023-05-26 21:39:23');
 
 /*Table structure for table `subcategories` */
 
@@ -384,7 +390,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -396,7 +402,8 @@ insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`r
 (5,2,'Módulo Base Biblioteca para secundaria - Filología','2023-03-21 12:19:00'),
 (6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46'),
 (7,3,'Obras Literarias','2023-03-22 08:16:46'),
-(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46');
+(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46'),
+(9,6,'PRUEBA SUBCATEGORIA EDIT','2023-05-27 13:10:24');
 
 /*Table structure for table `users` */
 
@@ -414,7 +421,7 @@ CREATE TABLE `users` (
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `ul_email_usu` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -424,7 +431,8 @@ insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accessle
 (21,'editar','Prueba editar','editar@midominio.com','$2y$10$Ye7zX/POExz.4oXwdrtzLeZ4gzbOWDQU90maGUb9H6j8fjoacYZFa','D','2023-05-05 15:51:00',NULL,'1'),
 (22,'prueba2','Jose','prueba2@midominio.com','$2y$10$OU.s./3dPL6pta66rv/svOuqnj0XhTIVFpAH/C/d37dJ3uV11FTOS','E','2023-05-05 15:55:33',NULL,'1'),
 (23,'FELIPA avalos','Diego','FELIPA@midominio.com','$2y$10$Z0fUEu7Irl1ovGcPLEVateRpxdVuGZdKh4pRQ9tHel.HfdgrY8ed6','D','2023-05-05 17:19:40',NULL,'1'),
-(24,'prueba','prueba','prueba@gmail.com','$2y$10$TZkHmOwJYfQOulIoiGZaFebvnM/nGQK3eND.1Gg7QjSP7Wb0WkjXq','E','2023-05-09 12:07:17',NULL,'1');
+(24,'prueba','prueba','prueba@gmail.com','$2y$10$TZkHmOwJYfQOulIoiGZaFebvnM/nGQK3eND.1Gg7QjSP7Wb0WkjXq','E','2023-05-09 12:07:17',NULL,'1'),
+(25,'Prueba','Estudiante','student@gmail.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','E','2023-05-26 14:18:28',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -664,9 +672,47 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_categories_list`()
 BEGIN
-			SELECT idcategorie, categoryname
-				FROM categories;
-		END */$$
+				SELECT idcategorie, categoryname,registrationdate
+					FROM categories;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_edit_categorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_edit_categorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_categorie`(
+					IN _idcategorie INT,
+					IN _categoryname VARCHAR(50)
+				)
+BEGIN
+					UPDATE categories SET
+						idcategorie 	= _idcategorie,
+						categoryname	= _categoryname
+					WHERE idcategorie = _idcategorie; 	
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_edit_subcategorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_edit_subcategorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_subcategorie`(
+						IN _idcategorie INT,
+						IN _idsubcategorie INT,
+						IN _subcategoryname VARCHAR(50)
+					)
+BEGIN
+						UPDATE subcategories SET
+							idcategorie 	= _idcategorie,
+							idsubcategorie 	= _idsubcategorie,
+							subcategoryname	= _subcategoryname
+						WHERE idsubcategorie = _idsubcategorie; 	
+				END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_loans_list` */
@@ -677,13 +723,34 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`()
 BEGIN
-				SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-					s.loan_date, s.return_date, s.amount, s.state
-				FROM loans s
-					INNER JOIN books b ON b.idbook = s.idbook
-					INNER JOIN users u ON u.idusers = s.idusers
-				WHERE s.state = "1";
-		END */$$
+					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+						s.observation, s.loan_date, s.return_date, s.amount, s.state
+					FROM loans s
+						INNER JOIN books b ON b.idbook = s.idbook
+						INNER JOIN users u ON u.idusers = s.idusers
+					WHERE s.state = "1";
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_loans_register` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_loans_register` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_register`(
+					IN _idbook		INT,
+					IN _idusers		INT,
+					IN _observation		VARCHAR(100),
+					IN _loan_date		DATETIME,
+					IN _return_date		DATETIME,
+					IN _amount		VARCHAR(30)
+				
+				)
+BEGIN
+					INSERT INTO loans(idbook,idusers,observation,loan_date,return_date,amount)
+					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_mainviewcategories_list` */
@@ -701,6 +768,38 @@ BEGIN
 		END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_obtain_categorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtain_categorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_categorie`(
+					IN _idcategorie INT
+				)
+BEGIN
+					SELECT idcategorie, categoryname 
+						FROM categories
+					WHERE idcategorie = _idcategorie;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtain_subcategorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtain_subcategorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_subcategorie`(
+						IN _idsubcategorie INT
+					)
+BEGIN
+						SELECT idcategorie,idsubcategorie, subcategoryname 
+							FROM subcategories
+						WHERE idsubcategorie = _idsubcategorie;
+				END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_productos_obtener` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_productos_obtener` */;
@@ -715,6 +814,37 @@ SELECT idproducto, idclasificacion, idmarca, descripcion, esnuevo, numeroserie, 
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_register_categorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_register_categorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_categorie`(
+					IN _categoryname VARCHAR(50)
+				)
+BEGIN
+					INSERT INTO categories(categoryname)
+					VALUES(_categoryname);
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_register_subcategorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_register_subcategorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_subcategorie`(
+					IN _idcategorie		INT,
+					IN _subcategoryname 	VARCHAR(50)
+				)
+BEGIN
+					INSERT INTO subcategories(idcategorie, subcategoryname)
+					VALUES(_idcategorie,_subcategoryname);
+			END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_subcategories2_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_subcategories2_list` */;
@@ -727,6 +857,21 @@ BEGIN
 			SELECT idsubcategorie, subcategoryname
 				FROM subcategories;
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_subcategories3_list` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_subcategories3_list` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories3_list`(
+			)
+BEGIN
+				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
+					FROM subcategories sub
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_subcategories_list` */

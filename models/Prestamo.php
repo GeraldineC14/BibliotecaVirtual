@@ -32,6 +32,24 @@ class Prestamo extends Conexion{
             die($e->getMessage());
         }
     }
+
+    public function registrarPrestamos($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_loans_register(?,?,?,?,?,?)");
+            $consulta->execute(array(
+                $datosGuardar['idbook'],
+                $datosGuardar['idusers'],
+                $datosGuardar['observation'],
+                $datosGuardar['loan_date'],
+                $datosGuardar['return_date'],
+                $datosGuardar['amount']
+            ));
+
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+
+    }
 }
 
 

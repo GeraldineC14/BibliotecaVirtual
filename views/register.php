@@ -234,7 +234,7 @@ session_start();
 			});
 			
 			$("#acceder").click(Validar_correo);
-			$("#guardar").click(registrar);
+			
 		  
 	
 		});
