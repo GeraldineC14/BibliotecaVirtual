@@ -36,6 +36,21 @@ class Categoria extends Conexion{
         }
     }
 
+    public function registrarCategoria($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_register_categorie()");
+            $consulta->execute(array(
+                $datosGuardar['categoryname']
+            ));
+
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+
+    }
+
+
     //MODELOS VISTA PRINCIPAL
     public function VistaprincipalCategoria(){
         try{
@@ -57,6 +72,8 @@ class Categoria extends Conexion{
             die($e->getMessage());
         }
     }
+
+
 }
 
 ?>

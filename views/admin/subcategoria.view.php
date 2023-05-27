@@ -27,7 +27,7 @@ session_start();
 
 <body id="page-top">
     <div id="wrapper">
-        <<?php include "./template/slider.general.php"; ?>
+        <?php include "./template/slider.general.php"; ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
@@ -93,6 +93,7 @@ session_start();
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Subcategoría</th>
+                                                    <th>Categoría</th>
                                                     <th>Fecha de Registro</th>
                                                     <th>Comandos</th>
                                                 </tr>
@@ -331,6 +332,7 @@ session_start();
                         <tr>
                             <td>${registro['idsubcategorie']}</td>
                             <td>${registro['subcategoryname']}</td>
+                            <td>${registro['categoryname']}</td>
                             <td>${registro['registrationdate']}</td>
                             <td>
                                 <a href='#' data-idsubcategorie='${registro['idsubcategorie']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>

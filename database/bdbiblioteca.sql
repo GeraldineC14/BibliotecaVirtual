@@ -11,15 +11,12 @@
 
 		)ENGINE=INNODB;
 		
-
 	-- REGISTRATION OF CATEGORIES:
 		INSERT INTO categories (categoryname) VALUES
 				('Biibliografia, Ciencias Puras'),	
 				('Bibliografia, Filología Linguística'),
 				('Biibliografia, literatura Latina')
-				
-		SELECT * FROM books;		
-
+					
 	-- TB N°2 subcategories
 		CREATE TABLE subcategories(
 			idsubcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +25,6 @@
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
 		)ENGINE=INNODB;
-
 
 	-- REGISTRATION OF SUBCATEGORIES:
 		INSERT INTO subcategories (idcategorie, subcategoryname) VALUES
@@ -225,8 +221,9 @@
 			CREATE PROCEDURE spu_subcategories3_list(
 			)
 			BEGIN
-				SELECT idsubcategorie, subcategoryname,registrationdate
-					FROM subcategories;
+				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
+					FROM subcategories sub
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
 			END $$
 			
 			CALL spu_subcategories3_list();
@@ -255,6 +252,29 @@
 			END $$
 			
 			CALL spu_binarios_obtain(2);
+			
+		-- N°10 Register categorie
+			DELIMITER $$
+				CREATE PROCEDURE spu_register_categorie(
+					IN _categoryname VARCHAR(50)
+				)
+				BEGIN
+					INSERT INTO categories(categoryname)
+					VALUES(_categoryname);
+			END$$
+		
+		-- N°11 Register subcategories
+			DELIMITER $$
+				CREATE PROCEDURE spu_register_subcategorie(
+					IN _idcategorie		INT,
+					IN _subcategoryname 	VARCHAR(50)
+				)
+				BEGIN
+					INSERT INTO subcategories(idcategorie, subcategoryname)
+					VALUES(_idcategorie,_subcategoryname);
+			END$$
+			
+		
 
 	-- VISTA PRINCIPAL:
 		-- N°1 list book
