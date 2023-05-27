@@ -19,6 +19,12 @@ if(isset($_GET['operacion'])){
         $datasubcategoria = $subcategoria->listarSubcategoria2();
         echo json_encode($datasubcategoria);
     }
+
+    //Mostrar
+    if($_GET['operacion'] == 'listarSubcategoria3'){
+        $datasubcategoria = $subcategoria->listarSubcategoria3();
+        echo json_encode($datasubcategoria);
+    }
 }
 
 ?>

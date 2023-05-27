@@ -55,6 +55,19 @@ class Subcategoria extends Conexion{
             die($e->getMessage());
         }
     }
+
+    //Mostrar
+    public function listarSubcategoria3(){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_subcategories3_list()");
+            $consulta->execute();
+            $datos = $consulta->fetchALL(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 }
 
 ?>

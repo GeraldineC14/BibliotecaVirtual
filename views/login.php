@@ -115,7 +115,6 @@ session_start();
 					}
 				  }
 				});
-				$("#acceder").click(login);   
 		  	}
 			
 			$('#showPass').on('click', function(){

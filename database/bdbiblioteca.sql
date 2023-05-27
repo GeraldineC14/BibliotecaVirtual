@@ -186,11 +186,11 @@
 				
 			SELECT* FROM books;
 			
-		-- N°6 List categories - admin
+		-- N°6 List categories
 			DELIMITER $$
 			CREATE PROCEDURE spu_categories_list()
 			BEGIN
-				SELECT idcategorie, categoryname
+				SELECT idcategorie, categoryname,registrationdate
 					FROM categories;
 			END $$
 			
@@ -219,6 +219,18 @@
 			END $$
 			
 			CALL spu_subcategories_list(1);
+			
+			-- Mostrar 
+			DELIMITER $$
+			CREATE PROCEDURE spu_subcategories3_list(
+			)
+			BEGIN
+				SELECT idsubcategorie, subcategoryname,registrationdate
+					FROM subcategories;
+			END $$
+			
+			CALL spu_subcategories3_list();
+			
 			
 		-- N°8 list booksChinchanos admin view:
 			DELIMITER $$
@@ -473,14 +485,13 @@
 					IN _loan_date		DATETIME,
 					IN _return_date		DATETIME,
 					IN _amount		VARCHAR(30)
-				
 				)
 				BEGIN
-					INSERT INTO loans(idbook,idusers,observation,loaloan_date,return_date,amount)
+					INSERT INTO loans(idbook,idusers,observation,loan_date,return_date,amount)
 					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
 			END $$
 			
-			CALL spu_loans_register('1','25','2');
+			CALL spu_loans_register('1','25','muy poco','2023-05-26','2023-05-27','1');
 			
 				
 -- ZONA SOCIAL:

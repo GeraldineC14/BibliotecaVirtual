@@ -37,10 +37,10 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     <div class="d-flex justify-content-center">
         <div class="card w-50 mt-2 mb-5">
             <div class="card-header text-center">
-                <h5 class="modal-title" id="titulo-modal-libros">Solicitud de Prestamo</h5>
+                <h5 class="modal-title" id="titulo-modal-prestamos">Solicitud de Prestamo</h5>
             </div>
             <div class="card-body">
-                <form action="" id="formulario-libros" autocomplete="off">
+                <form action="" id="formulario-prestamos" autocomplete="off">
                     <!-- Creación de controles -->
                     <div class="form-group">
                         <label for="nombrecompleto">Nombre Completo:</label>
@@ -62,7 +62,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="cantidad">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm" min="1" max="#disponibles">
+                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm">
                         </div>
                     </div> 
                     <div class="row">
@@ -82,8 +82,8 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                 </form>
             </div>
             <div class="card-footer text-center">
-                <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="guardar-libro" class="btn btn-sm btn-primary">Solicitar</button>
+                <button type="button" id="cancelar" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="solicitar-prestamo" class="btn btn-sm btn-primary">Solicitar</button>
             </div>
         </div>
     </div>
@@ -98,10 +98,46 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+  	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
 <script>
     $(document).ready(function(){
         idbook3 = <?php echo $_GET["prestamo"];?>
+
+        var datos={
+            'operacion'     : "",
+            'idbook'        : "",
+            'idusers'       : "",
+            'observation'   : "",
+            'loan_date'     : "",
+            'return_date'   : "",
+            'amount'        : ""
+        };
+
+        function alertar(textoMensaje = ""){
+                Swal.fire({
+                    title   : 'Prestamos',
+                    text    :  textoMensaje,
+                    icon    :  'info',
+                    footer  :   'Horacio Zeballos Gámez',
+                    timer   :   2000,
+                    confirmButtonText   :   'Aceptar'
+                });
+        }
+
+        function alertarToast(titulo = "",textoMensaje = "", icono = ""){
+            Swal.fire({
+                title   : titulo,
+                text    : textoMensaje,
+                icon    : icono,
+                toast   : true,
+                position : 'bottom-end',
+                showConfirmButton   : false,
+                timer   : 1500,
+                timerProgressBar    : true
+            });
+        }
 
         function DatosLibros(){
                 $.ajax({
@@ -121,6 +157,55 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                 });
         }
 
+        function RegistrarPrestamos(){
+            datos['idbook']      = <?php echo $_GET["prestamo"];?>;
+            datos['idusers']     = <?php echo $_SESSION["ses_idusers"];?>;
+            datos['observation'] = $("#observacion").val();
+            datos['loan_date']   = $("#fecha1").val();
+            datos['return_date'] = $("#fecha2").val();
+            datos['amount']      = $("#cantidad").val();
+
+            datos['operacion'] = "registrarPrestamos";
+
+            if(datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == ""){
+                alertar("Completa el formulario porfavor")
+            }else{
+                Swal.fire({
+                        title   : "Registro de prestamo",
+                        text    : "¿Los datos ingresados son correctos?",
+                        icon    : "question",
+                        footer  : "Horacio Zeballos Gámez",
+                        confirmButtonText   : "Aceptar",
+                        confirmButtonColor  : "#38AD4D",
+                        showCancelButton    : true,
+                        cancelButtonText    : "Cancelar",
+                        cancelButtonColor   : "#D3280A"
+                    }).then(result => {
+                        if(result.isConfirmed){
+                            $.ajax({
+                                url: '../controllers/prestamo.controller.php',
+                                type: 'GET',
+                                data: datos,
+                                success: function(result){
+                                    alertarToast("Proceso completado","El usuario ha sido registrado correctamente", "success")
+                                    setTimeout(function(){
+                                        $("#formulario-prestamos")[0].reset();
+                                        window.location.href = '../index.php';                    
+                                    }, 1500)
+                                }
+                            });
+                        }
+                    });
+            }        
+
+        }
+
+        function Cancelar(){
+         window.location.href = document.referrer;
+        }
+
+        $("#solicitar-prestamo").click(RegistrarPrestamos);
+        $("#cancelar").click(Cancelar);
         DatosLibros();
 
     });
