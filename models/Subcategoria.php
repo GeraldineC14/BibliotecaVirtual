@@ -15,7 +15,7 @@ class Subcategoria extends Conexion{
     }
 
     //MODELO VISTA ADMIN
-    // Registrar
+    // Registrar(books)
     public function listarSubcategoria($idcategorie){
         try{
             //Preparamos la consulta
@@ -34,7 +34,7 @@ class Subcategoria extends Conexion{
         }
     }
 
-    //Editar
+    //Editar(books)
     public function listarSubcategoria2(){
         try{
             //Preparamos la consulta
@@ -56,7 +56,7 @@ class Subcategoria extends Conexion{
         }
     }
 
-    //Mostrar
+    //Mostrar(tb.individual)
     public function listarSubcategoria3(){
         try{
             $consulta = $this->acceso->prepare("CALL spu_subcategories3_list()");
@@ -68,6 +68,53 @@ class Subcategoria extends Conexion{
             die($e->getMessage());
         }
     }
+
+    //Registrar(tb.individual)
+    public function registrarSubcategoria($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_register_subcategorie(?,?)");
+            $consulta->execute(array(
+                $datosGuardar['idcategorie'],
+                $datosGuardar['subcategoryname']
+            ));
+
+        }
+        catch(Execption $e){
+            die($e->getMessage());
+        }
+    }
+
+    //Get(tb.individual)
+    public function getSubcategoria($idsubcategorie){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_obtain_subcategorie(?)");
+            $consulta->execute(array($idsubcategorie));
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+
+    }
+
+    //Actualizar(tb.individual)
+    public function actualizarSubcategoria($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_edit_subcategorie(?,?,?)");
+            $consulta->execute(array(
+                $datosGuardar['idcategorie'],
+                $datosGuardar['idsubcategorie'],
+                $datosGuardar['subcategoryname']
+            ));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+
+
 }
 
 ?>

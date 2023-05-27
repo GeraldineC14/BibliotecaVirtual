@@ -38,7 +38,7 @@ class Categoria extends Conexion{
 
     public function registrarCategoria($datosGuardar){
         try{
-            $consulta = $this->acceso->prepare("CALL spu_register_categorie()");
+            $consulta = $this->acceso->prepare("CALL spu_register_categorie(?)");
             $consulta->execute(array(
                 $datosGuardar['categoryname']
             ));
@@ -48,6 +48,32 @@ class Categoria extends Conexion{
             die($e->getMessage());
         }
 
+    }
+
+    public function getCategoria($idcategorie){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_obtain_categorie(?)");
+            $consulta->execute(array($idcategorie));
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+
+    }
+
+    public function actualizarCategoria($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_edit_categorie(?,?)");
+            $consulta->execute(array(
+                $datosGuardar['idcategorie'],
+                $datosGuardar['categoryname']
+            ));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
     }
 
 

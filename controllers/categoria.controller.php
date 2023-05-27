@@ -19,6 +19,20 @@ if(isset($_GET['operacion'])){
         $datosSolicitados = [
             "categoryname" => $_GET['categoryname']
         ];
+        $categoria->registrarCategoria($datosSolicitados);
+    }
+
+    if($_GET['operacion'] == 'getCategoria'){
+        echo json_encode($categoria->getCategoria($_GET['idcategorie']));
+    }
+
+    if($_GET['operacion'] == 'actualizarCategoria'){
+        $datosSolicitados = [
+            "idcategorie"   => $_GET['idcategorie'],
+            "categoryname"  => $_GET['categoryname']
+        ];
+
+        $categoria->actualizarCategoria($datosSolicitados);
     }
 
     //CONTROLADOR VISTA PRINCIPAL

@@ -262,6 +262,35 @@
 					INSERT INTO categories(categoryname)
 					VALUES(_categoryname);
 			END$$
+			
+			CALL spu_register_categorie('pruebadb');
+			
+			-- N°10.1 Obtain categorie
+			
+				DELIMITER $$
+					CREATE PROCEDURE spu_obtain_categorie(
+						IN _idcategorie INT
+					)
+					BEGIN
+						SELECT idcategorie, categoryname 
+							FROM categories
+						WHERE idcategorie = _idcategorie;
+				END $$
+			
+				CALL spu_obtain_categorie(1);
+			
+			-- N°10.2 Edit categorie
+				DELIMITER $$
+					CREATE PROCEDURE spu_edit_categorie(
+						IN _idcategorie INT,
+						IN _categoryname VARCHAR(50)
+					)
+					BEGIN
+						UPDATE categories SET
+							idcategorie 	= _idcategorie,
+							categoryname	= _categoryname
+						WHERE idcategorie = _idcategorie; 	
+				END $$
 		
 		-- N°11 Register subcategories
 			DELIMITER $$
@@ -274,6 +303,35 @@
 					VALUES(_idcategorie,_subcategoryname);
 			END$$
 			
+			-- N°11.1 Obtain subcategorie
+			
+				DELIMITER $$
+					CREATE PROCEDURE spu_obtain_subcategorie(
+						IN _idsubcategorie INT
+					)
+					BEGIN
+						SELECT idcategorie,idsubcategorie, subcategoryname 
+							FROM subcategories
+						WHERE idsubcategorie = _idsubcategorie;
+				END $$
+			
+				CALL spu_obtain_subcategorie(1);
+			
+			-- N°11.2 Edit subcategorie
+				DELIMITER $$
+					CREATE PROCEDURE spu_edit_subcategorie(
+						IN _idcategorie INT,
+						IN _idsubcategorie INT,
+						IN _subcategoryname VARCHAR(50)
+					)
+					BEGIN
+						UPDATE subcategories SET
+							idcategorie 	= _idcategorie,
+							idsubcategorie 	= _idsubcategorie,
+							subcategoryname	= _subcategoryname
+						WHERE idsubcategorie = _idsubcategorie; 	
+				END $$
+		
 		
 
 	-- VISTA PRINCIPAL:

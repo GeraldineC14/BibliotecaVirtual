@@ -76,7 +76,7 @@ session_start();
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 text-center">
                                     <div class="btn-group " role="group">
-                                        <button class="btn btn-success btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                        <button class="btn btn-success btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#modal-subcategorias" data-target="#modal-libros-subcategorias" id="mostrar-modal-registro">
                                             <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
                                             &nbsp;Registrar Subcategoría
                                         </button>
@@ -106,17 +106,17 @@ session_start();
                             </div>
 
                             <!-- Zona Modales registro-->
-                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros" tabindex="-1" aria-labelledby="titulo-modal-libros" aria-hidden="true">
+                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-subcategorias" tabindex="-1" aria-labelledby="titulo-modal-subcategorias" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-primary text-light">
-                                            <h5 class="modal-title" id="titulo-modal-libros">Registrar Libro</h5>
+                                        <div class="modal-header bg-success text-light">
+                                            <h5 class="modal-title" id="titulo-modal-libros">Registrar Subcategoría</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span class="text-light" aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" id="formulario-libros" autocomplete="off">
+                                            <form action="" id="formulario-subcategorias" autocomplete="off">
                                                 <!-- Creación de controles -->
                                                 <div class="row">
                                                     <div class="col-md-6 form-group">
@@ -128,59 +128,8 @@ session_start();
                                                     </div>
 
                                                     <div class="col-md-6 form-group">
-                                                        <label for="subcategoria">Sub Categoría:</label>
-                                                        <select name="subcategoria" id="subcategoria"
-                                                            class="form-control form-control-sm" >
-                                                            <option value="">Seleccione:</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-3 form-group">
-                                                        <label for="cantidad">Cantidad:</label>
-                                                        <input type="text" id="cantidad"
-                                                            class="form-control form-control-sm" >
-                                                    </div>
-
-                                                    <div class="col-md-9 form-group">
-                                                        <label for="descripcion">Descripción:</label>
-                                                        <input type="text" id="descripcion"
-                                                            class="form-control form-control-sm" >
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-9 form-group">
-                                                        <label for="autor">Autor:</label>
-                                                        <input type="text" id="autor"
-                                                            class="form-control form-control-sm" >
-                                                    </div>
-
-                                                    <div class="col-md-3 form-group">
-                                                        <label for="estado">Estado:</label>
-                                                        <input type="text" id="estado"
-                                                            class="form-control form-control-sm" >
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="ubicacion">Ubicación:</label>
-                                                    <input type="text" id="ubicacion"
-                                                        class="form-control form-control-sm" >
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-6 form-group">
-                                                        <label for="url">PDF descarga:</label>
-                                                        <input type="file" id="url" accept=".pdf"
-                                                            class="form-control-file">
-                                                    </div>
-
-                                                    <div class="col-md-6 form-group">
-                                                        <label for="portada">Portada:</label>
-                                                        <input type="file" id="portada" accept=".jpg"
-                                                            class="form-control-file">
+                                                        <label for="subcategoryname">Nombre de SubCategoría:</label>
+                                                        <input type="text" id="subcategoryname" class="form-control form-control-sm" >
                                                     </div>
                                                 </div>
                                             </form>
@@ -188,88 +137,13 @@ session_start();
                                         <div class="modal-footer">
                                             <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary"
                                                 data-dismiss="modal">Cerrar</button>
-                                            <button id="guardar-libro"
-                                                class="btn btn-sm btn-primary" type="button">Guardar</button>
+                                            <button id="guardar-subcategoria"
+                                                class="btn btn-sm btn-success" type="button">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         <!-- </div> -->
-
-                        <!-- Zona Modales editar-->
-                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros-editar"
-                            tabindex="-1" aria-labelledby="titulo-modal-libros-editar" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-light">
-                                        <h5 class="modal-title" id="titulo-modal-libros-editar">Editar Registro</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span class="text-light" aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" id="formulario-libros" autocomplete="off">
-                                            <!-- Creación de controles -->
-                                            <div class="row">
-                                                <div class="col-md-6 form-group">
-                                                    <label for="categoria2">Categoría:</label>
-                                                    <select name="categoria2" id="categoria2"
-                                                        class="form-control form-control-sm">
-                                                        <option value="">Seleccione:</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6 form-group">
-                                                    <label for="subcategoria2">Sub Categoría:</label>
-                                                    <select name="subcategoria2" id="subcategoria2"
-                                                        class="form-control form-control-sm">
-                                                        <option value="">Seleccione:</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-3 form-group">
-                                                    <label for="cantidad2">Cantidad:</label>
-                                                    <input type="text" id="cantidad2"
-                                                        class="form-control form-control-sm">
-                                                </div>
-
-                                                <div class="col-md-9 form-group">
-                                                    <label for="descripcion2">Descripción:</label>
-                                                    <input type="text" id="descripcion2"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-9 form-group">
-                                                    <label for="autor2">Autor:</label>
-                                                    <input type="text" id="autor2" class="form-control form-control-sm">
-                                                </div>
-
-                                                <div class="col-md-3 form-group">
-                                                    <label for="estado2">Estado:</label>
-                                                    <input type="text" id="estado2"
-                                                        class="form-control form-control-sm">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="ubicacion2">Ubicación:</label>
-                                                <input type="text" id="ubicacion2" class="form-control form-control-sm">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" id="cancelar-modal-editar"
-                                            class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" id="guardar-libro-editar"
-                                            class="btn btn-sm btn-primary">Guardar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- Footer -->
@@ -314,6 +188,58 @@ session_start();
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
+        var datosNuevos = true;
+        var datos = {
+            'operacion'       : "",
+            'idcategorie'     : "",
+            'idsubcategorie'  : "",
+            'subcategoryname' : ""
+        };
+
+        function alertar(textoMensaje = ""){
+            Swal.fire({
+                title   : 'SubCategorías',
+                text    :  textoMensaje,
+                icon    :  'info',
+                footer  :   'Horacio Zeballos Gámez',
+                timer   :   2000,
+                confirmButtonText   :   'Aceptar'
+            });
+        }
+        
+        function alertarToast(titulo = "",textoMensaje = "", icono = ""){
+            Swal.fire({
+                title   : titulo,
+                text    : textoMensaje,
+                icon    : icono,
+                toast   : true,
+                position : 'bottom-end',
+                showConfirmButton   : false,
+                timer   : 1500,
+                timerProgressBar    : true
+            });
+        }
+
+        function reiniciarFormulario(){
+            $("#formulario-subcategorias")[0].reset();
+        }
+
+        function abrirModalRegistro(){
+            datosNuevos = true;
+
+            //Le indicimas el titulo del modal y su clase
+            $(".modal-header").removeClass("bg-info");
+            $(".modal-header").addClass("bg-success");
+            $("#titulo-modal-subcategorias").html("Registrar SubCategoria");
+
+            //Button
+            $("#guardar-subcategoria").removeClass("bg-info");
+            $("#guardar-subcategoria").addClass("bg-success");
+
+            reiniciarFormulario();
+        }
+
+
         function ListarSubcategoria(){
             $.ajax({
                 url:'../../controllers/subcategoria.controller.php',
@@ -352,7 +278,110 @@ session_start();
 
         }
 
+        function listarCategorias(){
+            $.ajax({
+                url:'../../controllers/categoria.controller.php',
+                type:'GET',
+                data: 'operacion=listarCategoria',
+                success: function(result){
+                    let registros = JSON.parse(result);
+                    let elementosLista = ``;
+
+                    if(registros.length>0){
+                        elementosLista = `<option select>Seleccione:</option>`;
+                        registros.forEach(registro => {
+                            elementosLista += `<option value=${registro['idcategorie']}>${registro['categoryname']}</option>`;
+                        });
+                    }else{
+                        elementosLista = `option>No hay datos asiganados</option>`;
+                    }
+                    $("#categoria").html(elementosLista);
+                }
+            });
+        }
+
+        function RegistrarSubcategoria(){
+            datos['idcategorie']        = $("#categoria").val();
+            datos['subcategoryname']    = $("#subcategoryname").val(); 
+
+            if(datosNuevos){
+                datos['operacion'] = "registrarSubcategoria";
+            }else{
+                datos['operacion'] = "actualizarSubcategoria";
+                datos['idsubcateogrie'] = idsubcategorie;
+            }
+
+            if(datos['subcategoryname'] == "" || datos['idcategorie'] == ""){
+                alertar("Complete el formulario por favor")
+            }else{
+                Swal.fire({
+                        title   : "Registro SubCategoría",
+                        text    : "¿Los datos ingresados son correctos?",
+                        icon    : "question",
+                        footer  : "Horacio Zeballos Gámez",
+                        confirmButtonText   : "Aceptar",
+                        confirmButtonColor  : "#38AD4D",
+                        showCancelButton    : true,
+                        cancelButtonText    : "Cancelar",
+                        cancelButtonColor   : "#D3280A"
+                    }).then(result => {
+                        if(result.isConfirmed){
+                            $.ajax({
+                                url: '../../controllers/subcategoria.controller.php',
+                                type: 'GET',
+                                data: datos,
+                                success: function(result){
+                                    alertarToast("Proceso completado","La Subcategoría ha sido registrado correctamente", "success")
+                                    setTimeout(function(){
+                                        reiniciarFormulario();
+                                        $('#modal-subcategorias').modal('hide');
+                                        ListarSubcategoria();                       
+                                    }, 1800)
+                                }
+                            });
+                        }
+                    });
+
+            }
+
+        }
+
+        $("#tabla-subcategoria tbody").on("click",".editar",function(){
+            idsubcategorie = $(this).data("idsubcategorie");
+
+            $.ajax({
+                url:'../../controllers/subcategoria.controller.php',
+                type:'GET',
+                dataType:'JSON',
+                data:{
+                    'operacion'     : 'getSubcategoria',
+                    'idsubcategorie'   : idsubcategorie
+                },
+                success: function(result){
+                    $("#categoria").val(result['idcategorie']);
+                    $("#subcategoryname").val(result['subcategoryname']);
+
+                    //Canbiando la configuracion modal
+                    $("#titulo-modal-subcategorias").html("Actualizar datos");
+                    $(".modal-header").removeClass("bg-success");
+                    $(".modal-header").addClass("bg-info");
+                    //Button
+                    $("#guardar-subcategoria").removeClass("bg-success");
+                    $("#guardar-subcategoria").addClass("bg-info");
+
+                    $("#modal-subcategorias").modal("show");   
+                    datosNuevos = false;
+                }
+            });
+
+        });
+
+
+        $("#guardar-subcategoria").click(RegistrarSubcategoria);
+        $("#mostrar-modal-registro").click(abrirModalRegistro);
+        $("#cancelar-modal").click(reiniciarFormulario);
         ListarSubcategoria();
+        listarCategorias();
 
     });
     

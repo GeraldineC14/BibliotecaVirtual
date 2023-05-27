@@ -72,7 +72,7 @@ session_start();
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 text-center">
                                     <div class="btn-group " role="group">
-                                        <button class="btn btn-success btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#modal-categorias" data-target="#modal-libros-categorias">
+                                        <button class="btn btn-success btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#modal-categorias" data-target="#modal-libros-categorias" id="mostrar-modal-registro">
                                             <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
                                             &nbsp;Registrar Categoría
                                         </button>
@@ -104,7 +104,7 @@ session_start();
                             <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-categorias" tabindex="-1" aria-labelledby="titulo-modal-categorias" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-primary text-light">
+                                        <div class="modal-header bg-success text-light">
                                             <h5 class="modal-title" id="titulo-modal-categorias">Registrar Categoría</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span class="text-light" aria-hidden="true">&times;</span>
@@ -123,7 +123,7 @@ session_start();
                                             <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary"
                                                 data-dismiss="modal">Cerrar</button>
                                             <button id="guardar-categoria"
-                                                class="btn btn-sm btn-primary" type="button">Guardar</button>
+                                                class="btn btn-sm btn-success" type="button">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,8 +166,10 @@ session_start();
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
+        var datosNuevos = true;
         var datos={
             'operacion'     : "",
+            'idcategorie'   : "",
             'categoryname'  : ""
         };
 
@@ -236,10 +238,32 @@ session_start();
 
         }
 
+        function abrirModalRegistro(){
+            datosNuevos = true;
+
+            //Le indicimas el titulo del modal y su clase
+            $(".modal-header").removeClass("bg-info");
+            $(".modal-header").addClass("bg-success");
+            $("#titulo-modal-categorias").html("Registrar Categoria");
+
+            //Button
+            $("#guardar-categoria").removeClass("bg-info");
+            $("#guardar-categoria").addClass("bg-success");
+
+            reiniciarFormulario();
+        }
+
         function RegistrarCategoria(){
             datos['categoryname'] = $("#categoryname").val();
 
-            datos['operacion'] = "registrarCategoria";
+            if(datosNuevos){
+                datos['operacion'] = "registrarCategoria";
+
+            }else{
+                datos['operacion'] = "actualizarCategoria";
+                datos['idcategorie'] = idcategorie;
+            }
+            
 
             if(datos['categoryname'] == ""){
                 alertar("Complete el formulario por favor")
@@ -274,8 +298,38 @@ session_start();
             }
         }
 
+        $("#tabla-categoria tbody").on("click",".editar",function(){
+            idcategorie = $(this).data("idcategorie");
+
+            $.ajax({
+                url:'../../controllers/categoria.controller.php',
+                type:'GET',
+                dataType:'JSON',
+                data:{
+                    'operacion'     : 'getCategoria',
+                    'idcategorie'   : idcategorie
+                },
+                success: function(result){
+                    $("#categoryname").val(result['categoryname']);
+
+                    //Canbiando la configuracion modal
+                    $("#titulo-modal-categorias").html("Actualizar datos");
+                    $(".modal-header").removeClass("bg-success");
+                    $(".modal-header").addClass("bg-info");
+                    //Button
+                    $("#guardar-categoria").removeClass("bg-success");
+                    $("#guardar-categoria").addClass("bg-info");
+
+                    $("#modal-categorias").modal("show");   
+                    datosNuevos = false;
+                }
+            });
+
+        });
+
         
         $("#guardar-categoria").click(RegistrarCategoria);
+        $("#mostrar-modal-registro").click(abrirModalRegistro);
         $("#cancelar-modal").click(reiniciarFormulario);
         ListarCategoria();
     });
