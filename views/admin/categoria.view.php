@@ -28,6 +28,7 @@ session_start();
 <body id="page-top">
     <div id="wrapper">
     <?php include "./template/slider.general.php"; ?>
+
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->

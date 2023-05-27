@@ -28,7 +28,7 @@ session_start();
 <body id="page-top">
     <div id="wrapper">
         <?php include "./template/slider.general.php"; ?>
-        
+
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
@@ -448,7 +448,7 @@ session_start();
                                     <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}'> 
                                     <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
                                     </a>
-                                    <a href='#' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
+                                    <a href='./edit-pdf.php' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
                                 </td>
 
                                 <td>
