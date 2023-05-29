@@ -575,21 +575,60 @@
 				
 -- ZONA SOCIAL:
 	-- tb. social
-		CREATE TABLE comments(
-			id_comment		INT	AUTO_INCREMENT PRIMARY KEY ,
-			id_book			INT NOT NULL,
-			id_users		INT NOT NULL,
-			commentary		VARCHAR NOT NULL(150),
-			score			INT NOT NULL,
-			commentary_date	DATETIME NOT NULL DEFAULT(NOW),
-						
-			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
-			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
+		CREATE TABLE commentaries(
+			idcommentary		INT	AUTO_INCREMENT PRIMARY KEY ,
+			idbook				INT NOT NULL,
+			idusers				INT NOT NULL,
+			commentary			VARCHAR(150) NOT NULL,
+			score				INT NOT NULL,
+			commentary_date		DATETIME NOT NULL DEFAULT NOW(),
+			commentary_delete	DATETIME NULL, 
+			state 				CHAR(1) NOT NULL DEFAULT '1',
+					
+			CONSTRAINT fk_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
+			CONSTRAINT fk_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
+		
+		SELECT * FROM commentaries
 	
 	-- PROCEDIMIENTO ALMACENADO
-	-- VISTA PRINCIPAL:
+	-- VISTA ZONA SOCIAL:
+		-- N°1 Register comments
+			DELIMITER $$
+				CREATE PROCEDURE spu_register_commentaries(
+					IN _idbook 		INT,
+					IN _idusers		INT,
+					IN _commentary	VARCHAR(250),
+					IN _score		INT	
+				)
+				BEGIN
+					INSERT INTO commentaries(idbook,idusers,commentary,score)
+					VALUES(_idbook,_idusers,_commentary,_score);
+			END $$
 			
+			CALL spu_register_commentaries('3','1','Muy buen libro.','4');
+			CALL spu_register_commentaries('1','1','No me gustó el libro.','1');
+			CALL spu_register_commentaries('3','2','Muy buen contenido del libro','5')
+			
+			SELECT * FROM users
+			
+			
+			
+		-- N°2 List comments
+			DELIMITER $$
+				CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
+				BEGIN 
+					SELECT b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
+						c.commentary, c.score, c.commentary_date
+					FROM commentaries c
+						INNER JOIN	books b ON b.idbook = c.idbook
+						INNER JOIN	users u ON u.idusers = c.idusers
+					WHERE b.idbook = _idbook;
+				
+			END	$$
+			
+			CALL spu_list_commentaries(2);
+				SELECT * FROM commentaries
 		
 	
 -- DATA:
