@@ -52,7 +52,7 @@ session_start();
                                         <?= $_SESSION['ses_namess']?>
                                         <?= $_SESSION['ses_surnames']?>
                                     </span>
-                                    <img class="border rounded-circle img-profile" src="../../assets/img/perfil.jpg" />
+                                    <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
                                 </a>
                                 <!--  -->
 

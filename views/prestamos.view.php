@@ -91,7 +91,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     <!-- Footer -->
     <footer class="text-white bg-dark" style="padding: 1em 0; text-align:center; margin-top: auto;">
         <div class="container text-center py-4 py-lg-5">
-            <p class="text-white-50 mb-0">Copyright © 2023 Desarrollado por IA TECH</p>
+            <p class="text-white-50 mb-0">Copyright © IA Tech 2023</p>
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
