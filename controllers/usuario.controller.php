@@ -107,6 +107,10 @@ require_once '../models/Usuario.php';
             
             $usuario->actualizarUsuario($datosSolicitados);
         }
+
+        if($_GET['operacion'] == 'validacionUsuario'){
+            echo json_encode($usuario->validacionUsuario($_GET['email']));
+        }
     }
 
 ?>
