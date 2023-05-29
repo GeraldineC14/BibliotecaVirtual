@@ -338,14 +338,17 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
 insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`) values 
 (1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08'),
 (2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06'),
-(3,'Biibliografia, literatura Latina','2023-03-21 10:37:22');
+(3,'Biibliografia, literatura Latina','2023-03-21 10:37:22'),
+(4,'edit','2023-05-27 09:45:28'),
+(5,'PRUEBA USO','2023-05-27 09:50:08'),
+(6,'PRUEBA CON','2023-05-27 11:05:59');
 
 /*Table structure for table `loans` */
 
@@ -387,7 +390,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -399,7 +402,8 @@ insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`r
 (5,2,'Módulo Base Biblioteca para secundaria - Filología','2023-03-21 12:19:00'),
 (6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46'),
 (7,3,'Obras Literarias','2023-03-22 08:16:46'),
-(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46');
+(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46'),
+(9,6,'PRUEBA SUBCATEGORIA EDIT','2023-05-27 13:10:24');
 
 /*Table structure for table `users` */
 
@@ -416,8 +420,9 @@ CREATE TABLE `users` (
   `dischargedate` datetime DEFAULT NULL,
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idusers`),
-  UNIQUE KEY `ul_email_usu` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `ul_email_usu` (`email`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -673,6 +678,44 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_edit_categorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_edit_categorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_categorie`(
+					IN _idcategorie INT,
+					IN _categoryname VARCHAR(50)
+				)
+BEGIN
+					UPDATE categories SET
+						idcategorie 	= _idcategorie,
+						categoryname	= _categoryname
+					WHERE idcategorie = _idcategorie; 	
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_edit_subcategorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_edit_subcategorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_subcategorie`(
+						IN _idcategorie INT,
+						IN _idsubcategorie INT,
+						IN _subcategoryname VARCHAR(50)
+					)
+BEGIN
+						UPDATE subcategories SET
+							idcategorie 	= _idcategorie,
+							idsubcategorie 	= _idsubcategorie,
+							subcategoryname	= _subcategoryname
+						WHERE idsubcategorie = _idsubcategorie; 	
+				END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_loans_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_loans_list` */;
@@ -724,6 +767,38 @@ BEGIN
 			inner join categories s on s.idcategorie = b.idcategorie;
 			
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtain_categorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtain_categorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_categorie`(
+					IN _idcategorie INT
+				)
+BEGIN
+					SELECT idcategorie, categoryname 
+						FROM categories
+					WHERE idcategorie = _idcategorie;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtain_subcategorie` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtain_subcategorie` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_subcategorie`(
+						IN _idsubcategorie INT
+					)
+BEGIN
+						SELECT idcategorie,idsubcategorie, subcategoryname 
+							FROM subcategories
+						WHERE idsubcategorie = _idsubcategorie;
+				END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_productos_obtener` */
@@ -928,6 +1003,22 @@ BEGIN
 				
 			WHERE idusers = _idusers;
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_validate_email` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_validate_email` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_email`(
+					IN _email VARCHAR(100)
+				)
+BEGIN
+					SELECT email 
+						FROM users
+					WHERE email = _email;
+			END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

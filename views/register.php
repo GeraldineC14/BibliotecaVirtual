@@ -150,38 +150,37 @@ session_start();
                 if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
                 	alertar("Complete el formulario por favor")
                 }else{
-                    if(datos['accesskey'] !== datos['repetir']){
-                    	alertarToast("Ha sucecido un error","Las claves no coinciden","error")
-                	}else{
-
-                        Swal.fire({
-                            title   : "Registro",
-                            text    : "¿Los datos ingresados son correctos?",
-                            icon    : "question",
-                            footer  : "Horacio Zeballos Gámez",
-                            confirmButtonText   : "Aceptar",
-                            confirmButtonColor  : "#38AD4D",
-                            showCancelButton    : true,
-                            cancelButtonText    : "Cancelar",
-                            cancelButtonColor   : "#D3280A"
-                        }).then(result => {
-                            if(result.isConfirmed){
-                                $.ajax({
-                                    url: '../controllers/usuario.controller.php',
-                                    type: 'GET',
-                                    data: datos,
-                                    success: function(result){
-                                        alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
-                                        $("#formulario-usuario")[0].reset();
-                                        setTimeout(function(){
-                                            window.location.href = 'login.php';
-                                        }, 1500)
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }
+					if(datos['accesskey'] !== datos['repetir']){
+						alertarToast("Ha sucecido un error","Las claves no coinciden","error")
+					}else{
+						Swal.fire({
+							title   : "Registro",
+							text    : "¿Los datos ingresados son correctos?",
+							icon    : "question",
+							footer  : "Horacio Zeballos Gámez",
+							confirmButtonText   : "Aceptar",
+							confirmButtonColor  : "#38AD4D",
+							showCancelButton    : true,
+							cancelButtonText    : "Cancelar",
+							cancelButtonColor   : "#D3280A"
+						}).then(result => {
+							if(result.isConfirmed){
+								$.ajax({
+									url: '../controllers/usuario.controller.php',
+									type: 'GET',
+									data: datos,
+									success: function(result){
+										alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
+										$("#formulario-usuario")[0].reset();
+										setTimeout(function(){
+											window.location.href = 'login.php';
+										}, 1500)
+									}
+								});
+							}
+						});
+					}
+				}   
             }
 
 			function Validar_correo(){
@@ -191,7 +190,23 @@ session_start();
 					var esvalido = document.getElementById('email');
 					var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
 					if(exprecion.test(esvalido.value)){
-						registrar();
+						let email = $("#email").val();
+						$.ajax({
+							url: '../controllers/usuario.controller.php',
+							type: 'GET',
+							data: {
+									'operacion': 'validacionUsuario',
+									'email': email
+								},
+							success: function(result){
+								if (result){
+									alertar("El usuario ya existe en el sistema");
+									console.log(result);
+								}else{
+									registrar();
+								}	
+							}
+						});
 					}else{
 						Swal.fire({
 							title   : "Error",
@@ -217,14 +232,29 @@ session_start();
 							confirmButtonColor  : "#38AD4D"
 						});
 					}else{
-						registrar();
-					}
+						let email = $("#email").val();
+						$.ajax({
+							url: '../controllers/usuario.controller.php',
+							type: 'GET',
+							data: {
+									'operacion': 'validacionUsuario',
+									'email': email
+								},
+							success: function(result){
+								if (result){
+									alertar("El usuario ya existe en el sistema");
+									console.log(result);
+								}else{
+									registrar();
+								}	
+							}
+						});
+					}		
 				}
-					
 			}
 				
 			$('#showPass').on('click', function(){
-				var passInput=$("#accesskey,#accesskey2");
+				var passInput=$("#accesskey,#repetir");
 				if(passInput.attr('type')==='password')
 				{
 					passInput.attr('type','text');

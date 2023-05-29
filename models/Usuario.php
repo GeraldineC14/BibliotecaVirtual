@@ -10,8 +10,6 @@ class Usuario extends Conexion{
         $this->acceso = parent::getConexion();
     }
 
-    // Consumira a nuestro spu
-
     public function login($email){
         try{
             $consulta = $this->acceso->prepare("CALL spu_users_login(?)");
@@ -48,7 +46,7 @@ class Usuario extends Conexion{
     public function listarUsuarios(){
         try{
             $consulta = $this->acceso->prepare("CALL spu_users_list()");
-            $consulta->execute();
+            $consulta->execute(array($email));
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         }
@@ -96,6 +94,19 @@ class Usuario extends Conexion{
         }
         catch(Exception $e){
             die($e->getMessage());
+        }
+    }
+
+    public function validacionUsuario($email){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_validate_email(?)");
+            $consulta->execute(array($email));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+
         }
     }
 

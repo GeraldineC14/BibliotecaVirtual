@@ -502,15 +502,26 @@
 			
 		-- N°6 obtain users
 			DELIMITER $$
-			CREATE PROCEDURE spu_users_obtain(
-			IN _idusers INT
-			)
-			BEGIN
-			SELECT  idusers, namess, surnames, accesslevel,email,accesskey
-					FROM users 
-				WHERE state = "1" AND idusers = _idusers;
+				CREATE PROCEDURE spu_users_obtain(
+					IN _idusers INT
+				)
+				BEGIN
+				SELECT  idusers, namess, surnames, accesslevel,email,accesskey
+						FROM users 
+					WHERE state = "1" AND idusers = _idusers;
 			END $$
-
+			
+		-- N°7 Validate email
+			DELIMITER $$
+				CREATE PROCEDURE spu_validate_email(
+					IN _email VARCHAR(100)
+				)BEGIN
+					SELECT email 
+						FROM users
+					WHERE email = _email;
+			END $$ 
+		CALL spu_validate_email('miguel@midominio.com');
+			
 -- BOOK LOANS:
 	-- Tb. Loans
 		CREATE TABLE loans
