@@ -424,6 +424,7 @@
 			state			CHAR(1) 	NOT NULL DEFAULT '1',
 			CONSTRAINT ul_email_usu UNIQUE (email)
 		)ENGINE = INNODB;
+		
 			
 	-- PROCEDIMIENTO ALMACENADO:
 	-- VISTA ADMIN:
