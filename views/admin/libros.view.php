@@ -304,35 +304,6 @@ session_start();
                                 </div>
                             </div>
                         </div>
-
-
-                         <!-- Zona Modal editar PDF-->
-                        <div class="modal" id="modal-pdf-editar" tabindex="-1" aria-labelledby="modalPdf"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-light">  
-                                        <h4>EDITAR PDF</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" id="formulario-pdf" autocomplete="off">
-                                            <!-- Creación de controles -->
-
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" id="cancelar-modal-portada"
-                                            class="btn btn-sm btn-secondary" class="close"
-                                            data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" id="guardar-portada-editar"
-                                            class="btn btn-sm btn-primary">Modificar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- Footer -->
@@ -459,7 +430,7 @@ session_start();
                                         title='Mostrar portada del libro'>
                                         <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='#' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
+                                    <a href='./edit-frontpage.php' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
                                 </td>
                                 <td>
                                     <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
