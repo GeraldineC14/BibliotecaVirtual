@@ -46,7 +46,7 @@ class Usuario extends Conexion{
     public function listarUsuarios(){
         try{
             $consulta = $this->acceso->prepare("CALL spu_users_list()");
-            $consulta->execute(array($email));
+            $consulta->execute();
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         }

@@ -1,14 +1,9 @@
 <?php
-
-//Una sesion: espacio reeservado en la memoria del servidor, donde podemos
-//almacenar datos utilizando KEY:VALUR. Estos valores son GLOBALES
-
+// Heredamos la sesion
 session_start();
 
-$_SESSION['login'] = false;
-$_SESSION['ses_idusers'] = "";
-$_SESSION['ses_surnames'] = "";
-$_SESSION['ses_namess'] = "";
+//La sesion contendrá datos del login en formato de arreglo
+$_SESSION['login'] = [];
 
 require_once '../models/Usuario.php';
 
@@ -19,10 +14,12 @@ require_once '../models/Usuario.php';
         if($_GET['operacion'] == 'login'){
             // 0. Array que sera leido por la vista
             $resultado = [
-                "acceso"    => false,
-                "mensaje"   => "",
-                "surnames" => "",
-                "namess"   => ""
+                "acceso"      => false,
+                "idusers"    => "",
+                "mensaje"     => "",
+                "surnames"    => "",
+                "namess"      => "",
+                "accesslevel" => ""
             ];
 
             // 1. Verificar si existe el usuario
@@ -40,13 +37,10 @@ require_once '../models/Usuario.php';
                         // Enviamos toda la info del usuario
                         $resultado["acceso"] = true;
                         $resultado["mensaje"] = "Bienvenido al sistema";
+                        $resultado["idusers"] = $data['idusers'];
                         $resultado["surnames"] = $data['surnames'];
                         $resultado["namess"] = $data['namess'];
-    
-                        $_SESSION['login'] = true;
-                        $_SESSION['ses_surnames'] = $data['surnames'];
-                        $_SESSION['ses_namess'] = $data['namess'];
-                        $_SESSION['ses_idusers'] = $data['idusers'];
+                        $resultado["accesslevel"] = $data['accesslevel'];
     
                     } else {
                         // La contraseña es incorrecta
@@ -58,7 +52,11 @@ require_once '../models/Usuario.php';
                     $resultado["acceso"] = false;
                     $resultado["mensaje"] = "El usuario no existe";
                 }
-            echo json_encode($resultado);
+                //Actualizamos la información en la variable de sesíon
+                $_SESSION["login"] = $resultado;
+
+                //Enviando información de la sesion a la vista
+                echo json_encode($resultado);
         }
 
         if($_GET['operacion'] == 'registrarUsuario'){
@@ -76,10 +74,8 @@ require_once '../models/Usuario.php';
         }
 
         if($_GET['operacion'] == 'cerrar-sesion'){
-            session_start();
-            session_unset();
             session_destroy();
-          
+            session_unset();
             header("location:../index.php");
         }
 
