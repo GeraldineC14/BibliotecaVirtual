@@ -11,7 +11,7 @@ session_start();
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Libros</title>
+    <title>Subcategorias</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../assets/css/popups.css" />
@@ -52,7 +52,7 @@ session_start();
 
                                     <!-- PERFIL & SALIR -->
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                        <a class="dropdown-item" href="profile.view.php">
+                                        <a class="dropdown-item" href="../admin/perfil.view.php">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             &nbsp;Perfil
                                         </a>
@@ -187,6 +187,19 @@ session_start();
 
 <!-- Mis funciones y eventos javascript -->
 <script>
+
+    // Script para el cambio de Titulo
+    let isTitle = document.title;
+    let titleTimeout;
+
+    const starChangeTitle = () => {
+            titleTimeout = setInterval(function () {
+                    document.title = document.title === isTitle ? "Horacio Zeballos Gamez" : isTitle;
+            },1800);
+    };
+    window.addEventListener("load", starChangeTitle);
+
+
     $(document).ready(function(){
         var datosNuevos = true;
         var datos = {
