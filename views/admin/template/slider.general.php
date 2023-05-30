@@ -72,4 +72,4 @@
             </div>
         </nav>
         <!-- FIN SIDEBAR LEFT -->
-    </div>
+</div>

@@ -22,7 +22,7 @@ session_start();
     <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css">
     <!-- DataTable Responsive -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
-    <link rel="shortcut icon" href="../../assets/img/favicon.ico" />
+    <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
 </head>
 
 <body id="page-top">

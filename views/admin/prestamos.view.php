@@ -20,7 +20,7 @@ session_start();
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <!-- DataTable Responsive -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
-    <link rel="shortcut icon" href="../../assets/img/favicon.ico" />
+    <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
 </head>
 
 <body id="page-top">
