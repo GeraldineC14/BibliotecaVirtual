@@ -179,6 +179,28 @@ class Biblioteca extends Conexion{
         }
     }
 
+    //MODELO VISTA ZOCIAL
+    public function listarComentarios($idbook){
+        try{
+            //Preparamos la cunsulta
+            $consulta = $this->acceso->prepare("CALL spu_list_commentaries(?)");
+            
+            //Ejecutamos la consulta
+            $consulta->execute(array($idbook));
+            
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage);
+        }
+    }
+
+    public function registrarComentario(){
+        
+    }
+
 }
 
 

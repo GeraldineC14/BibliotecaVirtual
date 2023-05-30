@@ -44,20 +44,10 @@
                         <h3>Comentarios</h3>
                     </div>
                     <div class="datos">
-                        <div class="card-body">
-                            <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Geraldine Castilla Felix</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat laboriosam repudiandae iste officiis fuga sequi quo fugiat libero nobis repellat nihil obcaecati, quaerat natus possimus eum explicabo inventore doloremque.</p>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Piero Alexander Arias Tasayco</h5>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi fugit quisquam possimus voluptatibus at. Possimus, atque? Ullam autem rerum magni hic magnam. Impedit molestias vitae illo ex, dolore possimus ullam.</p>                        
-                        </div>
+
                     </div>
                     
+                    <!-- Agregar comentarios -->
                     <div class="card-footer text-muted">
                         <form action="">
                             <div class="row">
@@ -136,7 +126,7 @@
                                     </div>
                                 <div class="col-md-5">
                                     <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
-                                    <p>Libros disponibles</p>
+                                    <p>Libros disponibles: ${registros['amount']}</p>
                                     <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
                                         <span style="color: rgb(34, 34, 34);">${resumen}</span>
                                     </p>
@@ -156,9 +146,9 @@
 
         function listarComentarios(){
             $.ajax({
-                url: '',
+                url: '../controllers/biblioteca.controller.php',
                 type: 'GET',
-                data: {'operacion':'listarComentarios'},
+                data: {'operacion':'listarComentarios','idbook' : idbook2},
                 success: function(result){
                     let registros = JSON.parse(result);
                     let nuevaFila2 = ``;
@@ -166,8 +156,9 @@
                     registros.forEach(registro => {
                         nuevaFila2 = `
                             <div class="card-body">
-                                <h5 class="card-title">Diego Enrique Felipa Avalos</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim, cum, eligendi dolorem soluta delectus, cumque reprehenderit architecto qui quam iste itaque minus incidunt dolores. Nemo tenetur impedit ipsum vitae.</p>
+                                <h5 class="card-title">${registro['Usuario']}</h5>
+                                <p class="card-text">${registro['commentary']}</p>
+                                <p class="card-text">${registro['commentary_date']}</p>
                             </div>
                         `;
                         $(".datos").append(nuevaFila2);
@@ -180,6 +171,7 @@
 
         //Funciones de carga automatica
         VistaResumen();
+        listarComentarios();
     });
 </script>
 </body>
