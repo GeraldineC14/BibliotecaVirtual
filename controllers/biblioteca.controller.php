@@ -55,6 +55,10 @@ if(isset($_GET['operacion'])){
         echo json_encode($biblioteca->Buscarlibros($_GET['type'], $_GET['look']));   
     }
 
+    if ($_GET['operacion'] == 'listarComentarios'){
+        echo json_encode($biblioteca->listarComentarios($_GET['idbook']));
+    }
+
     
 }
 

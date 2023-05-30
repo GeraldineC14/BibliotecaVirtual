@@ -27,7 +27,6 @@ session_start();
     <div id="wrapper">
         <!-- INICIO SIDEBAR LEFT -->
         <?php include "./template/slider.general.php"; ?>
-
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
@@ -45,7 +44,7 @@ session_start();
                                 <div class="nav-item dropdown no-arrow">
                                     <!-- NOMBRE USUARIO & IMAGEN -->
                                     <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['ses_namess']?> <?= $_SESSION['ses_surnames']?> </span>
+                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['login']['namess']?> <?= $_SESSION['login']['surnames']?> </span>
                                         <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
                                     </a>
                                     <!--  -->
