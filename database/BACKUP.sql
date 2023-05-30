@@ -415,7 +415,7 @@ CREATE TABLE `users` (
   `namess` varchar(30) NOT NULL,
   `email` varchar(100) NOT NULL,
   `accesskey` varchar(100) NOT NULL,
-  `accesslevel` char(1) NOT NULL DEFAULT 'A',
+  `accesslevel` char(1) NOT NULL,
   `creationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `dischargedate` datetime DEFAULT NULL,
   `state` char(1) NOT NULL DEFAULT '1',
@@ -427,13 +427,9 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
-(1,'Geraldine','Castilla Felix','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','E','2023-04-25 12:19:02',NULL,'1'),
-(3,'Arteaga','Miguel','miguel@midominio.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
-(21,'editar','Prueba editar','editar@midominio.com','$2y$10$Ye7zX/POExz.4oXwdrtzLeZ4gzbOWDQU90maGUb9H6j8fjoacYZFa','D','2023-05-05 15:51:00',NULL,'1'),
-(22,'prueba2','Jose','prueba2@midominio.com','$2y$10$OU.s./3dPL6pta66rv/svOuqnj0XhTIVFpAH/C/d37dJ3uV11FTOS','E','2023-05-05 15:55:33',NULL,'1'),
-(23,'FELIPA avalos','Diego','FELIPA@midominio.com','$2y$10$Z0fUEu7Irl1ovGcPLEVateRpxdVuGZdKh4pRQ9tHel.HfdgrY8ed6','D','2023-05-05 17:19:40',NULL,'1'),
-(24,'prueba','prueba','prueba@gmail.com','$2y$10$TZkHmOwJYfQOulIoiGZaFebvnM/nGQK3eND.1Gg7QjSP7Wb0WkjXq','E','2023-05-09 12:07:17',NULL,'1'),
-(25,'Prueba','Estudiante','student@gmail.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','E','2023-05-26 14:18:28',NULL,'1');
+(1,'Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
+(3,'Felipa Avalos','Diego','diego@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
+(25,'Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
