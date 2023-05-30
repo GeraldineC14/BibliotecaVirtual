@@ -52,8 +52,8 @@
                                 <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown"
                                     href="#">
                                     <span class="d-none d-lg-inline mr-2 text-gray-600 small">
-                                        <?= $_SESSION['ses_namess']?>
-                                        <?= $_SESSION['ses_surnames']?>
+                                        <?= $_SESSION['login']['namess']?>
+                                        <?= $_SESSION['login']['surnames']?>
                                     </span>
                                     <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
                                 </a>

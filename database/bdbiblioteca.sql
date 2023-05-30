@@ -418,13 +418,13 @@
 			namess			VARCHAR(30) 	NOT NULL,
 			email			VARCHAR(100) 	NOT NULL,
 			accesskey		VARCHAR(100) 	NOT NULL,
-			accesslevel		CHAR(1) 	NOT NULL DEFAULT 'A' ,
+			accesslevel		CHAR(1) 	NOT NULL,
 			creationdate		DATETIME 	NOT NULL DEFAULT NOW(),
 			dischargedate		DATETIME 	NULL,
 			state			CHAR(1) 	NOT NULL DEFAULT '1',
 			CONSTRAINT ul_email_usu UNIQUE (email)
 		)ENGINE = INNODB;
-		
+			
 			
 	-- PROCEDIMIENTO ALMACENADO:
 	-- VISTA ADMIN:
