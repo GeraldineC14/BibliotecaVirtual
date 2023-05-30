@@ -76,6 +76,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
 <script>
+
+    // Script para el cambio de Titulo
+    let isTitle = document.title;
+    let titleTimeout;
+
+    const starChangeTitle = () => {
+            titleTimeout = setInterval(function () {
+                    document.title = document.title === isTitle ? "Subcategorias" : isTitle;
+            }, 2000);
+    };
+
+    window.addEventListener("load", starChangeTitle);
+
+
+
     $(document).ready(function(){
         idsubcategorie = <?php echo $_GET["sub1"];?>
 

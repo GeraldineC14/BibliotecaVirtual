@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
+    <link rel="stylesheet" href="assets/js/title.js">
     <link rel="shortcut icon" href="assets/img/favicon.ico" />
 </head>
 <body>   
@@ -100,6 +101,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
     
 <script>
+
+    // Script para el cambio de Titulo
+    let isTitle = document.title;
+    let titleTimeout;
+
+    const starChangeTitle = () => {
+            titleTimeout = setInterval(function () {
+                    document.title = document.title === isTitle ? "Horacio Zeballos Gamez" : isTitle;
+            }, 2000);
+    };
+
+    window.addEventListener("load", starChangeTitle);
+
+
+
+
     $(document).ready(function(){
         function mostrarVistaLibros(){
             $.ajax({

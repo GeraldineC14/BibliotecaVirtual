@@ -52,7 +52,7 @@ session_start();
 
                                     <!-- PERFIL & SALIR -->
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                        <a class="dropdown-item" href="profile.view.php">
+                                        <a class="dropdown-item" href="../admin/perfil.view.php">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             &nbsp;Perfil
                                         </a>
@@ -270,27 +270,39 @@ session_start();
             </div>
             <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
         </div>
-        <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
-        <script src="../../assets/js/jquery.min.js"></script>
-        <script src="../../assets/js/bootstrap.min.js"></script>
-        <script src="../../assets/js/chart.min.js"></script>
-        <script src="../../assets/js/bs-init.js"></script>
-        <script src="../../assets/js/jquery.easing.min.js"></script>
-        <script src="../../assets/js/theme.js"></script>
+    </div>
+    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/chart.min.js"></script>
+    <script src="../../assets/js/bs-init.js"></script>
+    <script src="../../assets/js/jquery.easing.min.js"></script>
+    <script src="../../assets/js/theme.js"></script>
 
 
-        <!-- font -->
-        <script defer src="https://kit.fontawesome.com/7a0163df78.js" crossorigin="anonymous"></script>
-        <!-- Boostrap 4.6 -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-        <!-- Datatable -->
-        <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <!-- DataTable Responsive -->
-        <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <!-- font -->
+    <script defer src="https://kit.fontawesome.com/7a0163df78.js" crossorigin="anonymous"></script>
+    <!-- Boostrap 4.6 -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <!-- Datatable -->
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <!-- DataTable Responsive -->
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 
-        <!-- Mis funciones y eventos javascript -->
-        <script>
+    <script>
+    // Script para el cambio de Titulo
+    let isTitle = document.title;
+    let titleTimeout;
+
+    const starChangeTitle = () => {
+            titleTimeout = setInterval(function () {
+                    document.title = document.title === isTitle ? "Horacio Zeballos Gamez" : isTitle;
+            },1800);
+    };
+    window.addEventListener("load", starChangeTitle);
+
+    // Mis funciones y eventos javascript
            $(document).ready(function(){
             function listarPrestamos(){
                 $.ajax({
@@ -366,6 +378,8 @@ session_start();
             $("#cancelar-modal").click(reiniciarFormulario);
            });
         </script>
+
+
 
 </body>
 
