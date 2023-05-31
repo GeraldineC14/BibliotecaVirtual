@@ -24,57 +24,9 @@ session_start();
 <?php include "./template/slider.general.php"; ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid">
-                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <font face="impact"><h2 >Editar Portada</h2></font>
-                        </form>
-                        <ul class="navbar-nav flex-nowrap ml-auto">
-                            <!-- <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded=true" data-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto navbar-search w-100">
-                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li> -->
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                            <div class="nav-item dropdown no-arrow">
-                                <!-- NOMBRE USUARIO & IMAGEN -->
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown"
-                                    href="#">
-                                    <span class="d-none d-lg-inline mr-2 text-gray-600 small">
-                                        <?= $_SESSION['ses_namess']?>
-                                        <?= $_SESSION['ses_surnames']?>
-                                    </span>
-                                    <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
-                                </a>
-                                <!--  -->
-
-                                <!-- PERFIL & SALIR -->
-                                <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                    <a class="dropdown-item" href="../admin/perfil.view.php">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        &nbsp;Perfil
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item"
-                                        href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        &nbsp;Salir
-                                    </a>
-                                </div>
-                                <!--  -->
-                            </div>
-                        </li>
-                        </ul>
-                    </div>
-                </nav>
+                <!-- INICIO PERFIL -->
+                
+                <!-- FIN PERFIL -->
                 <div class="container-fluid">
                     <main class="app-content ml-5 mt-5">
                         <div class="row">
