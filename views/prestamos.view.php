@@ -27,7 +27,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
             <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link active text-dark" href="./admin/admin.view.php"><?php echo $_SESSION['login']['namess'];?></a></li>
+                <li class="nav-item"><a class="nav-link active text-dark" href="./admin/index.php?view=admin.view.php"><?php echo $_SESSION['login']['namess'];?></a></li>
                     <li class="nav-item"><a class="nav-link active text-dark" href="login.php">Ingresa</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
             </ul>

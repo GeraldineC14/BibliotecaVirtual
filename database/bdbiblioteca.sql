@@ -510,6 +510,7 @@
 						FROM users 
 					WHERE state = "1" AND idusers = _idusers;
 			END $$
+			CALL spu_users_obtain(1);
 			
 		-- N°7 Validate email
 			DELIMITER $$

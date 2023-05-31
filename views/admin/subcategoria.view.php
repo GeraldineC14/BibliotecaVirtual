@@ -1,33 +1,11 @@
 <?php
-session_start();
 
+require_once 'permisos.php'; 
 /*if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     header("location:login.php");
 }*/
 ?>
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Subcategorias</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../assets/css/popups.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
-    <!-- CSS datatable -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <!-- LightBox -->
-    <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css">
-    <!-- DataTable Responsive -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
-    <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
-</head>
-
-<body id="page-top">
     <div id="wrapper">
-        <?php include "./template/slider.general.php"; ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
@@ -45,7 +23,7 @@ session_start();
                                 <div class="nav-item dropdown no-arrow">
                                     <!-- NOMBRE USUARIO & IMAGEN -->
                                     <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['ses_namess']?> <?= $_SESSION['ses_surnames']?> </span>
+                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['login']['namess']?> <?= $_SESSION['login']['surnames']?> </span>
                                         <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
                                     </a>
                                     <!--  -->
@@ -158,33 +136,6 @@ session_start();
             <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
         </div>
 
-        <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
-        <script src="../../assets/js/jquery.min.js"></script>
-        <script src="../../assets/js/bootstrap.min.js"></script>
-        <script src="../../assets/js/chart.min.js"></script>
-        <script src="../../assets/js/bs-init.js"></script>
-        <script src="../../assets/js/jquery.easing.min.js"></script>
-        <script src="../../assets/js/theme.js"></script>
-
-
-<!-- Lightbox -->
-<script src="../../vendor/lightbox/js/lightbox.min.js"></script>
-<!-- font -->
-<script defer src="https://kit.fontawesome.com/7a0163df78.js" crossorigin="anonymous"></script>
-<!-- Boostrap 4.6 -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-    crossorigin="anonymous"></script>
-<!-- Datatable -->
-<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<!-- DataTable Responsive -->
-<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <!-- Mis funciones y eventos javascript -->
 <script>
 
@@ -265,7 +216,7 @@ session_start();
                     let tabla = $("#tabla-subcategoria").DataTable();
                     tabla.destroy();
 
-                    $("#tabla-subcategoria tbody").html();
+                    $("#tabla-subcategoria tbody").html("");
                     registros.forEach(registro =>{
                         nuevaFila = `
                         <tr>
@@ -321,10 +272,10 @@ session_start();
                 datos['operacion'] = "registrarSubcategoria";
             }else{
                 datos['operacion'] = "actualizarSubcategoria";
-                datos['idsubcateogrie'] = idsubcategorie;
+                datos['idsubcategorie'] = idsubcategorie;
             }
 
-            if(datos['subcategoryname'] == "" || datos['idcategorie'] == ""){
+            if(datos['subcategoryname'] == "" || datos['idsubcategorie'] == ""){
                 alertar("Complete el formulario por favor")
             }else{
                 Swal.fire({
@@ -399,7 +350,3 @@ session_start();
     });
     
 </script>
-
-</body>
-
-</html>
