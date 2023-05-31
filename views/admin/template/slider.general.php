@@ -16,10 +16,8 @@
 
                 <!-- INICIO SECCIONES SIDEBAR -->
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                <?php require_once 'permisos.php'; ?>
-                    
-                    
-                    
+                <?php require_once 'sidebaroptions.php'; ?>
+                       
                 </ul>
                 <!-- -->
 
@@ -28,7 +26,43 @@
                     <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
                 </div>
                 <!-- -->
+                <div class="container-fluid" id="content-dinamics">
+                    
+                </div>
             </div>
         </nav>
         <!-- FIN SIDEBAR LEFT -->
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        //Crearemos una función que obtenga la URL(vista)
+        function getURL(){
+            //1. Obtener la URL
+            const url = new URL(window.location.href);
+            //2. Obtener el valor enviado por la URL
+            const vista = url.searchParams.get("view");
+            //3. Crear un objeto que referencia contenedor
+            const contenedor = document.querySelector("#content-dinamics");
+            
+            //Cuando el usuario elige una opción...
+            if (vista != null){
+                fetch(vista)
+                    .then(respuesta => respuesta.text())
+                    .then(datos => {
+                        contenedor.innerHTML = datos;
+
+                        //Necesitamos recorrer todas las etiquetas <script> y "reactivarlas"
+                        const scriptsTag = contenedor.getElementsByTagName("script");
+                        for (i = 0; i < scriptsTag.length; i++){
+                            eval(scriptsTag[i].innerText);
+                        }
+                    });
+            }
+        }
+
+        getURL();
+
+    });
+</script>

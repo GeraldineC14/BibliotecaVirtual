@@ -1,26 +1,8 @@
 <?php
-
-session_start();
-
+require_once 'permisos.php'; 
+ 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Mi Perfil</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
-  <link rel="stylesheet" href="../../assets/fonts/fontawesome-all.min.css" />
-  <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
-</head>
-
-<body id="page-top">
   <div id="wrapper">
-    <?php include "./template/slider.general.php"; ?>
     <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
         <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -33,8 +15,8 @@ session_start();
                   <!-- NOMBRE USUARIO & IMAGEN -->
                   <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="">
                     <span class="d-none d-lg-inline mr-2 text-gray-600 small">
-                      <?= $_SESSION['ses_namess']?>
-                      <?= $_SESSION['ses_surnames']?>
+                      <?= $_SESSION['login']['namess']?>
+                      <?= $_SESSION['login']['surnames']?>
                     </span>
                     <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
                   </a>
@@ -42,7 +24,7 @@ session_start();
 
                   <!-- PERFIL & SALIR -->
                   <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                    <a class="dropdown-item" href="../admin/perfil.view.php">
+                    <a class="dropdown-item" href="../admin/index.php?view=perfil.view.php">
                       <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                       &nbsp;Perfil
                     </a>
@@ -58,8 +40,6 @@ session_start();
             </ul>
           </div>
         </nav>
-
-
 
         <div class="container">
           <div class="row flex-lg-nowrap">
@@ -95,13 +75,13 @@ session_start();
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Nombre</label>
-                                        <input class="form-control" type="text" name="name" placeholder="nombre">
+                                        <input class="form-control" type="text" name="names" id="namess" placeholder="nombre">
                                       </div>
                                     </div>
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Apellido</label>
-                                        <input class="form-control" type="text" name="username" placeholder="apellido">
+                                        <input class="form-control" type="text" name="surnames" id="surnames" placeholder="apellido">
                                       </div>
                                     </div>
                                   </div>
@@ -110,13 +90,13 @@ session_start();
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Correo</label>
-                                        <input class="form-control" type="email" name="email" placeholder="Correo" readonly>
+                                        <input class="form-control" type="email" name="email"  id="email" placeholder="Correo" readonly>
                                       </div>
                                     </div>
                                     <div class="col">
                                       <div class="form-group">
-                                        <label>Categoria</label>
-                                        <input class="form-control" type="text" name="username" placeholder="Docente" readonly>
+                                        <label>Nivel de Acceso</label>
+                                        <input class="form-control" type="text" name="accesslevel" id="accesslevel" placeholder="Docente" readonly>
                                       </div>
                                     </div>
                                   </div>
@@ -128,13 +108,13 @@ session_start();
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Contraseña</label>
-                                        <input class="form-control" type="password" placeholder="*****" autofocus>
+                                        <input class="form-control" type="password"  id="accesskey" placeholder="*****" readonly>
                                       </div>
                                     </div>
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Confirmar Contraseña</label>
-                                        <input class="form-control" type="password" placeholder="*****">
+                                        <input class="form-control" type="password" id="repetir" placeholder="*****" readonly>
                                       </div>
                                     </div>
                                   </div>
@@ -187,15 +167,7 @@ session_start();
       </div>
     </div>
   </div>
-  <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
-  <script src="../../assets/js/jquery.min.js"></script>
-  <script src="../../assets//js/bootstrap.min.js"></script>
-  <script src="../../assets/js/chart.min.js"></script>
-  <script src="../../assets/js/bs-init.js"></script>
-  <script src="../../assets/js/jquery.easing.min.js"></script>
-  <script src="../../assets/js/theme.js"></script>
-
-
+ 
 
   <script>
 
@@ -212,7 +184,7 @@ session_start();
 
     $(document).ready(function () {
       function Vistadatos() {
-        idusers = <?= $_SESSION['idusers'] ?>;
+        idusers = <?= $_SESSION['login']['idusers'] ?>;
         $.ajax({
           url: '../../controllers/usuario.controller.php',
           type: 'GET',
@@ -228,6 +200,7 @@ session_start();
             $("#email").val(result['email']);
             $("#accesskey").val(result['accesskey']);
             $("#repetir").val(result['accesskey']);
+            $("#accesslevel").val(result['accesslevel']);
 
           }
         });

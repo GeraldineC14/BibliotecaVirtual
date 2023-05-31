@@ -510,6 +510,7 @@
 						FROM users 
 					WHERE state = "1" AND idusers = _idusers;
 			END $$
+			CALL spu_users_obtain(1);
 			
 		-- N°7 Validate email
 			DELIMITER $$
@@ -619,7 +620,8 @@
 			
 			CALL spu_register_commentaries('3','1','Muy buen libro.','4');
 			CALL spu_register_commentaries('1','1','No me gustó el libro.','1');
-			CALL spu_register_commentaries('1','25','Muy buen contenido del libro','5')
+			CALL spu_register_commentaries('1','23','Buen contenido.','5');
+			CALL spu_register_commentaries('2','3','Muy buen contenido del libro','5')
 			
 			SELECT * FROM commentaries
 			
@@ -639,18 +641,18 @@
 					WHERE b.idbook = _idbook AND c.state = 1;			
 			END	$$
 			
-			CALL spu_list_commentaries(3);
+			CALL spu_list_commentaries(2);
 			
 	-- VISTA ADMINISTRATIVA
 		-- N°1 list all comentaries
 				DELIMITER $$
-					CREATE PROCEDURE spu_list_all_commentaries( IN _idbook INT)
+					CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
 					BEGIN 
 						SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 							c.commentary, c.score, c.commentary_date
 						FROM commentaries c
 							INNER JOIN	books b ON b.idbook = c.idbook
-							INNER JOIN	users u ON u.idusers = c.idusers;
+							INNER JOIN	users u ON u.idusers = c.idusers
 				END	$$
 			
 				SELECT * FROM commentaries
