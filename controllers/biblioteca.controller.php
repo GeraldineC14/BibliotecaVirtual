@@ -55,16 +55,31 @@ if(isset($_GET['operacion'])){
         echo json_encode($biblioteca->Buscarlibros($_GET['type'], $_GET['look']));   
     }
 
+    //CONTROLADOR VISTA ZOCIAL
+
     if ($_GET['operacion'] == 'listarComentarios'){
         echo json_encode($biblioteca->listarComentarios($_GET['idbook']));
+    }
+
+    if($_GET['operacion'] == 'registrarComentario'){
+
+        $datosSolicitados = [
+            "idbook"        => $_GET['idbook'],
+            "idusers"       => $_GET['idusers'],
+            "commentary"    => $_GET['commentary'],
+            "score"         => $_GET['score']
+        ];
+        
+        $biblioteca->registrarComentario($datosSolicitados);
     }
 
     
 }
 
 //Operación POST
-//CONTROLADOR VISTA ADMIN
+
 if (isset($_POST['operacion'])){
+    //CONTROLADOR VISTA ADMIN
     if($_POST['operacion'] == 'registrarLibros'){
             
         $datosSolicitados = [
@@ -127,7 +142,7 @@ if (isset($_POST['operacion'])){
         
         $biblioteca->registrarLibros($datosSolicitados);
     }
-  
+    
 }
 
 

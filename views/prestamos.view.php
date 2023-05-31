@@ -57,7 +57,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                             <input type="text" id="autor" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="col-md-3 form-group">
-                            <label for="disponibles">Libros Disponibles:</label>
+                            <label for="disponibles">Stock:</label>
                             <input type="number" id="disponibles" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="col-md-3 form-group">
@@ -152,14 +152,14 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         $("#titulo").val(result['descriptions']);
                         $("#autor").val(result['author']);
                         $("#disponibles").val(result['amount']);
-                        $("#nombrecompleto").val('<?php echo $_SESSION['ses_namess'];?> <?php echo $_SESSION['ses_surnames'];?>');
+                        $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess'];?> <?php echo $_SESSION['login']['surnames'];?>');
                     }
                 });
         }
 
         function RegistrarPrestamos(){
             datos['idbook']      = <?php echo $_GET["prestamo"];?>;
-            datos['idusers']     = <?php echo $_SESSION["ses_idusers"];?>;
+            datos['idusers']     = <?php echo $_SESSION['login']["idusers"];?>;
             datos['observation'] = $("#observacion").val();
             datos['loan_date']   = $("#fecha1").val();
             datos['return_date'] = $("#fecha2").val();
