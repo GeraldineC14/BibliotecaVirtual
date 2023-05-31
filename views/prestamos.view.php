@@ -27,7 +27,7 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
             <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link active text-dark" href="./admin/admin.view.php"><?php echo $_SESSION['login']['namess'];?></a></li>
+                <li class="nav-item"><a class="nav-link active text-dark" href="./admin/admin.view.php"><?php echo $_SESSION['ses_namess'];?></a></li>
                     <li class="nav-item"><a class="nav-link active text-dark" href="login.php">Ingresa</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
             </ul>
@@ -152,14 +152,14 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         $("#titulo").val(result['descriptions']);
                         $("#autor").val(result['author']);
                         $("#disponibles").val(result['amount']);
-                        $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess'];?> <?php echo $_SESSION['login']['surnames'];?>');
+                        $("#nombrecompleto").val('<?php echo $_SESSION['ses_namess'];?> <?php echo $_SESSION['ses_surnames'];?>');
                     }
                 });
         }
 
         function RegistrarPrestamos(){
             datos['idbook']      = <?php echo $_GET["prestamo"];?>;
-            datos['idusers']     = <?php echo $_SESSION['login']['idusers'];?>;
+            datos['idusers']     = <?php echo $_SESSION["ses_idusers"];?>;
             datos['observation'] = $("#observacion").val();
             datos['loan_date']   = $("#fecha1").val();
             datos['return_date'] = $("#fecha2").val();
