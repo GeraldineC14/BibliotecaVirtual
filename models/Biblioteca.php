@@ -197,11 +197,27 @@ class Biblioteca extends Conexion{
         }
     }
 
-    public function registrarComentario(){
-        
-    }
+    public function registrarComentario($datosGuardar){
 
+        try{
+            //Preparamos la consulta
+            $consulta = $this->acceso->prepare("CALL spu_register_commentaries(?,?,?,?)");
+
+            //Ejecutamos la consulta
+            $consulta->execute(array(
+                $datosGuardar['idbook'],
+                $datosGuardar['idusers'],
+                $datosGuardar['commentary'],
+                $datosGuardar['score']
+            ));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 }
+
+
 
 
 

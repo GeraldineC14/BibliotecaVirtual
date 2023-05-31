@@ -1,3 +1,7 @@
+<?php
+    session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +14,6 @@
     <link rel="stylesheet" href="../assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
-    <link rel="stylesheet" href="../assets/css/puntuacion.css">
     <!-- LightBox -->
     <link rel="stylesheet" href="../vendor/lightbox/css/lightbox.min.css">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
@@ -57,21 +60,18 @@
                                 </div>
                                 <div class="col-md-2 form-group">
                                     <label for="">Puntuación</label>
-                                    <p class="clasificacion mt-3">
-                                        <input id="radio1-comentario" type="radio" name="estrellas" value="5">
-                                        <label for="radio1-comentario">★</label>
-                                        <input id="radio2-comentario" type="radio" name="estrellas" value="4">
-                                        <label for="radio2-comentario">★</label>
-                                        <input id="radio3-comentario" type="radio" name="estrellas" value="3">
-                                        <label for="radio3-comentario">★</label>
-                                        <input id="radio4-comentario" type="radio" name="estrellas" value="2">
-                                        <label for="radio4-comentario">★</label>
-                                        <input id="radio5-comentario" type="radio" name="estrellas" value="1">
-                                        <label for="radio5-comentario">★</label>
-                                    </p>
+                                    <div id="stars">
+                                        <i class="far fa-star" data-rating="1"></i>
+                                        <i class="far fa-star" data-rating="2"></i>
+                                        <i class="far fa-star" data-rating="3"></i>
+                                        <i class="far fa-star" data-rating="4"></i>
+                                        <i class="far fa-star" data-rating="5"></i>
+                                        <input type="hidden" name="rating" id="rating">
+                                    </div>
+                                    <p class="text-muted" id="rating-text"></p>
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-primary mt-5" type="submit">Enviar</button>
+                                    <a class="btn btn-primary mt-5" >Enviar</a>
                                 </div>
                             </div>     
                         </form>
@@ -102,7 +102,9 @@
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
-        idbook2 = <?php echo $_GET["resumen"];?>
+        idbook2 = <?php echo $_GET["resumen"];?>;
+        idusuario =<?php echo  $_SESSION['login']['idusers']?>
+        
         
         function VistaResumen(){
                 $.ajax({
@@ -119,7 +121,6 @@
                             nuevaFila = 
                                 `
                                 <div class="col-md-6">
-
                                     <h5 class="text-center">${registros['descriptions']}</h3>
                                     <div class="text-center">
                                         <img src="frontpage/${portada}" width="293" height="452">                                    </div>
@@ -166,7 +167,30 @@
                 }
             });
         }
+
+        function registrarComentario(){
+            $.ajax({
+                url: '../controllers/biblioteca.controller.php',
+                type: 'GET',
+                data: {
+                        'operacion':'registrarComentario',
+                        'idbook' : idbook2 ,
+                        'idusers': idusuario ,
+                        'commentary' : 'comentario',
+                        'score' : 'rating'},
+                success: function(result){
+                    //Por definir
+                }
+            });
+        }
             
+        $('#stars i').click(function() {
+            var rating = $(this).data('rating');
+            $('#rating').val(rating);
+            $('#stars i').removeClass('fas').addClass('far');
+            $(this).prevAll().addBack().removeClass('far').addClass('fas');
+            $('#rating-text').text( rating + ' estrella(s).');
+        });
 
 
         //Funciones de carga automatica
