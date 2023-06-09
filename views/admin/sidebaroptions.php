@@ -30,7 +30,7 @@ switch ($permiso){
                  "icon" => "fa-solid fa-house fa-xl"],
       ["menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
                  "icon" => "fa-solid fa-file-signature fa-xl"]
-    ];    
+    ];
   break;
   case "E":
     $opciones = [
@@ -45,10 +45,10 @@ switch ($permiso){
 //Renderizar los ítems del SIDEBAR
 foreach($opciones as $item){
   echo "
-    <hr class='sidebar-divider'>
+  <br>
     <li class='nav-item'>
         <a class='nav-link' href='{$item['url']}'>
-            <i class='{$item['icon']}'></i>
+            <i class='{$item['icon']}'></i>&nbsp;
             <span>{$item['menu']}</span>
         </a>
     </li>

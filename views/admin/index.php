@@ -1,202 +1,276 @@
 <?php
 session_start();
-/*if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
-    header("Location:../login.php");
-}*/
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <title>Libros</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../assets/css/popups.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
-    />
-    <!-- CSS datatable -->
-    <link
-      rel="stylesheet"
-      href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
-    />
-    <!-- LightBox -->
-    <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css" />
-    <!-- DataTable Responsive -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css"
-    />
-    <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>HZG Admin</title>
 
-  <body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-      <!-- SIDEBAR -->
-      <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 toggled" id="accordionSidebar">
-        <!-- Sidebar - Brand -->
-        <div class="container-fluid d-flex flex-column p-0">
-          <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="admin.view.php">
-            <div class="sidebar-brand-icon rotate-n-15">
-              <i class="fas fa-laugh-wink"></i>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../assets/css/navSid.css" />
+        <link rel="stylesheet" href="../../assets/css/popups.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
+        <!-- CSS datatable -->
+        <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+        <!-- LightBox -->
+        <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css" />
+        <!-- DataTable Responsive -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
+        <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"/>
+
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Horacio Zeballos</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <!-- Navbar-->
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Perfil</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Salir</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </nav>
+        <div id="layoutSidenav">
+            <!-- SidebarOptions -->
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <?php require_once 'sidebaroptions.php'; ?>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Bienvenido:</div>
+                        <span>
+                            <?= $_SESSION['login']['namess']?>
+                            <?= $_SESSION['login']['surnames']?>
+                        </span>
+                    </div>
+                </nav>
+                
             </div>
-            <div class="sidebar-brand-text mx-3">
-              <span>HORACIO</span>
-            </div>
-          </a>
-          <!-- OPCIONES QUE DEBEN SER FILTRADAS DE ACUERD AL PERFIL -->
-          <ul class="navbar-nav text-light" id="accordionSidebar">
-            <?php require_once 'sidebaroptions.php'; ?>
-          </ul>
+            <!-- FIN -->
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid mt-3">
+                        <div class="align-content-center">
 
-          <!-- FIN OPCIONES DEL SIDEBAR -->
-
-          <!-- Divider -->
-          <hr class="sidebar-divider d-none d-md-block" />
-          <!-- Botón circular Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
-            <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-          </div>
-        </div>
-      </nav>
-      <!-- FIN Sidebar -->
-
-      <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-          <div class="container-fluid">
-            <!-- Sidebar Toggle (Topbar) -->
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                <i class="fa fa-bars"></i>
-            </button>  
-            <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
-                          <font face="impact"><h2 >Módulo de Libros</h2></font>
-                        </form>
-                        <ul class="navbar-nav flex-nowrap ml-auto">
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow">
-                                    <!-- NOMBRE USUARIO & IMAGEN -->
-                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small"><?= $_SESSION['login']['namess']?> <?= $_SESSION['login']['surnames']?> </span>
-                                        <img class="border rounded-circle img-profile" src="../../assets/img/profile.png" />
-                                    </a>
-                                    <!--  -->
-
-                                    <!-- PERFIL & SALIR -->
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                        <a class="dropdown-item" href="../admin/index.php?view=perfil.view.php">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            &nbsp;Perfil
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            &nbsp;Salir
-                                        </a>
+                            <ol class="breadcrumb mb-4">
+                                <li class=" alert-dismissible active">Biblioteca Virtual - Horacio Zeballo Gamez</li>
+                            </ol>
+                        </div>
+                        <!-- Sección Dashboard -->
+                        <div class="row">
+                            <!-- Libros -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./libros.view.php">
+                                                    <div class="text-s font-weight-bold text-success text-uppercase mb-1">
+                                                        Libros</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">502</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-book fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!--  -->
                                 </div>
-                            </li>
-                        </ul>  
-                        </div>     
-          </nav>
-          <!-- Begin Page Content -->
-          <div class="container-fluid" id="content-dinamics"></div>
-          <!-- /.container-fluid -->
-          <!-- Fin contenido dinámico -->
-        </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="bg-white sticky-footer">
-          <div class="container my-auto">
-            <div class="text-center my-auto copyright">
-              <span>Copyright © IA Tech 2023</span>
+                            </div>
+                            <!-- Docentes -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./docente.view.php">
+                                                    <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
+                                                        Docentes</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">54</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-user-tie fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Estudiantes -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./externo.view.php">
+                                                    <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
+                                                        Usuarios</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">657</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-book-open-reader fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Prestamos -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-danger shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./prestamos.view.php">
+                                                    <div class="text-s font-weight-bold text-danger text-uppercase mb-1">
+                                                        Prestamos</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">18</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-truck-ramp-box fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Categoria -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./categoria.view.php">
+                                                    <div class="text-s font-weight-bold text-success text-uppercase mb-1">
+                                                        Categorias</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">54</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-clipboard fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Subcategoria -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./subcategoria.view.php">
+                                                    <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
+                                                        Subcategoria</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">64</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-list fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Autores -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters success-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./autor.view.php">
+                                                    <div class="text-s font-weight-bold text-success text-uppercase mb-1">
+                                                        Autores</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-dark">115</div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-user fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Configuración -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-dark shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <a href="./perfil.view.php">
+                                                    <div class="text-s font-weight-bold text-dark text-uppercase mb-1">
+                                                        CONFIGURACION
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-gears fa-2x text-gray-550"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Prestamos de Libros -->
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Prestamo de Libros
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <!-- Descarga de Libros -->
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Descarga de Libros
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
-          </div>
-        </footer>
-        <!-- End of Footer -->
-      </div>
-      <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <script
-      src="https://kit.fontawesome.com/1380163bda.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="../../assets/js/jquery.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/chart.min.js"></script>
-    <script src="../../assets/js/bs-init.js"></script>
-    <script src="../../assets/js/jquery.easing.min.js"></script>
-    <script src="../../assets/js/theme.js"></script>
-
-    <!-- font -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/7a0163df78.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Boostrap 4.6 -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-      integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Datatable -->
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <!-- DataTable Responsive -->
-    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-    <!-- SweetAlert2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        //Crearemos una función que obtenga la URL(vista)
-        function getURL() {
-          //1. Obtener la URL
-          const url = new URL(window.location.href);
-          //2. Obtener el valor enviado por la URL
-          const vista = url.searchParams.get("view");
-          //3. Crear un objeto que referencia contenedor
-          const contenedor = document.querySelector("#content-dinamics");
-
-          //Cuando el usuario elige una opción...
-          if (vista != null) {
-            fetch(vista)
-              .then((respuesta) => respuesta.text())
-              .then((datos) => {
-                contenedor.innerHTML = datos;
-
-                //Necesitamos recorrer todas las etiquetas <script> y "reactivarlas"
-                const scriptsTag = contenedor.getElementsByTagName("script");
-                for (i = 0; i < scriptsTag.length; i++) {
-                  eval(scriptsTag[i].innerText);
-                }
-              });
-          }
-        }
-
-        getURL();
-      });
-    </script>
-  </body>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="../../assets/js/navSid.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="../../assets/js/chart-area-demo.js"></script>
+        <script src="../../assets/js/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
 </html>

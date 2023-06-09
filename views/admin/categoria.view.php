@@ -1,7 +1,5 @@
 <?php
-
 require_once 'permisos.php'; 
-
 /*if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     header("location:login.php");
 }*/
@@ -10,7 +8,7 @@ require_once 'permisos.php';
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
-                
+                    //! Colocaremos nuestro SIDEBAR & HEADER 
                 <!-- FIN PERFIL -->
 
                 <div class="container-fluid">
