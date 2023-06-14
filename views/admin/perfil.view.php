@@ -6,7 +6,8 @@ require_once 'permisos.php';
     <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
         <!-- INICIO PERFIL -->
-                
+        <?php require_once 'sidebaroptions.php'; ?>
+
         <!-- FIN PERFIL -->
 
         <div class="container">

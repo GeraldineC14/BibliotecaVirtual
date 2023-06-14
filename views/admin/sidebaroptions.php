@@ -15,13 +15,13 @@ switch ($permiso){
       ["menu" => "Libros", "url" => "index.php?view=libros.view.php",
                  "icon" => "fa-solid fa-book fa-xl"],
       ["menu" => "Categoría", "url" => "index.php?view=categoria.view.php",
-                 "icon" => "fa-solid fa-book fa-xl"],
+                 "icon" => "fas fa-clipboard fa-xl"],
       ["menu" => "Sub Categoría", "url" => "index.php?view=subcategoria.view.php",
-                 "icon" => "fa-solid fa-book fa-xl"],
+                 "icon" => "fas fa-list fa-xl"],
       ["menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
-                 "icon" => "fa-solid fa-file-signature fa-xl"],
+                 "icon" => "fas fa-truck-ramp-box fa-xl"],
       ["menu" => "Usuarios", "url" => "index.php?view=docente.view.php",
-                 "icon" => "fa-solid fa-user-plus fa-xl"]
+                 "icon" => "fas fa-book-open-reader fa-xl"]
     ];
   break;
   case "D":
@@ -29,7 +29,7 @@ switch ($permiso){
       ["menu" => "Inicio", "url" => "index.php?view=admin.view.php",
                  "icon" => "fa-solid fa-house fa-xl"],
       ["menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
-                 "icon" => "fa-solid fa-file-signature fa-xl"]
+                 "icon" => "fas fa-truck-ramp-box fa-xl"]
     ];
   break;
   case "E":
@@ -37,7 +37,7 @@ switch ($permiso){
       ["menu" => "Inicio", "url" => "index.php?view=admin.view.php",
                  "icon" => "fa-solid fa-house fa-xl"],
       ["menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
-                 "icon" => "fa-solid fa-file-signature fa-xl"]
+                 "icon" => "fas fa-truck-ramp-box fa-xl"]
     ];
   break;
 }

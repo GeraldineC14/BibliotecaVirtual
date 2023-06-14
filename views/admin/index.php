@@ -25,11 +25,6 @@ session_start();
         <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
 
 
-
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"/>
-
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -44,7 +39,8 @@ session_start();
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">Perfil</a></li>
+                            <li><a class="dropdown-item" href="../../index.php">Biblioteca</a></li>
+                            <li><a class="dropdown-item" href="./perfil.view.php">Perfil</a></li>
                             <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item" href="#!">Salir</a></li>
                         </ul>
@@ -69,7 +65,6 @@ session_start();
                         </span>
                     </div>
                 </nav>
-                
             </div>
             <!-- FIN -->
             <div id="layoutSidenav_content">
@@ -81,6 +76,8 @@ session_start();
             </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src=".././../assets/js/navSid.js"></script>
         <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/bootstrap.min.js"></script>
@@ -95,7 +92,7 @@ session_start();
   <!-- DataTable Responsive -->
   <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
   <!-- SweetAlert2 -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
         <script>
             document.addEventListener("DOMContentLoaded", () => {
             //Crearemos una función que obtenga la URL(vista)
