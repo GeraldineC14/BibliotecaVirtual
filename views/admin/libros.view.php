@@ -319,21 +319,21 @@ require_once 'permisos.php';
                                 <td>${registro['state']}</td>
                                 <td>${registro['locationresponsible']}</td>
                                 <td>
-                                    <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}'> 
+                                    <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}' style="text-decoration: none;"> 
                                     <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
                                     </a>
                                     <a href='index.php?view=edit-pdf.php' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
                                 </td>
 
                                 <td>
-                                    <a href='../frontpage/${portada}'
+                                    <a href='../frontpage/${portada}' style="text-decoration: none;"
                                         data-idbook='${registro['idbook']}'
                                         data-lightbox='demo'
                                         data-title='${registro['descriptions']}'
                                         title='Mostrar portada del libro'>
                                         <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='index.php?view=edit-frontpage.php' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
+                                    <a href='index.php?view=edit-frontpage.php'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
                                 </td>
                                 <td>
                                     <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
