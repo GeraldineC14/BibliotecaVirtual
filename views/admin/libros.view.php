@@ -322,7 +322,7 @@ require_once 'permisos.php';
                                     <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}'> 
                                     <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
                                     </a>
-                                    <a href='./edit-pdf.php' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
+                                    <a href='index.php?view=edit-pdf.php' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
                                 </td>
 
                                 <td>
@@ -333,7 +333,7 @@ require_once 'permisos.php';
                                         title='Mostrar portada del libro'>
                                         <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='./edit-frontpage.php' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
+                                    <a href='index.php?view=edit-frontpage.php' data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color: #1a4a9e;"></i></a>
                                 </td>
                                 <td>
                                     <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>

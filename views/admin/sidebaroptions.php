@@ -5,10 +5,13 @@ $permiso = $_SESSION['login']['accesslevel'];
 
 //2. Array con los permisos por cada NIVEL DE ACCESO
 $opciones = [];
+$opciones2 = [];
 
 //A - D - E
 switch ($permiso){
   case "A":
+
+    //ADMIN/sidebar
     $opciones = [
       ["menu" => "Inicio", "url" => "index.php?view=admin.view.php",
                  "icon" => "fa-solid fa-house fa-xl"],
@@ -23,6 +26,13 @@ switch ($permiso){
       ["menu" => "Usuarios", "url" => "index.php?view=docente.view.php",
                  "icon" => "fas fa-book-open-reader fa-xl"]
     ];
+
+    //Vista de edit
+    $opciones2 = [
+      ["menu2" => "PDF", "url2" => "index.php?view=edit-pdf.php"],
+      ["menu2" => "Portada", "url2" => "index.php?view=edit-frontpage.php"]
+    ];
+
   break;
   case "D":
     $opciones = [
