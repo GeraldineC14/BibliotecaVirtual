@@ -330,9 +330,29 @@
 							idsubcategorie 	= _idsubcategorie,
 							subcategoryname	= _subcategoryname
 						WHERE idsubcategorie = _idsubcategorie; 	
+				END $$	
+				
+		-- N°12 Counter dashboard/books,categorie, sub categorie
+			DELIMITER $$
+			CREATE PROCEDURE spu_list_dashboard_books()
+				SELECT 	COUNT(idbook) AS total_libros , 
+					(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
+					(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
+				FROM books
+			END $$
+			
+			CALL spu_list_dashboard_books();
+			
+			-- N°12.1 Counter dashboard/users, docentes
+				DELIMITER $$
+				CREATE PROCEDURE spu_list_dashboard_users()
+
+					SELECT  COUNT(idusers) AS total_usuarios,
+						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
+					FROM users
 				END $$
-		
-		
+
+				CALL spu_list_dashboard_users();
 
 	-- VISTA PRINCIPAL:
 		-- N°1 list book
@@ -584,6 +604,21 @@
 			
 			CALL spu_loans_register('1','25','muy poco','2023-05-26','2023-05-27','1');
 			
+		-- N°4 list loans by user	
+			DELIMITER $$
+			CREATE PROCEDURE spu_listloans_user(IN _idusers INT)
+			BEGIN
+				SELECT 	ls.idloan,bs.idbook,ls.idusers,
+					bs.descriptions,
+					ls.loan_date,
+					ls.return_date,
+					observation
+				FROM loans ls
+				INNER JOIN books bs ON bs.idbook = ls.idbook
+				WHERE idusers = _idusers;
+			END $$
+
+			CALL spu_listloans_user(1);	
 				
 -- ZONA SOCIAL:
 	-- tb. social
@@ -623,12 +658,6 @@
 			CALL spu_register_commentaries('1','23','Buen contenido.','5');
 			CALL spu_register_commentaries('2','3','Muy buen contenido del libro','5')
 			
-			SELECT * FROM commentaries;
-			
-			SELECT * FROM users	
-			
-			
-			
 		-- N°2 List comments
 			DELIMITER $$
 				CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
@@ -645,76 +674,20 @@
 			
 	-- VISTA ADMINISTRATIVA
 		-- N°1 list all comentaries
-				DELIMITER $$
-					CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
-					BEGIN 
-						SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
-							c.commentary, c.score, c.commentary_date
-						FROM commentaries c
-							INNER JOIN	books b ON b.idbook = c.idbook
-							INNER JOIN	users u ON u.idusers = c.idusers
-				END	$$
-			
-				SELECT * FROM commentaries
+			DELIMITER $$
+				CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
+				BEGIN 
+					SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
+						c.commentary, c.score, c.commentary_date
+					FROM commentaries c
+						INNER JOIN	books b ON b.idbook = c.idbook
+						INNER JOIN	users u ON u.idusers = c.idusers
+			END	$$
 		
-	
--- DATA:
--- Obras chinchanas:
-INSERT INTO BooksChinchanos (descriptions, author) VALUES('Tu nombre a los vientos','Hugo Medrano Medina')
--- category 1 data:
-SELECT * FROM bookschinchanos;
+			SELECT * FROM commentaries
 
-
-
-
-DELIMITER $$
-CREATE PROCEDURE spu_list_dashboard_books()
-	SELECT 	COUNT(idbook) AS total_libros , 
-		(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
-		(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
-	FROM books
-END $$
-
-CALL spu_list_dashboard_books()
-
-DELIMITER $$
-CREATE PROCEDURE spu_list_dashboard_users()
-
-	SELECT  COUNT(idusers) AS total_usuarios,
-		(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
-	FROM users
-END $$
-
-CALL spu_list_dashboard_users()
-
-SELECT * FROM users
-
-SELECT * FROM books
-
-SELECT * FROM categories
-
-SELECT * FROM loans
-
-DELIMITER $$
-CREATE PROCEDURE spu_listloans_user(IN _idusers INT)
-BEGIN
-	SELECT 	bs.descriptions,
-		ls.loan_date,
-		ls.return_date,
-		observation
-	FROM loans ls
-	INNER JOIN books bs ON bs.idbook = ls.idbook
-	WHERE idusers = _idusers;
-END $$
-
-CALL spu_listloans_user(25);
-
-
-
-	
-
-
-
+-- DATA:	
+-- categoria 1 data:
 CALL spu_books_register ('1','1','02','Probalidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar');
 CALL spu_books_register  ('1','1','02','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar');
 CALL spu_books_register  ('1','1','02','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar');

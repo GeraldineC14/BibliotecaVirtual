@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.27-MariaDB : Database - library
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -345,10 +345,10 @@ CREATE TABLE `categories` (
 insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`) values 
 (1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08'),
 (2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06'),
-(3,'Biibliografia, literatura Latina','2023-03-21 10:37:22'),
+(3,'Bibliografia, literatura Latina','2023-03-21 10:37:22'),
 (4,'edit','2023-05-27 09:45:28'),
-(5,'PRUEBA USO','2023-05-27 09:50:08'),
-(6,'PRUEBA CON','2023-05-27 11:05:59');
+(5,'PRUEBA sidebar','2023-05-27 09:50:08'),
+(6,'PRUEBA CON si','2023-05-27 11:05:59');
 
 /*Table structure for table `commentaries` */
 
@@ -430,7 +430,7 @@ insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`r
 (6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46'),
 (7,3,'Obras Literarias','2023-03-22 08:16:46'),
 (8,3,'Lenguaje y Literatura','2023-03-22 08:16:46'),
-(9,6,'PRUEBA SUBCATEGORIA EDIT','2023-05-27 13:10:24');
+(9,6,'prueba sidebar','2023-05-27 13:10:24');
 
 /*Table structure for table `users` */
 
@@ -464,7 +464,7 @@ insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accessle
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_binarios_obtain`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_binarios_obtain`(
 		IN _idbook INT
 		)
 BEGIN
@@ -480,7 +480,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_bookChinchanos_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_bookChinchanos_list`()
 BEGIN
 			SELECT  idbookChinchano, descriptions, author, state, url, frontpage
 				FROM BooksChinchanos
@@ -494,7 +494,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_bookscategory_list`(IN `_idsubcategorie` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_bookscategory_list`(IN `_idsubcategorie` INT)
 BEGIN
 		SELECT  b.descriptions, b.author,b.frontpage
 			FROM books b
@@ -509,7 +509,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_booksmainview_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksmainview_list`()
 BEGIN
 				SELECT  idbook,descriptions,author,frontpage
 					FROM books
@@ -523,7 +523,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_bookssubcategory_list`(IN `_idsubcategorie` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_bookssubcategory_list`(IN `_idsubcategorie` INT)
 BEGIN
 			SELECT  b.idbook,b.descriptions, b.author,b.frontpage
 				FROM books b
@@ -538,7 +538,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_booksummaries_list`(IN _idbook INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksummaries_list`(IN _idbook INT)
 BEGIN
 				SELECT  idbook,summary, author, frontpage,descriptions, url, amount
 					FROM books 
@@ -552,7 +552,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_delete`(IN `_idbook` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_delete`(IN `_idbook` INT)
 BEGIN
 		UPDATE books SET state2 = '0' WHERE idbook = _idbook;
 	END */$$
@@ -564,7 +564,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_list`()
 BEGIN
 			SELECT  b.idbook, b.idcategorie, ca.categoryname, c.subcategoryname, b.codes, b.amount, b.descriptions,
 				b.author, b.state, b.locationresponsible, b.url, b.frontpage
@@ -581,7 +581,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_lookfor`(IN `_type` CHAR(1) CHARSET utf8mb4, IN `_look` VARCHAR(150) CHARSET utf8mb4)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_lookfor`(IN `_type` CHAR(1) CHARSET utf8mb4, IN `_look` VARCHAR(150) CHARSET utf8mb4)
 BEGIN
 			if _type = "n" then
 				SELECT idbook,frontpage, descriptions, author
@@ -603,7 +603,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_obtain`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_obtain`(
 		IN _idbook INT
 		)
 BEGIN
@@ -620,7 +620,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_register`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_register`(
 				IN _idcategorie		INT,
 				IN _idsubcategorie	INT,
 				IN _amount 		VARCHAR(30),
@@ -663,7 +663,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_books_update`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_update`(
 			IN _idbook		INT,
 			IN _idcategorie		INT,
 			IN _idsubcategorie	INT,
@@ -692,7 +692,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_categories_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_categories_list`()
 BEGIN
 				SELECT idcategorie, categoryname,registrationdate
 					FROM categories;
@@ -705,7 +705,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_edit_categorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_categorie`(
 					IN _idcategorie INT,
 					IN _categoryname VARCHAR(50)
 				)
@@ -723,7 +723,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_edit_subcategorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_subcategorie`(
 						IN _idcategorie INT,
 						IN _idsubcategorie INT,
 						IN _subcategoryname VARCHAR(50)
@@ -737,13 +737,32 @@ BEGIN
 				END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_listloans_user` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listloans_user` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listloans_user`(IN _idusers INT)
+BEGIN
+				SELECT 	ls.idloan,bs.idbook,ls.idusers,
+					bs.descriptions,
+					ls.loan_date,
+					ls.return_date,
+					observation
+				FROM loans ls
+				INNER JOIN books bs ON bs.idbook = ls.idbook
+				WHERE idusers = _idusers;
+			END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_list_all_commentaries` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_list_all_commentaries` */;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_list_all_commentaries`( IN _idbook INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_all_commentaries`( IN _idbook INT)
 BEGIN 
 						SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 							c.commentary, c.score, c.commentary_date
@@ -759,7 +778,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_list_commentaries`( IN _idbook INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_commentaries`( IN _idbook INT)
 BEGIN 
 					SELECT b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 						c.commentary, c.score, c.commentary_date
@@ -770,13 +789,40 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_list_dashboard_books` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_list_dashboard_books` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_books`()
+SELECT 	COUNT(idbook) AS total_libros , 
+					(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
+					(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
+				FROM books
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_list_dashboard_users` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_list_dashboard_users` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_users`()
+SELECT  COUNT(idusers) AS total_usuarios,
+						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
+					FROM users
+				END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_loans_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_loans_list` */;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_loans_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`()
 BEGIN
 					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
 						s.observation, s.loan_date, s.return_date, s.amount, s.state
@@ -793,7 +839,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_loans_register`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_register`(
 					IN _idbook		INT,
 					IN _idusers		INT,
 					IN _observation		VARCHAR(100),
@@ -814,7 +860,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_mainviewcategories_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_mainviewcategories_list`()
 BEGIN
 			SELECT s.idcategorie, b.idsubcategorie, s.categoryname, b.subcategoryname
 				FROM subcategories b
@@ -829,7 +875,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_obtain_categorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_categorie`(
 					IN _idcategorie INT
 				)
 BEGIN
@@ -845,7 +891,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_obtain_subcategorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_subcategorie`(
 						IN _idsubcategorie INT
 					)
 BEGIN
@@ -861,7 +907,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_productos_obtener`(IN `_idproducto` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_productos_obtener`(IN `_idproducto` INT)
 BEGIN
 SELECT idproducto, idclasificacion, idmarca, descripcion, esnuevo, numeroserie, precio
 	FROM productos
@@ -875,7 +921,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_register_categorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_categorie`(
 					IN _categoryname VARCHAR(50)
 				)
 BEGIN
@@ -890,7 +936,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_register_commentaries`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_commentaries`(
 					IN _idbook 		INT,
 					IN _idusers		INT,
 					IN _commentary	VARCHAR(250),
@@ -908,7 +954,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_register_subcategorie`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_subcategorie`(
 					IN _idcategorie		INT,
 					IN _subcategoryname 	VARCHAR(50)
 				)
@@ -924,7 +970,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_subcategories2_list`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories2_list`(
 		)
 BEGIN
 			SELECT idsubcategorie, subcategoryname
@@ -938,7 +984,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_subcategories3_list`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories3_list`(
 			)
 BEGIN
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
@@ -953,7 +999,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_subcategories_list`( IN _idcategorie INT
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories_list`( IN _idcategorie INT
 		)
 BEGIN
 			SELECT idsubcategorie, subcategoryname
@@ -968,7 +1014,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_usersloans_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usersloans_list`()
 BEGIN
 				SELECT idusers, CONCAT(namess, ' ' , surnames)as Users
 				FROM users;
@@ -981,7 +1027,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_disable`(IN _idusers INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_disable`(IN _idusers INT)
 BEGIN
 			UPDATE users SET state = '0' WHERE idusers = _idusers;
 		END */$$
@@ -993,7 +1039,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_list`()
 BEGIN
 			SELECT  idusers, surnames, namess, email, accesslevel
 				FROM users
@@ -1007,12 +1053,12 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_login`(IN _email VARCHAR(100))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_login`(IN _email VARCHAR(100))
 BEGIN
-			SELECT idusers, surnames, namess, email, accesskey, accesslevel
-				FROM users
-				WHERE email = _email AND state = '1';
-		END */$$
+				SELECT idusers, surnames, namess, email, accesskey, accesslevel,state
+					FROM users
+					WHERE email = _email AND state = '1';
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_obtain` */
@@ -1021,7 +1067,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_obtain`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_obtain`(
 		IN _idusers INT
 		)
 BEGIN
@@ -1037,7 +1083,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_register`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_register`(
 			IN _surnames		VARCHAR(30),
 			IN _namess		VARCHAR(30),
 			IN _email		VARCHAR(100),
@@ -1056,7 +1102,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_users_update`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(
 			IN _idusers	INT,
 			IN _namess	VARCHAR(30),
 			IN _surnames	VARCHAR(100),
@@ -1082,7 +1128,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE PROCEDURE `spu_validate_email`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_email`(
 					IN _email VARCHAR(100)
 				)
 BEGIN

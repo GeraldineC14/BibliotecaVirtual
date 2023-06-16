@@ -1,6 +1,5 @@
 <?php
-require_once 'permisos.php'; 
- 
+require_once 'permisos.php';  
 ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -34,11 +33,36 @@ require_once 'permisos.php';
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <div class="pdf mt-2 ml-5">
-                                    <img src="../../views/frontpage/80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg" width="50%" height="450">
+                                <div class="pdf mt-2 ml-5 editportada">
+                                    <!-- Aquí se cargará las portadas por AJAX -->
                                 </div>
                             </div>
                         </div>
                     </main>
                 </div>
+                <script>
+                    $(document).ready(function(){
+                        idbook = <?php echo $_POST['idbook'];?>;
+
+                        function getBinarios(){
+                            $.ajax({
+                                url:'../../controllers/biblioteca.controller.php',
+                                type: 'GET',
+                                data: {'operacion':'getBinarios','idbook':idbook},
+                                success:function(result){
+                                    let registros = JSON.parse(result);
+                                    let nuevaFila = ``;
+                                    portada = (registros['frontpage']== null) ? 'noimagen.png' :registros['frontpage'];
+                                    nuevaFila = `
+                                        <img src="../../views/frontpage/${portada}" width="50%" height="450">
+                                    `;
+                                    $(".editportada").append(nuevaFila);
+                                }
+                            });      
+                        }
+
+                        //Funciones de carga automatica
+                        getBinarios();
+                    });
+                </script>
 

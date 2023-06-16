@@ -2,6 +2,7 @@
 require_once 'permisos.php'; 
  
 ?>
+
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -216,32 +217,6 @@ require_once 'permisos.php';
                                 </div>
                             </div>
                         </div>
-                        <!-- Zona Modal editar PORTADA-->
-                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-portada-editar" tabindex="-1"
-                            aria-labelledby="titulo-modal-portada-editar" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-primary text-light">
-                                        <h5 class="modal-title" id="titulo-modal-portada-editar">Modificar Portada</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span class="text-light" aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" id="formulario-portada" autocomplete="off">
-                                            <!-- Creación de controles -->
-                
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" id="cancelar-modal-portada" class="btn btn-sm btn-secondary" class="close"
-                                            data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" id="guardar-portada-editar"
-                                            class="btn btn-sm btn-primary">Modificar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -333,7 +308,7 @@ require_once 'permisos.php';
                                         title='Mostrar portada del libro'>
                                         <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='index.php?view=edit-frontpage.php'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
+                                    <a href='#'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
                                 </td>
                                 <td>
                                     <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
@@ -608,6 +583,22 @@ require_once 'permisos.php';
             }
         });
 
+        //Por verificar
+        $("#tabla-libros tbody").on("click", ".editarportada", function () {
+            let idbook = $(this).data("idbook");
+                $.ajax({
+                    url:'edit-frontpage.php',
+                    type: 'POST',
+                    data: {idbook: idbook},
+                    success: function(result){
+                        window.location.href = 'index.php?view=edit-frontpage.php';
+                        idbook = $(this).data("idbook");
+                        .+
+
+                    }
+                });
+        });
+
         $("#tabla-libros tbody").on("click", ".editar", function () {
             idbook = $(this).data("idbook");
             $.ajax({
@@ -639,66 +630,6 @@ require_once 'permisos.php';
             });
         });
         
-        $("#tabla-libros tbody").on("click", ".editarportada", function () {
-            idbook = $(this).data("idbook");
-            $.ajax({
-                url: '../../controllers/biblioteca.controller.php',
-                type: 'GET',
-                data: { 'operacion': 'getBinarios', 'idbook': idbook },
-                success: function (result) {
-                    let registros = JSON.parse(result);
-                    let nuevaFila = ``;
-                    portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
-                    nuevaFila = `
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label for="frontpage">Portada</label>
-                                    <input id="frontpage" class="form-control" type="file" name="frontpage">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <img class="img-thumbnail" src="../frontpage/${portada}" width="250">   
-                            </div>
-                        `;
-                    $("#formulario-portada").append(nuevaFila);
-                    $("#modal-portada-editar").modal("show");
-                }
-    
-            });
-        });
-
-
-
-        // MODAL EDITAR PDF
-        $("#tabla-libros tbody").on("click", ".editarpdf", function () {
-                    idbook = $(this).data("idbook");
-                    $.ajax({
-                        url: '../../controllers/biblioteca.controller.php',
-                        type: 'GET',
-                        data: { 'operacion': 'getBinarios', 'idbook': idbook },
-                        success: function (result) {
-                            let registros = JSON.parse(result);
-                            let nuevaFila = ``;
-                            pdf = (registros['url'] == null) ? 'sin-pdf.png' : registros['url'];
-                            nuevaFila = `
-
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label for="pdf">PDF</label>
-                                    <input id="pdf" class="form-control" type="file" name="pdf">
-                                </div>
-                            </div>
-                            <div class="pdf">
-                                <iframe src='../PDF/${pdf}' width='100%' height='450'></iframe>
-                            </div> 
-                    
-                    `;
-                            $("#formulario-pdf").append(nuevaFila);
-                            $("#modal-pdf-editar").modal("show");
-                        }
-
-                    });
-                });
 
         //Eventos
         $("#mostrar-modal-registro").click(abrirModalRegistro);

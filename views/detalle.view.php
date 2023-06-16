@@ -103,8 +103,7 @@
 <script>
     $(document).ready(function(){
         idbook2 = <?php echo $_GET["resumen"];?>;
-        idusuario = <?php echo  $_SESSION['login']['idusers']?>
-        
+        idusuario = <?php echo  $_SESSION['login']['idusers']?>    
         
         function VistaResumen(){
                 $.ajax({

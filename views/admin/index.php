@@ -19,7 +19,7 @@ session_start();
         <!-- CSS datatable -->
         <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
         <!-- LightBox -->
-        <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css" />
+        <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css">
         <!-- DataTable Responsive -->
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
         <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
@@ -91,6 +91,8 @@ session_start();
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <!-- DataTable Responsive -->
   <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+  <!-- Lightbox -->
+  <script src="../../vendor/lightbox/js/lightbox.min.js"></script>
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
         <script>
