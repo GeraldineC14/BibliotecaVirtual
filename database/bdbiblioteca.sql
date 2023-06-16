@@ -623,7 +623,7 @@
 			CALL spu_register_commentaries('1','23','Buen contenido.','5');
 			CALL spu_register_commentaries('2','3','Muy buen contenido del libro','5')
 			
-			SELECT * FROM commentaries
+			SELECT * FROM commentaries;
 			
 			SELECT * FROM users	
 			
@@ -662,7 +662,58 @@
 -- Obras chinchanas:
 INSERT INTO BooksChinchanos (descriptions, author) VALUES('Tu nombre a los vientos','Hugo Medrano Medina')
 -- category 1 data:
-SELECT * FROM books;
+SELECT * FROM bookschinchanos;
+
+
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_list_dashboard_books()
+	SELECT 	COUNT(idbook) AS total_libros , 
+		(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
+		(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
+	FROM books
+END $$
+
+CALL spu_list_dashboard_books()
+
+DELIMITER $$
+CREATE PROCEDURE spu_list_dashboard_users()
+
+	SELECT  COUNT(idusers) AS total_usuarios,
+		(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
+	FROM users
+END $$
+
+CALL spu_list_dashboard_users()
+
+SELECT * FROM users
+
+SELECT * FROM books
+
+SELECT * FROM categories
+
+SELECT * FROM loans
+
+DELIMITER $$
+CREATE PROCEDURE spu_listloans_user(IN _idusers INT)
+BEGIN
+	SELECT 	bs.descriptions,
+		ls.loan_date,
+		ls.return_date,
+		observation
+	FROM loans ls
+	INNER JOIN books bs ON bs.idbook = ls.idbook
+	WHERE idusers = _idusers;
+END $$
+
+CALL spu_listloans_user(25);
+
+
+
+	
+
+
 
 CALL spu_books_register ('1','1','02','Probalidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar');
 CALL spu_books_register  ('1','1','02','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar');
