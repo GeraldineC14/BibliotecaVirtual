@@ -42,7 +42,7 @@ session_start();
                             <li><a class="dropdown-item" href="../../index.php">Biblioteca</a></li>
                             <li><a class="dropdown-item" href="./perfil.view.php">Perfil</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Salir</a></li>
+                            <li><a class="dropdown-item" href="../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a></li>
                         </ul>
                     </li>
                 </ul>

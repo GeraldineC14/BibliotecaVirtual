@@ -55,7 +55,8 @@ session_start();
 									<a href="../index.php"  class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
-									<a href="register.php" class="form-link">No tienes una cuenta?</a>
+									<a href="./forgot.php" class="form-link">Olvido su contraseña?</a>
+									<a href="./register.php" class="form-link">No tienes una cuenta?</a>
 								</div>
 							</form>
 						</div>
