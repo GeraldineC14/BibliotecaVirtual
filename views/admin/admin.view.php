@@ -15,7 +15,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./libros.view.php">
+                                            <a href="./libros.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                     Libros</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">502</div>
@@ -34,7 +34,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./docente.view.php">
+                                            <a href="./docente.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                     Docentes</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">54</div>
@@ -53,7 +53,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./externo.view.php">
+                                            <a href="./externo.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                     Usuarios</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">657</div>
@@ -72,7 +72,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./prestamos.view.php">
+                                            <a href="./prestamos.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-info text-uppercase mb-1">
                                                     Prestamos</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
@@ -91,7 +91,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./categoria.view.php">
+                                            <a href="./categoria.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                     Categorias</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">54</div>
@@ -110,7 +110,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./subcategoria.view.php">
+                                            <a href="./subcategoria.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                     Subcategoria</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">64</div>
@@ -129,7 +129,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters success-items-center">
                                         <div class="col mr-2">
-                                            <a href="./autor.view.php">
+                                            <a href="./autor.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                     Autores</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">115</div>
@@ -148,7 +148,7 @@ require_once 'permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./perfil.view.php">
+                                            <a href="./perfil.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-dark text-uppercase mb-1">
                                                     CONFIGURACION
                                                 </div>

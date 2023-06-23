@@ -132,8 +132,8 @@
                                     </p>
                                     <div class="text-center">
                                         <div class="btn-group" role="group">
-                                        <a href="PDF/${pdf}" target="_blank" class="btn btn-success" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
-                                        <a href="PDF/${pdf}" download="${registros['descriptions']}.pdf" class="btn btn-warning" type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                                        <a href="PDF/${pdf}" target="_blank" class="btn btn-success mr-3" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
+                                        <a href="PDF/${pdf}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
                                         <a href='prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                                         </div>
                                     </div>
