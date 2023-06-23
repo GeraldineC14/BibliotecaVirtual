@@ -11,21 +11,26 @@ session_start();
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>HZG Admin</title>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+        <!-- CDN de Bootstrap -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"/>
+        <!-- Color Siderbar -->
         <link rel="stylesheet" href="../../assets/css/navSid.css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" />
-        <!-- CSS datatable -->
+        <!-- Bootstrap min -->
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+        <!-- CDN datatable -->
         <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
         <!-- LightBox -->
         <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css">
         <!-- DataTable Responsive -->
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
+        <!-- Librería Select2 -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <!-- Icono de la pestaña -->
         <link rel="shortcut icon" href="../../assets/img/Insignia.ico" />
-
-
+        <!-- Título de los Módulos -->
+        <link rel="stylesheet" href="../../assets/css/title.css">
     </head>
+
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
@@ -76,16 +81,19 @@ session_start();
             </div>
         </div>
 
+        <!-- Script de Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src=".././../assets/js/navSid.js"></script>
+        <!-- Script de Fontawesome -->
         <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
+        <!-- Script de Siderbar -->
+        <script src=".././../assets/js/navSid.js"></script>
+        <!-- Script jquery -->
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/bootstrap.min.js"></script>
         <script src="../../assets/js/chart.min.js"></script>
         <script src="../../assets/js/bs-init.js"></script>
         <script src="../../assets/js/jquery.easing.min.js"></script>
         <script src="../../assets/js/theme.js"></script>
-        <script defer src="https://kit.fontawesome.com/7a0163df78.js" crossorigin="anonymous"></script>
  
   <!-- Datatable -->
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

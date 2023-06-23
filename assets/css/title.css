@@ -1,0 +1,19 @@
+.title-tablas{
+  color: rgb(253, 254, 254 );
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold; font-size: 1.5rem;
+  background-color: rgba(23, 32, 42);
+  border-radius: 5px;
+  justify-content: center;
+  padding: 5px;
+}
+
+.title-tablas2{
+  color: rgb(253, 254, 254 );
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold; font-size: 1.5rem;
+  background-color: rgba(23, 32, 42);
+  border-radius: 5px;
+  justify-content: center;
+  padding: 5px;
+}
