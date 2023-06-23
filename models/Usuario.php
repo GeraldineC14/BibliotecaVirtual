@@ -1,9 +1,7 @@
 <?php
-
 require_once 'Conexion.php';
 
-class Usuario extends Conexion{
-
+class Usuario extends Conexion {
     private $acceso;
 
     public function __CONSTRUCT(){
@@ -110,6 +108,86 @@ class Usuario extends Conexion{
         }
     }
 
-}
 
+    public function searchUser($nombre = '') {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_searchuser(?)");
+            $consulta->execute([$nombre]);
+
+            if ($consulta->rowCount() > 0) {
+                return $consulta->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Error al buscar usuario: " . $e->getMessage());
+        }
+    }
+
+    public function registraRecuperacion($data = []){
+        try{
+          $consulta = $this->conexion->prepare("CALL spu_registra_claverecuperacion(?,?,?)");
+          $consulta->execute(
+            array(
+              $data['idusuario'],
+              $data['email'],
+              $data['clavegenerada']
+          ));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+      }
+    
+      //Retornará: PERMITIDO/DENEGADO
+      //Se sugiere retornar bool/int/string
+      public function validarClave($data = []){
+        try{
+          $consulta = $this->conexion->prepare("CALL spu_usuario_validarclave(?,?)");
+          $consulta->execute(
+            array(
+              $data['idusuario'],
+              $data['clavegenerada']
+          ));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+      }
+    
+      public function validarTiempo($data = []){
+        try{
+          $consulta = $this->conexion->prepare("CALL spu_usuario_validartiempo(?)");
+          $consulta->execute(
+            array(
+              $data['idusuario']
+          ));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+      }
+    
+      public function actualizarClave($data = []){
+        $resultado = ["status" => false];
+        try{
+          $consulta = $this->conexion->prepare("CALL spu_usuario_actualizarpasssword(?,?)");
+          $resultado ["status"] = $consulta->execute(
+            array(
+              $data['idusuario'],
+              $data['claveacceso']
+          ));
+          return $resultado;
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+      }
+}
 ?>

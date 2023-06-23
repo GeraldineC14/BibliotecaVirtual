@@ -685,6 +685,35 @@
 			END	$$
 		
 			SELECT * FROM commentaries
+			
+-- Recuperar contraseña
+	-- Tabla de recuperarclave
+	   CREATE TABLE recuperarclave(
+		idrecuperar			INT AUTO_INCREMENT PRIMARY KEY,
+		idusuario			INT 		NOT NULL,
+		fechageneracion			DATETIME 	NOT NULL DEFAULT NOW(),
+		email				VARCHAR(120) 	NOT NULL,	-- Email que se utilizó en ese momento
+		clavegenerada			CHAR(4)	 	NOT NULL,
+		estado				CHAR(1)	 	NOT NULL DEFAULT '1',
+		CONSTRAINT fk_idusuario_rcl FOREIGN KEY (idusuario) REFERENCES usuarios(idusuario)	
+	   )ENGINE = INNODB;
+	   
+	-- Procedimientos almacenados
+	
+	DELIMITER $$
+	CREATE PROCEDURE spu_searchuser(IN _email VARCHAR(150))
+	BEGIN
+	  SELECT 
+		idusers,
+		surnames,
+		namess
+		FROM users
+		WHERE email = _email AND state = '1';
+	 END $$
+	 
+	 CALL spu_searchuser('diegofelipa6@gmail.com');
+	 
+	 SELECT * FROM users
 
 -- DATA:	
 -- categoria 1 data:

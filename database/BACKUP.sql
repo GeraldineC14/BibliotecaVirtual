@@ -405,6 +405,24 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_da
 (8,1,25,'1','2023-05-26 00:00:00','2023-05-26 00:00:00','ko','1','2023-05-26 21:29:29'),
 (10,2,25,'1','2023-05-29 00:00:00','2023-05-31 00:00:00','prueba completa','1','2023-05-26 21:39:23');
 
+/*Table structure for table `recuperarclave` */
+
+DROP TABLE IF EXISTS `recuperarclave`;
+
+CREATE TABLE `recuperarclave` (
+  `idrecuperar` int(11) NOT NULL AUTO_INCREMENT,
+  `idusuario` int(11) NOT NULL,
+  `fechageneracion` datetime NOT NULL DEFAULT current_timestamp(),
+  `email` varchar(120) NOT NULL,
+  `clavegenerada` char(4) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idrecuperar`),
+  KEY `fk_idusuario_rcl` (`idusuario`),
+  CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `recuperarclave` */
+
 /*Table structure for table `subcategories` */
 
 DROP TABLE IF EXISTS `subcategories`;
@@ -455,7 +473,7 @@ CREATE TABLE `users` (
 
 insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
 (1,'Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
-(3,'Felipa Avalos','Diego','diego@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
+(3,'Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
@@ -962,6 +980,23 @@ BEGIN
 					INSERT INTO subcategories(idcategorie, subcategoryname)
 					VALUES(_idcategorie,_subcategoryname);
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_searchuser` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_searchuser` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(in _email varchar(150))
+begin
+	  SELECT 
+		idusers,
+		surnames,
+		namess
+		FROM users
+		WHERE email = _email AND state = '1';
+	 end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_subcategories2_list` */
