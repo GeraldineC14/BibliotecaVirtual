@@ -50,8 +50,8 @@ session_start();
                                 </div>
 								<div class="row form-group mb-3">
 									<div class="col">
-										<label class="label">Correo</label>
-										<input type="email" class="form-control" id="email" placeholder="correo@dominio.com" required>
+										<label class="label">Usuario</label>
+										<input type="text" class="form-control" id="username" placeholder="Miusuario" required>
 									</div>
 									<div class="col">
 										<label class="label">Tipo de Acceso</label>
@@ -61,6 +61,10 @@ session_start();
 											<option value="D">Docente</option>
 										</select>
 									</div>
+								</div>
+								<div class="form-group">
+									<label class="label">Correo</label>
+									<input type="email" class="form-control" id="email" placeholder="correo@dominio.com" required>
 								</div>
                                 <div class="row form-group">
                                     <div class="col">
@@ -77,7 +81,7 @@ session_start();
                                     <label class="form-check-label" for="showPass">Mostrar Contraseña</label>
 								</div>
 								<div class="text-center mb-3">
-									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
+									<button class="btn btn-success rounded submit px-3 mr-2" id="registrar" type="button" data-user="">Registrar</button>
 									<a href="login.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
@@ -104,13 +108,14 @@ session_start();
 	  <script>
 		$(document).ready(function (){
 			var datos={
-				'operacion' : "",
-				'namess'  : "",
-				'surnames'  : "",
-				'email'  : "",
-				'accesskey'  : "",
-				'repetir'  : "",
-				'accesslevel'  : ""
+				'operacion' 	: "",
+				'username'		: "",
+				'namess'  		: "",
+				'surnames'  	: "",
+				'email'  		: "",
+				'accesskey'  	: "",
+				'repetir'  		: "",
+				'accesslevel'  	: ""
         	};
 			function alertar(textoMensaje = ""){
                 Swal.fire({
@@ -136,8 +141,9 @@ session_start();
                 });
             }
 
-            function validar(){
+            function registrar(){
 
+				datos['username']	 =	 $("#username").val();
 				datos['surnames']    =   $("#surnames").val();
 				datos['namess']      =   $("#namess").val();
 				datos['email']       =   $("#email").val();
@@ -147,81 +153,10 @@ session_start();
 
 				datos['operacion']  = "registrarUsuario";
 
-                if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
+                if(datos['username'] == "" || datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
                 	alertar("Complete el formulario por favor")
                 }else{
-					datos['accesslevel'] =   $("#accesslevel").val();
-
-					if(datos['accesslevel'] == "D"){
-						var esvalido = document.getElementById('email');
-						var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-						if(exprecion.test(esvalido.value)){
-							let email = $("#email").val();
-							$.ajax({
-								url: '../controllers/usuario.controller.php',
-								type: 'GET',
-								data: {
-										'operacion': 'validacionUsuario',
-										'email': email
-									},
-								success: function(result){
-									if (result=='[]'){
-										registrar();
-									}else{
-										alertar("El usuario ya existe en el sistema");
-										console.log(result);
-									}	
-								}
-							});
-						}else{
-							Swal.fire({
-								title   : "Error",
-								text    : "Correo no autorizado",
-								icon    : "error",
-								footer  : "Horacio Zeballos Gámez",
-								confirmButtonText   : "Aceptar",
-								confirmButtonColor  : "#38AD4D"
-							});
-						}
-					}else{
-						let email = document.getElementById('email');
-						let dominios = new Array('gmail.com','hotmail.com', 'outlook.es'); //creo un arreglo con los dominios aceptados
-						let value = email.value.split('@'); //split() funciona para dividir una cadena en un array pasando un caracter como delimitador
-
-						if(dominios.indexOf(value[1]) == -1){ //.indexOf() sirve para encontrar un elemento en un array
-							Swal.fire({
-								title   : "Error",
-								text    : `Correos autorizados: ${dominios}`,
-								icon    : "error",
-								footer  : "Horacio Zeballos Gámez",
-								confirmButtonText   : "Aceptar",
-								confirmButtonColor  : "#38AD4D"
-							});
-						}else{
-							let email = $("#email").val();
-							$.ajax({
-								url: '../controllers/usuario.controller.php',
-								type: 'GET',
-								data: {
-										'operacion': 'validacionUsuario',
-										'email': email
-									},
-								success: function(result){
-									if (result=='[]'){
-										registrar();
-									}else{
-										alertar("El usuario ya existe en el sistema");
-										console.log(result);
-									}	
-								}
-							});
-						}		
-					}
-				}   
-            }
-
-			function registrar(){
-				if(datos['accesskey'] !== datos['repetir']){
+					if(datos['accesskey'] !== datos['repetir']){
 						alertarToast("Ha sucecido un error","Las claves no coinciden","error")
 					}else{
 						Swal.fire({
@@ -251,7 +186,78 @@ session_start();
 							}
 						});
 					}
-			} 
+				}   
+            }
+
+			function Validar_correo(){
+				datos['accesslevel'] =   $("#accesslevel").val();
+
+				if(datos['accesslevel'] == "D"){
+					var esvalido = document.getElementById('email');
+					var exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+					if(exprecion.test(esvalido.value)){
+						let email = $("#email").val();
+						$.ajax({
+							url: '../controllers/usuario.controller.php',
+							type: 'GET',
+							data: {
+									'operacion': 'validacionUsuario',
+									'email': email
+								},
+							success: function(result){
+								if (result){
+									alertar("El usuario ya existe en el sistema");
+									console.log(result);
+								}else{
+									registrar();
+								}	
+							}
+						});
+					}else{
+						Swal.fire({
+							title   : "Error",
+							text    : "Correo no autorizado",
+							icon    : "error",
+							footer  : "Horacio Zeballos Gámez",
+							confirmButtonText   : "Aceptar",
+							confirmButtonColor  : "#38AD4D"
+						});
+					}
+				}else{
+					let email = document.getElementById('email');
+					let dominios = new Array('gmail.com','hotmail.com', 'outlook.es'); //creo un arreglo con los dominios aceptados
+					let value = email.value.split('@'); //split() funciona para dividir una cadena en un array pasando un caracter como delimitador
+
+					if(dominios.indexOf(value[1]) == -1){ //.indexOf() sirve para encontrar un elemento en un array
+						Swal.fire({
+							title   : "Error",
+							text    : `Correos autorizados: ${dominios}`,
+							icon    : "error",
+							footer  : "Horacio Zeballos Gámez",
+							confirmButtonText   : "Aceptar",
+							confirmButtonColor  : "#38AD4D"
+						});
+					}else{
+						let email = $("#email").val();
+						$.ajax({
+							url: '../controllers/usuario.controller.php',
+							type: 'GET',
+							data: {
+									'operacion': 'validacionUsuario',
+									'email': email
+								},
+							success: function(result){
+								if (result){
+									alertar("El usuario ya existe en el sistema");
+									console.log(result);
+								}else{
+									registrar();
+								}	
+							}
+						});
+					}		
+				}
+			}
 				
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey,#repetir");
@@ -263,7 +269,7 @@ session_start();
 				}
 			});
 			
-			$("#acceder").click(validar);
+			$("#registrar").click(Validar_correo);
 			
 		  
 	

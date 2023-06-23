@@ -456,6 +456,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `idusers` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
   `surnames` varchar(30) NOT NULL,
   `namess` varchar(30) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -466,15 +467,16 @@ CREATE TABLE `users` (
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `ul_email_usu` (`email`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `uk_user_names` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`idusers`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
-(1,'Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
-(3,'Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
-(25,'Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1');
+insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
+(1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
+(3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
+(25,'Piero1996','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -988,14 +990,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(in _email varchar(150))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(in _username varchar(150))
 begin
 	  SELECT 
 		idusers,
+		username,
 		surnames,
 		namess
+		email
 		FROM users
-		WHERE email = _email AND state = '1';
+		WHERE username = _username AND state = '1';
 	 end */$$
 DELIMITER ;
 
@@ -1076,10 +1080,10 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_list`()
 BEGIN
-			SELECT  idusers, surnames, namess, email, accesslevel
-				FROM users
-				WHERE state = "1";
-		END */$$
+				SELECT  idusers, username, surnames, namess, email, accesslevel
+					FROM users
+					WHERE state = "1";
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_login` */
@@ -1119,16 +1123,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_register`(
-			IN _surnames		VARCHAR(30),
-			IN _namess		VARCHAR(30),
-			IN _email		VARCHAR(100),
-			IN _accesslevel		VARCHAR(100),
-			IN _accesskey		VARCHAR(100)	
-		)
+				in _username		varchar(50),
+				IN _surnames		VARCHAR(30),
+				IN _namess		VARCHAR(30),
+				IN _email		VARCHAR(100),
+				IN _accesskey		VARCHAR(100),	
+				IN _accesslevel		VARCHAR(100)
+				
+			)
 BEGIN
-			INSERT INTO users (surnames, namess, email, accesskey, accesslevel) VALUES
-			(_surnames, _namess, _email, _accesskey, _accesslevel);
-		END */$$
+				INSERT INTO users (username,surnames, namess, email, accesskey, accesslevel) VALUES
+				(_username, _surnames, _namess, _email, _accesskey, _accesslevel);
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_update` */

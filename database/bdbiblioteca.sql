@@ -434,6 +434,7 @@
 		CREATE TABLE users
 		(
 			idusers			INT AUTO_INCREMENT PRIMARY KEY,
+			username 		VARCHAR(50)	NOT NULL
 			surnames		VARCHAR(30) 	NOT NULL,
 			namess			VARCHAR(30) 	NOT NULL,
 			email			VARCHAR(100) 	NOT NULL,
@@ -442,7 +443,9 @@
 			creationdate		DATETIME 	NOT NULL DEFAULT NOW(),
 			dischargedate		DATETIME 	NULL,
 			state			CHAR(1) 	NOT NULL DEFAULT '1',
-			CONSTRAINT ul_email_usu UNIQUE (email)
+			
+			CONSTRAINT uk_email_usu UNIQUE (email),
+			CONSTRAINT uk_user_names UNIQUE (user_name) 
 		)ENGINE = INNODB;
 			
 			
@@ -452,16 +455,19 @@
 			DELIMITER $$
 			CREATE PROCEDURE spu_users_register
 			(
+				IN _username		VARCHAR(50),
 				IN _surnames		VARCHAR(30),
 				IN _namess		VARCHAR(30),
 				IN _email		VARCHAR(100),
-				IN _accesslevel		VARCHAR(100),
-				IN _accesskey		VARCHAR(100)	
+				IN _accesskey		VARCHAR(100),	
+				IN _accesslevel		VARCHAR(100)
+				
 			)
 			BEGIN
-				INSERT INTO users (surnames, namess, email, accesskey, accesslevel) VALUES
-				(_surnames, _namess, _email, _accesskey, _accesslevel);
+				INSERT INTO users (username,surnames, namess, email, accesskey, accesslevel) VALUES
+				(_username, _surnames, _namess, _email, _accesskey, _accesslevel);
 			END $$
+			
 			
 		-- N°2 Login:
 			DELIMITER $$ 
@@ -474,12 +480,14 @@
 			
 			CALL spu_users_login('felix@gmail.com');
 			
+			SELECT * FROM users
+			
 			
 		-- N°3 List Users
 			DELIMITER $$
 			CREATE PROCEDURE spu_users_list()
 			BEGIN
-				SELECT  idusers, surnames, namess, email, accesslevel
+				SELECT  idusers, username, surnames, namess, email, accesslevel
 					FROM users
 					WHERE state = "1";
 			END $$
@@ -541,7 +549,7 @@
 						FROM users
 					WHERE email = _email;
 			END $$ 
-		CALL spu_validate_email('miguel@midominio.com');
+		CALL spu_validate_email('geral@midominio.com');
 			
 -- BOOK LOANS:
 	-- Tb. Loans
@@ -695,25 +703,31 @@
 		email				VARCHAR(120) 	NOT NULL,	-- Email que se utilizó en ese momento
 		clavegenerada			CHAR(4)	 	NOT NULL,
 		estado				CHAR(1)	 	NOT NULL DEFAULT '1',
-		CONSTRAINT fk_idusuario_rcl FOREIGN KEY (idusuario) REFERENCES usuarios(idusuario)	
+		CONSTRAINT fk_idusuario_rcl FOREIGN KEY (idusuario) REFERENCES users(idusers)	
 	   )ENGINE = INNODB;
+	   
+	   
+	   
 	   
 	-- Procedimientos almacenados
 	
 	DELIMITER $$
-	CREATE PROCEDURE spu_searchuser(IN _email VARCHAR(150))
+	CREATE PROCEDURE spu_searchuser(IN _username VARCHAR(150))
 	BEGIN
 	  SELECT 
 		idusers,
+		username,
 		surnames,
 		namess
+		email
 		FROM users
-		WHERE email = _email AND state = '1';
+		WHERE username = _username AND state = '1';
 	 END $$
-	 
-	 CALL spu_searchuser('diegofelipa6@gmail.com');
+	 CALL spu_searchuser('Diego10');
 	 
 	 SELECT * FROM users
+	 
+
 
 -- DATA:	
 -- categoria 1 data:
