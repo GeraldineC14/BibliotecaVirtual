@@ -8139,7 +8139,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #e3b04b; }
+  color: #566573; }
   a:hover, a:focus {
     text-decoration: none !important;
     outline: none !important;
@@ -8154,7 +8154,7 @@ h1, h2, h3, h4, h5,
   color: #000; }
 
 .bg-primary {
-  background: #e3b04b !important; }
+  background: #566573 !important; }
 
 .ftco-section {
   padding: 7em 0; }
@@ -8234,7 +8234,7 @@ h1, h2, h3, h4, h5,
     outline: none !important;
     -webkit-box-shadow: none;
     box-shadow: none;
-    border: 1px solid #e3b04b; }
+    border: 1px solid #566573; }
 
 .social-media {
   position: relative;
@@ -8251,7 +8251,7 @@ h1, h2, h3, h4, h5,
     .social-media .social-icon span {
       color: #999999; }
     .social-media .social-icon:hover, .social-media .social-icon:focus {
-      background: #e3b04b; }
+      background: #566573; }
       .social-media .social-icon:hover span, .social-media .social-icon:focus span {
         color: #fff; }
 
@@ -8308,9 +8308,9 @@ h1, h2, h3, h4, h5,
 
 /* Style the checkmark/indicator */
 .checkbox-primary {
-  color: #e3b04b; }
+  color: #566573; }
   .checkbox-primary input:checked ~ .checkmark:after {
-    color: #e3b04b; }
+    color: #566573; }
 
 .btn {
   cursor: pointer;
@@ -8321,18 +8321,18 @@ h1, h2, h3, h4, h5,
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #e3b04b !important;
-    border: 1px solid #e3b04b !important;
+    background: #566573 !important;
+    border: 1px solid #566573 !important;
     color: #fff !important; }
     .btn.btn-primary:hover {
-      border: 1px solid #e3b04b;
+      border: 1px solid #566573;
       background: transparent;
-      color: #e3b04b; }
+      color: #566573; }
     .btn.btn-primary.btn-outline-primary {
-      border: 1px solid #e3b04b;
+      border: 1px solid #566573;
       background: transparent;
-      color: #e3b04b; }
+      color: #566573; }
       .btn.btn-primary.btn-outline-primary:hover {
         border: 1px solid transparent;
-        background: #e3b04b;
+        background: #566573;
         color: #fff; }
