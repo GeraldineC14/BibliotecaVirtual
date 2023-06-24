@@ -1,0 +1,48 @@
+body {
+  background-image: url('../../assets/img/fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.opacity-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ftco-section {
+  position: relative;
+  z-index: 1;
+}
+
+.wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.login-wrap {
+  background-color: #fff;
+}
+
+.glassmorphism {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 767px) {
+  .ftco-section {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    /* Para un desplazamiento suave en iOS */
+    height: 100vh;
+    /* Altura del 100% de la ventana */
+  }
+}
+
+
+
+/* Resto de tus estilos CSS existentes */
