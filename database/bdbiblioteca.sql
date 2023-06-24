@@ -468,8 +468,7 @@
 				(_username, _surnames, _namess, _email, _accesskey, _accesslevel);
 			END $$
 			
-			CALL spu_users_register ('luis64','felipa avalos','luis mario','diegofelipa11','123','E')
-			SELECT * FROM users
+			
 		-- N°2 Login:
 			DELIMITER $$ 
 			CREATE PROCEDURE spu_users_login(IN _email VARCHAR(100))
@@ -551,8 +550,6 @@
 					WHERE email = _email;
 			END $$ 
 		CALL spu_validate_email('geral@midominio.com');
-
-		SELECT * FROM users
 			
 -- BOOK LOANS:
 	-- Tb. Loans
@@ -709,18 +706,10 @@
 		CONSTRAINT fk_idusuario_rcl FOREIGN KEY (idusuario) REFERENCES users(idusers)	
 	   )ENGINE = INNODB;
 	   
+	   
+	   
+	   
 	-- Procedimientos almacenados
-	DELIMITER $$
-	CREATE PROCEDURE spu_registra_claverecuperacion(
-		IN _idusuario		INT, 
-		IN _email			VARCHAR(120),
-		IN _clavegenerada CHAR(4)
-	)
-	BEGIN
-	UPDATE recuperarclave SET estado = '0' WHERE idusuario = _idusuario;
-	      INSERT INTO recuperarclave (idusuario,email,clavegenerada) 
-			VALUES(_idusuario, _email,_clavegenerada);
-	END$$
 	
 	DELIMITER $$
 	CREATE PROCEDURE spu_searchuser(IN _username VARCHAR(150))
@@ -729,71 +718,14 @@
 		idusers,
 		username,
 		surnames,
-		namess,
+		namess
 		email
 		FROM users
 		WHERE username = _username AND state = '1';
-	END $$
+	 END $$
+	 CALL spu_searchuser('Diego10');
 	 
-	CALL spu_searchuser('Diego10');
-	
-	SELECT * FROM recuperarclave
-	
-	DELIMITER $$
-	CREATE PROCEDURE spu_usuario_validartiempo(
-		IN _idusuario INT
-	)
-	BEGIN
-		IF ((SELECT COUNT(*) FROM recuperarclave WHERE idusuario = _idusuario) =0) THEN
-		SELECT 'GENERAR' AS 'status';
-		ELSE
-			-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
-			IF ((SELECT estado FROM recuperarclave WHERE idusuario = _idusuario ORDER BY 1 DESC LIMIT 1)= 0)THEN
-				SELECT 'GENERAR' AS 'status';
-			ELSE
-				-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
-				IF
-				(
-				 (
-				  SELECT COUNT(*) FROM recuperarclave 
-				  WHERE idusuario = _idusuario AND estado = '1' AND
-				  NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
-				  ORDER BY fechageneracion DESC LIMIT 1						
-				 ) = 1
-				)THEN
-				-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
-					SELECT 'GENERAR' AS 'status';
-				ELSE
-					SELECT 'DENEGAR' AS 'status';
-				END IF;
-			END IF;
-		END IF;
-	END $$
-	
-	DELIMITER $$
-	CREATE PROCEDURE spu_registra_claverecuperacion(
-		IN _idusuario		INT, 
-		IN _email			VARCHAR(120),
-		IN _clavegenerada CHAR(4)
-	)
-	BEGIN
-	UPDATE recuperarclave SET estado = '0' WHERE idusuario = _idusuario;
-	      INSERT INTO recuperarclave (idusuario,email,clavegenerada) 
-			VALUES(_idusuario, _email,_clavegenerada);
-	END$$
-	
-	DELIMITER $$
-	CREATE PROCEDURE spu_usuario_actualizarpasssword
-	(
-		IN _idusuario		INT,
-		IN _claveacceso	VARCHAR(90)
-	)
-	BEGIN
-		UPDATE users SET accesskey = _claveacceso WHERE iduser = _idusuario;
-		UPDATE recuperarclave SET estado = '0' WHERE idusuario = _idusuario; 
-	END $$
-	
-	SELECT*FROM users
+	 SELECT * FROM users
 	 
 
 

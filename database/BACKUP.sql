@@ -419,12 +419,9 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusuario`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
-
-insert  into `recuperarclave`(`idrecuperar`,`idusuario`,`fechageneracion`,`email`,`clavegenerada`,`estado`) values 
-(1,3,'2023-06-24 10:43:34','diegofelipa6@gmail.com','4899','1');
 
 /*Table structure for table `subcategories` */
 
@@ -472,15 +469,14 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
 (1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
-(25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
-(42,'milagros730','rojas','milagros','milagrosrojas730@gmail.com','$2y$10$2fHi1zdTxeiH8cjK1QkhM.2eufmdAg9Ats63XSNH1nnTMh3RtwPn6','E','2023-06-24 08:21:16',NULL,'1');
+(25,'Piero1996','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -988,41 +984,23 @@ BEGIN
 			END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_registra_claverecuperacion` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_registra_claverecuperacion` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registra_claverecuperacion`(
-		IN _idusuario		INT, 
-		IN _email			VARCHAR(120),
-		IN _clavegenerada CHAR(4)
-	)
-BEGIN
-	UPDATE recuperarclave SET estado = '0' WHERE idusuario = _idusuario;
-	      INSERT INTO recuperarclave (idusuario,email,clavegenerada) 
-			VALUES(_idusuario, _email,_clavegenerada);
-	END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `spu_searchuser` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_searchuser` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(IN _username VARCHAR(150))
-BEGIN
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(in _username varchar(150))
+begin
 	  SELECT 
 		idusers,
 		username,
 		surnames,
-		namess,
+		namess
 		email
 		FROM users
 		WHERE username = _username AND state = '1';
-	 END */$$
+	 end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_subcategories2_list` */
@@ -1183,59 +1161,6 @@ BEGIN
 				
 			WHERE idusers = _idusers;
 		END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuario_actualizarpasssword` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuario_actualizarpasssword` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuario_actualizarpasssword`(
-		IN _idusuario		INT,
-		IN _claveacceso	VARCHAR(90)
-	)
-BEGIN
-		UPDATE users SET accesskey = _claveacceso WHERE iduser = _idusuario;
-		UPDATE recuperarclave SET estado = '0' WHERE idusuario = _idusuario; 
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuario_validartiempo` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuario_validartiempo` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuario_validartiempo`(
-		IN _idusuario INT
-	)
-BEGIN
-		IF ((SELECT COUNT(*) FROM recuperarclave WHERE idusuario = _idusuario) =0) THEN
-		SELECT 'GENERAR' AS 'status';
-		ELSE
-			-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
-			IF ((SELECT estado FROM recuperarclave WHERE idusuario = _idusuario ORDER BY 1 DESC LIMIT 1)= 0)THEN
-				SELECT 'GENERAR' AS 'status';
-			ELSE
-				-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
-				IF
-				(
-				 (
-				  SELECT COUNT(*) FROM recuperarclave 
-				  WHERE idusuario = _idusuario AND estado = '1' AND
-				  NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
-				  ORDER BY fechageneracion DESC LIMIT 1						
-				 ) = 1
-				)THEN
-				-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
-					SELECT 'GENERAR' AS 'status';
-				ELSE
-					SELECT 'DENEGAR' AS 'status';
-				END IF;
-			END IF;
-		END IF;
-	END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_validate_email` */
