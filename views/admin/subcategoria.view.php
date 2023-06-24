@@ -17,17 +17,49 @@ require_once 'permisos.php';
                     <!-- Datatable  -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 text-center">
-                            <!-- Título oculto para pc y laptop -->
-                            <div class="d-block d-md-none">
-                                <h3 style="font-family: 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem;">
-                                    Módulo de Subcategorías
-                                </h3>
-                            </div>
-                            <!-- Título oculto para movil y tablet -->
-                            <div class="d-none d-md-block">
-                                <h3 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">
-                                Módulo de Subcategorías
-                                </h3>
+                            
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <!-- Título oculto para pc y laptop -->
+                                <div class="d-inline-block d-md-none" style="text-align: center;">
+                                    <h3 class="title-tablas2">
+                                        Subcategorías
+                                    </h3>
+                                </div>
+                                <!-- Título oculto para móvil y tablet -->
+                                <div class="d-none d-md-inline-block" style="text-align: center;">
+                                    <h3 class="title-tablas">
+                                        Módulo de Subcategorías
+                                    </h3>
+                                </div>
+
+                                <div class="btn-group" role="group">
+                                    <!-- Botón para mostrar el modal de Registrar Categoría -->
+                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-subcategorias" data-target="#modal-libros-subcategorias" id="mostrar-modal-registro">
+                                        <i class="fas fa-list fa-sm text-black fa-xl"></i>
+                                        &nbsp;Registrar Subcategoría
+                                    </button>
+                                    <!-- Botón para mostrar el modal de Generar  Reporte -->
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                        &nbsp;Generar Reporte
+                                    </button>
+                                </div>
+                                <!-- INICIO Versión Móvil -->
+                                <div class="d-flex mx-auto d-md-none">
+                                    <div class="btn-group w-100" role="group">
+                                        <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
+                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                            <i class="fas fa-list  fa-sm text-black fa-xl"></i>
+                                            &nbsp;Registrar
+                                        </button>
+                                        <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
+                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="mostrar-modal-reporte">
+                                            <i class="fas fa-download fa-sm text-black  fa-xl"></i>
+                                            &nbsp;Reporte
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- FIN Versión Móvil -->
                             </div>
                         </div>
                         <div class="card-body">
@@ -48,6 +80,8 @@ require_once 'permisos.php';
                             </div>
                         </div>
                     </div>
+
+
 
                     <!-- Zona Modales registro-->
                     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-subcategorias" tabindex="-1" aria-labelledby="titulo-modal-subcategorias" aria-hidden="true">
@@ -91,12 +125,11 @@ require_once 'permisos.php';
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright">
-                        <span>Copyright © IA Tech 2023</span>
+                        <span>Copyright © ARFECAS 2023</span>
                     </div>
                 </div>
             </footer>
         </div>
-        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
     <!-- Mis funciones y eventos javascript -->

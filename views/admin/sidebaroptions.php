@@ -19,7 +19,7 @@ switch ($permiso){
                  "icon" => "fa-solid fa-book fa-xl"],
       ["menu" => "Categoría", "url" => "index.php?view=categoria.view.php",
                  "icon" => "fas fa-clipboard fa-xl"],
-      ["menu" => "Sub Categoría", "url" => "index.php?view=subcategoria.view.php",
+      ["menu" => "Subcategoría", "url" => "index.php?view=subcategoria.view.php",
                  "icon" => "fas fa-list fa-xl"],
       ["menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
                  "icon" => "fas fa-truck-ramp-box fa-xl"],

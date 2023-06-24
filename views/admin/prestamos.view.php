@@ -11,15 +11,11 @@ require_once 'permisos.php';
             <!-- INICIO PERFIL -->
 
             <!-- FIN PERFIL -->
-
-
             <div class="container-fluid">
                 <div class="card shadow">
-
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="d-grid gap-2 col-6 mx-auto">
-
                                 <!-- Título oculto para pc y laptop -->
                                 <div class="d-inline-block d-md-none" style="text-align: center;">
                                     <h3 class="title-tablas2">
@@ -36,12 +32,12 @@ require_once 'permisos.php';
                                 <div class="btn-group" role="group">
                                     <!-- Botón para mostrar el modal de registrar libros -->
                                     <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
-                                        <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
-                                        &nbsp;Registrar Libro
+                                        <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
+                                        &nbsp;Registrar Préstamo
                                     </button>
                                     <!-- Botón para mostrar el modal de generación de reporte -->
                                     <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
-                                        <i class="fas fa-download fa-sm text-black-50 fa-xl"></i>
+                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                         &nbsp;Generar Reporte
                                     </button>
                                 </div>
@@ -50,18 +46,16 @@ require_once 'permisos.php';
                                     <div class="btn-group w-100" role="group">
                                         <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
                                         <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
-                                            <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
+                                            <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
                                             &nbsp;Registrar
                                         </button>
                                         <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
                                         <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="mostrar-modal-reporte">
-                                            <i class="fas fa-download fa-sm text-black-50 fa-xl"></i>
+                                            <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                             &nbsp;Reporte
                                         </button>
                                     </div>
                                 </div>
-
-
                                 <!-- FIN Versión Móvil -->
                             </div>
                         </div>
@@ -224,12 +218,11 @@ require_once 'permisos.php';
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright">
-                        <span>Copyright © IA Tech 2023</span>
+                        <span>Copyright © ARFECAS 2023</span>
                     </div>
                 </div>
             </footer>
         </div>
-        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
     <!-- Mis funciones y eventos javascript -->

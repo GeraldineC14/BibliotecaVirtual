@@ -14,50 +14,55 @@ require_once 'permisos.php';
                     <!-- Datatable  -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 text-center">
-                            <!-- Título oculto para pc y laptop -->
-                            <div class="d-block d-md-none">
-                                <h3 style="font-family: 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem;">
-                                    Módulo de Libros
-                                </h3>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <!-- Título oculto para pc y laptop -->
+                                <div class="d-inline-block d-md-none" style="text-align: center;">
+                                    <h3 class="title-tablas2">
+                                        Libros
+                                    </h3>
+                                </div>
+                                <!-- Título oculto para móvil y tablet -->
+                                <div class="d-none d-md-inline-block" style="text-align: center;">
+                                    <h3 class="title-tablas">
+                                        Módulo de Libros
+                                    </h3>
+                                </div>
+
+                                <div class="btn-group" role="group">
+                                    <!-- Botón para mostrar el modal de registrar libros -->
+                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button"
+                                        data-toggle="modal" data-target="#modal-libros"
+                                        data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                        <i class="fa-solid fa-book fa-sm text-black fa-xl"></i>
+                                        &nbsp;Registrar Libro
+                                    </button>
+                                    <!-- Botón para mostrar el modal de generación de reporte -->
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button"
+                                        href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                        &nbsp;Generar Reporte
+                                    </button>
+                                </div>
+                                <!-- INICIO Versión Móvil -->
+                                <div class="d-flex mx-auto d-md-none">
+                                    <div class="btn-group w-100" role="group">
+                                        <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
+                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button"
+                                            data-toggle="modal" data-target="#modal-libros"
+                                            data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                            <i class="fa-solid fa-book fa-sm text-black fa-xl"></i>
+                                            &nbsp;Registrar
+                                        </button>
+                                        <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
+                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button"
+                                            id="mostrar-modal-reporte">
+                                            <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                            &nbsp;Reporte
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- FIN Versión Móvil -->
                             </div>
-                            <!-- Título oculto para movil y tablet -->
-                            <div class="d-none d-md-block">
-                                <h3 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">Módulo de
-                                    Libros
-                                </h3>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <!-- Botón para mostrar el modal de registrar libros -->
-                                <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button"
-                                    data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar"
-                                    id="mostrar-modal-registro">
-                                    <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
-                                    &nbsp;Registrar Libro
-                                </button>
-                                <!-- Botón para mostrar el modal de generación de reporte -->
-                                <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#"
-                                    style="margin-left: 50px;" id="mostrar-modal-reporte">
-                                    <i class="fas fa-download fa-sm text-black-50 fa-xl"></i>
-                                    &nbsp;Generar Reporte
-                                </button>
-                            </div>
-                            <!-- INICIO Versión Móvil -->
-                            <div class="d-grid gap-2 col-6 mx-auto d-md-none">
-                                <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
-                                <button class="btn btn-outline-success btn-sm d-inline-block" role="button"
-                                    data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar"
-                                    id="mostrar-modal-registro">
-                                    <i class="fa-solid fa-book fa-sm text-black-50 fa-xl"></i>
-                                    &nbsp;Registrar
-                                </button>
-                                <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
-                                <button class="btn btn-outline-danger btn-sm d-inline-block" role="button"
-                                    id="mostrar-modal-reporte">
-                                    <i class="fas fa-download fa-sm text-black-50 fa-xl"></i>
-                                    &nbsp;Reporte
-                                </button>
-                            </div>
-                            <!-- FIN Versión Móvil -->
                         </div>
 
 
@@ -286,8 +291,14 @@ require_once 'permisos.php';
                     <!-- </div> -->
                 </div>
             </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © ARFECAS 2023</span>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
