@@ -37,7 +37,7 @@ session_start();
 									<h3 class="mb-4">Registrar Usuario</h3>
 								</div>
 							</div>
-							<form action="#" class="signup-form" id="formulario-usuario">
+							<form action="#" class="signup-form" id="formulario-usuario" autocomplete="off">
                                 <div class="row form-group mb-3">
                                     <div class="col">
                                         <label class="label">Nombres</label>
@@ -50,8 +50,8 @@ session_start();
                                 </div>
 								<div class="row form-group mb-3">
 									<div class="col">
-										<label class="label">Correo</label>
-										<input type="email" class="form-control" id="email" placeholder="correo@dominio.com" required>
+										<label class="label">Usuario</label>
+										<input type="text" class="form-control" id="username" placeholder="Miusuario" required>
 									</div>
 									<div class="col">
 										<label class="label">Tipo de Acceso</label>
@@ -61,6 +61,10 @@ session_start();
 											<option value="D">Docente</option>
 										</select>
 									</div>
+								</div>
+								<div class="form-group">
+									<label class="label">Correo</label>
+									<input type="email" class="form-control" id="email" placeholder="correo@dominio.com" required>
 								</div>
                                 <div class="row form-group">
                                     <div class="col">
@@ -77,7 +81,7 @@ session_start();
                                     <label class="form-check-label" for="showPass">Mostrar Contraseña</label>
 								</div>
 								<div class="text-center mb-3">
-									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
+									<button class="btn btn-success rounded submit px-3 mr-2" id="registrar" type="button" data-user="">Registrar</button>
 									<a href="login.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
 								</div>
 								<div class="form-group mb-3 text-right">
@@ -104,13 +108,15 @@ session_start();
 	  <script>
 		$(document).ready(function (){
 			var datos={
-				'operacion' : "",
-				'namess'  : "",
-				'surnames'  : "",
-				'email'  : "",
-				'accesskey'  : "",
-				'repetir'  : "",
-				'accesslevel'  : ""
+				'operacion' 	: "",
+				'username'		: "",
+				'namess'  		: "",
+				'surnames'  	: "",
+				'email'  		: "",
+				'accesslevel'  	: "",
+				'accesskey'  	: "",
+				'repetir'  		: ""
+				
         	};
 			function alertar(textoMensaje = ""){
                 Swal.fire({
@@ -137,17 +143,17 @@ session_start();
             }
 
             function validar(){
-
+				datos['username']	 =	 $("#username").val();
 				datos['surnames']    =   $("#surnames").val();
 				datos['namess']      =   $("#namess").val();
 				datos['email']       =   $("#email").val();
-				datos['accesslevel'] =   $("#accesslevel").val();
 				datos['accesskey']   =   $("#accesskey").val();
+				datos['accesslevel'] =   $("#accesslevel").val();
 				datos['repetir']     =   $("#repetir").val();
 
 				datos['operacion']  = "registrarUsuario";
 
-                if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
+                if(datos['username'] == "" || datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
                 	alertar("Complete el formulario por favor")
                 }else{
 					datos['accesslevel'] =   $("#accesslevel").val();
@@ -222,35 +228,42 @@ session_start();
 
 			function registrar(){
 				if(datos['accesskey'] !== datos['repetir']){
-						alertarToast("Ha sucecido un error","Las claves no coinciden","error")
-					}else{
-						Swal.fire({
-							title   : "Registro",
-							text    : "¿Los datos ingresados son correctos?",
-							icon    : "question",
-							footer  : "Horacio Zeballos Gámez",
-							confirmButtonText   : "Aceptar",
-							confirmButtonColor  : "#38AD4D",
-							showCancelButton    : true,
-							cancelButtonText    : "Cancelar",
-							cancelButtonColor   : "#D3280A"
-						}).then(result => {
-							if(result.isConfirmed){
-								$.ajax({
-									url: '../controllers/usuario.controller.php',
-									type: 'GET',
-									data: datos,
-									success: function(result){
-										alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
-										$("#formulario-usuario")[0].reset();
-										setTimeout(function(){
-											window.location.href = 'login.php';
-										}, 1500)
-									}
-								});
-							}
-						});
-					}
+					Swal.fire({
+						title   : "Ha sucecido un error",
+						text    : `Las claves no coinciden`,
+						icon    : "error",
+						footer  : "Horacio Zeballos Gámez",
+						confirmButtonText   : "Aceptar",
+						confirmButtonColor  : "#38AD4D"
+					});	
+				}else{
+					Swal.fire({
+						title   : "Registro",
+						text    : "¿Los datos ingresados son correctos?",
+						icon    : "question",
+						footer  : "Horacio Zeballos Gámez",
+						confirmButtonText   : "Aceptar",
+						confirmButtonColor  : "#38AD4D",
+						showCancelButton    : true,
+						cancelButtonText    : "Cancelar",
+						cancelButtonColor   : "#D3280A"
+					}).then(result => {
+						if(result.isConfirmed){
+							$.ajax({
+								url: '../controllers/usuario.controller.php',
+								type: 'GET',
+								data: datos,
+								success: function(result){
+									alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
+									$("#formulario-usuario")[0].reset();
+									setTimeout(function(){
+										window.location.href = 'login.php';
+									}, 1500)
+								}
+							});
+						}
+					});
+				}
 			} 
 				
 			$('#showPass').on('click', function(){
@@ -263,7 +276,7 @@ session_start();
 				}
 			});
 			
-			$("#acceder").click(validar);
+			$("#registrar").click(validar);
 			
 		  
 	
