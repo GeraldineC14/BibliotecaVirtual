@@ -8,7 +8,6 @@ require_once 'permisos.php';
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- INICIO PERFIL -->
-                    //! Colocaremos nuestro SIDEBAR & HEADER 
                 <!-- FIN PERFIL -->
 
                 <div class="align-content-center">

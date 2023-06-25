@@ -30,15 +30,13 @@ require_once 'permisos.php';
 
                                 <div class="btn-group" role="group">
                                     <!-- Botón para mostrar el modal de registrar libros -->
-                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button"
-                                        data-toggle="modal" data-target="#modal-libros"
-                                        data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
                                         <i class="fa-solid fa-book fa-sm text-black fa-xl"></i>
                                         &nbsp;Registrar Libro
                                     </button>
                                     <!-- Botón para mostrar el modal de generación de reporte -->
-                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button"
-                                        href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-left: 50px;" id="reportButton">
+                                        <a href="./index.php?view=report.php"></a>
                                         <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                         &nbsp;Generar Reporte
                                     </button>
@@ -47,15 +45,13 @@ require_once 'permisos.php';
                                 <div class="d-flex mx-auto d-md-none">
                                     <div class="btn-group w-100" role="group">
                                         <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
-                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button"
-                                            data-toggle="modal" data-target="#modal-libros"
-                                            data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
                                             <i class="fa-solid fa-book fa-sm text-black fa-xl"></i>
                                             &nbsp;Registrar
                                         </button>
-                                        <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
-                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button"
-                                            id="mostrar-modal-reporte">
+                                        <!-- Botón para mostrar la vista de generación de reporte (versión móvil) -->
+                                        <button class="btn btn-outline-danger btn-sm d-inline-block" id="reportButton">
+                                            <a href="./index.php?view=report.php"></a>
                                             <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                             &nbsp;Reporte
                                         </button>
@@ -93,8 +89,7 @@ require_once 'permisos.php';
                     </div>
 
                     <!-- Modal de generación de reporte -->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-reporte"
-                        tabindex="-1" aria-labelledby="titulo-modal-reporte" aria-hidden="true">
+                    <!-- <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-reporte" tabindex="-1" aria-labelledby="titulo-modal-reporte" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-primary text-light">
@@ -121,16 +116,14 @@ require_once 'permisos.php';
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary"
-                                        onclick="generarReporte()">Generar</button>
+                                    <button type="button" class="btn btn-primary" onclick="generarReporte()">Generar</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Zona Modales registro-->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros" tabindex="-1"
-                        aria-labelledby="titulo-modal-libros" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros" tabindex="-1" aria-labelledby="titulo-modal-libros" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-primary text-light">
@@ -146,16 +139,14 @@ require_once 'permisos.php';
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="categoria">Categoría:</label>
-                                                <select name="categoria" id="categoria"
-                                                    class="form-control form-control-sm">
+                                                <select name="categoria" id="categoria" class="form-control form-control-sm">
                                                     <option value="">Seleccione:</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-6 form-group">
                                                 <label for="subcategoria">Sub Categoría:</label>
-                                                <select name="subcategoria" id="subcategoria"
-                                                    class="form-control form-control-sm">
+                                                <select name="subcategoria" id="subcategoria" class="form-control form-control-sm">
                                                     <option value="">Seleccione:</option>
                                                 </select>
                                             </div>
@@ -169,8 +160,7 @@ require_once 'permisos.php';
 
                                             <div class="col-md-9 form-group">
                                                 <label for="descripcion">Descripción:</label>
-                                                <input type="text" id="descripcion"
-                                                    class="form-control form-control-sm">
+                                                <input type="text" id="descripcion" class="form-control form-control-sm">
                                             </div>
                                         </div>
 
@@ -205,10 +195,8 @@ require_once 'permisos.php';
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary"
-                                        data-dismiss="modal">Cerrar</button>
-                                    <button id="guardar-libro" class="btn btn-sm btn-primary"
-                                        type="button">Guardar</button>
+                                    <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button id="guardar-libro" class="btn btn-sm btn-primary" type="button">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -216,8 +204,7 @@ require_once 'permisos.php';
                     <!-- </div> -->
 
                     <!-- Zona Modales editar-->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros-editar"
-                        tabindex="-1" aria-labelledby="titulo-modal-libros-editar" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros-editar" tabindex="-1" aria-labelledby="titulo-modal-libros-editar" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-primary text-light">
@@ -233,16 +220,14 @@ require_once 'permisos.php';
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="categoria2">Categoría:</label>
-                                                <select name="categoria2" id="categoria2"
-                                                    class="form-control form-control-sm">
+                                                <select name="categoria2" id="categoria2" class="form-control form-control-sm">
                                                     <option value="">Seleccione:</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-6 form-group">
                                                 <label for="subcategoria2">Sub Categoría:</label>
-                                                <select name="subcategoria2" id="subcategoria2"
-                                                    class="form-control form-control-sm">
+                                                <select name="subcategoria2" id="subcategoria2" class="form-control form-control-sm">
                                                     <option value="">Seleccione:</option>
                                                 </select>
                                             </div>
@@ -256,8 +241,7 @@ require_once 'permisos.php';
 
                                             <div class="col-md-9 form-group">
                                                 <label for="descripcion2">Descripción:</label>
-                                                <input type="text" id="descripcion2"
-                                                    class="form-control form-control-sm">
+                                                <input type="text" id="descripcion2" class="form-control form-control-sm">
                                             </div>
                                         </div>
 
@@ -280,10 +264,8 @@ require_once 'permisos.php';
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="cancelar-modal-editar" class="btn btn-sm btn-secondary"
-                                        data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" id="guardar-libro-editar"
-                                        class="btn btn-sm btn-primary">Guardar</button>
+                                    <button type="button" id="cancelar-modal-editar" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" id="guardar-libro-editar" class="btn btn-sm btn-primary">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -305,7 +287,7 @@ require_once 'permisos.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
     <!-- Mis funciones y eventos javascript -->
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var idbook = 0;
             var idcategorie = 0;
             var datosNuevos = true;
@@ -350,7 +332,7 @@ require_once 'permisos.php';
                     url: '../../controllers/biblioteca.controller.php',
                     type: 'GET',
                     data: 'operacion=listarLibros',
-                    success: function (result) {
+                    success: function(result) {
                         let registros = JSON.parse(result);
                         let nuevaFila = ``;
 
@@ -388,7 +370,7 @@ require_once 'permisos.php';
                                         title='Mostrar portada del libro'>
                                         <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                     </a>
-                                    <a href='#'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
+                                    <a href='index.php?view=edit-frontpage.php'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
                                 </td>
                                 <td>
                                     <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
@@ -407,6 +389,20 @@ require_once 'permisos.php';
                     }
                 });
             }
+
+            document.getElementById('reportButton').addEventListener('click', function(event) {
+                // Evitar que el evento de clic se propague al botón
+                event.preventDefault();
+
+                // Obtener el enlace dentro del botón
+                var link = this.querySelector('a');
+
+                // Obtener la URL de href del enlace
+                var url = link.getAttribute('href');
+
+                // Redirigir a la URL indicada en el href
+                window.location.href = url;
+            });
 
 
 
@@ -446,7 +442,7 @@ require_once 'permisos.php';
                     url: '../../controllers/categoria.controller.php',
                     type: 'GET',
                     data: 'operacion=listarCategoria',
-                    success: function (result) {
+                    success: function(result) {
                         let registros = JSON.parse(result);
                         let elementosLista = ``;
                         if (registros.length > 0) {
@@ -470,13 +466,16 @@ require_once 'permisos.php';
                 });
             }
 
-            $('#categoria').change(function () {
+            $('#categoria').change(function() {
                 var categoria_id = $(this).val();
                 $.ajax({
                     url: '../../controllers/subcategoria.controller.php',
                     type: 'GET',
-                    data: { 'operacion': 'listarSubcategoria', 'idcategorie': categoria_id },
-                    success: function (result) {
+                    data: {
+                        'operacion': 'listarSubcategoria',
+                        'idcategorie': categoria_id
+                    },
+                    success: function(result) {
                         let registros = JSON.parse(result);
                         let elementosLista = ``;
                         if (registros.length > 0) {
@@ -498,13 +497,16 @@ require_once 'permisos.php';
                 });
             });
 
-            $('#categoria2').change(function () {
+            $('#categoria2').change(function() {
                 var categoriaid = $(this).val();
                 $.ajax({
                     url: '../../controllers/subcategoria.controller.php',
                     type: 'GET',
-                    data: { 'operacion': 'listarSubcategoria', 'idcategorie': categoriaid },
-                    success: function (result) {
+                    data: {
+                        'operacion': 'listarSubcategoria',
+                        'idcategorie': categoriaid
+                    },
+                    success: function(result) {
                         let registros = JSON.parse(result);
                         let elementosLista = ``;
                         if (registros.length > 0) {
@@ -630,9 +632,9 @@ require_once 'permisos.php';
                                 contentType: false,
                                 processData: false,
                                 cache: false,
-                                success: function (result) {
+                                success: function(result) {
                                     alertarToast("Proceso completado", "El libro ha sido registrado correctamente", "success")
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         reiniciarFormulario();
                                         $('#modal-libros').modal('hide');
                                         mostrarLibros();
@@ -666,7 +668,7 @@ require_once 'permisos.php';
                         url: '../../controllers/biblioteca.controller.php',
                         type: 'GET',
                         data: datos,
-                        success: function (result) {
+                        success: function(result) {
                             console.log(result);
                             alert("Proceso terminado correctamente");
                             mostrarLibros();
@@ -677,7 +679,7 @@ require_once 'permisos.php';
                 }
             }
 
-            $("#tabla-libros tbody").on("click", ".eliminar", function () {
+            $("#tabla-libros tbody").on("click", ".eliminar", function() {
                 //Almacenamos la PK en una variable
                 let idbook = $(this).data("idbook");
 
@@ -685,8 +687,11 @@ require_once 'permisos.php';
                     $.ajax({
                         url: '../../controllers/biblioteca.controller.php',
                         type: 'GET',
-                        data: { 'operacion': 'eliminarLibro', 'idbook': idbook },
-                        success: function (result) {
+                        data: {
+                            'operacion': 'eliminarLibro',
+                            'idbook': idbook
+                        },
+                        success: function(result) {
                             if (result == "") {
                                 idbook = ``;
                                 mostrarLibros();
@@ -714,7 +719,7 @@ require_once 'permisos.php';
         });
         */
 
-            $("#tabla-libros tbody").on("click", ".editar", function () {
+            $("#tabla-libros tbody").on("click", ".editar", function() {
                 idbook = $(this).data("idbook");
                 $.ajax({
                     url: '../../controllers/biblioteca.controller.php',
@@ -724,7 +729,7 @@ require_once 'permisos.php';
                         'operacion': 'getLibro',
                         'idbook': idbook
                     },
-                    success: function (result) {
+                    success: function(result) {
                         $("#categoria2").val(result['idcategorie']);
                         $("#subcategoria2").val(result['idsubcategorie']);
                         $("#cantidad2").val(result['amount']);

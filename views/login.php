@@ -41,11 +41,11 @@ session_start();
 							</div>
 							<form action="#" class="signin-form" autocomplete="off">
 								<div class="form-group mb-3">
-									<label class="label" for="name">Correo</label>
+									<label class="label" for="name">Correo:</label>
 									<input type="text" class="form-control" id="email" placeholder="correo@dominio.com" required>
 								</div>
 								<div class="form-group mb-3">
-									<label class="label" for="password">Contraseña</label>
+									<label class="label" for="password">Contraseña:</label>
 									<input type="password" class="form-control" id="accesskey" placeholder="**********" required>
 								</div>
 								<div class="form-group form-check mb-3">

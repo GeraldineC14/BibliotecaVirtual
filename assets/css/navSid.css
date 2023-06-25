@@ -11018,9 +11018,11 @@ body {
   flex-shrink: 0;
 }
 
+
+
 .sb-sidenav-dark {
-  background-color: #9fb982;/* Menú Lateral Centro */
-  color: #000000; /* Letras Footer */
+  background-color: #dfe4ec;/* Menú Lateral Centro */
+  color: #dfe4ec; /* Letras Footer */
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
   color: rgb(255, 255, 255);
@@ -11035,7 +11037,7 @@ body {
   color: #000000; /* Menú Lateral Desplegable*/
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #fff; /* Menú Lateral cuando se sobrepone el puntero */
+  color: #415a76; /* Menú Lateral cuando se sobrepone el puntero */
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
   color: #fff;
@@ -11044,7 +11046,7 @@ body {
   color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
-  background-color: #e0daa3;/* Fondo Footer */
+  background-color: #415a76;/* Fondo Footer */
 }
 
 .sb-sidenav-light {
