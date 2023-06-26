@@ -2,9 +2,11 @@
 session_start();
 
 
-/*if(isset($_SESSION['login']) && $_SESSION['login'] == true){
-  header("location:views/admin/admin.view.php");
-}*/
+if(isset($_SESSION['login'])){
+	if(isset($_SESSION['login']['acceso']) && $_SESSION['login']['acceso']){
+		header("location:./admin/index.php?view=admin.view.php");
+	}
+}
 
 ?>
 <!doctype html>

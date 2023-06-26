@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
+    header("Location:../login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +70,7 @@ session_start();
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <!-- OPCIONES QUE DEBEN SER FILTRADAS DE ACUERDO AL PERFIL -->
                         <?php require_once 'sidebaroptions.php'; ?>
                     </div>
                 </div>

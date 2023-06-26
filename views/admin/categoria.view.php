@@ -1,8 +1,5 @@
 <?php
-require_once 'permisos.php';
-/*if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
-    header("location:login.php");
-}*/
+require_once './permisos.php';
 ?>
 <div id="wrapper">
     <div class="d-flex flex-column" id="content-wrapper">

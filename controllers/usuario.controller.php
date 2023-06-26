@@ -44,12 +44,10 @@ require_once '../models/Usuario.php';
     
                     } else {
                         // La contraseña es incorrecta
-                        $resultado["acceso"] = false;
                         $resultado["mensaje"] = "La contraseña es incorrecta";
                     }
                 } else {
                     // No existe el usuario
-                    $resultado["acceso"] = false;
                     $resultado["mensaje"] = "El usuario no existe";
                 }
                 //Actualizamos la información en la variable de sesíon

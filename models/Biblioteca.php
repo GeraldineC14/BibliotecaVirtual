@@ -29,7 +29,7 @@ class Biblioteca extends Conexion{
 
         }
         catch(Exception $e){
-            die($e->getMessage);
+            die($e->getMessage());
 
         }
     }
@@ -126,7 +126,7 @@ class Biblioteca extends Conexion{
 
         }
         catch(Exception $e){
-            die($e->getMessage);
+            die($e->getMessage());
 
         }
     }
@@ -193,7 +193,7 @@ class Biblioteca extends Conexion{
             return $datos;
         }
         catch(Exception $e){
-            die($e->getMessage);
+            die($e->getMessage());
         }
     }
 

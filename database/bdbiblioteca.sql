@@ -708,7 +708,6 @@
 	   
 	   
 	   
-	   
 	-- Procedimientos almacenados
 	
 	DELIMITER $$

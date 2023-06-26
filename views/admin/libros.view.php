@@ -1,5 +1,5 @@
 <?php
-require_once 'permisos.php';
+require_once './permisos.php';
 ?>
 
 <div id="wrapper">

@@ -1,5 +1,5 @@
 <?php
-require_once 'permisos.php';
+require_once './permisos.php';
 ?>
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">

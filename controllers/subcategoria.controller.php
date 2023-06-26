@@ -3,7 +3,7 @@
 //Requerimos acceso al modelo
 require_once '../models/Subcategoria.php';
 
-//Verificamos si existe un objeto 
+//Verificamos si existe un objeto
 if(isset($_GET['operacion'])){
 
     $subcategoria = new Subcategoria();
