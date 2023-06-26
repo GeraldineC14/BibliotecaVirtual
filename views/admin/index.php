@@ -54,7 +54,7 @@ session_start();
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a></li>
+                        <li><a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a></li>
                     </ul>
                 </li>
             </ul>
