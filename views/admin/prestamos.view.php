@@ -64,6 +64,14 @@ require_once 'permisos.php';
                         <div style="width: 90%; margin:auto" class="mt-2">
                             <div class="card-body">
                                 <table class="table display responsive" id="tabla-prestamos">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="25%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                    </colgroup>
                                     <thead class="table-dark">
                                         <tr>
                                             <th>#</th>
@@ -228,6 +236,7 @@ require_once 'permisos.php';
     <!-- Mis funciones y eventos javascript -->
     <script>
         $(document).ready(function() {
+
             function listarPrestamos() {
                 $.ajax({
                     url: '../../controllers/prestamo.controller.php',
@@ -243,21 +252,20 @@ require_once 'permisos.php';
                         registros.forEach(registro => {
                             observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
                             nuevaFila = `
-                            <tr>
-                                <td>${registro['idloan']}</td>
-                                <td>${registro['descriptions']}</td>
-                                <td>${registro['Usuario']}</td>
-                                <td>${observacion}</td>
-                                <td>${registro['loan_date']}</td>
-                                <td>${registro['return_date']}</td>
-                                <td>${registro['amount']}</td>
-                                <td>${registro['state']}</td>
-                                <td>
-                                    <a href='#' data-idloan='${registro['idloan']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
-                                    <a href='#' data-idloan='${registro['idloan']}' class = ' editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
-                                </td>
-                            </tr>
-                            `;
+                <tr>
+                    <td>${registro['idloan']}</td>
+                    <td>${registro['descriptions']}</td>
+                    <td>${registro['Usuario']}</td>
+                    <td>${observacion}</td>
+                    <td>${registro['loan_date']}</td>
+                    <td>${registro['return_date']}</td>
+                    <td>${registro['amount']}</td>
+                    <td>${registro['state']}</td>
+                    <td>
+                        <a href='#' data-idloan='${registro['idloan']}' class='prestamo'><i class="fa-solid fa-toggle-on fa-xl" style="color: #f22c2c;"></i></a>
+                    </td>
+                </tr>
+                `;
                             $("#tabla-prestamos tbody").append(nuevaFila);
                         });
                         $('#tabla-prestamos').DataTable({
@@ -265,9 +273,39 @@ require_once 'permisos.php';
                                 url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
                             }
                         });
+
+                        // Agregar evento de clic al enlace "préstamo"
+                        $(".prestamo").click(function() {
+                            let idLoan = $(this).data("idloan");
+                            let icono = $(this).find("i");
+
+                            // Verificar si el color actual del icono es rojo
+                            if (icono.css("color") === "rgb(242, 44, 44)") {
+                                // Cambiar el color del icono a verde
+                                icono.css("color", "#00ff00");
+                                // Realizar la rotación de 180 grados
+                                icono.css("transform", "rotate(180deg)");
+
+                                // Cambiar el estado a 0 (código adicional para enviar la solicitud AJAX)
+                                $.ajax({
+                                    url: '../../controllers/prestamo.controller.php',
+                                    type: 'POST',
+                                    data: {
+                                        operacion: "cambiarEstado",
+                                        idLoan: idLoan,
+                                        estado: 0
+                                    },
+                                    success: function(response) {
+                                        // Manejar la respuesta si es necesario
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
+
+
 
             function reiniciarFormulario() {
                 $("#formulario-prestamos")[0].reset();

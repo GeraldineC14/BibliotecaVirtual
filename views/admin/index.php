@@ -4,6 +4,8 @@ session_start();
 if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../login.php");
 }
+
+$nivelacceso = $_SESSION['login']['accesslevel'];
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +56,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../../index.php">Biblioteca</a></li>
-                        <li><a class="dropdown-item" href="./perfil.view.php">Perfil</a></li>
+                        <li><a class="dropdown-item" href="./index.php?view=perfil.view.php">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>

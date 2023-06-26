@@ -34,6 +34,10 @@ switch ($permiso) {
         "icon" => "fas fa-clipboard fa-2xl"
       ],
       [
+        "menu" => "Comentarios", "url" => "index.php?view=comentario.view.php",
+        "icon" => "fa-regular fa-comment-dots fa-2xl"
+      ],
+      [
         "menu" => "Subcategoría", "url" => "index.php?view=subcategoria.view.php",
         "icon" => "fas fa-list fa-2xl"
       ]
@@ -43,6 +47,7 @@ switch ($permiso) {
     $opciones2 = [
       ["menu2" => "PDF", "url2" => "index.php?view=edit-pdf.php"],
       ["menu2" => "Portada", "url2" => "index.php?view=edit-frontpage.php"],
+      ["menu2" => "Perfil", "url2" => "index.php?view=perfil.view.php"],
       ["menu2" => "Reporte", "url2" => "index.php?view=report.php"]
     ];
 

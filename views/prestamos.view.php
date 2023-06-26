@@ -1,13 +1,14 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
+if (!isset($_SESSION['login']) || $_SESSION['login'] == false) {
     header("location:login.php");
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -18,20 +19,21 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     <link rel="stylesheet" href="../assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
-    <link rel="shortcut icon" href="../assets/img/favicon.ico"/>
+    <link rel="shortcut icon" href="../assets/img/favicon.ico" />
 </head>
+
 <body style="display: flex; flex-direction: column; min-height: 100vh; background-color: #f7f0f1;">
     <!-- navbar -->
     <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-danger py-3">
         <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="index.php"><img src="../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e" width="70" height="70"><span style="font-family: 'Archivo Black', sans-serif;font-size: 22px;">Horacio Zeballos</span></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-5"><span class="sr-only"></span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
                 <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
-                <!-- <li class="nav-item"><a class="nav-link active text-dark" href="login.php">Ingresa</a></li> -->
-                <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
-                <li class="nav-item"><a class="nav-link active text-dark" href="./admin/index.php?view=admin.view.php"><?php echo $_SESSION['login']['namess'];?></a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="../index.php">Inicio</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link active text-dark" href="login.php">Ingresa</a></li> -->
+                    <li class="nav-item"><a class="nav-link text-dark" href="#">Obras Chinchanas</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark" href="./admin/index.php?view=admin.view.php"><?php echo $_SESSION['login']['namess']; ?></a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a></li>
-            </ul>
+                </ul>
             </div>
         </div>
     </nav>
@@ -46,7 +48,6 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                     <div class="form-group">
                         <label for="nombrecompleto">Nombre Completo:</label>
                         <input type="text" id="nombrecompleto" class="form-control form-control-sm" readonly>
-                        
                     </div>
                     <div class="form-group">
                         <label for="titulo">Titulo de Libro:</label>
@@ -63,19 +64,19 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="cantidad">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm">
+                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm" placeholder="No exceder al stock">
                         </div>
-                    </div> 
+                    </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="fecha1">Fecha Recojo:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha1" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>" max="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 10 days"));?>"/>
+                            <input type="date" class="form-control form-control-sm" id="fecha1" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min="<?php echo date("Y-m-d",strtotime(date("Y-m-d")));?>" max="<?php echo date("Y-m-d",strtotime(date("Y-m-d")."+ 15 days"));?>"/>
+                            <input type="date" class="form-control form-control-sm" id="fecha2" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" />
                         </div>
-                    </div>      
+                    </div>
                     <div class="form-group">
                         <label for="observacion">Observaciones:</label>
                         <textarea class="form-control" id="observacion" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
@@ -100,116 +101,138 @@ if(!isset($_SESSION['login']) || $_SESSION['login'] == false){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
     <!-- SweetAlert2 -->
-  	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-<script>
-    $(document).ready(function(){
-        idbook3 = <?php echo $_GET["prestamo"];?>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            idbook3 = <?php echo $_GET["prestamo"]; ?>
 
-        var datos={
-            'operacion'     : "",
-            'idbook'        : "",
-            'idusers'       : "",
-            'observation'   : "",
-            'loan_date'     : "",
-            'return_date'   : "",
-            'amount'        : ""
-        };
+            var datos = {
+                'operacion': "",
+                'idbook': "",
+                'idusers': "",
+                'observation': "",
+                'loan_date': "",
+                'return_date': "",
+                'amount': ""
+            };
 
-        function alertar(textoMensaje = ""){
+            function alertar(textoMensaje = "") {
                 Swal.fire({
-                    title   : 'Prestamos',
-                    text    :  textoMensaje,
-                    icon    :  'info',
-                    footer  :   'Horacio Zeballos Gámez',
-                    timer   :   2000,
-                    confirmButtonText   :   'Aceptar'
+                    title: 'Prestamos',
+                    text: textoMensaje,
+                    icon: 'info',
+                    footer: 'Horacio Zeballos Gámez',
+                    timer: 2000,
+                    confirmButtonText: 'Aceptar'
                 });
-        }
+            }
 
-        function alertarToast(titulo = "",textoMensaje = "", icono = ""){
-            Swal.fire({
-                title   : titulo,
-                text    : textoMensaje,
-                icon    : icono,
-                toast   : true,
-                position : 'bottom-end',
-                showConfirmButton   : false,
-                timer   : 1500,
-                timerProgressBar    : true
-            });
-        }
+            function alertarToast(titulo = "", textoMensaje = "", icono = "") {
+                Swal.fire({
+                    title: titulo,
+                    text: textoMensaje,
+                    icon: icono,
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
 
-        function DatosLibros(){
+            function DatosLibros() {
                 $.ajax({
                     url: '../controllers/biblioteca.controller.php',
                     type: 'GET',
                     dataType: 'JSON',
                     data: {
-                        'operacion' : 'getLibro', 
+                        'operacion': 'getLibro',
                         'idbook': idbook3
                     },
-                    success: function(result){
+                    success: function(result) {
                         $("#titulo").val(result['descriptions']);
                         $("#autor").val(result['author']);
                         $("#disponibles").val(result['amount']);
-                        $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess'];?> <?php echo $_SESSION['login']['surnames'];?>');
+                        $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess']; ?> <?php echo $_SESSION['login']['surnames']; ?>');
                     }
                 });
-        }
+            }
 
-        function RegistrarPrestamos(){
-            datos['idbook']      = <?php echo $_GET["prestamo"];?>;
-            datos['idusers']     = <?php echo $_SESSION['login']["idusers"];?>;
-            datos['observation'] = $("#observacion").val();
-            datos['loan_date']   = $("#fecha1").val();
-            datos['return_date'] = $("#fecha2").val();
-            datos['amount']      = $("#cantidad").val();
 
-            datos['operacion'] = "registrarPrestamos";
 
-            if(datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == ""){
-                alertar("Completa el formulario porfavor")
-            }else{
-                Swal.fire({
-                        title   : "Registro de prestamo",
-                        text    : "¿Los datos ingresados son correctos?",
-                        icon    : "question",
-                        footer  : "Horacio Zeballos Gámez",
-                        confirmButtonText   : "Aceptar",
-                        confirmButtonColor  : "#38AD4D",
-                        showCancelButton    : true,
-                        cancelButtonText    : "Cancelar",
-                        cancelButtonColor   : "#D3280A"
+            function RegistrarPrestamos() {
+                datos['idbook'] = <?php echo $_GET["prestamo"]; ?>;
+                datos['idusers'] = <?php echo $_SESSION['login']["idusers"]; ?>;
+                datos['observation'] = $("#observacion").val();
+                datos['loan_date'] = $("#fecha1").val();
+                datos['return_date'] = $("#fecha2").val();
+                datos['amount'] = $("#cantidad").val();
+
+                datos['operacion'] = "registrarPrestamos";
+
+                if (datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == "") {
+                    alertar("Completa el formulario porfavor")
+                } else {
+                    Swal.fire({
+                        title: "Registro de prestamo",
+                        text: "¿Los datos ingresados son correctos?",
+                        icon: "question",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        cancelButtonColor: "#D3280A"
                     }).then(result => {
-                        if(result.isConfirmed){
+                        if (result.isConfirmed) {
                             $.ajax({
                                 url: '../controllers/prestamo.controller.php',
                                 type: 'GET',
                                 data: datos,
-                                success: function(result){
-                                    alertarToast("Proceso completado","El usuario ha sido registrado correctamente", "success")
-                                    setTimeout(function(){
+                                success: function(result) {
+                                    alertarToast("Proceso completado", "El usuario ha sido registrado correctamente", "success")
+                                    setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
-                                        window.location.href = '../index.php';                    
+                                        window.location.href = '../index.php';
                                     }, 1500)
                                 }
                             });
                         }
                     });
-            }        
+                }
 
-        }
+            }
 
-        function Cancelar(){
-         window.location.href = document.referrer;
-        }
+            // Obtener elementos del DOM
+            const stockInput = document.getElementById("disponibles");
+            const cantidadInput = document.getElementById("cantidad");
 
-        $("#solicitar-prestamo").click(RegistrarPrestamos);
-        $("#cancelar").click(Cancelar);
-        DatosLibros();
+            // Agregar evento de entrada al campo "Cantidad"
+            cantidadInput.addEventListener("input", verificarCantidad);
 
-    });
-</script>
+            // Función para verificar la cantidad
+            function verificarCantidad() {
+                const stock = parseInt(stockInput.value);
+                let cantidad = parseInt(cantidadInput.value);
+
+                if (cantidad > stock) {
+                    cantidad = stock; // Establecer el valor máximo del stock en la variable cantidad
+                }
+
+                cantidadInput.value = cantidad; // Actualizar el valor del campo "Cantidad"
+            }
+
+
+            function Cancelar() {
+                window.location.href = document.referrer;
+            }
+
+            $("#solicitar-prestamo").click(RegistrarPrestamos);
+            $("#cancelar").click(Cancelar);
+            DatosLibros();
+
+        });
+    </script>
 </body>
+
 </html>
