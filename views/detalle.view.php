@@ -1,6 +1,11 @@
 <?php
-    session_start();
+session_start();
 
+if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
+    // Manejar el caso cuando el array o la clave no están definidos
+    $_SESSION['login'] = array();
+    $_SESSION['login']['idusers'] = '-1'; // Establecer un valor por defecto
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -105,43 +110,47 @@
         idbook2 = <?php echo $_GET["resumen"];?>;
         idusuario = <?php echo  $_SESSION['login']['idusers']?>    
         
-        function VistaResumen(){
-                $.ajax({
-                    url: '../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    data: {'operacion':'VistaResumen','idbook':idbook2},
-                    success: function(result){
-                        let registros = JSON.parse(result);
-                        let nuevaFila = ``;
-                        
-                        portada = (registros['frontpage']== null) ? 'noimagen.png' :registros['frontpage'];
-                        resumen = (registros['summary']== null) ? 'Resumen no disponible' :registros['summary'];
-                        pdf = (registros['url']== null) ? 'sin-pdf.png' :registros['url'];
-                            nuevaFila = 
-                                `
-                                <div class="col-md-6">
-                                    <h5 class="text-center">${registros['descriptions']}</h3>
-                                    <div class="text-center">
-                                        <img src="frontpage/${portada}" width="293" height="452">                                    </div>
-                                    </div>
-                                <div class="col-md-5">
-                                    <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
-                                    <p>Libros disponibles: ${registros['amount']}</p>
-                                    <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                                        <span style="color: rgb(34, 34, 34);">${resumen}</span>
-                                    </p>
-                                    <div class="text-center">
-                                        <div class="btn-group" role="group">
-                                        <a href="PDF/${pdf}" target="_blank" class="btn btn-success mr-3" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
-                                        <a href="PDF/${pdf}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                                        <a href='prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
-                                        </div>
-                                    </div>
+        function VistaResumen() {
+            $.ajax({
+                url: '../controllers/biblioteca.controller.php',
+                type: 'GET',
+                data: {
+                    'operacion': 'VistaResumen',
+                    'idbook': idbook2
+                },
+                success: function(result) {
+                    let registros = JSON.parse(result);
+                    let nuevaFila = `
+                        <div class="col-md-6">
+                            <h5 class="text-center">${registros['descriptions']}</h3>
+                            <div class="text-center">
+                                <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
+                            <p>Libros disponibles: ${registros['amount']}</p>
+                            <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
+                                <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+                            </p>
+                            <div class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a href="PDF/${registros['url'] || 'sin-pdf.png'}" target="_blank" class="btn btn-success mr-3" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
+                                    <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                                    <a href='prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                                 </div>
-                            `;
-                        $(".resumen").append(nuevaFila);      
+                            </div>
+                        </div>
+                    `;
+
+                    $(".resumen").append(nuevaFila);
+
+                    // Verificar si el idusuario es igual a -1
+                    if (idusuario === -1) {
+                        $(".prestamos").attr("href", "login.php");
                     }
-                });
+                }
+            });
         }
 
         function listarComentarios(){
