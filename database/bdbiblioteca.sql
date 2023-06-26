@@ -644,6 +644,34 @@
 			CONSTRAINT fk_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
+
+-- Procedimiento Almacenado para Listar los comentarios (usuario/comentario/fecha)
+DELIMITER $$
+CREATE PROCEDURE spu_commentaries_list()
+BEGIN
+    SELECT idusers, idbook, commentary_date, commentary
+    FROM commentaries;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_commentaries_list()
+BEGIN
+    SELECT
+        users.namess AS namess,
+        users.surnames AS surnames,
+        books.descriptions AS descriptions,
+        commentaries.commentary_date,
+        commentaries.commentary
+    FROM commentaries
+    INNER JOIN users ON commentaries.idusers = users.idusers
+    INNER JOIN books ON commentaries.idbook = books.idbook;
+END $$
+DELIMITER ;
+
+
+CALL spu_commentaries_list();
+
+		
 		SELECT * FROM commentaries
 	
 	-- PROCEDIMIENTO ALMACENADO

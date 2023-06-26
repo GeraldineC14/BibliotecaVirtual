@@ -31,7 +31,7 @@ require_once './permisos.php';
                         </div>
                         <div class="card-body">
                             <div class="table">
-                                <table class="table display responsive" id="tabla-libros" width="85%" cellspacing="0">
+                                <table class="table display responsive" id="tabla-comentario" width="85%" cellspacing="0">
                                     <colgroup>
                                         <col width="5%">
                                         <col width="20%">
@@ -74,5 +74,35 @@ require_once './permisos.php';
 
     <!-- Mis funciones y eventos javascript -->
     <script>
+        $(document).ready(function() {
+            function listarComentario() {
+                $.ajax({
+                    url: "../../controllers/comentario.controller.php",
+                    type: "GET",
+                    data: 'operacion=listarComentario',
+                    dataType: "json",
+                    success: function(response) {
+                        if (response && response.length > 0) {
+                            var tablaBody = $("#tabla-comentario tbody");
 
+                            $.each(response, function(index, comentario) {
+                                var fila = $("<tr>");
+                                fila.append($("<td>").text(index + 1));
+                                fila.append($("<td>").text(comentario.namess + " " + comentario.surnames));
+                                fila.append($("<td>").text(comentario.descriptions));
+                                fila.append($("<td>").text(comentario.commentary_date));
+                                fila.append($("<td>").text(comentario.commentary));
+                                tablaBody.append(fila);
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+
+            listarComentario();
+        });
     </script>
