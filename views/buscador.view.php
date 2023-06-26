@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -103,14 +107,11 @@
        look = "<?php echo $_GET["look"];?>";
        type = "<?php echo $_GET["type"];?>";
 
-        function LibrosBuscador(){
+        function mostrarVistaLibros(){
             $.ajax({
                 url:'../controllers/biblioteca.controller.php',
                 type:'GET',
-                data:{'operacion':'Buscarlibros',
-                        'look':look,
-                        'type':type
-                    },
+                data:'operacion=listarVistaLibros',
                 success: function(result){
                 let registros = JSON.parse(result);
                 let nuevaFila = ``;
@@ -118,19 +119,18 @@
                 registros.forEach(registro => {  
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                     nuevaFila = ` 
-                    <div>
-                        <div class="card-group">   
+                    <div class="card-group">   
                             <div class="card col-md-12"> 
                                 <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="frontpage/${portada}">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
                                     <p class="card-text">${registro['author']}</p>
                                     <div>
-                                        <a href='detalle.view.php?data3=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>                          
+                        </div>     
                     </div>                              
                     `;
                     $(".datos").append(nuevaFila);
@@ -162,7 +162,8 @@
         }
 
         //Funciones de carga automatica
-        LibrosBuscador();
+        //LibrosBuscador();
+        mostrarVistaLibros();
         VistaprincipalCategoria();
     });
 </script>
