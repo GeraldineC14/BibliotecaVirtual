@@ -3,7 +3,7 @@ session_start();
 /*
 if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../login.php");
-}
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #415a76;">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html" style="font-weight: bold; font-size:20px; font-family:'Courier New', Courier, monospace;">
+        <a class="navbar-brand ps-3" href="./index.php?view=admin.view.php" style="font-weight: bold; font-size:20px; font-family:'Courier New', Courier, monospace;">
             <span style="background-color: #415a76; color: #000000; padding:5px; border-radius:5px">Horacio Zeballos</span>
         </a>
         <!-- Sidebar Toggle-->
