@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../login.php");
-}*/
+}
 ?>
 
 <!DOCTYPE html>

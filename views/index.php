@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
 </head>
-<body>
+<body>   
     <!-- navbar -->
     <?php include './navbar.php'; ?>
     <div class="container">
@@ -30,26 +30,46 @@
             </ol>
         </div>
         <!-- FORMULARIO DE BUSQUEDA -->
+        <div class="container mt-3">
+            <form action="views/buscador.view.php">
+                <div class="form-row align-items-center ml-5">
+                    <div class="col-auto">
+                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
+                    </div>
+                    <div class="col-auto">
+                    <select class="form-control form-control-lg" id="inlineFormInputGroup" name="type"  required>
+                                <option value="">Seleccione:</option>
+                                <option value="n">Nombre de libro</option>
+                                <option value="a">Autor</option>
+                            </select>
+                    </div>
+                    <div class="col-auto">
+                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="submit" value="Bucar">           
+                    </div>
+                </div> 
+            </form> 
+        </div>
     </div>
-    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">
+    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">         
         <div class="row">
-            <div class="col-md-6 col-xl-3 offset-xl-0"><div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
-    <div class="sidebar-category sidebar-default">
-        <div class="category-title">
-            <span>CATEGORIAS</span>
-        </div>
-        <div class="category-content">
-            <ul id="fruits-nav" class="nav flex-column categorias">
-            </ul>
+            <div class="col-md-6 col-xl-3 offset-xl-0">
+                <div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
+                    <div class="sidebar-category sidebar-default">
+                        <div class="category-title">
+                            <span>CONTENIDOS</span>
+                        </div>
+                            <!-- LISTA DE SUBCATEGORIAS -->
+                        <div class="category-content">
+                            <ul id="fruits-nav" class="nav flex-column categorias"></ul>
+                        </div>
+                    </div>
+                </div>   
+            </div>     
+            <!-- VISTA DE LIBROS PRINCIPALES -->
+            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos"></div>    
         </div>
     </div>
-</div></div>
-            <br>
-            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos">
-
-            </div>
-        </div>
-    </div>
+    <!-- Footer -->
     <h2 class="text-center" style="font-family: 'Archivo Black', sans-serif;margin-bottom: 25px;">Enlaces de apoyo</h2>
     <div class="container" style="margin-bottom: 39px;">
         <div class="row">
@@ -66,15 +86,18 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <!-- Script de Fontawesome -->
+    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
+    
 <script>
     $(document).ready(function(){
-        idsubcategorie = <?php echo $_GET["sub1"];?>
-
-        function VistaSubcategoria(){
+        function mostrarVistaLibros(){
             $.ajax({
                 url:'../controllers/biblioteca.controller.php',
                 type:'GET',
-                data: {'operacion':'VistaSubcategoria','idsubcategorie':idsubcategorie},
+                data:'operacion=listarVistaLibros',
                 success: function(result){
                 let registros = JSON.parse(result);
                 let nuevaFila = ``;
@@ -82,19 +105,18 @@
                 registros.forEach(registro => {  
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                     nuevaFila = ` 
-                    <div>
-                        <div class="card-group">   
+                    <div class="card-group">   
                             <div class="card col-md-12"> 
-                                <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="../views/frontpage/${portada}">
+                                <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="./frontpage/${portada}">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
                                     <p class="card-text">${registro['author']}</p>
                                     <div>
-                                        <a href='../views/detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>                          
+                        </div>     
                     </div>                              
                     `;
                     $(".datos").append(nuevaFila);
@@ -114,7 +136,7 @@
                     registros.forEach(registro => {  
                         nuevaFila2 = ` 
                         <li class="nav-item">
-                            <a href="subcategoria.view.php?sub1=${registro['idsubcategorie']}" class="nav-link">
+                            <a href="./subcategoria.view.php?sub1=${registro['idsubcategorie']}" class="nav-link">
                                 <i class="fa fa-book" aria-hidden="true"></i>${registro['subcategoryname']}
                             </a>
                         </li>                             
@@ -124,10 +146,9 @@
                 }
             });
         }
-
-
+        //Funciones de carga automatica
+        mostrarVistaLibros();
         VistaprincipalCategoria();
-        VistaSubcategoria();
     });
 </script>
 </body>
