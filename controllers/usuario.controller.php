@@ -3,7 +3,17 @@
 session_start();
 
 //La sesion contendrá datos del login en formato de arreglo
-$_SESSION['login'] = [];
+if (!isset($_SESSION['login'])) {
+    // Crea un nuevo array con las variables por defecto
+    $_SESSION['login'] = [
+        'acceso'      => '',
+        'idusers'     => '',
+        'mensaje'     => '',
+        'namess'      => '',
+        'surnames'    => '',
+        'accesslevel' => ''
+    ];
+}
 
 require_once '../models/Usuario.php';
 
@@ -17,8 +27,8 @@ require_once '../models/Usuario.php';
                 "acceso"      => false,
                 "idusers"    => "",
                 "mensaje"     => "",
-                "surnames"    => "",
                 "namess"      => "",
+                "surnames"    => "",
                 "accesslevel" => ""
             ];
 
