@@ -647,14 +647,29 @@
 
 -- Procedimiento Almacenado para Listar los comentarios (usuario/comentario/fecha)
 DELIMITER $$
-CREATE PROCEDURE spu_listar_Comentario()
+CREATE PROCEDURE spu_commentaries_list()
 BEGIN
-    SELECT c.idusers, b.book_name, c.commentary_date, c.commentary
-    FROM commentaries c
-    INNER JOIN books b ON c.idbook = b.idbook;
+    SELECT idusers, idbook, commentary_date, commentary
+    FROM commentaries;
 END $$
 
-CALL spu_listar_Comentario();
+DELIMITER $$
+CREATE PROCEDURE spu_commentaries_list()
+BEGIN
+    SELECT
+        users.namess AS namess,
+        users.surnames AS surnames,
+        books.descriptions AS descriptions,
+        commentaries.commentary_date,
+        commentaries.commentary
+    FROM commentaries
+    INNER JOIN users ON commentaries.idusers = users.idusers
+    INNER JOIN books ON commentaries.idbook = books.idbook;
+END $$
+DELIMITER ;
+
+
+CALL spu_commentaries_list();
 
 		
 		SELECT * FROM commentaries
