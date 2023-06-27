@@ -475,7 +475,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -484,10 +484,13 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
-(45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'1'),
-(46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
-(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
-(48,'FINAL','FINAL','PRUEBA REAL FINAL','FINAL@GMAIL.COM','$2y$10$Py6h2h4/r6kALgHXbhDJU.aZVcUx8VSaTxtNEdzxv/6ffmnwzyB8i','E','2023-06-27 13:42:16',NULL,'1');
+(45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'0'),
+(46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'0'),
+(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'0'),
+(48,'FINAL','FINAL','PRUEBA REAL FINAL','FINAL@GMAIL.COM','$2y$10$Py6h2h4/r6kALgHXbhDJU.aZVcUx8VSaTxtNEdzxv/6ffmnwzyB8i','E','2023-06-27 13:42:16',NULL,'0'),
+(49,'diego100','validad de milagros','Diego prueba validad','diegofelipa10@gmail.com','$2y$10$Rq7946ASNUk.js3pOceZEulhMxlLZMTU3D6.oh8vtxXnkRcqTAMR.','E','2023-06-27 16:59:53',NULL,'0'),
+(50,'diego1000','AHORA SI DE MILAGROS','DIEGO DE MILAGROS','diegofelipa100@gmail.com','$2y$10$hCJPruIhbJPLFxPMyY2J3.hseyLPlhKJPLRBQJrtZgQ1oB3vxZ/Ni','E','2023-06-27 17:04:18',NULL,'0'),
+(51,'diego200','AHORA SI MILAGROS casado','DIEGO DE MILAGROS AHORA SI','diegofelipa1000@gmail.com','$2y$10$jZgZr8NQTeTLE2sNRYKMi.0mtjdf3zzLjoEqzGmYz0KB4wv6Eu6ja','E','2023-06-27 17:07:55',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -1181,13 +1184,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_obtain`(
-		IN _idusers INT
-		)
+					IN _idusers INT
+				)
 BEGIN
-		SELECT  idusers, namess, surnames, accesslevel,email,accesskey
-				FROM users 
-			WHERE state = "1" AND idusers = _idusers;
-		END */$$
+				SELECT  idusers, namess, username,surnames, accesslevel,email,accesskey
+						FROM users 
+					WHERE state = "1" AND idusers = _idusers;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_register` */
@@ -1218,23 +1221,26 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(
-			IN _idusers	INT,
-			IN _namess	VARCHAR(30),
-			IN _surnames	VARCHAR(100),
-			IN _email	VARCHAR(100),
-			IN _accesslevel	VARCHAR(100),
-			IN _accesskey	VARCHAR(100)
-		)
+				IN _idusers	INT,
+				IN _namess	VARCHAR(30),
+				IN _surnames	VARCHAR(100),
+				IN _username	VARCHAR(50),
+				IN _email	VARCHAR(100),
+				IN _accesslevel	VARCHAR(100),
+				IN _accesskey	VARCHAR(100)
+			)
 BEGIN
-			UPDATE users SET
-				namess 		= _namess,
-				surnames 	= _surnames,
-				email 		= _email,
-				accesslevel 	= _accesslevel,
-				accesskey 	= _accesskey
-				
-			WHERE idusers = _idusers;
-		END */$$
+
+				UPDATE users SET
+					namess 		= _namess,
+					surnames 	= _surnames,
+					username		= _username,
+					email 		= _email,
+					accesslevel 	= _accesslevel,
+					accesskey 	= _accesskey
+					
+				WHERE idusers = _idusers;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_validate_email` */

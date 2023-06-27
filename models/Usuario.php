@@ -74,12 +74,13 @@ class Usuario extends Conexion {
 
     public function actualizarUsuario($datosGuardar){
         try{
-            $consulta = $this->acceso->prepare("CALL spu_users_update(?,?,?,?,?,?)");
+            $consulta = $this->acceso->prepare("CALL spu_users_update(?,?,?,?,?,?,?)");
 
             $consulta->execute([
                 $datosGuardar['idusers'],
                 $datosGuardar['namess'],
                 $datosGuardar['surnames'],
+                $datosGuardar['username'],
                 $datosGuardar['email'],
                 $datosGuardar['accesslevel'],
                 $datosGuardar['accesskey']

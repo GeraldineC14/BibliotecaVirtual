@@ -130,8 +130,8 @@ require_once './permisos.php';
 
                                     <div class="row">
                                         <div class="col-md-6 form-group">
-                                            <label for="email2">Email:</label>
-                                            <input type="email" id="email2" class="form-control form-control-sm">
+                                            <label for="username2">Nombre de usuario:</label>
+                                            <input type="text" id="username2" class="form-control form-control-sm">
                                         </div>
 
                                         <div class="col-md-6 form-group">
@@ -140,6 +140,12 @@ require_once './permisos.php';
                                                 <option value="E">Estudiante</option>
                                                 <option value="D">Docente</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="email2">Email:</label>
+                                            <input type="email" id="email2" class="form-control form-control-sm">
                                         </div>
                                     </div>
 
@@ -158,7 +164,7 @@ require_once './permisos.php';
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="cancelar-modal2" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" id="cancelar-modal2" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
                                 <button type="button" id="guardar-usuario2" class="btn btn-sm btn-primary" >Guardar</button>
                                 <button type="button" id="editar-contraseña" class="btn btn-sm btn-primary">Editar Contraseña</button>
                             </div>
@@ -191,7 +197,7 @@ require_once './permisos.php';
             'repetir'       : "",
             'accesslevel'   : ""
         };
-        
+
         function alertar(textoMensaje = ""){
                 Swal.fire({
                     title   : 'Usuarios',
@@ -266,58 +272,162 @@ require_once './permisos.php';
             reiniciarFormulario();
         }
 
-        function registrarUsuario(){
-            datos['surnames']    =   $("#surnames").val();
-            datos['namess']      =   $("#namess").val();
-            datos['username']    =   $("#username").val();
-            datos['email']       =   $("#email").val();
-            datos['accesslevel'] =   $("#accesslevel").val();
-            datos['accesskey']   =   $("#accesskey").val();
-            datos['repetir']     =   $("#repetir").val();
+        function validar() {
+            const username = $("#username").val();
+            const surnames = $("#surnames").val();
+            const namess = $("#namess").val();
+            const email = $("#email").val();
+            const accesskey = $("#accesskey").val();
+            const accesslevel = $("#accesslevel").val();
+            const repetir = $("#repetir").val();
 
-            datos['operacion']  = "registrarUsuario";
+            datos['username'] = username;
+            datos['surnames'] = surnames;
+            datos['namess'] = namess;
+            datos['email'] = email;
+            datos['accesskey'] = accesskey;
+            datos['accesslevel'] = accesslevel;
+            datos['repetir'] = repetir;
+            datos['operacion'] = "registrarUsuario";
 
-            if(datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
-                alertar("Complete el formulario por favor")
-            }else{
-                if(datos['accesskey'] !== datos['repetir']){
-                    alertarToast("Ha sucecido un error","Las claves no coinciden","error")
-                }else{
+            // Valida que los campos no esten vacios
+            if (username === "" || surnames === "" || namess === "" || email === "" || accesslevel === "" || accesskey === "" || repetir === "") {
+                alertar("Complete el formulario por favor");
+                return;
+            }
 
-                    Swal.fire({
-                        title   : "Registro",
-                        text    : "¿Los datos ingresados son correctos?",
-                        icon    : "question",
-                        footer  : "Horacio Zeballos Gámez",
-                        confirmButtonText   : "Aceptar",
-                        confirmButtonColor  : "#38AD4D",
-                        showCancelButton    : true,
-                        cancelButtonText    : "Cancelar",
-                        cancelButtonColor   : "#D3280A"
-                    }).then(result => {
-                        if(result.isConfirmed){
+            console.log($("#username").val())
+
+            // Realiza la llamada AJAX para validar el username
+            $.ajax({
+                url: '../../controllers/usuario.controller.php',
+                type: 'GET',
+                data: {
+                    'operacion': 'validacionUsuario',
+                    'username': datos['username']
+                },
+                success: function(result) {
+                    if (result !== '[]') {
+                            alertar("El USUARIO ya existe en el sistema");
+                            console.log(result);
+                            return;
+                    }
+
+                    if (accesslevel === "D") {
+                        const esvalido = document.getElementById('email');
+                        const exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+                        if (exprecion.test(esvalido.value)) {
+                            const email = $("#email").val();
                             $.ajax({
                                 url: '../../controllers/usuario.controller.php',
                                 type: 'GET',
-                                data: datos,
-                                success: function(result){
-                                    alertarToast("Proceso completado","El usuario ha sido registrado correctamente", "success")
-                                    setTimeout(function(){
-                                        reiniciarFormulario();
-                                        listarUsuarios();
-                                        $("#modal-usuarios").modal('hide');
-                                    }, 1800)
+                                data: {
+                                        'operacion': 'validacionCorreo',
+                                        'email': email
+                                },
+                                success: function(result) {
+                                    if (result !== '[]') {
+                                        alertar("El correo de docente ya existe en el sistema");
+                                        console.log(result);
+                                        return;
+                                    }
+                                    registrar();
+                                }
+                            });
+                        }else{
+                            Swal.fire({
+                                title: "Error",
+                                text: "Correo no autorizado",
+                                icon: "error",
+                                footer: "Horacio Zeballos Gámez",
+                                confirmButtonText: "Aceptar",
+                                confirmButtonColor: "#38AD4D"
+                            });
+                        }
+                    }else{
+                        const email = document.getElementById('email');
+                        const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
+                        const value = email.value.split('@');
+
+                        if (!dominios.includes(value[1])) {
+                                Swal.fire({
+                                        title: "Error",
+                                        text: `Correos autorizados: ${dominios}`,
+                                        icon: "error",
+                                        footer: "Horacio Zeballos Gámez",
+                                        confirmButtonText: "Aceptar",
+                                        confirmButtonColor: "#38AD4D"
+                                });
+                        }else{
+                            const email = $("#email").val();
+                            $.ajax({
+                                url: '../../controllers/usuario.controller.php',
+                                type: 'GET',
+                                data: {
+                                        'operacion': 'validacionCorreo',
+                                        'email': email
+                                },
+                                success: function(result) {
+                                    if (result !== '[]') {
+                                            alertar("El correo de estudiante ya existe en el sistema");
+                                            console.log(result);
+                                            return;
+                                    }
+                                    registrar();
                                 }
                             });
                         }
-                    });
+                    }
                 }
+            });
+		}
+
+        function registrar(){
+            if(datos['accesskey'] !== datos['repetir']){
+                Swal.fire({
+                    title   : "Ha sucecido un error",
+                    text    : `Las claves no coinciden`,
+                    icon    : "error",
+                    footer  : "Horacio Zeballos Gámez",
+                    confirmButtonText   : "Aceptar",
+                    confirmButtonColor  : "#38AD4D"
+                });
+            }else{
+                Swal.fire({
+                    title   : "Registro",
+                    text    : "¿Los datos ingresados son correctos?",
+                    icon    : "question",
+                    footer  : "Horacio Zeballos Gámez",
+                    confirmButtonText   : "Aceptar",
+                    confirmButtonColor  : "#38AD4D",
+                    showCancelButton    : true,
+                    cancelButtonText    : "Cancelar",
+                    cancelButtonColor   : "#D3280A"
+                }).then(result => {
+                    if(result.isConfirmed){
+                        $.ajax({
+                            url: '../../controllers/usuario.controller.php',
+                            type: 'GET',
+                            data: datos,
+                            success: function(result){
+                                alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
+                                $("#formulario-usuarios")[0].reset();
+                                setTimeout(function(){
+                                    reiniciarFormulario();
+                                    $("#modal-usuarios").modal('hide');
+                                    listarUsuarios();
+                                }, 1500)
+                            }
+                        });
+                    }
+                });
             }
         }
 
         function editarUsuario(){
             datos['surnames']    =   $("#surnames2").val();
             datos['namess']      =   $("#namess2").val();
+            datos['username']    =   $("#username2").val();
             datos['email']       =   $("#email2").val();
             datos['accesslevel'] =   $("#accesslevel2").val();
             datos['accesskey']   =   $("#accesskey2").val();
@@ -326,14 +436,13 @@ require_once './permisos.php';
             datos['operacion']  = "actualizarUsuario";
             datos['idusers'] = idusers;
 
-
-            if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" ){
-                alertar("Complete el formulario por favor")
-                }else{
+             // Valida que los campos no esten vacios
+            if (datos['surnames'] == "" || datos['namess']  == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "") {
+                alertar("Complete el formulario por favor");
+            }else{
                 if(datos['accesskey'] !== datos['repetir']){
                     alertarToast("Ha sucecido un error","Las claves no coinciden","error")
                 }else{
-
                     Swal.fire({
                         title   : "Actualizar",
                         text    : "¿Los datos ingresados son correctos?",
@@ -357,7 +466,7 @@ require_once './permisos.php';
                                     $("#editar-contraseña").prop('disabled',false);
                                     setTimeout(function(){
                                         reiniciarFormulario();
-                                        $("#modal-usuarios").modal('hide');
+                                        $("#modal-usuarios2").modal('hide');
                                         listarUsuarios();
                                     }, 1800)
                                 }
@@ -445,6 +554,7 @@ require_once './permisos.php';
                     success: function(result){
                         $("#namess2").val(result['namess']);
                         $("#surnames2").val(result['surnames']);
+                        $("#username2").val(result['username']);
                         $("#email2").val(result['email']);
                         $("#accesslevel2").val(result['accesslevel']);
                         $("#accesskey2").val(result['accesskey']);
@@ -463,13 +573,16 @@ require_once './permisos.php';
 
         //Funciones de carga automatica
         listarUsuarios();
+        //Registro
         $("#mostrar-modal-usuario").click(abrirModalRegistro);
-        $("#guardar-usuario").click(registrarUsuario);
+        $("#guardar-usuario").click(validar);
         $("#cancelar-modal").click(reiniciarFormulario);
 
-        $("#guardar-usuario2").click(editarUsuario);
+        //Editar
+        $("#guardar-usuario2").click(validar);
         $("#cancelar-modal2").click(reiniciarFormulario);
         $("#editar-contraseña").click(activarContraseña);
+
 
     });
 </script>
