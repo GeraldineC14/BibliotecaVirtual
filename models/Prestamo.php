@@ -5,8 +5,8 @@ require_once 'Conexion.php';
 class Prestamo extends Conexion{
     private $acceso;
 
-    public function __CONSTRUCT(){
-        $this->acceso = parent :: getConexion();
+    public function __construct(){
+        $this->acceso = parent::getConexion();
     }
 
     public function listarPrestamos(){
@@ -25,7 +25,7 @@ class Prestamo extends Conexion{
         try{
             $consulta = $this->acceso->prepare("CALL spu_usersloans_list()");
             $consulta->execute();
-            $datos = $consulta->fetchALL(PDO::FETCH_ASSOC);
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         }
         catch(Exception $e){
@@ -48,10 +48,17 @@ class Prestamo extends Conexion{
         }catch(Exception $e){
             die($e->getMessage());
         }
+    }
 
+    public function cambiarEstadoPrestamo($idPrestamo, $nuevoEstado){
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_change_state_loans(?, ?)");
+            $consulta->execute(array(
+                $idPrestamo,
+                $nuevoEstado
+            ));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 }
-
-
-
-?>

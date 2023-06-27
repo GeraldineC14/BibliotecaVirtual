@@ -82,9 +82,11 @@ require_once 'permisos.php';
                                             <th>Fecha de devolución</th>
                                             <th>Cantidad</th>
                                             <th>Estado</th>
+                                            <th>Comandos</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -107,6 +109,7 @@ require_once 'permisos.php';
                                         <div class="form-group">
                                             <label for="libro">Libro</label><br>
                                             <select id="libro" class="form-control libro" name="libro" required style="width: 100%;">
+
                                             </select>
                                         </div>
                                         <div class="row">
@@ -248,8 +251,11 @@ require_once 'permisos.php';
                         $("#tabla-prestamos tbody").html("");
                         registros.forEach(registro => {
                             observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
-                            let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
+                            let estado = (registro['state'] == 1) ? 'Prestado' : 'Devuelto';
                             let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
+                            let botonEstado = `
+                                <button onclick="cambiarEstado(${registro['idloan']}, ${registro['state']})">Cambiar Estado</button>
+                        `;
                             nuevaFila = `
                     <tr>
                         <td>${registro['idloan']}</td>
@@ -260,6 +266,7 @@ require_once 'permisos.php';
                         <td>${registro['return_date']}</td>
                         <td>${registro['amount']}</td>
                         <td style="color: ${colorCampo}">${estado}</td>
+                        <td>${botonEstado}</td>
                     </tr>
                 `;
                             $("#tabla-prestamos tbody").append(nuevaFila);
@@ -273,7 +280,14 @@ require_once 'permisos.php';
                     }
                 });
             }
-            
+
+          
+
+
+
+
+
+
             function reiniciarFormulario() {
                 $("#formulario-prestamos")[0].reset();
             }

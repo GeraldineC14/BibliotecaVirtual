@@ -87,6 +87,9 @@
 			END $$
 
 			CALL spu_books_list();
+			
+			SELECT * FROM loans;
+			
 
 		-- N°2 Register of books
 			DELIMITER $$
@@ -550,17 +553,6 @@
 					WHERE email = _email;
 			END $$ 
 		CALL spu_validate_email('geral@midominio.com');
-		
-		DELIMITER $$
-			CREATE PROCEDURE spu_validate_username(
-				IN _username VARCHAR(100)
-			)BEGIN
-				SELECT username 
-					FROM users
-				WHERE username = _username;
-		END $$
-		
-		CALL spu_validate_username('geral@midominio.com');
 			
 -- BOOK LOANS:
 	-- Tb. Loans
@@ -573,12 +565,31 @@
 			loan_date	DATE 	NOT NULL,
 			return_date	DATE 	NOT NULL,
 			observation	VARCHAR(200)	NULL,
-			state		CHAR(1) 	NOT NULL DEFAULT '1',
+			state		CHAR(1) 	DEFAULT '1',
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
+		
+		-- Procedimiento para cambiar estado de prestamo
+		DELIMITER $$
+			CREATE PROCEDURE spu_change_state_loans
+			(
+				 IN p_idLoan INT,
+				 IN p_newState CHAR(1)
+			)
+			BEGIN
+				 UPDATE loans
+				 SET state = p_newState
+				 WHERE idloan = p_idLoan;
+		END $$
+		
+										-- (id, 'state') 
+		CALL spu_change_state_loans(1,'1');
+		CALL spu_loans_list();
+		
+
 		SELECT * FROM loans;
 		
 	-- PROCEDIMIENTOS ALMACENADOS
@@ -591,11 +602,10 @@
 						s.observation, s.loan_date, s.return_date, s.amount, s.state
 					FROM loans s
 						INNER JOIN books b ON b.idbook = s.idbook
-						INNER JOIN users u ON u.idusers = s.idusers
-					WHERE s.state = "1";
+						INNER JOIN users u ON u.idusers = s.idusers;
 			END $$
 				
-				CALL spu_loans_list();
+			CALL spu_loans_list();
 				
 		-- N°2 List users loans
 			DELIMITER $$

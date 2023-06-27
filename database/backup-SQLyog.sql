@@ -396,9 +396,12 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
+
+insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
+(1,3,47,'1','2023-06-28','2023-06-28','abc','1','2023-06-27 10:46:50');
 
 /*Table structure for table `recuperarclave` */
 
@@ -467,7 +470,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -477,7 +480,8 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
 (45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'1'),
-(46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1');
+(46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
+(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -720,6 +724,23 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_change_state_loans` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_change_state_loans` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_change_state_loans`(
+				 IN p_idLoan INT,
+				 IN p_newState CHAR(1)
+			)
+BEGIN
+				 UPDATE loans
+				 SET state = p_newState
+				 WHERE idloan = p_idLoan;
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_commentaries_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_commentaries_list` */;
@@ -869,8 +890,7 @@ BEGIN
 						s.observation, s.loan_date, s.return_date, s.amount, s.state
 					FROM loans s
 						INNER JOIN books b ON b.idbook = s.idbook
-						INNER JOIN users u ON u.idusers = s.idusers
-					WHERE s.state = "1";
+						INNER JOIN users u ON u.idusers = s.idusers;
 			END */$$
 DELIMITER ;
 

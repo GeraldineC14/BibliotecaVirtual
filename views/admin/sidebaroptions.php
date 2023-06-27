@@ -18,7 +18,7 @@ switch ($permiso) {
         "icon" => "fa-solid fa-house fa-2xl"
       ],
       [
-        "menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
+        "menu" => "Prestamos", "url" => "index.php?view=prestamos.admin.php",
         "icon" => "fa-solid fa-boxes-packing fa-2xl"
       ],
       [

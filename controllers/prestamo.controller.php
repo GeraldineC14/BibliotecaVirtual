@@ -2,18 +2,17 @@
 require_once '../models/Prestamo.php';
 $prestamo = new Prestamo();
 
-if(isset($_GET['operacion'])){
-
-    if($_GET['operacion']== 'listarPrestamos'){
+if (isset($_GET['operacion'])) {
+    if ($_GET['operacion'] == 'listarPrestamos') {
         echo json_encode($prestamo->listarPrestamos());
     }
 
-    if($_GET['operacion'] == 'listarUsuarioLoans'){
+    if ($_GET['operacion'] == 'listarUsuarioLoans') {
         $dataprestamo = $prestamo->listarUsuarioLoans();
         echo json_encode($dataprestamo);
     }
 
-    if($_GET['operacion'] == 'registrarPrestamos'){
+    if ($_GET['operacion'] == 'registrarPrestamos') {
         $datosSolicitados = [
             "idbook"         => $_GET['idbook'],
             "idusers"        => $_GET['idusers'],
@@ -24,8 +23,11 @@ if(isset($_GET['operacion'])){
         ];
         $prestamo->registrarPrestamos($datosSolicitados);
     }
+
+    if ($_GET['operacion'] == 'cambiarEstadoPrestamo') {
+        $idPrestamo = $_GET['idPrestamo'];
+        $nuevoEstado = $_GET['nuevoEstado'];
+        $prestamo->cambiarEstadoPrestamo($idPrestamo, $nuevoEstado);
+    }
 }
-
-
-
 ?>
