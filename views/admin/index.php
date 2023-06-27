@@ -43,26 +43,24 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
             <span style="background-color: #415a76; color: #000000; padding:5px; border-radius:5px">Horacio Zeballos</span>
         </a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fa-solid fa-bars fa-lg" style="color: #000000;"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fa fa-bars fa-lg" style="color: #000000;"></i></button>
         <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user fa-lg" style="color: #000000;"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../../index.php">Biblioteca</a></li>
-                        <li><a class="dropdown-item" href="./index.php?view=perfil.view.php">Perfil</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </form>
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user fa-lg" style="color: #000000;"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="../../index.php">Biblioteca</a>
+                <a class="dropdown-item" href="./index.php?view=perfil.view.php">Perfil</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a>
+            </div>
+            </li>
+        </ul>
+        
     </nav>
     <div id="layoutSidenav">
         <!-- SidebarOptions -->
@@ -92,20 +90,21 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
             </main>
         </div>
     </div>
-
-    <!-- Script de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <!-- Script de Fontawesome -->
-    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
-    <!-- Script de Siderbar -->
-    <script src=".././../assets/js/navSid.js"></script>
-    <!-- Script jquery -->
-    <script src="../../assets/js/jquery.min.js"></script>
+     <!-- Script jquery -->
+     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/chart.min.js"></script>
     <script src="../../assets/js/bs-init.js"></script>
     <script src="../../assets/js/jquery.easing.min.js"></script>
     <script src="../../assets/js/theme.js"></script>
+    <!-- Boostrap 4.6 -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <!-- Script de Fontawesome -->
+    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
+    <!-- Script de Siderbar -->
+    <script src=".././../assets/js/navSid.js"></script>
+   
 
     <!-- Datatable -->
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

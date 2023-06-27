@@ -303,9 +303,9 @@ require_once './permisos.php';
                                 success: function(result){
                                     alertarToast("Proceso completado","El usuario ha sido registrado correctamente", "success")
                                     setTimeout(function(){
-                                        $("#modal-usuarios").modal("hide");
                                         reiniciarFormulario();
                                         listarUsuarios();
+                                        cerrarModal();
                                     }, 1800)
                                 }
                             });
@@ -357,7 +357,7 @@ require_once './permisos.php';
                                     $("#editar-contraseña").prop('disabled',false);
                                     setTimeout(function(){
                                         reiniciarFormulario();
-                                        $('#modal-usuarios2').modal('hide');
+                                        cerrarModal();
                                         listarUsuarios();
                                     }, 1800)
                                 }
@@ -400,6 +400,20 @@ require_once './permisos.php';
                })
 
         }
+
+
+        function cerrarModal() {
+            var modalElement = document.getElementById('modal-usuarios');
+            if (modalElement) {
+                var modalInstance = bootstrap.Modal.getInstance(modalElement);
+                if (modalInstance) {
+                modalInstance.hidden();
+                }
+            }
+        }
+
+
+
 
         $("#tabla-usuarios tbody").on("click", ".eliminar", function(){
             //Almacenamos la PK en una variable
@@ -466,11 +480,11 @@ require_once './permisos.php';
         $("#mostrar-modal-usuario").click(abrirModalRegistro);
         $("#guardar-usuario").click(registrarUsuario);
         $("#cancelar-modal").click(reiniciarFormulario);
-        
+
         $("#guardar-usuario2").click(editarUsuario);
         $("#cancelar-modal2").click(reiniciarFormulario);
         $("#editar-contraseña").click(activarContraseña);
-        
+
     });
 </script>
 </body>

@@ -239,7 +239,7 @@ require_once './permisos.php';
                                     alertarToast("Proceso completado", "La categoría ha sido registrado correctamente", "success")
                                     setTimeout(function() {
                                         reiniciarFormulario();
-                                        $('#modal-categorias').modal('hide');
+                                        $("#modal-categorias").modal('hide')
                                         ListarCategoria();
                                     }, 1800)
                                 }
@@ -248,6 +248,7 @@ require_once './permisos.php';
                     });
                 }
             }
+
 
             $("#tabla-categoria tbody").on("click", ".editar", function() {
                 idcategorie = $(this).data("idcategorie");
