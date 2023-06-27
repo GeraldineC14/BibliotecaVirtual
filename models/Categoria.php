@@ -76,6 +76,16 @@ class Categoria extends Conexion{
         }
     }
 
+    public function eliminarCategoria($idcategorie){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_categorie_delete(?)");
+            $consulta->execute(array($idcategorie));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
 
     //MODELOS VISTA PRINCIPAL
     public function VistaprincipalCategoria(){

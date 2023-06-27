@@ -113,6 +113,17 @@ class Subcategoria extends Conexion{
         }
     }
 
+    //Eliminar (tb.indivdual)
+    public function eliminarSubcategoria($idsubcategorie){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_subcategorie_delete(?)");
+            $consulta->execute(array($idsubcategorie));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
 
 
 }

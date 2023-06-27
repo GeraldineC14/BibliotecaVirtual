@@ -35,6 +35,10 @@ if(isset($_GET['operacion'])){
         $categoria->actualizarCategoria($datosSolicitados);
     }
 
+    if($_GET['operacion'] == 'eliminarCategoria'){
+        $categoria->eliminarCategoria($_GET['idcategorie']);
+    }
+
     //CONTROLADOR VISTA PRINCIPAL
     if($_GET['operacion'] == 'VistaprincipalCategoria'){
         $dataCategoria = $categoria->VistaprincipalCategoria();

@@ -52,6 +52,11 @@ if(isset($_GET['operacion'])){
         $subcategoria->actualizarSubcategoria($datosSolicitados);
     }
 
+    //Eliminar(tb.individual)
+    if($_GET['operacion'] == 'eliminarSubcategoria'){
+        $subcategoria->eliminarSubcategoria($_GET['idsubcategorie']);
+    }
+
 
 }
 

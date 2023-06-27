@@ -305,7 +305,7 @@ require_once './permisos.php';
                                     setTimeout(function(){
                                         reiniciarFormulario();
                                         listarUsuarios();
-                                        cerrarModal();
+                                        $("#modal-usuarios").modal('hide');
                                     }, 1800)
                                 }
                             });
@@ -322,7 +322,7 @@ require_once './permisos.php';
             datos['accesslevel'] =   $("#accesslevel2").val();
             datos['accesskey']   =   $("#accesskey2").val();
             datos['repetir']     =   $("#repetir2").val();
-            
+
             datos['operacion']  = "actualizarUsuario";
             datos['idusers'] = idusers;
 
@@ -357,7 +357,7 @@ require_once './permisos.php';
                                     $("#editar-contraseña").prop('disabled',false);
                                     setTimeout(function(){
                                         reiniciarFormulario();
-                                        cerrarModal();
+                                        $("#modal-usuarios").modal('hide');
                                         listarUsuarios();
                                     }, 1800)
                                 }
@@ -377,7 +377,6 @@ require_once './permisos.php';
         }
 
         function activarContraseña(){
-           
            Swal.fire({
                    title   : "Usuarios",
                    text    : "¿Esta seguro modificar contraseña?",
@@ -400,19 +399,6 @@ require_once './permisos.php';
                })
 
         }
-
-
-        function cerrarModal() {
-            var modalElement = document.getElementById('modal-usuarios');
-            if (modalElement) {
-                var modalInstance = bootstrap.Modal.getInstance(modalElement);
-                if (modalInstance) {
-                modalInstance.hidden();
-                }
-            }
-        }
-
-
 
 
         $("#tabla-usuarios tbody").on("click", ".eliminar", function(){

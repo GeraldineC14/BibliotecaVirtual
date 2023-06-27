@@ -198,7 +198,6 @@ require_once 'permisos.php';
                 reiniciarFormulario();
             }
 
-
             function ListarSubcategoria() {
                 $.ajax({
                     url: '../../controllers/subcategoria.controller.php',
@@ -270,7 +269,7 @@ require_once 'permisos.php';
                     datos['idsubcategorie'] = idsubcategorie;
                 }
 
-                if (datos['subcategoryname'] == "" || datos['idsubcategorie'] == "") {
+                if (datos['idcategorie'] == "" || datos['subcategoryname'] == "") {
                     alertar("Complete el formulario por favor")
                 } else {
                     Swal.fire({
@@ -332,6 +331,36 @@ require_once 'permisos.php';
                         datosNuevos = false;
                     }
                 });
+            });
+
+            $("#tabla-subcategoria tbody").on("click", ".eliminar", function() {
+                idsubcategorie = $(this).data("idsubcategorie");
+                Swal.fire({
+                    title   : "Sub Categoría",
+                    text    : "¿Esta seguro de eliminar la sub categoría?",
+                    icon    : "question",
+                    footer  : "I.E. Horacio Zeballos Gámez",
+                    confirmButtonText   : "Aceptar",
+                    confirmButtonColor  : "#38AD4D",
+                    showCancelButton    : true,
+                    cancelButtonText    : "Cancelar",
+                    cancelButtonColor   : "#D3280A"
+                }).then(result => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            url: '../../controllers/subcategoria.controller.php',
+                            type: 'GET',
+                            data: {'operacion':'eliminarSubcategoria','idsubcategorie':idsubcategorie},
+                            success: function(result){
+                                if(result == ""){
+                                    idcategorie = ``;
+                                    alertarToast("Perfecto","Sub categoría eliminada correctamente","success")
+                                    ListarSubcategoria();
+                                }
+                            }
+                        });
+                    }
+                })
 
             });
 

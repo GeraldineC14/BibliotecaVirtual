@@ -175,7 +175,7 @@ require_once './permisos.php';
                                 <a href='#' data-idcategorie='${registro['idcategorie']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
                                 <a href='#' data-idcategorie='${registro['idcategorie']}' class = ' editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
                             </td>
-                        </tr>   
+                        </tr>
                         `;
                             $("#tabla-categoria tbody").append(nuevaFila);
                         });
@@ -278,6 +278,37 @@ require_once './permisos.php';
                 });
 
             });
+
+            $("#tabla-categoria tbody").on("click",".eliminar",function(){
+                idcategorie = $(this).data("idcategorie");
+                Swal.fire({
+                    title   : "Categoría",
+                    text    : "¿Esta seguro de eliminar la categoría?",
+                    icon    : "question",
+                    footer  : "I.E. Horacio Zeballos Gámez",
+                    confirmButtonText   : "Aceptar",
+                    confirmButtonColor  : "#38AD4D",
+                    showCancelButton    : true,
+                    cancelButtonText    : "Cancelar",
+                    cancelButtonColor   : "#D3280A"
+                }).then(result => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            url: '../../controllers/categoria.controller.php',
+                            type: 'GET',
+                            data: {'operacion':'eliminarCategoria','idcategorie':idcategorie},
+                            success: function(result){
+                                if(result == ""){
+                                    idcategorie = ``;
+                                    alertarToast("Perfecto","Categoría eliminada correctamente","success")
+                                    ListarCategoria();
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+
 
 
             $("#guardar-categoria").click(RegistrarCategoria);

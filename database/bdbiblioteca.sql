@@ -5,10 +5,10 @@
 -- BOOKS:
 	-- TB N°1 categories
 		CREATE TABLE categories(
-			idcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
-			categoryname	 VARCHAR(50) NOT NULL,
-			registrationdate DATETIME NOT NULL DEFAULT NOW()
-
+			idcategorie 	 	INT AUTO_INCREMENT PRIMARY KEY,
+			categoryname	 	VARCHAR(50) NOT NULL,
+			registrationdate 	DATETIME 	NOT NULL DEFAULT NOW(),
+			state 				CHAR(1)		NOT NULL DEFAULT '1'
 		)ENGINE=INNODB;
 		
 	-- REGISTRATION OF CATEGORIES:
@@ -23,8 +23,10 @@
 			idcategorie	 INT NOT NULL,
 			subcategoryname	 VARCHAR(100) NOT NULL,
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
+			state CHAR(1)	NOT NULL DEFAULT '1',
 			CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
 		)ENGINE=INNODB;
+		
 
 	-- REGISTRATION OF SUBCATEGORIES:
 		INSERT INTO subcategories (idcategorie, subcategoryname) VALUES
@@ -190,7 +192,8 @@
 			CREATE PROCEDURE spu_categories_list()
 			BEGIN
 				SELECT idcategorie, categoryname,registrationdate
-					FROM categories;
+					FROM categories
+				WHERE state = "1";
 			END $$
 			
 			CALL spu_categories_list();
@@ -226,7 +229,8 @@
 			BEGIN
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
 					FROM subcategories sub
-					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+					WHERE sub.state = "1";
 			END $$
 			
 			CALL spu_subcategories3_list();
@@ -294,7 +298,14 @@
 							categoryname	= _categoryname
 						WHERE idcategorie = _idcategorie; 	
 				END $$
-		
+			
+			-- N°10.3 Delete categorie	
+				DELIMITER $$
+					CREATE PROCEDURE spu_categorie_delete(IN _idcategorie INT)
+					BEGIN
+						UPDATE categories SET state = '0' WHERE idcategorie = _idcategorie;
+					END $$
+			
 		-- N°11 Register subcategories
 			DELIMITER $$
 				CREATE PROCEDURE spu_register_subcategorie(
@@ -333,7 +344,16 @@
 							idsubcategorie 	= _idsubcategorie,
 							subcategoryname	= _subcategoryname
 						WHERE idsubcategorie = _idsubcategorie; 	
-				END $$	
+				END $$
+				
+			-- N°11.3 Delete subcategorie	
+				DELIMITER $$
+					CREATE PROCEDURE spu_subcategorie_delete(IN _idsubcategorie INT)
+					BEGIN
+						UPDATE subcategories SET state = '0' 
+						WHERE idsubcategorie = _idsubcategorie;
+					END $$	
+					
 				
 		-- N°12 Counter dashboard/books,categorie, sub categorie
 			DELIMITER $$
@@ -396,7 +416,6 @@
 			CALL spu_bookssubcategory_list(1);
 			
 		
-			
 		-- N°4 List categories
 			DELIMITER $$
 			CREATE PROCEDURE spu_mainviewcategories_list()
