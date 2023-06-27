@@ -138,6 +138,12 @@ if(isset($_SESSION['login'])){
 				}
 			});
 
+			$("#accesskey").keypress(function(evt){
+				if (evt.keyCode == 13){
+					login();
+				}
+			});
+
 			$("#acceder").click(login);
 
 

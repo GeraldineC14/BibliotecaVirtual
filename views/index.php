@@ -44,7 +44,7 @@
                             </select>
                     </div>
                     <div class="col-auto">
-                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="submit" value="Bucar">           
+                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="submit" value="Buscar">           
                     </div>
                 </div> 
             </form> 

@@ -15,6 +15,12 @@ if (isset($_SESSION['login'])) {
     ';
 }
 
+if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
+    // Manejar el caso cuando el array o la clave no están definidos
+    $_SESSION['login'] = array();
+    $_SESSION['login']['idusers'] = '-1'; // Establecer un valor por defecto
+}
+
 $logoImagePath = '../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e'; // Ruta de la imagen del logo
 ?>
 

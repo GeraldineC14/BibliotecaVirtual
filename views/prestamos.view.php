@@ -1,9 +1,3 @@
-<?php
-if (!isset($_SESSION['login']) || $_SESSION['login'] == false) {
-    header("location:login.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -86,6 +80,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == false) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <!-- FONTWASOME -->
+    <script src="https://kit.fontawesome.com/9b57fc34f2.js" crossorigin="anonymous"></script>
     <!-- SweetAlert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

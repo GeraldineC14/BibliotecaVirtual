@@ -17,7 +17,7 @@ require_once './permisos.php';
                         </button>
                         <div class="form-group mt-3 mt-md-5 ml-md-5">
                             <div class="custom-file" lang="es">
-                                <input type="file" class="custom-file-input" id="customFileLang">
+                                <input type="file" class="custom-file-input" id="customFileLang" accept=".png, .jpg, .jpeg">
                                 <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
                             </div>
                         </div>

@@ -2,7 +2,9 @@
 
 session_start();
 
-
+if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
+  header("Location:../login.php");
+}
 
 //1. Obteniendo nivel de acceso (LOGIN)
 $nivelacceso = $_SESSION['login']['accesslevel'];

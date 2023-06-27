@@ -1,11 +1,3 @@
-<?php
-
-if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
-    // Manejar el caso cuando el array o la clave no están definidos
-    $_SESSION['login'] = array();
-    $_SESSION['login']['idusers'] = '-1'; // Establecer un valor por defecto
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,7 +89,7 @@ if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
 <script>
     $(document).ready(function(){
         idbook2 = <?php echo $_GET["resumen"];?>;
-        idusuario = <?php echo  $_SESSION['login']['idusers']?>    
+        idusuario = <?php echo  $_SESSION['login']['idusers'];?>;  
         
         function VistaResumen() {
             $.ajax({
@@ -126,7 +118,7 @@ if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
                                 <div class="btn-group" role="group">
                                     <a href="PDF/${registros['url'] || 'sin-pdf.png'}" target="_blank" class="btn btn-success mr-3" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
                                     <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                                    <a href='prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                                    <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                                 </div>
                             </div>
                         </div>
