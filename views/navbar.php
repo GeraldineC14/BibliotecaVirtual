@@ -1,6 +1,9 @@
 <?php
 session_start();
-if (isset($_SESSION['login'])) {
+
+$logoImagePath = '../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e'; // Ruta de la imagen del logo
+
+if (isset($_SESSION['login']['idusers'])) {
     // Usuario logeado
     $navItems = '
         <li class="btn btn-info"><a class="nav-link active text-dark" href="./index.php"><i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i></a> Inicio</li>
@@ -15,13 +18,10 @@ if (isset($_SESSION['login'])) {
     ';
 }
 
-if (!isset($_SESSION['login']) || !isset($_SESSION['login']['idusers'])) {
-    // Manejar el caso cuando el array o la clave no están definidos
-    $_SESSION['login'] = array();
+if (!isset($_SESSION['login']['idusers'])) {
+    // Manejar el caso cuando el idusers no está definido
     $_SESSION['login']['idusers'] = '-1'; // Establecer un valor por defecto
 }
-
-$logoImagePath = '../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e'; // Ruta de la imagen del logo
 ?>
 
 

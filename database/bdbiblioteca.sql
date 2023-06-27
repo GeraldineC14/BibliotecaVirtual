@@ -550,6 +550,17 @@
 					WHERE email = _email;
 			END $$ 
 		CALL spu_validate_email('geral@midominio.com');
+		
+		DELIMITER $$
+			CREATE PROCEDURE spu_validate_username(
+				IN _username VARCHAR(100)
+			)BEGIN
+				SELECT username 
+					FROM users
+				WHERE username = _username;
+		END $$
+		
+		CALL spu_validate_username('geral@midominio.com');
 			
 -- BOOK LOANS:
 	-- Tb. Loans
@@ -559,8 +570,8 @@
 			idbook 		INT 		NOT NULL,
 			idusers		INT 		NOT NULL,
 			amount		VARCHAR(30)	NOT NULL,
-			loan_date	DATETIME 	NOT NULL,
-			return_date	DATETIME 	NOT NULL,
+			loan_date	DATE 	NOT NULL,
+			return_date	DATE 	NOT NULL,
 			observation	VARCHAR(200)	NULL,
 			state		CHAR(1) 	NOT NULL DEFAULT '1',
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),

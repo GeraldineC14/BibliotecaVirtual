@@ -8,6 +8,7 @@ if (!isset($_SESSION['login'])) {
     $_SESSION['login'] = [
         'acceso'      => '',
         'idusers'     => '',
+        'username'    => '',
         'mensaje'     => '',
         'namess'      => '',
         'surnames'    => '',
@@ -25,7 +26,8 @@ require_once '../models/Usuario.php';
             // 0. Array que sera leido por la vista
             $resultado = [
                 "acceso"      => false,
-                "idusers"    => "",
+                "idusers"     => "",
+                "username"    => "",
                 "mensaje"     => "",
                 "namess"      => "",
                 "surnames"    => "",
@@ -111,7 +113,11 @@ require_once '../models/Usuario.php';
         }
 
         if($_GET['operacion'] == 'validacionUsuario'){
-            echo json_encode($usuario->validacionUsuario($_GET['email']));
+            echo json_encode($usuario->validacionUsuario($_GET['username']));
+        }        
+
+        if($_GET['operacion'] == 'validacionCorreo'){
+            echo json_encode($usuario->validacionCorreo($_GET['email']));
         }
     }
 

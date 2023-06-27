@@ -386,8 +386,8 @@ CREATE TABLE `loans` (
   `idbook` int(11) NOT NULL,
   `idusers` int(11) NOT NULL,
   `amount` varchar(30) NOT NULL,
-  `loan_date` datetime NOT NULL,
-  `return_date` datetime NOT NULL,
+  `loan_date` date NOT NULL,
+  `return_date` date NOT NULL,
   `observation` varchar(200) DEFAULT NULL,
   `state` char(1) NOT NULL DEFAULT '1',
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
@@ -396,18 +396,9 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
-
-insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,1,25,'1','2023-05-26 00:00:00','2023-05-27 00:00:00','muy poco','1','2023-05-26 17:09:12'),
-(8,1,25,'1','2023-05-26 00:00:00','2023-05-26 00:00:00','ko','1','2023-05-26 21:29:29'),
-(10,2,25,'1','2023-05-29 00:00:00','2023-05-31 00:00:00','prueba completa','1','2023-05-26 21:39:23'),
-(11,3,1,'1','2023-06-27 00:00:00','2023-06-28 00:00:00','Hola','1','2023-06-26 09:33:34'),
-(12,2,1,'1','2023-06-27 00:00:00','2023-06-29 00:00:00','Prueba 2','1','2023-06-26 09:35:12'),
-(13,2,1,'1','2023-06-27 00:00:00','2023-06-29 00:00:00','Ejemplo 3','1','2023-06-26 09:36:07'),
-(14,3,44,'2','2023-06-27 00:00:00','2023-07-06 00:00:00','aaaaaaaaaaaaaaaaaaaaaaaaaaaaa','1','2023-06-26 11:10:40');
 
 /*Table structure for table `recuperarclave` */
 
@@ -476,7 +467,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -484,7 +475,9 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
-(44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1');
+(44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
+(45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'1'),
+(46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -1205,6 +1198,22 @@ BEGIN
 						FROM users
 					WHERE email = _email;
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_validate_username` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_validate_username` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_username`(
+				IN _username VARCHAR(100)
+			)
+BEGIN
+				SELECT username 
+					FROM users
+				WHERE username = _username;
+		END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

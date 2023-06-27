@@ -90,7 +90,19 @@ class Usuario extends Conexion {
         }
     }
 
-    public function validacionUsuario($email){
+    public function validacionUsuario($username){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_validate_username(?)");
+            $consulta->execute([$username]);
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function validacionCorreo($email){
         try{
             $consulta = $this->acceso->prepare("CALL spu_validate_email(?)");
             $consulta->execute([$email]);
