@@ -535,34 +535,6 @@ require_once './permisos.php';
             reiniciarFormulario();
         }
 
-
-        /*function listarSubcategorias2(){
-            $.ajax({
-                url:'../controllers/subcategoria.controller.php',
-                type:'GET',
-                data:'operacion=listarSubcategoria2',
-                success: function(result){
-                    let registros = JSON.parse(result);
-                    let elementosLista = ``;
-                    if(registros.length > 0){
-                        //Asignamos un primer elemento, que será el que se muestre por defecto
-                        elementosLista = `<option selected>Seleccione</option>`;
-
-                        //Recorremos toda la colección
-                        registros.forEach(registro => {
-                            //Creamos la etiqueta <option> con el valor requerido
-                            elementosLista += `<option value=${registro['idsubcategorie']}>${registro['subcategoryname']}</option>`;
-                        });
-                    }else{
-                        //En caso no tengamos datos
-                        elementosLista = `<option>No hay datos asignados</option>`;
-                    }
-                    //Agregando los elementos al <select>
-                    $("#subcategoria2").html(elementosLista);
-                }
-            });
-        }*/
-
         function reiniciarFormulario() {
             $("#formulario-libros")[0].reset();
         }
@@ -751,10 +723,8 @@ require_once './permisos.php';
 
                     // Cargar subcategorías después de mostrar el modal
                     cargarSubcategorias(result['idcategorie'], result['idsubcategorie']);
-                    
                     $("#modal-libros-editar").modal("show");
                     datosNuevos = false;
-                    console.log(result);
                 }
             });
         });

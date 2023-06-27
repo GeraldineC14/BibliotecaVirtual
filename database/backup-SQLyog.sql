@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=353 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
@@ -310,7 +310,8 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (335,2,4,'C263','1','PRUEBAS AJAX 2','AJAX 2','B','AJAX2',NULL,NULL,'2023-04-21 15:43:22','1',NULL),
 (340,2,4,'C264','2','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL),
 (351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
-(352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL);
+(352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
+(353,3,7,'C267','1','PRUEBA FINAL','FINAL','B','FINAL',NULL,NULL,'2023-06-27 13:41:41','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -337,18 +338,20 @@ CREATE TABLE `categories` (
   `idcategorie` int(11) NOT NULL AUTO_INCREMENT,
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
+  `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`) values 
-(1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08'),
-(2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06'),
-(3,'Bibliografia, literatura Latina','2023-03-21 10:37:22'),
-(4,'edit','2023-05-27 09:45:28'),
-(5,'PRUEBA sidebar','2023-05-27 09:50:08'),
-(6,'PRUEBA CON si','2023-05-27 11:05:59');
+insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`,`state`) values 
+(1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08','1'),
+(2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06','1'),
+(3,'Bibliografia, literatura Latina','2023-03-21 10:37:22','1'),
+(4,'edit','2023-05-27 09:45:28','1'),
+(5,'PRUEBA sidebar','2023-05-27 09:50:08','0'),
+(6,'PRUEBA CON si','2023-05-27 11:05:59','0'),
+(7,'FINALPRUEB','2023-06-27 13:42:40','1');
 
 /*Table structure for table `commentaries` */
 
@@ -433,23 +436,25 @@ CREATE TABLE `subcategories` (
   `idcategorie` int(11) NOT NULL,
   `subcategoryname` varchar(100) DEFAULT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
+  `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
-insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`registrationdate`) values 
-(1,1,'Módulo Base Biblioteca para secundaria - Ciencias ','2023-03-21 11:40:36'),
-(2,1,'Matemática/Secundaria','2023-03-21 11:40:36'),
-(3,2,'Textos Ingles/Secundaria','2023-03-21 12:19:00'),
-(4,2,'Enciclopedias Tematicas','2023-03-21 12:19:00'),
-(5,2,'Módulo Base Biblioteca para secundaria - Filología','2023-03-21 12:19:00'),
-(6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46'),
-(7,3,'Obras Literarias','2023-03-22 08:16:46'),
-(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46'),
-(9,6,'prueba sidebar','2023-05-27 13:10:24');
+insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`registrationdate`,`state`) values 
+(1,1,'Módulo Base Biblioteca para secundaria - Ciencias ','2023-03-21 11:40:36','1'),
+(2,1,'Matemática/Secundaria','2023-03-21 11:40:36','1'),
+(3,2,'Textos Ingles/Secundaria','2023-03-21 12:19:00','1'),
+(4,2,'Enciclopedias Tematicas','2023-03-21 12:19:00','1'),
+(5,2,'Módulo Base Biblioteca para secundaria - Filología','2023-03-21 12:19:00','1'),
+(6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46','1'),
+(7,3,'Obras Literarias','2023-03-22 08:16:46','1'),
+(8,3,'Lenguaje y Literatura','2023-03-22 08:16:46','1'),
+(9,6,'prueba sidebar','2023-05-27 13:10:24','0'),
+(10,1,'PRUEBA FINAL BETA','2023-06-27 13:49:14','1');
 
 /*Table structure for table `users` */
 
@@ -470,7 +475,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -481,7 +486,8 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
 (45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'1'),
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
-(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1');
+(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
+(48,'FINAL','FINAL','PRUEBA REAL FINAL','FINAL@GMAIL.COM','$2y$10$Py6h2h4/r6kALgHXbhDJU.aZVcUx8VSaTxtNEdzxv/6ffmnwzyB8i','E','2023-06-27 13:42:16',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -720,8 +726,21 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_categories_list`()
 BEGIN
 				SELECT idcategorie, categoryname,registrationdate
-					FROM categories;
+					FROM categories
+				WHERE state = "1";
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_categorie_delete` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_categorie_delete` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_categorie_delete`(IN _idcategorie INT)
+BEGIN
+						UPDATE categories SET state = '0' WHERE idcategorie = _idcategorie;
+					END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_change_state_loans` */
@@ -1069,7 +1088,8 @@ DELIMITER $$
 BEGIN
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
 					FROM subcategories sub
-					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+					where sub.state = "1";
 			END */$$
 DELIMITER ;
 
@@ -1086,6 +1106,19 @@ BEGIN
 				FROM subcategories
 				WHERE _idcategorie = idcategorie;
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_subcategorie_delete` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_subcategorie_delete` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategorie_delete`(IN _idsubcategorie INT)
+BEGIN
+						UPDATE subcategories SET state = '0' 
+						WHERE idsubcategorie = _idsubcategorie;
+					END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_usersloans_list` */
