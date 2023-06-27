@@ -52,38 +52,38 @@ require_once './permisos.php';
                                         <form>
                                             <!-- Form Group (Email)-->
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="#">Correo Electrónico</label>
-                                                <input class="form-control" id="#" type="text" readonly>
+                                                <label class="small mb-1" for="email">Correo Electrónico</label>
+                                                <input class="form-control" id="email" type="text" readonly>
                                             </div>
                                             <!-- Form Row-->
                                             <div class="row gx-3 mb-3">
                                                 <!-- Form Group (Nombre)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="#">Nombres</label>
-                                                    <input class="form-control" id="#" type="text" readonly>
+                                                    <label class="small mb-1" for="namess">Nombres</label>
+                                                    <input class="form-control" id="namess" type="text" readonly>
                                                 </div>
                                                 <!-- Form Group (Apellidos)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="#">Apellidos</label>
-                                                    <input class="form-control" id="#" type="text" readonly>
+                                                    <label class="small mb-1" for="surnames">Apellidos</label>
+                                                    <input class="form-control" id="surnames" type="text" readonly>
                                                 </div>
                                             </div>
                                             <!-- Form Row        -->
                                             <div class="row gx-3 mb-3">
                                                 <!-- Form Group (Contraseña Actual)-->
                                                 <div class="mb-3">
-                                                    <label class="small mb-1" for="#">Contraseña Actual</label>
-                                                    <input class="form-control" id="#" type="password" placeholder="Ingrese su contraseña actual">
+                                                    <label class="small mb-1" for="accesskey">Contraseña Actual</label>
+                                                    <input class="form-control" id="accesskey" type="password" placeholder="Ingrese su contraseña actual" readonly>
                                                 </div>
                                                 <!-- Form Group (Nueva contraseña)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="#">Nueva Contraseña</label>
-                                                    <input class="form-control" id="#" type="password" placeholder="Ingrese su nueva contraseña">
+                                                    <input class="form-control" id="#" type="password" placeholder="Ingrese su nueva contraseña" readonly>
                                                 </div>
                                                 <!-- Form Group (Confirmar contraseña)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="#">Confirmar Contraseña</label>
-                                                    <input class="form-control" id="#" type="password" placeholder="Confirme su contraseña">
+                                                    <input class="form-control" id="#" type="password" placeholder="Confirme su contraseña" readonly>
                                                 </div>
                                             </div>
                                             <!-- Actualizar button-->
@@ -111,5 +111,26 @@ require_once './permisos.php';
 
     <!-- Mis funciones y eventos javascript -->
     <script>
+        $(document).ready(function(){
+            idusers = <?php echo $_SESSION['login']['idusers']; ?>;
+            function datosUsers(){
+                $.ajax({
+                    url: '../../controllers/usuario.controller.php',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: { 'operacion':'getUsers',
+                          'idusers': idusers},
+                    success: function (result){
+                        $("#email").val(result['email']);
+                        $("#namess").val(result['namess']);
+                        $("#surnames").val(result['surnames']);
+                    }
+                });
+            }
+
+            datosUsers();
+
+        });
+
 
     </script>

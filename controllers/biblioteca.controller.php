@@ -16,7 +16,7 @@ if(isset($_GET['operacion'])){
     }
     
     if ($_GET['operacion'] == 'getLibro'){
-        echo json_encode($biblioteca->getLibro($_GET['idbook']));   
+        echo json_encode($biblioteca->getLibro($_GET['idbook']));
     }
     
     if($_GET['operacion'] == 'actualizarLibro'){

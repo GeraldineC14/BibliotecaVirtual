@@ -26,7 +26,7 @@ switch ($permiso) {
         "icon" => "fa-solid fa-book fa-2xl"
       ],
       [
-        "menu" => "Usuarios", "url" => "index.php?view=docente.view.php",
+        "menu" => "Usuarios", "url" => "index.php?view=users.view.php",
         "icon" => "fa-solid fa-user fa-2xl"
       ],
       [

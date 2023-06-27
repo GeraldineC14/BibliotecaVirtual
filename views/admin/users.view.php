@@ -23,6 +23,7 @@ require_once './permisos.php';
                                             <th>#</th>
                                             <th>Nombres</th>
                                             <th>Apellidos</th>
+                                            <th>Nombre de usuario</th>
                                             <th>Email</th>
                                             <th>Nivel de Acceso</th>
                                             <th>Comandos</th>
@@ -61,8 +62,8 @@ require_once './permisos.php';
 
                                     <div class="row">
                                         <div class="col-md-6 form-group">
-                                            <label for="email">Email:</label>
-                                            <input type="email" id="email" class="form-control form-control-sm">
+                                            <label for="username">Nombre de Usuario:</label>
+                                            <input type="username" id="username" class="form-control form-control-sm">
                                         </div>
 
                                         <div class="col-md-6 form-group">
@@ -71,6 +72,12 @@ require_once './permisos.php';
                                                 <option value="E">Estudiante</option>
                                                 <option value="D">Docente</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" class="form-control form-control-sm">
                                         </div>
                                     </div>
 
@@ -175,13 +182,14 @@ require_once './permisos.php';
         var idusers = 0;
         var datosNuevos = true;
         var datos={
-            'operacion' : "",
-            'namess'  : "",
-            'surnames'  : "",
-            'email'  : "",
-            'accesskey'  : "",
-            'repetir'  : "",
-            'accesslevel'  : ""
+            'operacion'     : "",
+            'namess'        : "",
+            'surnames'      : "",
+            'username'       : "",
+            'email'         : "",
+            'accesskey'     : "",
+            'repetir'       : "",
+            'accesslevel'   : ""
         };
         
         function alertar(textoMensaje = ""){
@@ -227,6 +235,7 @@ require_once './permisos.php';
                         <td>${registro['idusers']}</td>
                         <td>${registro['namess']}</td>
                         <td>${registro['surnames']}</td>
+                        <td>${registro['username']}</td>
                         <td>${registro['email']}</td>
                         <td>${registro['accesslevel']}</td>
                         <td>
@@ -256,11 +265,11 @@ require_once './permisos.php';
 
             reiniciarFormulario();
         }
-        
-      
+
         function registrarUsuario(){
             datos['surnames']    =   $("#surnames").val();
             datos['namess']      =   $("#namess").val();
+            datos['username']    =   $("#username").val();
             datos['email']       =   $("#email").val();
             datos['accesslevel'] =   $("#accesslevel").val();
             datos['accesskey']   =   $("#accesskey").val();
@@ -268,9 +277,9 @@ require_once './permisos.php';
 
             datos['operacion']  = "registrarUsuario";
 
-            if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
+            if(datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "" || datos['accesskey'] == "" || datos['repetir'] == ""){
                 alertar("Complete el formulario por favor")
-                }else{
+            }else{
                 if(datos['accesskey'] !== datos['repetir']){
                     alertarToast("Ha sucecido un error","Las claves no coinciden","error")
                 }else{
@@ -294,18 +303,16 @@ require_once './permisos.php';
                                 success: function(result){
                                     alertarToast("Proceso completado","El usuario ha sido registrado correctamente", "success")
                                     setTimeout(function(){
+                                        $("#modal-usuarios").modal("hide");
                                         reiniciarFormulario();
-                                        $('#modal-usuarios').modal('hide');
-                                        listarUsuarios();                       
+                                        listarUsuarios();
                                     }, 1800)
                                 }
                             });
                         }
                     });
                 }
-            
-            }     
-                        
+            }
         }
 
         function editarUsuario(){
@@ -317,7 +324,7 @@ require_once './permisos.php';
             datos['repetir']     =   $("#repetir2").val();
             
             datos['operacion']  = "actualizarUsuario";
-            datos['idusers'] = idusers; 
+            datos['idusers'] = idusers;
 
 
             if(datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesslevel'] == "" ){
@@ -351,16 +358,14 @@ require_once './permisos.php';
                                     setTimeout(function(){
                                         reiniciarFormulario();
                                         $('#modal-usuarios2').modal('hide');
-                                        listarUsuarios();                       
+                                        listarUsuarios();
                                     }, 1800)
                                 }
                             });
                         }
                     });
                 }
-            
-            }     
-                        
+            }
         }
 
         function reiniciarFormulario(){
@@ -434,7 +439,7 @@ require_once './permisos.php';
                     type: 'GET',
                     dataType: 'JSON',
                     data: {
-                        'operacion' : 'getUsers', 
+                        'operacion' : 'getUsers',
                         'idusers': idusers
                     },
                     success: function(result){

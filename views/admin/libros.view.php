@@ -649,7 +649,7 @@ require_once './permisos.php';
             function ActualizarLibros() {
                 /*
                 Cuando se le asigna {} o [] a un objeto, se está REDEFINIENDO
-                se le está volviendo a construir / 
+                se le está volviendo a construir /
                 */
                 //El objeto datos ha sido creado en ámbito GLOBAL
                 datos['idcategorie'] = $("#categoria2").val();
