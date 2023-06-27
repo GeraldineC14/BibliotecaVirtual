@@ -532,6 +532,7 @@
 				IN _idusers	INT,
 				IN _namess	VARCHAR(30),
 				IN _surnames	VARCHAR(100),
+				IN _username	VARCHAR(50),
 				IN _email	VARCHAR(100),
 				IN _accesslevel	VARCHAR(100),
 				IN _accesskey	VARCHAR(100)
@@ -541,6 +542,7 @@
 				UPDATE users SET
 					namess 		= _namess,
 					surnames 	= _surnames,
+					username		= _username,
 					email 		= _email,
 					accesslevel 	= _accesslevel,
 					accesskey 	= _accesskey
@@ -556,7 +558,7 @@
 					IN _idusers INT
 				)
 				BEGIN
-				SELECT  idusers, namess, surnames, accesslevel,email,accesskey
+				SELECT  idusers, namess, username,surnames, accesslevel,email,accesskey
 						FROM users 
 					WHERE state = "1" AND idusers = _idusers;
 			END $$

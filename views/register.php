@@ -116,8 +116,8 @@ session_start();
 			  'accesslevel' : "",
 				'accesskey'  	: "",
 				'repetir'  		: ""
-				
-        	};
+			};
+
 			function alertar(textoMensaje = ""){
 					Swal.fire({
 							title   : 'Usuarios',
@@ -128,7 +128,6 @@ session_start();
 							confirmButtonText   :   'Aceptar'
 					});
 			}
-           
 			function alertarToast(titulo = "",textoMensaje = "", icono = ""){
 					Swal.fire({
 							title   : titulo,
@@ -164,12 +163,6 @@ session_start();
 							alertar("Complete el formulario por favor");
 							return;
 					}
-
-					if (username === "") {
-							alertar("Ingrese un nombre de usuario");
-							return;
-					}
-
 					console.log($("#username").val())
 
 					// Realiza la llamada AJAX para validar el username
@@ -296,8 +289,8 @@ session_start();
 						}
 					});
 				}
-			} 
-				
+			}
+
 			$('#showPass').on('click', function(){
 				var passInput=$("#accesskey,#repetir");
 				if(passInput.attr('type')==='password')
@@ -307,11 +300,9 @@ session_start();
 				passInput.attr('type','password');
 				}
 			});
-			
+
 			$("#registrar").click(validar);
-			
-		  
-	
+
 		});
 	  </script>
 

@@ -20,7 +20,7 @@ require_once '../models/Usuario.php';
 
     if(isset($_GET['operacion'])){
 
-        $usuario = new Usuario();    
+        $usuario = new Usuario();
 
         if($_GET['operacion'] == 'login'){
             // 0. Array que sera leido por la vista
@@ -38,14 +38,13 @@ require_once '../models/Usuario.php';
             $data = $usuario->login($_GET['email']);
 
                 if($data){
-                    
                     // 2. El usuario si existe, debemos validar la clave
                     $claveEncriptada = $data['accesskey'];
-    
+
                     // 3. Comprobar la clave de entrada con la encriptada
-    
+
                     if (password_verify($_GET['accesskey'], $claveEncriptada)){
-    
+
                         // Enviamos toda la info del usuario
                         $resultado["acceso"] = true;
                         $resultado["mensaje"] = "Bienvenido al sistema";
@@ -53,7 +52,7 @@ require_once '../models/Usuario.php';
                         $resultado["surnames"] = $data['surnames'];
                         $resultado["namess"] = $data['namess'];
                         $resultado["accesslevel"] = $data['accesslevel'];
-    
+
                     } else {
                         // La contraseña es incorrecta
                         $resultado["mensaje"] = "La contraseña es incorrecta";
@@ -104,6 +103,7 @@ require_once '../models/Usuario.php';
                 "idusers"       => $_GET['idusers'],
                 "namess"        => $_GET['namess'],
                 "surnames"      => $_GET['surnames'],
+                "username"      => $_GET['username'],
                 "email"         => $_GET['email'],
                 "accesslevel"   => $_GET['accesslevel'],
                 "accesskey"     => password_hash($_GET['accesskey'], PASSWORD_BCRYPT)
