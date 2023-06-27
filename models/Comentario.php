@@ -22,5 +22,19 @@ class Comentario extends Conexion
             die($e->getMessage());
         }
     }
+
+    public function eliminarComentario($datosGuardar)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_delete_commentaries(?)");
+            $consulta->execute(array(
+                $datosGuardar['idcomentario']
+            ));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    
+    }
+
 }
 ?>

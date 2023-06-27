@@ -75,29 +75,60 @@ require_once './permisos.php';
     <!-- Mis funciones y eventos javascript -->
     <script>
         $(document).ready(function() {
+
+            $(document).on('click', '#borrar', function(event) {
+                var dataID = $(this).data('id')
+                console.log(dataID)
+
+                $.ajax({
+                    url: `../../controllers/comentario.controller.php`,
+                    type: 'GET',
+                    data: { 'operacion':'eliminarComentario',
+                          'idcomentario': dataID
+                        },
+                    success: function(result){
+                        listarComentario();
+                    }
+                })
+            })
+
             function listarComentario() {
                 $.ajax({
                     url: "../../controllers/comentario.controller.php",
                     type: "GET",
                     data: 'operacion=listarComentario',
-                    dataType: "json",
                     success: function(response) {
-                        if (response && response.length > 0) {
-                            var tablaBody = $("#tabla-comentario tbody");
+                        let registros = JSON.parse(response);
+                        let nuevaFila = "";
 
-                            $.each(response, function(index, comentario) {
-                                var fila = $("<tr>");
-                                fila.append($("<td>").text(index + 1));
-                                fila.append($("<td>").text(comentario.namess + " " + comentario.surnames));
-                                fila.append($("<td>").text(comentario.descriptions));
-                                fila.append($("<td>").text(comentario.commentary_date));
-                                fila.append($("<td>").text(comentario.commentary));
-                                tablaBody.append(fila);
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error);
+                        let tabla = $("#tabla-comentario").DataTable();
+                        tabla.destroy();
+
+                        $("#tabla-comentario tbody").html("");
+
+                        registros.forEach(registro => {
+                            
+                            nuevaFila = `
+                                <tr>
+                                    <td>${registro['idcomentario']}</td>
+                                    <td>${registro['namess']}</td>
+                                    <td>${registro['descriptions']}</td>
+                                    <td>${registro['commentary_date']}</td>
+                                    <td>${registro['commentary']}</td>
+                                    <td><button  id='borrar' class='' data-id="${registro['idcomentario']}"><a style='color: black; font-weight:bold;'>Borrar comentario</a></button></td>
+                                </tr>
+                            `;
+
+                            $("#tabla-comentario tbody").append(nuevaFila);
+
+                        });
+
+                        $('#tabla-comentario').DataTable({
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
+                            }
+                        });
+
                     }
                 });
             }

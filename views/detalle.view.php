@@ -88,6 +88,9 @@
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
+        const url = new URL(window.location.href);
+        const idlibro = url.searchParams.get("resumen");
+        console.log(idlibro);
         idbook2 = <?php echo $_GET["resumen"];?>;
         idusuario = <?php echo  $_SESSION['login']['idusers'];?>;  
         

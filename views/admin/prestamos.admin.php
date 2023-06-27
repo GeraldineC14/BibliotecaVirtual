@@ -17,13 +17,13 @@ require_once 'permisos.php';
                         <div class="card-header py-3">
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <!-- Título oculto para pc y laptop -->
-                                <div class="d-inline-block d-md-none" style="text-align: center;">
+                                <div class="d-inline-block d-md-none text-center">
                                     <h3 class="title-tablas2">
                                         Préstamos
                                     </h3>
                                 </div>
                                 <!-- Título oculto para móvil y tablet -->
-                                <div class="d-none d-md-inline-block" style="text-align: center;">
+                                <div class="d-none d-md-inline-block text-center">
                                     <h3 class="title-tablas">
                                         Módulo de Préstamos
                                     </h3>
@@ -31,12 +31,12 @@ require_once 'permisos.php';
 
                                 <div class="btn-group" role="group">
                                     <!-- Botón para mostrar el modal de registrar libros -->
-                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-libros">
                                         <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
                                         &nbsp;Registrar Préstamo
                                     </button>
                                     <!-- Botón para mostrar el modal de generación de reporte -->
-                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" style="margin-left: 50px;" data-toggle="modal" data-target="#modal-reporte">
                                         <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                         &nbsp;Generar Reporte
                                     </button>
@@ -45,12 +45,12 @@ require_once 'permisos.php';
                                 <div class="d-flex mx-auto d-md-none">
                                     <div class="btn-group w-100" role="group">
                                         <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
-                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-libros" data-target="#modal-libros-editar" id="mostrar-modal-registro">
+                                        <button class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-libros">
                                             <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
                                             &nbsp;Registrar
                                         </button>
                                         <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
-                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="mostrar-modal-reporte">
+                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" data-toggle="modal" data-target="#modal-reporte">
                                             <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                             &nbsp;Reporte
                                         </button>
@@ -60,7 +60,7 @@ require_once 'permisos.php';
                             </div>
                         </div>
 
-                        <!-- Datatable  -->
+                        <!-- Datatable -->
                         <div style="width: 90%; margin:auto" class="mt-2">
                             <div class="card-body">
                                 <table class="table display responsive" id="tabla-prestamos">
@@ -94,7 +94,7 @@ require_once 'permisos.php';
 
                     </div>
 
-                    <!-- Zona Modales registro-->
+                    <!-- Zona Modales registro -->
                     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros" tabindex="-1" aria-labelledby="titulo-modal-libros" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -137,8 +137,7 @@ require_once 'permisos.php';
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="fecha_devolucion">Fecha de Devolución</label>
-                                                    <input id="fecha_devolucion" class="form-control" type="date" name="fecha_devolucion" value="<?php echo date(" Y-m-d");
-                                                                                                                                                    ?>" required>
+                                                    <input id="fecha_devolucion" class="form-control" type="date" name="fecha_devolucion" value="<?php echo date(" Y-m-d"); ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,9 +152,8 @@ require_once 'permisos.php';
                             </div>
                         </div>
                     </div>
-                    <!-- </div> -->
 
-                    <!-- Zona Modales editar-->
+                    <!-- Zona Modales editar -->
                     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-libros-editar" tabindex="-1" aria-labelledby="titulo-modal-libros-editar" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -223,19 +221,39 @@ require_once 'permisos.php';
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright">
-                        <span>Copyright © ARFECAS 2023</span>
-                    </div>
-                </div>
-            </footer>
         </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright">
+                    <span>Copyright © ARFECAS 2023</span>
+                </div>
+            </div>
+        </footer>
     </div>
+
+
 
     <!-- Mis funciones y eventos javascript -->
     <script>
         $(document).ready(function() {
+
+            $(document).on('click', '#devolver', function(event) {
+                var dataID = $(this).data('id')
+                console.log(dataID)
+
+                $.ajax({
+                    url: `../../controllers/prestamo.controller.php`,
+                    type: 'GET',
+                    data: { 'operacion':'cambiarEstadoPrestamo',
+                          'idloan': dataID,
+                          'state' : '0'
+                        },
+                    success: function(result){
+                        listarPrestamos()
+                    }
+                })
+            })
+
 
             function listarPrestamos() {
                 $.ajax({
@@ -244,18 +262,19 @@ require_once 'permisos.php';
                     data: 'operacion=listarPrestamos',
                     success: function(result) {
                         let registros = JSON.parse(result);
-                        let nuevaFila = ``;
+                        let nuevaFila = '';
 
                         let tabla = $("#tabla-prestamos").DataTable();
                         tabla.destroy();
                         $("#tabla-prestamos tbody").html("");
                         registros.forEach(registro => {
                             observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
-                            let estado = (registro['state'] == 1) ? 'Prestado' : 'Devuelto';
+                            let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
                             let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
-                            let botonEstado = `
-                                <button onclick="cambiarEstado(${registro['idloan']}, ${registro['state']})">Cambiar Estado</button>
-                        `;
+                            let disabled = (registro['state'] == 0) ? 'disabled' : ''; // Agregar la condición para habilitar o deshabilitar el botón
+                            let btnClass = (registro['state'] == 0) ? 'btn btn-success cambiar-estado-btn' : 'btn btn-danger cambiar-estado-btn'; // Agregar la clase para cambiar el color del botón
+                            let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>'; // Agregar el texto del botón correspondiente al estado
+
                             nuevaFila = `
                     <tr>
                         <td>${registro['idloan']}</td>
@@ -266,7 +285,7 @@ require_once 'permisos.php';
                         <td>${registro['return_date']}</td>
                         <td>${registro['amount']}</td>
                         <td style="color: ${colorCampo}">${estado}</td>
-                        <td>${botonEstado}</td>
+                        <td><button  id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
                     </tr>
                 `;
                             $("#tabla-prestamos tbody").append(nuevaFila);
@@ -277,16 +296,15 @@ require_once 'permisos.php';
                                 url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
                             }
                         });
+
+                        // Agregar evento de clic a los botones
+                        $(".cambiar-estado-btn").click(function() {
+                            let idPrestamo = $(this).data("id");
+                            cambiarEstado(idPrestamo, 'Devuelto'); // Cambiar el estado a 'Devuelto'
+                        });
                     }
                 });
             }
-
-          
-
-
-
-
-
 
             function reiniciarFormulario() {
                 $("#formulario-prestamos")[0].reset();

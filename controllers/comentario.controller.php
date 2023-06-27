@@ -11,6 +11,14 @@ if (isset($_GET['operacion'])) {
         // Mostrar los comentarios
         echo json_encode($dataComentario);
     }
+    if ($_GET['operacion'] == 'eliminarComentario') {
+        $datosSolicitados = [
+            "idcomentario"         => $_GET['idcomentario']
+        ];
+        $dataComentario = $comentario->eliminarComentario($datosSolicitados);
+
+        echo json_encode($dataComentario);
+    }
 }
 
 ?>

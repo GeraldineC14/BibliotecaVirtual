@@ -25,9 +25,13 @@ if (isset($_GET['operacion'])) {
     }
 
     if ($_GET['operacion'] == 'cambiarEstadoPrestamo') {
-        $idPrestamo = $_GET['idPrestamo'];
-        $nuevoEstado = $_GET['nuevoEstado'];
-        $prestamo->cambiarEstadoPrestamo($idPrestamo, $nuevoEstado);
+
+        $datosSolicitados = [
+            "idloan"         => $_GET['idloan'],
+            "state"        => $_GET['state']
+        ];
+        $prestamo->cambiarEstadoPrestamo($datosSolicitados);
     }
+    
 }
 ?>
