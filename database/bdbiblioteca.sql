@@ -679,31 +679,31 @@ DELIMITER $$
 CREATE PROCEDURE spu_commentaries_list()
 BEGIN
     SELECT
-        commentaries.`idcommentary` AS idcomentario,
+        commentaries.idcommentary AS idcomentario,
         users.namess AS namess,
         users.surnames AS surnames,
         books.descriptions AS descriptions,
         commentaries.commentary_date,
         commentaries.commentary,
-        commentaries.`state` AS estado
+        commentaries.state AS estado
     FROM commentaries
     INNER JOIN users ON commentaries.idusers = users.idusers
     INNER JOIN books ON commentaries.idbook = books.idbook
     WHERE commentaries.state = 1;
 END $$
-DELIMITER ;
-
+SELECT * FROM commentaries;
+CALL spu_commentaries_list()
 
 DELIMITER $$
-			CREATE PROCEDURE spu_delete_commentaries
-			(
-				 IN _idcomentario INT
-			)
-			BEGIN
-				 UPDATE commentaries
-				 SET state = 0
-				 WHERE idcommentary = _idcomentario;
-		END $$
+	CREATE PROCEDURE spu_delete_commentaries
+	(
+		 IN _idcomentario INT
+	)
+	BEGIN
+	 UPDATE commentaries
+	 SET state = 0
+	 WHERE idcommentary = _idcomentario;
+END $$
 
 CALL spu_delete_commentaries(4);
 CALL spu_commentaries_list();
