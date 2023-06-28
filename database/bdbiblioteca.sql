@@ -680,8 +680,7 @@ CREATE PROCEDURE spu_commentaries_list()
 BEGIN
     SELECT
         commentaries.idcommentary AS idcomentario,
-        users.namess AS namess,
-        users.surnames AS surnames,
+        CONCAT(users.namess, ' ', users.surnames) AS datos,
         books.descriptions AS descriptions,
         commentaries.commentary_date,
         commentaries.commentary,

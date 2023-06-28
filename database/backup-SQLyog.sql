@@ -371,14 +371,15 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
 insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`score`,`commentary_date`,`commentary_delete`,`state`) values 
 (1,3,1,'Muy buen libro.',4,'2023-05-30',NULL,'1'),
 (2,1,1,'No me gustó el libro.',1,'2023-05-30',NULL,'1'),
-(4,1,25,'Muy buen contenido del libro',5,'2023-05-30',NULL,'1');
+(4,1,25,'Muy buen contenido del libro',5,'2023-05-30',NULL,'1'),
+(7,1,1,'Buen contenido.',5,'2023-06-28',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -492,6 +493,20 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (49,'diego100','validad de milagros','Diego prueba validad','diegofelipa10@gmail.com','$2y$10$Rq7946ASNUk.js3pOceZEulhMxlLZMTU3D6.oh8vtxXnkRcqTAMR.','E','2023-06-27 16:59:53',NULL,'0'),
 (50,'diego1000','AHORA SI DE MILAGROS','DIEGO DE MILAGROS','diegofelipa100@gmail.com','$2y$10$hCJPruIhbJPLFxPMyY2J3.hseyLPlhKJPLRBQJrtZgQ1oB3vxZ/Ni','E','2023-06-27 17:04:18',NULL,'0'),
 (51,'diego200','AHORA SI MILAGROS casado','DIEGO DE MILAGROS AHORA SI','diegofelipa1000@gmail.com','$2y$10$jZgZr8NQTeTLE2sNRYKMi.0mtjdf3zzLjoEqzGmYz0KB4wv6Eu6ja','E','2023-06-27 17:07:55',NULL,'1');
+
+/* Procedure structure for procedure `ChangeCommentaryState` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `ChangeCommentaryState` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `ChangeCommentaryState`(IN commentaryId INT)
+BEGIN
+    UPDATE commentaries
+    SET state = '1'
+    WHERE idcommentary = commentaryId AND state = '0';
+END */$$
+DELIMITER ;
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -774,8 +789,7 @@ DELIMITER $$
 BEGIN
     SELECT
         commentaries.idcommentary AS idcomentario,
-        users.namess AS namess,
-        users.surnames AS surnames,
+        CONCAT(users.namess, ' ', users.surnames) as datos,
         books.descriptions AS descriptions,
         commentaries.commentary_date,
         commentaries.commentary,

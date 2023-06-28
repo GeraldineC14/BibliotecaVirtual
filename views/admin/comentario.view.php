@@ -43,7 +43,7 @@ require_once './permisos.php';
                                     <thead class="table-dark">
                                         <tr>
                                             <th>#</th>
-                                            <th>Usuario</th>
+                                            <th>Datos personales</th>
                                             <th>Libro</th>
                                             <th>Fecha</th>
                                             <th>Comentario</th>
@@ -77,20 +77,37 @@ require_once './permisos.php';
         $(document).ready(function() {
 
             $(document).on('click', '#borrar', function(event) {
-                var dataID = $(this).data('id')
-                console.log(dataID)
+                var dataID = $(this).data('id');
 
-                $.ajax({
-                    url: `../../controllers/comentario.controller.php`,
-                    type: 'GET',
-                    data: { 'operacion':'eliminarComentario',
-                          'idcomentario': dataID
-                        },
-                    success: function(result){
-                        listarComentario();
+                Swal.fire({
+                    title: 'Eliminar comentario',
+                    text:`¿Estás seguro de eliminar este comentario?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#7ebe7e',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '../../controllers/comentario.controller.php',
+                            type: 'GET',
+                            data: {
+                                'operacion': 'eliminarComentario',
+                                'idcomentario': dataID
+                            },
+                            success: function(result) {
+                                listarComentario();
+                                Swal.fire('Eliminado', 'El comentario del usuario ha sido eliminado correctamente', 'success').then(() => {
+
+                                });
+                            }
+                        });
                     }
-                })
-            })
+                });
+            });
+
 
             function listarComentario() {
                 $.ajax({
@@ -107,15 +124,15 @@ require_once './permisos.php';
                         $("#tabla-comentario tbody").html("");
 
                         registros.forEach(registro => {
-                            
+
                             nuevaFila = `
                                 <tr>
                                     <td>${registro['idcomentario']}</td>
-                                    <td>${registro['namess']}</td>
+                                    <td>${registro['datos']}</td>
                                     <td>${registro['descriptions']}</td>
                                     <td>${registro['commentary_date']}</td>
                                     <td>${registro['commentary']}</td>
-                                    <td><button  id='borrar' class='' data-id="${registro['idcomentario']}"><a style='color: black; font-weight:bold;'>Borrar comentario</a></button></td>
+                                    <td class='text-center'><button  id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}"><a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a></button></td>
                                 </tr>
                             `;
 
