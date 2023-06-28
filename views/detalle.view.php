@@ -91,6 +91,7 @@
 <script>
     $(document).ready(function(){
 
+        idusuario = <?php echo $idusers?>;  
         <?php 
         $variableSesion = $_SESSION['login']['idusers'];
         echo "var idusuario = ".json_encode($variableSesion).";";
@@ -169,25 +170,26 @@
                 success: function(result) {
                     let registros = JSON.parse(result);
                     let nuevaFila = `
-                        <div class="col-md-6">
-                            <h5 class="text-center">${registros['descriptions']}</h3>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
+                            <h5 class="text-center">${registros['descriptions']}</h5>
                             <div class="text-center">
-                                <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                              <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
                             </div>
-                        </div>
-                        <div class="col-md-5">
+                          </div>
+                          <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
                             <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
                             <p>Libros disponibles: ${registros['amount']}</p>
                             <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                                <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+                              <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
                             </p>
                             <div class="text-center">
-                                <div class="btn-group" role="group">
-                                    <a href="PDF/${registros['url'] || 'sin-pdf.png'}" target="_blank" class="btn btn-success mr-3" type="button">Ver PDF <i class="fa-solid fa-file-pdf"></i></a>
-                                    <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                                    <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
-                                </div>
+                              <div class="btn-group" role="group">
+                                <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                                <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                              </div>
                             </div>
+                          </div>
                         </div>
                     `;
 

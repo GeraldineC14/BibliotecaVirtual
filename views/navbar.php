@@ -1,26 +1,55 @@
 <?php
 session_start();
-
 $logoImagePath = '../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e'; // Ruta de la imagen del logo
 
-if (isset($_SESSION['login']['idusers'])) {
+// Verificar si el usuario está logeado
+$isLoggedIn = isset($_SESSION['login']['idusers']);
+
+// Verificar el valor de idusers y establecerlo a -1 si no está definido o no es un número válido
+$idusers = $isLoggedIn ? $_SESSION['login']['idusers'] : -1;
+if (!is_numeric($idusers)) {
+    $idusers = -1;
+}
+
+// Construir los elementos de navegación según el estado de inicio de sesión y el valor de idusers
+if ($idusers > 0) {
     // Usuario logeado
     $navItems = '
-        <li class="btn btn-info"><a class="nav-link active text-dark" href="./index.php"><i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i></a> Inicio</li>
-        <li class="btn btn-info ml-3 mr-3"><a class="nav-link active text-dark" href="../views/admin/index.php?view=admin.view.php"><i class="fa-solid fa-book-open-reader fa-xl" style="color: #ededed;"></i></a> Prestamo</li>
-        <li class="btn btn-info"><a class="nav-link active text-dark" href="../controllers/usuario.controller.php?operacion=cerrar-sesion"><i class="fa-solid fa-right-from-bracket fa-xl" style="color: #ffffff;"></i></a>Salir</li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="./index.php">
+                <i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i>
+                <span class="ml-2" style="color: white;">Inicio</span>
+            </a>
+        </li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="../views/admin/index.php?view=admin.view.php">
+                <i class="fa-solid fa-book-open-reader fa-xl" style="color: #ededed;"></i>
+                <span class="ml-2" style="color: white;">Prestamo</span>
+            </a>
+        </li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="../controllers/usuario.controller.php?operacion=cerrar-sesion">
+                <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #ffffff;"></i>
+                <span class="ml-2" style="color: white;">Salir</span>
+            </a>
+        </li>
     ';
 } else {
     // Usuario no logeado
     $navItems = '
-        <li class="btn btn-info"><a class="nav-link active text-dark" href="./index.php"><i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i></a> Inicio</li>
-        <li class="btn btn-info ml-3"><a class="nav-link active text-dark" href="../views/login.php"><i class="fa-solid fa-arrow-right-to-bracket fa-xl" style="color: #ffffff;"></i></a> Ingresar</li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="./index.php">
+                <i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i>
+                <span class="ml-2" style="color: white;">Inicio</span>
+            </a>
+        </li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="../views/login.php">
+                <i class="fa-solid fa-arrow-right-to-bracket fa-xl" style="color: #ffffff;"></i>
+                <span class="ml-2" style="color: white;">Ingresar</span>
+            </a>
+        </li>
     ';
-}
-
-if (!isset($_SESSION['login']['idusers'])) {
-    // Manejar el caso cuando el idusers no está definido
-    $_SESSION['login']['idusers'] = '-1'; // Establecer un valor por defecto
 }
 ?>
 
@@ -31,8 +60,7 @@ if (!isset($_SESSION['login']['idusers'])) {
             <img src="<?php echo $logoImagePath; ?>" width="70" height="70">
             <span style="font-family: 'Archivo Black', sans-serif;font-size: 22px;">Horacio Zeballos</span>
         </a>
-        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-5">
-            <span class="sr-only"></span>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navcol-5" aria-controls="navcol-5" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navcol-5" style="font-size: 20px;">
