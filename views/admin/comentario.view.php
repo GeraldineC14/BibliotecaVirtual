@@ -128,7 +128,7 @@ require_once './permisos.php';
                             nuevaFila = `
                                 <tr>
                                     <td>${registro['idcomentario']}</td>
-                                    <td>${registro['datos']}</td>
+                                    <td>${registro['namess']} ${registro['surnames']}</td>
                                     <td>${registro['descriptions']}</td>
                                     <td>${registro['commentary_date']}</td>
                                     <td>${registro['commentary']}</td>

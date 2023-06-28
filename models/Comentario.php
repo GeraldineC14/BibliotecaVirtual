@@ -36,5 +36,22 @@ class Comentario extends Conexion
     
     }
 
+    public function enviarComentario($datosGuardar)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_register_commentaries(?,?,?,?)");
+            $consulta->execute(array(
+                $datosGuardar['idbook'],
+                $datosGuardar['iduser'],
+                $datosGuardar['commentary'],
+                $datosGuardar['score']
+
+            ));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    
+    }
+
 }
 ?>

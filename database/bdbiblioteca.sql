@@ -707,6 +707,8 @@ END $$
 CALL spu_delete_commentaries(4);
 CALL spu_commentaries_list();
 
+TRUNCATE commentaries
+
 SELECT * FROM commentaries;
 		
 		SELECT * FROM commentaries
@@ -725,10 +727,12 @@ SELECT * FROM commentaries;
 					INSERT INTO commentaries(idbook,idusers,commentary,score)
 					VALUES(_idbook,_idusers,_commentary,_score);
 			END $$
+
+			SELECT * FROM users
 			
 			CALL spu_register_commentaries('3','1','Muy buen libro.','4');
 			CALL spu_register_commentaries('1','1','No me gustó el libro.','1');
-			CALL spu_register_commentaries('1','23','Buen contenido.','5');
+			CALL spu_register_commentaries('1','3','Buen contenido.','5');
 			CALL spu_register_commentaries('2','3','Muy buen contenido del libro','5')
 			
 		-- N°2 List comments

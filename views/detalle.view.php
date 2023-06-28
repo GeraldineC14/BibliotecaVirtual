@@ -38,7 +38,7 @@
                     
                     <!-- Agregar comentarios -->
                     <div class="card-footer text-muted">
-                        <form action="">
+                        <form action="" autocomplete="off" id="form-comentario">
                             <div class="row">
                                 <div class="col-md-8 form-group">
                                     <label for="comentario">Escribe un comentario:</label>
@@ -47,17 +47,17 @@
                                 <div class="col-md-2 form-group">
                                     <label for="">Puntuación</label>
                                     <div id="stars">
-                                        <i class="far fa-star" data-rating="1"></i>
-                                        <i class="far fa-star" data-rating="2"></i>
-                                        <i class="far fa-star" data-rating="3"></i>
-                                        <i class="far fa-star" data-rating="4"></i>
-                                        <i class="far fa-star" data-rating="5"></i>
+                                        <i class="far fa-star" id="star" data-rating="1"></i>
+                                        <i class="far fa-star" id="star" data-rating="2"></i>
+                                        <i class="far fa-star" id="star" data-rating="3"></i>
+                                        <i class="far fa-star" id="star" data-rating="4"></i>
+                                        <i class="far fa-star" id="star" data-rating="5"></i>
                                         <input type="hidden" name="rating" id="rating">
                                     </div>
                                     <p class="text-muted" id="rating-text"></p>
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-primary mt-5" >Enviar</a>
+                                    <button type="button" id="enviar" class="btn btn-primary mt-5">Enviar</button>
                                 </div>
                             </div>     
                         </form>
@@ -84,15 +84,79 @@
 <script src="https://kit.fontawesome.com/9b57fc34f2.js" crossorigin="anonymous"></script>
 <!-- Lightbox -->
 <script src="../vendor/lightbox/js/lightbox.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Mis funciones y eventos javascript -->
 <script>
     $(document).ready(function(){
+
+        <?php 
+        $variableSesion = $_SESSION['login']['idusers'];
+        echo "var idusuario = ".json_encode($variableSesion).";";
+        ?>;
+
         const url = new URL(window.location.href);
         const idlibro = url.searchParams.get("resumen");
+        let estrellas = 0;
         console.log(idlibro);
+        console.log(idusuario);
+        console.log(estrellas)
+
+        function alertar(textoMensaje = "",icono=""){
+                Swal.fire({
+                    title   : 'Comentarios',
+                    text    :  textoMensaje,
+                    icon    :  icono,
+                    footer  :   'Horacio Zeballos Gámez',
+                    timer   :   900,
+                    confirmButtonText   :   'Aceptar'
+                });
+        }
+
+        
+        $(document).on('click', '#star', function(event) {
+                var dataID = $(this).data('rating')
+                estrellas = dataID;
+                console.log(estrellas)
+        })
+
+        function enviarComenatrio(){
+            let comentario = $("#comentario").val()
+            const stars = document.querySelectorAll('#stars i');
+            if(comentario == ""){
+                alertar("El comentario no puede estar vacio","warning");
+                stars.forEach(star => star.classList.remove('fas'));
+                stars.forEach(star => star.classList.add('far'));
+                $("#rating-text").text("");
+                estrellas = 0
+            }else{
+
+                $.ajax({
+                    url: '../controllers/comentario.controller.php',
+                    type: 'GET',
+                    data: {
+                        'operacion': 'enviarComentario',
+                        'idbook': idlibro,
+                        'iduser': idusuario,
+                        'commentary': comentario,
+                        'score': estrellas
+                    },success: function(result){
+                        alertar("Tu comentario fue registrado exitosamente","success");
+                        $("#form-comentario")[0].reset();
+                        stars.forEach(star => star.classList.remove('fas'));
+                        stars.forEach(star => star.classList.add('far'));
+                        $("#rating-text").text("");
+                        estrellas = 0
+                        listarComentarios()
+                    }
+                })
+            }
+        }
+
+        $("#enviar").click(enviarComenatrio);
+
         idbook2 = <?php echo $_GET["resumen"];?>;
-        idusuario = <?php echo  $_SESSION['login']['idusers'];?>;  
         
         function VistaResumen() {
             $.ajax({
@@ -144,6 +208,7 @@
                 data: {'operacion':'listarComentarios','idbook' : idbook2},
                 success: function(result){
                     let registros = JSON.parse(result);
+                    $(".datos").html("");
                     let nuevaFila2 = ``;
 
                     registros.forEach(registro => {
@@ -160,21 +225,6 @@
             });
         }
 
-        function registrarComentario(){
-            $.ajax({
-                url: '../controllers/biblioteca.controller.php',
-                type: 'GET',
-                data: {
-                        'operacion':'registrarComentario',
-                        'idbook' : idbook2 ,
-                        'idusers': idusuario ,
-                        'commentary' : 'comentario',
-                        'score' : 'rating'},
-                success: function(result){
-                    //Por definir
-                }
-            });
-        }
             
         $('#stars i').click(function() {
             var rating = $(this).data('rating');

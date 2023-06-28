@@ -19,6 +19,19 @@ if (isset($_GET['operacion'])) {
 
         echo json_encode($dataComentario);
     }
+
+    if ($_GET['operacion'] == 'enviarComentario') {
+        $datosSolicitados = [
+            "idbook"            => $_GET['idbook'],
+            "iduser"            => $_GET['iduser'],
+            "commentary"        => $_GET['commentary'],
+            "score"             => $_GET['score']
+        ];
+        $dataComentario = $comentario->enviarComentario($datosSolicitados);
+
+        echo json_encode($dataComentario);
+    }
+
 }
 
 ?>
