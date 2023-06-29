@@ -4,7 +4,7 @@ $prestamo = new Prestamo();
 
 if (isset($_GET['operacion'])) {
     if ($_GET['operacion'] == 'listarPrestamos') {
-        echo json_encode($prestamo->listarPrestamos());
+        echo json_encode($prestamo->listarPrestamos($_GET['idusers'], $_GET['accesslevel']));
     }
 
     if ($_GET['operacion'] == 'listarUsuarioLoans') {

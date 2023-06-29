@@ -236,11 +236,10 @@ require_once 'permisos.php';
     <!-- Mis funciones y eventos javascript -->
     <script>
         $(document).ready(function() {
-
-
+            idusers = <?php echo $_SESSION['login']['idusers']; ?>;
+            accesslevel = "<?php echo $_SESSION['login']['accesslevel']; ?>";
 
             $(document).on('click', '#devolver', function(event) {
-
                 var dataID = $(this).data('id')
                 console.log(dataID)
 
@@ -274,12 +273,14 @@ require_once 'permisos.php';
 
             })
 
-
             function listarPrestamos() {
                 $.ajax({
                     url: '../../controllers/prestamo.controller.php',
                     type: 'GET',
-                    data: 'operacion=listarPrestamos',
+                    data: {'operacion':'listarPrestamos',
+                            'idusers' : idusers,
+                            'accesslevel' : accesslevel
+                    },
                     success: function(result) {
                         let registros = JSON.parse(result);
                         let nuevaFila = '';

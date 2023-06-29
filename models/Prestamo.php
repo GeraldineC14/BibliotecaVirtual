@@ -11,11 +11,11 @@ class Prestamo extends Conexion
         $this->acceso = parent::getConexion();
     }
 
-    public function listarPrestamos()
+    public function listarPrestamos($idusers,$accesslevel)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_loans_list()");
-            $consulta->execute();
+            $consulta = $this->acceso->prepare("CALL spu_loans_list(?,?)");
+            $consulta->execute(array($idusers,$accesslevel));
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {
