@@ -1,4 +1,6 @@
 <?php
+session_set_cookie_params(0); // Establecer tiempo de expiración a 0 para que la sesión se cierre al cerrar el navegador
+
 session_start();
 $logoImagePath = '../assets/img/Logo.svg?h=caf877a66b61baa8840eb2b50b02740e'; // Ruta de la imagen del logo
 
@@ -16,19 +18,19 @@ if ($idusers > 0) {
     // Usuario logeado
     $navItems = '
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="./index.php">
+            <a class="nav-link active text-dark btn btn-info" href="./index.php" style="background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i>
                 <span class="ml-2" style="color: white;">Inicio</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="../views/admin/index.php?view=admin.view.php">
+            <a class="nav-link active text-dark btn btn-info" href="../views/admin/index.php?view=admin.view.php" style="background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-book-open-reader fa-xl" style="color: #ededed;"></i>
                 <span class="ml-2" style="color: white;">Prestamo</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="../controllers/usuario.controller.php?operacion=cerrar-sesion">
+            <a class="nav-link active text-dark btn btn-info" href="../controllers/usuario.controller.php?operacion=cerrar-sesion" style="background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #ffffff;"></i>
                 <span class="ml-2" style="color: white;">Salir</span>
             </a>
@@ -38,13 +40,13 @@ if ($idusers > 0) {
     // Usuario no logeado
     $navItems = '
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="./index.php">
+            <a class="nav-link active text-dark btn" href="./index.php" style="background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i>
                 <span class="ml-2" style="color: white;">Inicio</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="../views/login.php">
+            <a class="nav-link active text-dark btn btn-info" href="../views/login.php" style="background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-arrow-right-to-bracket fa-xl" style="color: #ffffff;"></i>
                 <span class="ml-2" style="color: white;">Ingresar</span>
             </a>

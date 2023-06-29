@@ -31,24 +31,33 @@
         </div>
         <!-- FORMULARIO DE BUSQUEDA -->
         <div class="container mt-3">
-            <form action="views/buscador.view.php">
-                <div class="form-row align-items-center ml-5">
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
-                    </div>
-                    <div class="col-auto">
-                    <select class="form-control form-control-lg" id="inlineFormInputGroup" name="type"  required>
+            <div class="d-flex justify-content-center">
+                <form action="views/buscador.view.php" class="text-center">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
+                            <input class="form-control form-control-lg w-100" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
+                            <select class="form-control form-control-lg w-100" id="inlineFormInputGroup" name="type" required>
                                 <option value="">Seleccione:</option>
                                 <option value="n">Nombre de libro</option>
                                 <option value="a">Autor</option>
                             </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-auto">
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary btn-lg" id="inlineFormInputGroup" type="submit" style="max-width: 150px; background-color: #39a2db; border-color: #39a2db;"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="submit" value="Buscar">           
-                    </div>
-                </div> 
-            </form> 
+                </form>
+            </div>
         </div>
+
+
+
+
+
     </div>
     <div class="container" style="margin-top: 20px;margin-bottom: 39px;">         
         <div class="row">
@@ -106,18 +115,17 @@
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                     nuevaFila = ` 
                     <div class="card-group">   
-                            <div class="card col-md-12"> 
-                                <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="./frontpage/${portada}">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
-                                    <p class="card-text">${registro['author']}</p>
-                                    <div>
-                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
-                                    </div>
+                        <div class="card col-md-12"> 
+                            <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="./frontpage/${portada}">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
+                                <p class="card-text">${registro['author']}</p>
+                                <div>
+                                    <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
                                 </div>
                             </div>
-                        </div>     
-                    </div>                              
+                        </div>
+                    </div>                                  
                     `;
                     $(".datos").append(nuevaFila);
                 });
