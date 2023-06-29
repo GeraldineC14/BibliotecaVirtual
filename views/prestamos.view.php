@@ -206,7 +206,7 @@
                                 type: 'GET',
                                 data: datos,
                                 success: function(result) {
-                                    alertarToast("Proceso completado", "El usuario ha sido registrado correctamente", "success");
+                                    alertarToast("Proceso completado", "Su prestamo a sido solicitado", "success");
                                     setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
                                         window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';

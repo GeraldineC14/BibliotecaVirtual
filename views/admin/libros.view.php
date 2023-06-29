@@ -271,6 +271,99 @@ require_once './permisos.php';
                     </div>
                 </div>
                 <!-- </div> -->
+
+                <!-- modal editar portada -->
+                <div class="modal fade" id="editarportada" tabindex="-1" role="dialog" aria-labelledby="editarportadaLabel">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="editarportadaLabel">Editar Portada</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3 mt-md-5 ml-md-5">
+                                            <div class="custom-file" lang="es">
+                                                <input type="file" class="custom-file-input" id="customFileLang" accept=".png, .jpg, .jpeg">
+                                                <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4 ml-md-5 text-center">
+                                            <button type="button" id="eliminar-pdf" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
+                                                <i class="fa-solid fa-trash fa-xl"></i>
+                                                Eliminar
+                                            </button>
+                                            <button type="button" id="cambiar-pdf" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                                <i class="fa-solid fa-circle-check fa-xl"></i>
+                                                Cambiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="pdf mt-2 mt-md-0 ml-md-5 editportada">
+                                            <!-- Aquí se cargará las portadas por AJAX -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin modal -->
+
+                <!-- modal editar pdf -->
+                <div class="modal fade" id="editarpdf" tabindex="-1" role="dialog" aria-labelledby="editarpdfLabel">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="editarpdfLabel">Editar PDF</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3 mt-md-5 ml-md-5">
+                                            <div class="custom-file" lang="es">
+                                                <input type="file" class="custom-file-input" id="inputFile" accept=".pdf">
+                                                <label class="custom-file-label" for="inputFile" data-browse="Elegir">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4 ml-md-5 text-center">
+                                            <button type="button" id="eliminar-pdf" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
+                                                <i class="fa-solid fa-trash fa-xl"></i>
+                                                Eliminar
+                                            </button>
+                                            <button type="button" id="cambiar-pdf" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                                <i class="fa-solid fa-circle-check fa-xl"></i>
+                                                Cambiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="pdf mt-2 mt-md-0 ml-md-5 editpdf" id="pdfPreview">
+                                            <!-- Aquí se cargará la vista previa del PDF -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardarPdf">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin modal -->
+
             </div>
         </div>
         <footer class="bg-white sticky-footer">
@@ -342,7 +435,7 @@ require_once './permisos.php';
                     $("#tabla-libros tbody").html("");
                     registros.forEach(registro => {
                         portada = (registro['frontpage'] == null) ? 'sin-imagen.png' : registro['frontpage'];
-                        pdf = (registro['url'] == null) ? 'sin-pdf.png' : registro['url'];
+                        pdf = (registro['url'] == null) ? 'no-pdf.pdf' : registro['url'];
 
                         nuevaFila = `
                         <tr>
@@ -357,11 +450,12 @@ require_once './permisos.php';
                             <td>${registro['locationresponsible']}</td>
                             <td>
                                 <a target='_blank' rel='noopener noreferrer' href='../PDF/${pdf}' style="text-decoration: none;"> 
-                                <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
+                                    <i class="fa-solid fa-eye fa-lg" style="color: #d81313;"></i>
                                 </a>
-                                <a href='index.php?view=edit-pdf.php' data-idbook='${registro['idbook']}' class = 'editarpdf'><i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i></a>
+                                <a href='#' data-idbook='${registro['idbook']}' class='editarpdf'>
+                                    <i class="fa-solid fa-file-pen fa-lg" style="color: #d81313;"></i>
+                                </a>
                             </td>
-
                             <td>
                                 <a href='../frontpage/${portada}' style="text-decoration: none;"
                                     data-idbook='${registro['idbook']}'
@@ -370,14 +464,14 @@ require_once './permisos.php';
                                     title='Mostrar portada del libro'>
                                     <i class="fa-solid fa-eye fa-lg" style="color: #1a4a9e;"></i>
                                 </a>
-                                <a href='index.php?view=edit-frontpage.php'  data-idbook='${registro['idbook']}' class = ' editarportada'><i class="fa-solid fa-camera-rotate fa-lg"  style="color:#1a4a9e;"></i></a>
+                                <a href="#" data-idbook="${registro['idbook']}" class="editarportada" data-toggle="modal" data-target="#editarportada"><i class="fa-solid fa-camera-rotate fa-lg" style="color:#1a4a9e;"></i></a>
                             </td>
                             <td>
-                                <a href='#' data-idbook='${registro['idbook']}' class = ' eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
-                                <a href='#' data-idbook='${registro['idbook']}' data-idcategorie='${registro['idcategorie']} ' class = ' editar'><i class="fa-solid fa-pen-to-square fa-xl" style="color: #4aa9c9;"></i>  </a>
+                                <a href='#' data-idbook='${registro['idbook']}' class='eliminar'><i class="fa-solid fa-trash-can fa-xl" style="color: #cb2525;"></i></a>
+                                <a href='#' data-idbook='${registro['idbook']}' data-idcategorie='${registro['idcategorie']}' class='editar'><i class="fa-solid fa-pen-to-square fa-xl" style="color: #4aa9c9;"></i></a>
                             </td>
                         </tr>
-                    `;
+                        `;
                         $("#tabla-libros tbody").append(nuevaFila);
                     });
 
@@ -386,9 +480,11 @@ require_once './permisos.php';
                             url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
                         }
                     });
+
                 }
             });
         }
+
 
         document.getElementById('reportButton').addEventListener('click', function(event) {
             // Evitar que el evento de clic se propague al botón
@@ -642,61 +738,70 @@ require_once './permisos.php';
             datos['operacion'] = "actualizarLibro";
             datos['idbook'] = idbook;
 
-            if (confirm("¿Estas seguro de guardar el registro?")) {
-                $.ajax({
-                    url: '../../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    data: datos,
-                    success: function(result) {
-                        console.log(result);
-                        alert("Proceso terminado correctamente");
-                        mostrarLibros();
-                        $("#modal-libros-editar").modal("hide");
-
-                    }
-                });
-            }
+            Swal.fire({
+                    title: "Editar",
+                    text: "¿Los datos ingresados son correctos?",
+                    icon: "question",
+                    footer: "Horacio Zeballos Gámez",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "#38AD4D",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    cancelButtonColor: "#D3280A"
+                }).then(result => {
+                if (result.isConfirmed) {
+                    //Enviamos los datos por ajax
+                    $.ajax({
+                        url: '../../controllers/biblioteca.controller.php',
+                        type: 'GET',
+                        data: datos,
+                        success: function(result) {
+                            console.log(result);
+                            alertarToast("Proceso completado", "El libro ha sido editado correctamente", "success");
+                            mostrarLibros();
+                            $("#modal-libros-editar").modal("hide");
+                        }
+                    });
+                }
+            });
         }
 
         $("#tabla-libros tbody").on("click", ".eliminar", function() {
             //Almacenamos la PK en una variable
             let idbook = $(this).data("idbook");
 
-            if (confirm("¿Está seguro de eliminar el registro?")) {
-                $.ajax({
-                    url: '../../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    data: {
-                        'operacion': 'eliminarLibro',
-                        'idbook': idbook
-                    },
-                    success: function(result) {
-                        if (result == "") {
-                            idbook = ``;
-                            mostrarLibros();
+            Swal.fire({
+                title: "Eliminar",
+                text: "¿Esta seguro de eliminar el libro?",
+                icon: "question",
+                footer: "Horacio Zeballos Gámez",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#38AD4D",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: "#D3280A"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    //Enviamos los datos por ajax
+                    $.ajax({
+                        url: '../../controllers/biblioteca.controller.php',
+                        type: 'GET',
+                        data: {
+                            'operacion': 'eliminarLibro',
+                            'idbook': idbook
+                        },
+                        success: function(result) {
+                            if (result == "") {
+                                idbook = ``;
+                                alertarToast("Eliminacion correcta", "El libro ha sido eliminado correctamente", "success")
+                                mostrarLibros();
+                            }
                         }
-                    }
-                });
-            }
-        });
-
-        //Por verificar
-        /*
-        $("#tabla-libros tbody").on("click", ".editarportada", function () {
-            let idbook = $(this).data("idbook");
-            $.ajax({
-                url: 'edit-frontpage.php',
-                type: 'POST',
-                data: { idbook: idbook },
-                success: function (result) {
-                    window.location.href = 'index.php?view=edit-frontpage.php';
-                    idbook = $(this).data("idbook");
-                    .+
-
+                    });
                 }
             });
         });
-        */
+
 
         $("#tabla-libros tbody").on("click", ".editar", function() {
             idbook = $(this).data("idbook");
@@ -725,6 +830,99 @@ require_once './permisos.php';
                     cargarSubcategorias(result['idcategorie'], result['idsubcategorie']);
                     $("#modal-libros-editar").modal("show");
                     datosNuevos = false;
+                }
+            });
+        });
+
+        // Agregar evento click para abrir el modal
+        $("#tabla-libros tbody").on("click", ".editarportada", function() {
+            idbook = $(this).data('idbook');
+            $.ajax({
+                url: '../../controllers/biblioteca.controller.php',
+                type: 'GET',
+                data: {
+                    'operacion': 'getBinarios',
+                    'idbook': idbook
+                },
+                success: function(result) {
+                    let registros = JSON.parse(result);
+                    let nuevaFila = ``;
+                    portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
+                    nuevaFila = `
+                        <img src="../../views/frontpage/${portada}" width="100%" height="100%">
+                    `;
+                    $(".editportada").append(nuevaFila);
+
+                    // Abre el modal
+                    $('#editarportada').modal('show');
+                }
+            });
+        });
+
+
+        $('#editarportada').on('hidden.bs.modal', function() {
+            $(".editportada").empty(); // Vacía el contenido de la clase editportada
+        });
+
+        // Agregar evento click para abrir el modal
+        $("#tabla-libros tbody").on("click", ".editarpdf", function() {
+            idbook = $(this).data('idbook');
+            $.ajax({
+                url: '../../controllers/biblioteca.controller.php',
+                type: 'GET',
+                data: {
+                    'operacion': 'getBinarios',
+                    'idbook': idbook
+                },
+                success: function(result) {
+                    let registros = JSON.parse(result);
+                    let nuevaFila = ``;
+                    console.log(registros);
+                    pdf = (registros['url'] == null) ? 'no-pdf.pdf' : registros['url'];
+                    nuevaFila = `
+                        <iframe src="../../views/PDF/${pdf}" width="100%" height="600"></iframe>
+                    `;
+                    $(".editpdf").append(nuevaFila);
+
+                    // Abre el modal
+                    $('#editarpdf').modal('show');
+                }
+            });
+        });
+
+        $('#editarpdf').on('hidden.bs.modal', function() {
+            $(".editpdf").empty(); // Vacía el contenido de la clase editportada
+        });
+
+        $("#inputFile").change(function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(fileName);
+        });
+
+        // Evento hidden.bs.modal del modal
+        $("#editarpdf").on("hidden.bs.modal", function() {
+            $("#inputFile").val(""); // Restablecer el valor del input de archivo
+            $(".custom-file-label").html("Seleccionar Archivo"); // Restablecer la etiqueta del input personalizado
+        });
+
+        $("#guardarPdf").click(function() {
+            // Capturar los datos a enviar
+            var inputFile = $("#inputFile")[0].files[0];
+            
+            // Crear un objeto FormData para enviar los datos
+            var formData = new FormData();
+            formData.append("pdfFile", inputFile);
+            console.log(inputFile)
+            console.log(formData)
+            // Enviar los datos mediante una función AJAX
+            $.ajax({
+                url: "",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    
                 }
             });
         });
