@@ -237,21 +237,41 @@ require_once 'permisos.php';
     <script>
         $(document).ready(function() {
 
+
+
             $(document).on('click', '#devolver', function(event) {
+
                 var dataID = $(this).data('id')
                 console.log(dataID)
 
-                $.ajax({
-                    url: `../../controllers/prestamo.controller.php`,
-                    type: 'GET',
-                    data: { 'operacion':'cambiarEstadoPrestamo',
-                          'idloan': dataID,
-                          'state' : '0'
-                        },
-                    success: function(result){
-                        listarPrestamos()
+                Swal.fire({
+                    title: 'Devolver libro',
+                    text:`¿Estás seguro de devolver este libro?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#7ebe7e',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, devolver',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            url: `../../controllers/prestamo.controller.php`,
+                            type: 'GET',
+                            data: { 'operacion':'cambiarEstadoPrestamo',
+                                  'idloan': dataID,
+                                  'state' : '0'
+                                },
+                            success: function(result){
+                                listarPrestamos()
+                            }
+                        })
+
                     }
                 })
+
+
             })
 
 
@@ -288,6 +308,7 @@ require_once 'permisos.php';
                         <td><button  id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
                     </tr>
                 `;
+
                             $("#tabla-prestamos tbody").append(nuevaFila);
                         });
 

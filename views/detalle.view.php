@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -14,14 +15,15 @@
     <link rel="stylesheet" href="../vendor/lightbox/css/lightbox.min.css">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
 </head>
+
 <body>
     <!-- navbar -->
     <?php include './navbar.php'; ?>
-            
-    <div class="container" style="margin-top: 48px;padding-right: 0px;padding-left: 0px;margin-bottom: 53px;"> 
+
+    <div class="container" style="margin-top: 48px;padding-right: 0px;padding-left: 0px;margin-bottom: 53px;">
         <!-- Resumen de los libros -->
-        <div class="row col-xl-12 resumen"> 
-            <a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>Volver</a>  
+        <div class="row col-xl-12 resumen">
+            <a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>Volver</a>
         </div>
     </div>
 
@@ -35,9 +37,9 @@
                     <div class="datos">
 
                     </div>
-                    
+
                     <!-- Agregar comentarios -->
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted" id="Comentario">
                         <form action="" autocomplete="off" id="form-comentario">
                             <div class="row">
                                 <div class="col-md-8 form-group">
@@ -59,117 +61,114 @@
                                 <div class="col-md-2">
                                     <button type="button" id="enviar" class="btn btn-primary mt-5">Enviar</button>
                                 </div>
-                            </div>     
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
+
 
     <!-- FOOTER -->
     <footer class="text-white bg-dark">
         <div class="container text-center py-4 py-lg-5">
-            
+
             <p class="text-white-50 mb-0">Copyright © 2023 By IA TECH</p>
         </div>
     </footer>
 
-<!-- JQUERY -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
-<!-- FONTWASOME -->
-<script src="https://kit.fontawesome.com/9b57fc34f2.js" crossorigin="anonymous"></script>
-<!-- Lightbox -->
-<script src="../vendor/lightbox/js/lightbox.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- JQUERY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- BOOTSTRAP-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <!-- FONTWASOME -->
+    <script src="https://kit.fontawesome.com/9b57fc34f2.js" crossorigin="anonymous"></script>
+    <!-- Lightbox -->
+    <script src="../vendor/lightbox/js/lightbox.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Mis funciones y eventos javascript -->
-<script>
-    $(document).ready(function(){
+    <!-- Mis funciones y eventos javascript -->
+    <script>
+        $(document).ready(function() {
 
-        idusuario = <?php echo $idusers?>;  
-        <?php 
-        $variableSesion = $_SESSION['login']['idusers'];
-        echo "var idusuario = ".json_encode($variableSesion).";";
-        ?>;
+            idusuario = <?php echo $idusers ?>;
 
-        const url = new URL(window.location.href);
-        const idlibro = url.searchParams.get("resumen");
-        let estrellas = 0;
-        console.log(idlibro);
-        console.log(idusuario);
-        console.log(estrellas)
+            const url = new URL(window.location.href);
+            const idlibro = url.searchParams.get("resumen");
+            let estrellas = 0;
+            console.log(idlibro);
+            console.log(idusuario);
+            console.log(estrellas)
 
-        function alertar(textoMensaje = "",icono=""){
+            function alertar(textoMensaje = "", icono = "") {
                 Swal.fire({
-                    title   : 'Comentarios',
-                    text    :  textoMensaje,
-                    icon    :  icono,
-                    footer  :   'Horacio Zeballos Gámez',
-                    timer   :   900,
-                    confirmButtonText   :   'Aceptar'
+                    title: 'Comentarios',
+                    text: textoMensaje,
+                    icon: icono,
+                    footer: 'Horacio Zeballos Gámez',
+                    timer: 900,
+                    confirmButtonText: 'Aceptar'
                 });
-        }
+            }
 
-        
-        $(document).on('click', '#star', function(event) {
+
+            $(document).on('click', '#star', function(event) {
                 var dataID = $(this).data('rating')
                 estrellas = dataID;
                 console.log(estrellas)
-        })
+            })
 
-        function enviarComenatrio(){
-            let comentario = $("#comentario").val()
-            const stars = document.querySelectorAll('#stars i');
-            if(comentario == ""){
-                alertar("El comentario no puede estar vacio","warning");
-                stars.forEach(star => star.classList.remove('fas'));
-                stars.forEach(star => star.classList.add('far'));
-                $("#rating-text").text("");
-                estrellas = 0
-            }else{
+            function enviarComenatrio() {
+                let comentario = $("#comentario").val()
+                const stars = document.querySelectorAll('#stars i');
+                if (comentario == "") {
+                    alertar("El comentario no puede estar vacio", "warning");
+                    stars.forEach(star => star.classList.remove('fas'));
+                    stars.forEach(star => star.classList.add('far'));
+                    $("#rating-text").text("");
+                    estrellas = 0
+                } else {
 
+                    $.ajax({
+                        url: '../controllers/comentario.controller.php',
+                        type: 'GET',
+                        data: {
+                            'operacion': 'enviarComentario',
+                            'idbook': idlibro,
+                            'iduser': idusuario,
+                            'commentary': comentario,
+                            'score': estrellas
+                        },
+                        success: function(result) {
+                            alertar("Tu comentario fue registrado exitosamente", "success");
+                            $("#form-comentario")[0].reset();
+                            stars.forEach(star => star.classList.remove('fas'));
+                            stars.forEach(star => star.classList.add('far'));
+                            $("#rating-text").text("");
+                            estrellas = 0
+                            listarComentarios()
+                        }
+                    })
+                }
+            }
+
+            $("#enviar").click(enviarComenatrio);
+
+            idbook2 = <?php echo $_GET["resumen"]; ?>;
+
+            function VistaResumen() {
                 $.ajax({
-                    url: '../controllers/comentario.controller.php',
+                    url: '../controllers/biblioteca.controller.php',
                     type: 'GET',
                     data: {
-                        'operacion': 'enviarComentario',
-                        'idbook': idlibro,
-                        'iduser': idusuario,
-                        'commentary': comentario,
-                        'score': estrellas
-                    },success: function(result){
-                        alertar("Tu comentario fue registrado exitosamente","success");
-                        $("#form-comentario")[0].reset();
-                        stars.forEach(star => star.classList.remove('fas'));
-                        stars.forEach(star => star.classList.add('far'));
-                        $("#rating-text").text("");
-                        estrellas = 0
-                        listarComentarios()
-                    }
-                })
-            }
-        }
-
-        $("#enviar").click(enviarComenatrio);
-
-        idbook2 = <?php echo $_GET["resumen"];?>;
-        
-        function VistaResumen() {
-            $.ajax({
-                url: '../controllers/biblioteca.controller.php',
-                type: 'GET',
-                data: {
-                    'operacion': 'VistaResumen',
-                    'idbook': idbook2
-                },
-                success: function(result) {
-                    let registros = JSON.parse(result);
-                    let nuevaFila = `
+                        'operacion': 'VistaResumen',
+                        'idbook': idbook2
+                    },
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        let nuevaFila = `
                         <div class="row">
                           <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
                             <h5 class="text-center">${registros['descriptions']}</h5>
@@ -193,54 +192,59 @@
                         </div>
                     `;
 
-                    $(".resumen").append(nuevaFila);
+                        $(".resumen").append(nuevaFila);
 
-                    // Verificar si el idusuario es igual a -1
-                    if (idusuario === -1) {
-                        $(".prestamos").attr("href", "login.php");
+                        // Verificar si el idusuario es igual a -1
+                        if (idusuario === -1) {
+                            $(".prestamos").attr("href", "login.php");
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        function listarComentarios(){
-            $.ajax({
-                url: '../controllers/biblioteca.controller.php',
-                type: 'GET',
-                data: {'operacion':'listarComentarios','idbook' : idbook2},
-                success: function(result){
-                    let registros = JSON.parse(result);
-                    $(".datos").html("");
-                    let nuevaFila2 = ``;
+            function listarComentarios() {
+                $.ajax({
+                    url: '../controllers/biblioteca.controller.php',
+                    type: 'GET',
+                    data: {
+                        'operacion': 'listarComentarios',
+                        'idbook': idbook2
+                    },
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        $(".datos").html("");
+                        let nuevaFila2 = ``;
 
-                    registros.forEach(registro => {
-                        nuevaFila2 = `
+                        registros.forEach(registro => {
+                            nuevaFila2 = `
                             <div class="card-body">
                                 <h5 class="card-title">${registro['Usuario']}</h5>
                                 <p class="card-text">${registro['commentary']}</p>
                                 <p class="card-text">${registro['commentary_date']}</p>
                             </div>
                         `;
-                        $(".datos").append(nuevaFila2);
-                    });
-                }
+                            $(".datos").append(nuevaFila2);
+                        });
+                    }
+                });
+            }
+
+
+            $('#stars i').click(function() {
+                var rating = $(this).data('rating');
+                $('#rating').val(rating);
+                $('#stars i').removeClass('fas').addClass('far');
+                $(this).prevAll().addBack().removeClass('far').addClass('fas');
+                $('#rating-text').text(rating + ' estrella(s).');
             });
-        }
 
-            
-        $('#stars i').click(function() {
-            var rating = $(this).data('rating');
-            $('#rating').val(rating);
-            $('#stars i').removeClass('fas').addClass('far');
-            $(this).prevAll().addBack().removeClass('far').addClass('fas');
-            $('#rating-text').text( rating + ' estrella(s).');
+
+
+            //Funciones de carga automatica
+            VistaResumen();
+            listarComentarios();
         });
-
-
-        //Funciones de carga automatica
-        VistaResumen();
-        listarComentarios();
-    });
-</script>
+    </script>
 </body>
+
 </html>
