@@ -23,7 +23,7 @@
     <div class="container" style="margin-top: 48px;padding-right: 0px;padding-left: 0px;margin-bottom: 53px;">
         <!-- Resumen de los libros -->
         <div class="row col-xl-12 resumen">
-            <a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>Volver</a>
+            <a href="./index.php"><i class="fa-solid fa-arrow-left"></i>Volver</a>
         </div>
     </div>
     <hr>

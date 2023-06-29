@@ -19,8 +19,8 @@ $vistaActiva = $url_array[count($url_array) - 1];
 $permisos = [
   "A" => ["admin.view.php", "libros.view.php", "prestamos.admin.php", "users.view.php","perfil.view.php","categoria.view.php",
           "subcategoria.view.php", "edit-pdf.php", "edit-frontpage.php", "report.php", "comentario.view.php"],
-  "D" => ["admin.view.php", "prestamos.view.php","perfil.view.php"],
-  "E" => ["admin.view.php", "prestamos.view.php","perfil.view.php"]
+  "D" => ["admin.view.php", "prestamos.admin.php","perfil.view.php"],
+  "E" => ["admin.view.php", "prestamos.admin.php","perfil.view.php"]
 ];
 
 //4. Validar el acceso

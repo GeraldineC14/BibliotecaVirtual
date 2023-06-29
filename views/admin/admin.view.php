@@ -15,10 +15,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./libros.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=libros.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                     Libros</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">502</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="libros"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -34,10 +36,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./docente.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=users.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                     Docentes</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">54</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="docentes"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -53,10 +57,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./externo.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=users.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                     Usuarios</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">657</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="usuarios"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -72,10 +78,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./prestamos.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=prestamos.admin.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-info text-uppercase mb-1">
                                                     Prestamos</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="prestamos"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -91,10 +99,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./categoria.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=categoria.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
                                                     Categorias</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">54</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="categorias"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -110,10 +120,12 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./subcategoria.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=subcategoria.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-warning text-uppercase mb-1">
                                                     Subcategoria</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">64</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="subcategorias"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
@@ -129,14 +141,16 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters success-items-center">
                                         <div class="col mr-2">
-                                            <a href="./autor.view.php"  style="text-decoration: none;">
+                                            <a href="#"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-success text-uppercase mb-1">
                                                     Autores</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">115</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <p id="autores"></p>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-550"></i>
+                                            <i class="fas fa-users fa-2x text-gray-550"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -148,14 +162,14 @@ require_once './permisos.php';
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <a href="./perfil.view.php"  style="text-decoration: none;">
+                                            <a href="index.php?view=perfil.view.php"  style="text-decoration: none;">
                                                 <div class="text-s font-weight-bold text-dark text-uppercase mb-1">
-                                                    CONFIGURACION
+                                                    Mi perfil
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-gears fa-2x text-gray-550"></i>
+                                            <i class="fas fa-user fa-2x text-gray-550"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -166,3 +180,46 @@ require_once './permisos.php';
             </div>
         </div>
     </div>
+
+
+    <script>
+        $(document).ready(function(){
+            function contadorBooks(){
+                $.ajax({
+                    url: '../../controllers/usuario.controller.php',
+                    type: 'GET',
+                    datatype: 'JSON',
+                    data: 'operacion=contadorBooks',
+                    success: function(result){
+                        var json = $.parseJSON(result);
+                        $("#libros").text(json[0]['total_libros']);
+                        $("#categorias").text(json[0]['total_categorias']);
+                        $("#subcategorias").text(json[0]['total_subcategorias']);
+                        $("#autores").text(json[0]['total_autores']);
+                    }
+                    
+                });
+            }
+
+            function contadorUsers(){
+                $.ajax({
+                    url: '../../controllers/usuario.controller.php',
+                    type: 'GET',
+                    datatype: 'JSON',
+                    data: 'operacion=contadorUsers',
+                    success: function(result){
+                        var json = $.parseJSON(result);
+                        $("#usuarios").text(json[0]['total_users']);
+                        $("#docentes").text(json[0]['total_docentes']);
+                        $("#prestamos").text(json[0]['total_prestamos']);
+                    }
+                    
+                });
+            }
+
+            contadorBooks();
+            contadorUsers();
+
+        });
+        
+    </script>

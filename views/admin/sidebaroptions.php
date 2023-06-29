@@ -59,7 +59,7 @@ switch ($permiso) {
         "icon" => "fa-solid fa-house fa-2xl"
       ],
       [
-        "menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
+        "menu" => "Prestamos", "url" => "index.php?view=prestamos.admin.php",
         "icon" => "fas fa-truck-ramp-box fa-2xl"
       ]
     ];
@@ -71,7 +71,7 @@ switch ($permiso) {
         "icon" => "fa-solid fa-house fa-2xl"
       ],
       [
-        "menu" => "Prestamos", "url" => "index.php?view=prestamos.view.php",
+        "menu" => "Prestamos", "url" => "index.php?view=prestamos.admin.php",
         "icon" => "fas fa-truck-ramp-box fa-2xl"
       ]
     ];

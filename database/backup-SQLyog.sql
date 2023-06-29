@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - library
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.20-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
@@ -70,7 +70,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (23,1,2,'C023','02','Matemáticas 08','E.G.B Santillana','B','C.R.E',NULL,'907a7dd32c8e53be0c5b0775709118d830505d57.jpg','2023-03-21 12:15:37','1',NULL),
 (24,1,2,'C024','02','Matemáticas 07','E.G.B Santillana','B','C.R.E',NULL,'7fa73e872f9eb5c80a0f555fe2321af693d6febe.jpg','2023-03-21 12:15:37','1',NULL),
 (25,1,2,'C025','01','Frutal,Matemática 2°','Fernando Alvarez - Vicens - vives','B','C.R.E',NULL,NULL,'2023-03-21 12:15:37','1',NULL),
-(26,1,2,'C026','01','Calculo numérico','Vicens - vives','B','C.R.E',NULL,'17a3ccd658aa5cc1fc6796456fbbcba603307fd7.jpg','2023-03-21 12:15:37','1',NULL),
+(26,1,2,'C026','01','Calculo numérico','Vicens - Vives','B','C.R.E',NULL,'17a3ccd658aa5cc1fc6796456fbbcba603307fd7.jpg','2023-03-21 12:15:37','1',NULL),
 (27,1,2,'C027','01','ABACO 2 Matemática','Santillana','R','C.R.E',NULL,'ab15cf689abc421222fc5f1464ecb6a6518d73e1.jpg','2023-03-21 12:15:37','1',NULL),
 (28,1,2,'C028','01','Las matemáticas en tus manos','Luisa coreaga - Margarita cos','R','C.R.E',NULL,NULL,'2023-03-21 12:15:37','1',NULL),
 (29,1,2,'C029','01','Matemática moderna 1°','Campos villavicencio','M','C.R.E',NULL,NULL,'2023-03-21 12:15:37','1',NULL),
@@ -180,7 +180,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (133,3,6,'C133','08','Cuentos de té y otros árboles','Mónica Rodríguez Suárez','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
 (134,3,6,'C134','08','El cristo de Villenas','Carlos Eduardo Zavaleta','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
 (135,3,6,'C135','08','Poesía Peruana,Antología general de vallejo a nuestros días T III','Ricardo, Gonzáles Vigil','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
-(136,3,6,'C136','08','Tragedias','William Shakespeare','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
+(136,3,6,'C136','08','Tragedias','William Shakes peare','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
 (137,3,6,'C137','08','La llamada de lo salvaje','Jack Londón','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
 (138,3,6,'C138','08','El túnel','Ernesto Sábato','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
 (139,3,6,'C139','08','Mitos leyendas y cuentos peruanos','José María Arguedas/Francisco Izquierdo Ríos','B','Biblioteca escolar',NULL,NULL,'2023-03-22 08:27:55','1',NULL),
@@ -231,7 +231,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (184,3,7,'C184','01','Don Quijote de la mancha','Miguel de Cervantes Saavedra','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
 (185,3,7,'C185','01','Barrio de Broncas','José Antoni Bravo','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
 (186,3,7,'C186','01','Historia de dos ciudades','Charles Dickens','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
-(187,3,7,'C187','04','Relatos Fantásticos','Vicens Vives','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
+(187,3,7,'C187','04','Relatos Fantásticos','Vicens - Vives','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
 (188,3,7,'C188','01','Per Ibañez y el comendador de Ocaña','Lope de vega','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
 (189,3,7,'C189','01','Edipo Rey','Sófocles','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
 (190,3,7,'C190','01','La palabra del Mundo (Antología)','Julio Ramón Ribeyro','B','C.R.E',NULL,NULL,'2023-03-22 09:12:48','1',NULL),
@@ -259,7 +259,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (212,3,7,'C212','01','Ana Karenina I, II','León Tolstoi','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
 (213,3,7,'C213','01','La casa de cartón','Martín Adán','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
 (214,3,7,'C214','01','La divina comedia','Dante Alighieri','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
-(215,3,7,'C215','01','Romeo y julieta','William Shakespeare','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
+(215,3,7,'C215','01','Romeo y julieta','William Shakes peare','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
 (216,3,7,'C216','01','Momo','Michael Ende','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
 (217,3,7,'C217','01','Tres novelas ejemplares','Miguel de cervantes','B','C.R.E',NULL,NULL,'2023-03-22 09:27:50','1',NULL),
 (218,3,7,'C218','01','La palabra del mundo','Julio Ramón Ribeyro(antología)','B','C.R.E',NULL,NULL,'2023-03-22 10:36:05','1',NULL),
@@ -326,7 +326,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bookschinchanos` */
 
@@ -339,7 +339,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
@@ -369,7 +369,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `commentaries` */
 
@@ -381,7 +381,9 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (5,2,1,'Prueba',5,'2023-06-29',NULL,'1'),
 (6,1,1,'Prueba ',1,'2023-06-29',NULL,'1'),
 (7,1,47,'COMO ES POSIBLE ESTE SUCESO',5,'2023-06-29',NULL,'1'),
-(8,1,47,'Prueba',0,'2023-06-29',NULL,'1');
+(8,1,47,'Prueba',0,'2023-06-29',NULL,'1'),
+(9,1,1,'preubafina',2,'2023-06-29',NULL,'1'),
+(10,2,1,'prueba geral',3,'2023-06-29',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -402,15 +404,20 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
 
 insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,3,47,'1','2023-06-28','2023-06-28','abc','0','2023-06-27 10:46:50'),
+(1,3,47,'1','2023-06-28','2023-06-28','abc','1','2023-06-27 10:46:50'),
 (2,3,47,'1','2023-06-29','2023-07-06','fsfdsfdfdsf','0','2023-06-27 14:14:49'),
-(3,3,1,'1','2023-07-06','2023-07-06','hfhthrth','0','2023-06-27 15:04:20'),
-(4,1,47,'1','2023-06-29','2023-06-28','123456789','0','2023-06-27 16:04:22');
+(3,3,1,'1','2023-07-06','2023-07-06','hfhthrth','1','2023-06-27 15:04:20'),
+(4,1,47,'1','2023-06-29','2023-06-28','123456789','0','2023-06-27 16:04:22'),
+(5,1,3,'1','2023-07-03','2023-07-04','PRUEBA','1','2023-06-29 15:55:42'),
+(6,2,1,'1','2023-06-30','2023-07-01','PREUBA ADMIN','1','2023-06-29 16:11:26'),
+(7,3,25,'1','2023-06-29','2023-06-30','prueba docente','1','2023-06-29 16:13:19'),
+(8,6,3,'1','2023-06-30','2023-07-01','prueba estudiante','1','2023-06-29 16:14:44'),
+(9,4,48,'1','2023-06-29','2023-06-30','PRUEBA NUEVPO USUARIO','1','2023-06-29 16:16:50');
 
 /*Table structure for table `recuperarclave` */
 
@@ -426,7 +433,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusuario`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recuperarclave` */
 
@@ -445,7 +452,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
@@ -479,7 +486,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -488,9 +495,10 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
-(45,'Milagros730','Rojas Levano','Milagros','milagros730@gmail.com','$2y$10$/otlM.sDWQ0n1e/4ImkYmOfET6lNxU1U9S1rrRU/3AjjLLMiKVH8e','E','2023-06-27 08:11:34',NULL,'1'),
+(45,'milagros730','levano','Milagros','milagros73@midominio.com','$2y$10$9JvejDF7aj1Di2N.fWNU9e24v/XaLHqHkiDyu1XXDivdXPVVkAApO','D','2023-06-27 08:11:34',NULL,'1'),
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
-(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1');
+(47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
+(48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -879,11 +887,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_books`()
-SELECT 	COUNT(idbook) AS total_libros , 
-					(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
-					(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
-				FROM books
-			END */$$
+SELECT  COUNT(idbook) AS total_libros ,
+		(SELECT COUNT(idcategorie) FROM categories) AS total_categorias,
+		(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias,
+		(SELECT COUNT(*) AS total_autores
+			FROM (SELECT author FROM books GROUP BY author) AS Total) AS total_autores
+	    FROM books
+	END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_list_dashboard_users` */
@@ -893,10 +903,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_users`()
-SELECT  COUNT(idusers) AS total_usuarios,
-						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
-					FROM users
-				END */$$
+SELECT  COUNT(idusers) AS total_users,
+		(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes,
+		(SELECT COUNT(*) FROM loans WHERE state = 1) AS total_prestamos
+	    FROM users
+	END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_loans_list` */
@@ -905,13 +916,36 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`( 
+					IN _idusers 	INT,
+					IN _accesslevel	CHAR(1)
+				)
 BEGIN
-					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-						s.observation, s.loan_date, s.return_date, s.amount, s.state
-					FROM loans s
-						INNER JOIN books b ON b.idbook = s.idbook
-						INNER JOIN users u ON u.idusers = s.idusers;
+					if _accesslevel = 'D' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers
+						WHERE u.idusers = _idusers;
+					end if;
+					
+					IF _accesslevel = 'E' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers
+						WHERE u.idusers = _idusers;
+					END IF;
+					
+					IF _accesslevel = 'A' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers;
+					end if;
 			END */$$
 DELIMITER ;
 
@@ -1169,13 +1203,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_obtain`(
-		IN _idusers INT
-		)
+					IN _idusers INT
+				)
 BEGIN
-		SELECT  idusers, namess, surnames, accesslevel,email,accesskey
-				FROM users 
-			WHERE state = "1" AND idusers = _idusers;
-		END */$$
+				SELECT  idusers, namess, username,surnames, accesslevel,email,accesskey
+						FROM users 
+					WHERE state = "1" AND idusers = _idusers;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_register` */
@@ -1185,7 +1219,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_register`(
-				in _username		varchar(50),
+				IN _username		VARCHAR(50),
 				IN _surnames		VARCHAR(30),
 				IN _namess		VARCHAR(30),
 				IN _email		VARCHAR(100),
@@ -1206,23 +1240,26 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(
-			IN _idusers	INT,
-			IN _namess	VARCHAR(30),
-			IN _surnames	VARCHAR(100),
-			IN _email	VARCHAR(100),
-			IN _accesslevel	VARCHAR(100),
-			IN _accesskey	VARCHAR(100)
-		)
+				IN _idusers	INT,
+				IN _namess	VARCHAR(30),
+				IN _surnames	VARCHAR(100),
+				IN _username	VARCHAR(50),
+				IN _email	VARCHAR(100),
+				IN _accesslevel	VARCHAR(100),
+				IN _accesskey	VARCHAR(100)
+			)
 BEGIN
-			UPDATE users SET
-				namess 		= _namess,
-				surnames 	= _surnames,
-				email 		= _email,
-				accesslevel 	= _accesslevel,
-				accesskey 	= _accesskey
-				
-			WHERE idusers = _idusers;
-		END */$$
+
+				UPDATE users SET
+					namess 		= _namess,
+					surnames 	= _surnames,
+					username	= _username,
+					email 		= _email,
+					accesslevel 	= _accesslevel,
+					accesskey 	= _accesskey
+					
+				WHERE idusers = _idusers;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_validate_email` */

@@ -119,6 +119,15 @@ require_once '../models/Usuario.php';
         if($_GET['operacion'] == 'validacionCorreo'){
             echo json_encode($usuario->validacionCorreo($_GET['email']));
         }
+
+        if ($_GET['operacion'] == 'contadorBooks'){
+            echo json_encode($usuario->contadorBooks());
+        }
+
+        if ($_GET['operacion'] == 'contadorUsers'){
+            echo json_encode($usuario->contadorUsers());
+        }
+
     }
 
     if (isset($_POST['operacion'])) {
@@ -131,4 +140,6 @@ require_once '../models/Usuario.php';
             }
         }
     }
+
+    
 ?>

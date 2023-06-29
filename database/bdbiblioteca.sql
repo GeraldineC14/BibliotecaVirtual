@@ -523,7 +523,7 @@
 				UPDATE users SET
 					namess 		= _namess,
 					surnames 	= _surnames,
-					username		= _username,
+					username	= _username,
 					email 		= _email,
 					accesslevel 	= _accesslevel,
 					accesskey 	= _accesskey
@@ -597,17 +597,43 @@
 	-- VISTA ADMIN:
 		-- N°1 list loans
 			DELIMITER $$
-				CREATE PROCEDURE spu_loans_list()
+				CREATE PROCEDURE spu_loans_list( 
+					IN _idusers 	INT,
+					IN _accesslevel	CHAR(1)
+				)
 				BEGIN
-					SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-						s.observation, s.loan_date, s.return_date, s.amount, s.state
-					FROM loans s
-						INNER JOIN books b ON b.idbook = s.idbook
-						INNER JOIN users u ON u.idusers = s.idusers;
+					IF _accesslevel = 'D' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers
+						WHERE u.idusers = _idusers;
+					END IF;
+					
+					IF _accesslevel = 'E' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers
+						WHERE u.idusers = _idusers;
+					END IF;
+					
+					IF _accesslevel = 'A' THEN 
+						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
+							s.observation, s.loan_date, s.return_date, s.amount, s.state
+						FROM loans s
+							INNER JOIN books b ON b.idbook = s.idbook
+							INNER JOIN users u ON u.idusers = s.idusers;
+					END IF;
 			END $$
 				
-			CALL spu_loans_list();
-				
+			CALL spu_loans_list(3,'E'); 
+			SELECT * FROM loans;
+			SELECT * FROM users;
+			
+
 		-- N°2 List users loans
 			DELIMITER $$
 				CREATE PROCEDURE spu_usersloans_list()
@@ -792,7 +818,30 @@ SELECT * FROM commentaries;
 	 
 	 SELECT * FROM users
 	 
+-- DASHBOARD
+-- Procedimiento almacenado (count)
+	DELIMITER $$
+	CREATE PROCEDURE spu_list_dashboard_books()
+	    SELECT  COUNT(idbook) AS total_libros ,
+		(SELECT COUNT(idcategorie) FROM categories) AS total_categorias,
+		(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias,
+		(SELECT COUNT(*) AS total_autores
+			FROM (SELECT author FROM books GROUP BY author) AS Total) AS total_autores
+	    FROM books
+	END $$
 
+	CALL spu_list_dashboard_books();	
+
+	DELIMITER $$
+	CREATE PROCEDURE spu_list_dashboard_users()
+	    SELECT  COUNT(idusers) AS total_users,
+		(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes,
+		(SELECT COUNT(*) FROM loans WHERE state = 1) AS total_prestamos
+	    FROM users
+	END $$
+	SELECT * FROM books;
+	
+	CALL spu_list_dashboard_users()
 
 -- DATA:	
 -- categoria 1 data:

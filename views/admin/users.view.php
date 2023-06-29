@@ -244,15 +244,22 @@ require_once './permisos.php';
                         <td>${registro['username']}</td>
                         <td>${registro['email']}</td>
                         <td>${registro['accesslevel']}</td>
-                        <td>
-                            <a href='#' data-idusers='${registro['idusers']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
-                            <a href='#' data-idusers='${registro['idusers']}' class = ' editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
+                        <td>`;
+                            if (registro['accesslevel'] !== 'A'){
+                                nuevaFila+=`
+                                    <a href='#' data-idusers='${registro['idusers']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
+                                    <a href='#' data-idusers='${registro['idusers']}' class = ' editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
+                                `;
+                            }
+                        nuevaFila+=`
                         </td>
-                    </tr>
-                    `;
+                    </tr> `;    
                     $("#tabla-usuarios tbody").append(nuevaFila);
+                    // Cambiar el color del td si el accesslevel es "A"
+                    if (registro['accesslevel'] === 'A') {
+                        $("#tabla-usuarios tbody tr:last-child td").css("background-color", "#C2F889");
+                    }
                 });
-
                     $('#tabla-usuarios').DataTable({
                         language:{ 
                         url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
@@ -424,6 +431,42 @@ require_once './permisos.php';
             }
         }
 
+        function validarEdit(){
+            datos['accesslevel'] =   $("#accesslevel2").val();
+            if(datos['accesslevel'] == "D"){
+                esvalido = document.getElementById('email2');
+                exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+                if(exprecion.test(esvalido.value)){
+                    editarUsuario();
+                }else{
+                    Swal.fire({
+                        title: "Error",
+                        text: "Correo no autorizado",
+                        icon: "error",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D"
+                    });
+                }
+            }else{
+                const email = document.getElementById('email2');
+                const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
+                const value = email.value.split('@');
+                if (!dominios.includes(value[1])) {
+                    Swal.fire({
+                        title: "Error",
+                        text: `Correos autorizados: ${dominios}`,
+                        icon: "error",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D"
+                    });
+                }else{
+                    editarUsuario();
+                } 
+            } 
+        }
+
         function editarUsuario(){
             datos['surnames']    =   $("#surnames2").val();
             datos['namess']      =   $("#namess2").val();
@@ -432,14 +475,14 @@ require_once './permisos.php';
             datos['accesslevel'] =   $("#accesslevel2").val();
             datos['accesskey']   =   $("#accesskey2").val();
             datos['repetir']     =   $("#repetir2").val();
-
+            
             datos['operacion']  = "actualizarUsuario";
-            datos['idusers'] = idusers;
+            datos['idusers'] = idusers; 
 
-             // Valida que los campos no esten vacios
-            if (datos['surnames'] == "" || datos['namess']  == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "") {
-                alertar("Complete el formulario por favor");
-            }else{
+
+            if(datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "" ){
+                alertar("Complete el formulario por favor")
+                }else{
                 if(datos['accesskey'] !== datos['repetir']){
                     alertarToast("Ha sucecido un error","Las claves no coinciden","error")
                 }else{
@@ -466,15 +509,15 @@ require_once './permisos.php';
                                     $("#editar-contraseña").prop('disabled',false);
                                     setTimeout(function(){
                                         reiniciarFormulario();
-                                        $("#modal-usuarios2").modal('hide');
-                                        listarUsuarios();
+                                        $('#modal-usuarios2').modal('hide');
+                                        listarUsuarios();                       
                                     }, 1800)
                                 }
                             });
                         }
                     });
                 }
-            }
+            }                    
         }
 
         function reiniciarFormulario(){
@@ -579,7 +622,7 @@ require_once './permisos.php';
         $("#cancelar-modal").click(reiniciarFormulario);
 
         //Editar
-        $("#guardar-usuario2").click(validar);
+        $("#guardar-usuario2").click(validarEdit);
         $("#cancelar-modal2").click(reiniciarFormulario);
         $("#editar-contraseña").click(activarContraseña);
 

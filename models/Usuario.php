@@ -114,5 +114,29 @@ class Usuario extends Conexion {
             die($e->getMessage());
         }
     }
+
+    public function contadorBooks(){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_list_dashboard_books()");
+            $consulta->execute();
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function contadorUsers(){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_list_dashboard_users()");
+            $consulta->execute();
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+
+        }catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 }
 ?>
