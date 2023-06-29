@@ -26,7 +26,7 @@
             <a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>Volver</a>
         </div>
     </div>
-
+    <hr>
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
@@ -78,6 +78,10 @@
         </div>
     </footer>
 
+    <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
+       <i class="fas fa-arrow-up"></i>
+    </a>
+
     <!-- JQUERY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- BOOTSTRAP-->
@@ -94,13 +98,26 @@
         $(document).ready(function() {
 
             idusuario = <?php echo $idusers ?>;
+            idbook2 = <?php echo $_GET["resumen"]; ?>;
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 200) {
+                $('#scroll-top').addClass('active');
+                } else {
+                $('#scroll-top').removeClass('active');
+                }
+            });
+
+            $('#scroll-top').click(function(event) {
+                event.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 300);
+            });
+
+            
 
             const url = new URL(window.location.href);
             const idlibro = url.searchParams.get("resumen");
             let estrellas = 0;
-            console.log(idlibro);
-            console.log(idusuario);
-            console.log(estrellas)
 
             function alertar(textoMensaje = "", icono = "") {
                 Swal.fire({
@@ -113,11 +130,20 @@
                 });
             }
 
+            // Verificar si idusuario es igual a -1
+            if (idusuario == -1) {
+                // Remplazar el contenido del formulario
+                var form = document.getElementById('form-comentario');
+                form.innerHTML = `
+                    <p class='text-center'>Debes iniciar sesion para registrar un comentario.</p>
+                    <a href="./login.php" class="btn btn-primary d-flex justify-content-center align-items-center mx-auto w-25" role="button">Click Aquí</a>
+                `;
+            } 
+
 
             $(document).on('click', '#star', function(event) {
                 var dataID = $(this).data('rating')
                 estrellas = dataID;
-                console.log(estrellas)
             })
 
             function enviarComenatrio() {
@@ -156,7 +182,6 @@
 
             $("#enviar").click(enviarComenatrio);
 
-            idbook2 = <?php echo $_GET["resumen"]; ?>;
 
             function VistaResumen() {
                 $.ajax({

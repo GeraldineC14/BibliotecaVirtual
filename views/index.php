@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
+    
 </head>
 <body>   
     <!-- navbar -->
@@ -32,13 +33,13 @@
         <!-- FORMULARIO DE BUSQUEDA -->
         <div class="container mt-3">
             <div class="d-flex justify-content-center">
-                <form action="views/buscador.view.php" class="text-center">
+                <form action="./buscador.view.php" class="text-center">
                     <div class="row align-items-center">
                         <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
-                            <input class="form-control form-control-lg w-100" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
+                            <input class="form-control w-100" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
                         </div>
                         <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
-                            <select class="form-control form-control-lg w-100" id="inlineFormInputGroup" name="type" required>
+                            <select class="form-control w-100" id="inlineFormInputGroup" name="type" required>
                                 <option value="">Seleccione:</option>
                                 <option value="n">Nombre de libro</option>
                                 <option value="a">Autor</option>
@@ -46,18 +47,13 @@
                         </div>
                         <div class="col-12 col-sm-6 col-md-auto">
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary btn-lg" id="inlineFormInputGroup" type="submit" style="max-width: 150px; background-color: #39a2db; border-color: #39a2db;"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+                                <button class="btn btn-primary" id="inlineFormInputGroup" type="submit" style="max-width: 150px; background-color: #39a2db; border-color: #39a2db;"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
-
-
     </div>
     <div class="container" style="margin-top: 20px;margin-bottom: 39px;">         
         <div class="row">
@@ -93,6 +89,11 @@
             <p class="text-white-50 mb-0">Copyright © ARFECAS 2023</p>
         </div>
     </footer>
+
+    <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
@@ -102,6 +103,20 @@
     
 <script>
     $(document).ready(function(){
+
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+            $('#scroll-top').addClass('active');
+            } else {
+            $('#scroll-top').removeClass('active');
+            }
+        });
+
+        $('#scroll-top').click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 300);
+        });
+
         function mostrarVistaLibros(){
             $.ajax({
                 url:'../controllers/biblioteca.controller.php',

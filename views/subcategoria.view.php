@@ -64,11 +64,29 @@
             <p class="text-white-50 mb-0">Copyright © ARFECAS 2023</p>
         </div>
     </footer>
+    <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
+       <i class="fas fa-arrow-up"></i>
+    </a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
-<script>
+    <!-- Script de Fontawesome -->
+    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
+    <script>
     $(document).ready(function(){
         idsubcategorie = <?php echo $_GET["sub1"];?>
+
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+            $('#scroll-top').addClass('active');
+            } else {
+            $('#scroll-top').removeClass('active');
+            }
+        });
+
+        $('#scroll-top').click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 300);
+        });
 
         function VistaSubcategoria(){
             $.ajax({

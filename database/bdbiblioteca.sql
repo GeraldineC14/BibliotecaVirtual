@@ -671,13 +671,6 @@
 DELIMITER $$
 CREATE PROCEDURE spu_commentaries_list()
 BEGIN
-    SELECT idusers, idbook, commentary_date, commentary
-    FROM commentaries;
-END $$
-
-DELIMITER $$
-CREATE PROCEDURE spu_commentaries_list()
-BEGIN
     SELECT
         commentaries.idcommentary AS idcomentario,
         CONCAT(users.namess, ' ', users.surnames) AS datos,
@@ -752,15 +745,19 @@ SELECT * FROM commentaries;
 	-- VISTA ADMINISTRATIVA
 		-- N°1 list all comentaries
 			DELIMITER $$
-				CREATE PROCEDURE spu_list_commentaries( IN _idbook INT)
+				CREATE PROCEDURE spu_list_commentaries( IN _idbook INT )
 				BEGIN 
 					SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 						c.commentary, c.score, c.commentary_date
 					FROM commentaries c
 						INNER JOIN	books b ON b.idbook = c.idbook
 						INNER JOIN	users u ON u.idusers = c.idusers
+					WHERE b.idbook = _idbook AND c.state = 1
+					ORDER BY c.idcommentary DESC
+					LIMIT 5;
 			END	$$
 		
+			CALL spu_list_commentaries (1)
 			SELECT * FROM commentaries
 			
 -- Recuperar contraseña

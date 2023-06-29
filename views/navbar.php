@@ -18,19 +18,19 @@ if ($idusers > 0) {
     // Usuario logeado
     $navItems = '
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="./index.php" style="background-color: #39a2db; border-color: #39a2db;">
+            <a class="nav-link active text-dark btn d-flex justify-content-center align-items-center mx-auto" href="./index.php" style="max-width: 130px; background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-house fa-xl" style="color: #fafafa;"></i>
                 <span class="ml-2" style="color: white;">Inicio</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="../views/admin/index.php?view=admin.view.php" style="background-color: #39a2db; border-color: #39a2db;">
+            <a class="nav-link active text-dark btn d-flex justify-content-center align-items-center mx-auto" href="../views/admin/index.php?view=admin.view.php" style="max-width: 130px; background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-book-open-reader fa-xl" style="color: #ededed;"></i>
                 <span class="ml-2" style="color: white;">Prestamo</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">
-            <a class="nav-link active text-dark btn btn-info" href="../controllers/usuario.controller.php?operacion=cerrar-sesion" style="background-color: #39a2db; border-color: #39a2db;">
+            <a class="nav-link active text-dark btn d-flex justify-content-center align-items-center mx-auto" href="../controllers/usuario.controller.php?operacion=cerrar-sesion" style="max-width: 130px; background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #ffffff;"></i>
                 <span class="ml-2" style="color: white;">Salir</span>
             </a>

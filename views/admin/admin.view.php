@@ -164,5 +164,5 @@ require_once './permisos.php';
                     </div>
                 </div>
             </div>
-        </div>|
+        </div>
     </div>

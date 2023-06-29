@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" />
+                            <input type="date" class="form-control form-control-sm" id="fecha2" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -76,6 +76,9 @@
             <p class="text-white-50 mb-0">Copyright © ARFECAS 2023</p>
         </div>
     </footer>
+    <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
+       <i class="fas fa-arrow-up"></i>
+    </a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
@@ -88,6 +91,19 @@
         $(document).ready(function() {
             idbook3 = <?php echo $_GET["prestamo"]; ?>
 
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 200) {
+                $('#scroll-top').addClass('active');
+                } else {
+                $('#scroll-top').removeClass('active');
+                }
+            });
+
+            $('#scroll-top').click(function(event) {
+                event.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 300);
+            });
+
             var datos = {
                 'operacion': "",
                 'idbook': "",
@@ -97,6 +113,10 @@
                 'return_date': "",
                 'amount': ""
             };
+
+            // Obtener los elementos de entrada de fecha
+            var fechaRecojo = $("#fecha1");
+            var fechaDevolucion = $("#fecha2");
 
             function alertar(textoMensaje = "") {
                 Swal.fire({
@@ -140,7 +160,21 @@
                 });
             }
 
+            // Establecer un controlador de eventos para el cambio de fecha en el campo de fecha de recojo
+            fechaRecojo.on("change", function() {
+                // Obtener la fecha seleccionada en el campo de fecha de recojo
+                var fechaRecojoValue = new Date($(this).val());
 
+                // Obtener la fecha mínima permitida para el campo de fecha de devolución
+                var minFechaDevolucion = new Date(fechaRecojoValue);
+                
+                fechaDevolucion.prop('readonly', false);
+
+                minFechaDevolucion.setDate(minFechaDevolucion.getDate()); // Incrementar la fecha en 1 día
+                
+                // Establecer la fecha mínima para el campo de fecha de devolución
+                fechaDevolucion.attr("min", minFechaDevolucion.toISOString().split("T")[0]);
+            });
 
             function RegistrarPrestamos() {
                 datos['idbook'] = <?php echo $_GET["prestamo"]; ?>;
@@ -153,10 +187,10 @@
                 datos['operacion'] = "registrarPrestamos";
 
                 if (datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == "") {
-                    alertar("Completa el formulario porfavor")
+                    alertar("Completa el formulario por favor");
                 } else {
                     Swal.fire({
-                        title: "Registro de prestamo",
+                        title: "Registro de préstamo",
                         text: "¿Los datos ingresados son correctos?",
                         icon: "question",
                         footer: "Horacio Zeballos Gámez",
@@ -172,18 +206,18 @@
                                 type: 'GET',
                                 data: datos,
                                 success: function(result) {
-                                    alertarToast("Proceso completado", "El usuario ha sido registrado correctamente", "success")
+                                    alertarToast("Proceso completado", "El usuario ha sido registrado correctamente", "success");
                                     setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
-                                        window.location.href = '../index.php';
-                                    }, 1500)
+                                        window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';
+                                    }, 1500);
                                 }
                             });
                         }
                     });
                 }
-
             }
+
 
             // Obtener elementos del DOM
             const stockInput = document.getElementById("disponibles");

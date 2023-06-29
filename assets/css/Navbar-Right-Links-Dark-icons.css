@@ -55,3 +55,16 @@
   border-radius: 50%;
 }
 
+.btn-scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.btn-scroll-top.active {
+  opacity: 1;
+  visibility: visible;
+}

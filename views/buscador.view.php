@@ -1,7 +1,3 @@
-<?php
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/popups.css">
 </head>
 <body>
     <!-- navbar -->
@@ -35,23 +32,27 @@
         </div>
         <!-- FORMULARIO DE BUSQUEDA -->
         <div class="container mt-3">
-            <form action="buscador.view.php">
-                <div class="form-row align-items-center ml-5">
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
-                    </div>
-                    <div class="col-auto">
-                    <select class="form-control form-control-lg" id="inlineFormInputGroup" name="type"  required>
+            <div class="d-flex justify-content-center">
+                <form action="./buscador.view.php" class="text-center">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
+                            <input class="form-control w-100" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
+                            <select class="form-control w-100" id="inlineFormInputGroup" name="type" required>
                                 <option value="">Seleccione:</option>
                                 <option value="n">Nombre de libro</option>
                                 <option value="a">Autor</option>
                             </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-auto">
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary" id="inlineFormInputGroup" type="submit" style="max-width: 150px; background-color: #39a2db; border-color: #39a2db;"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" id="inlineFormInputGroup" type="submit" value="Bucar">           
-                    </div>
-                </div> 
-            </form> 
+                </form>
+            </div>
         </div>
     </div>
     <div class="container" style="margin-top: 20px;margin-bottom: 39px;">         
@@ -90,19 +91,46 @@
             <p class="text-white-50 mb-0">Copyright © ARFECAS 2023</p>
         </div>
     </footer>
+
+    <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
+       <i class="fas fa-arrow-up"></i>
+    </a>
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Script de Fontawesome -->
+    <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function(){
-       look = "<?php echo $_GET["look"];?>";
-       type = "<?php echo $_GET["type"];?>";
 
-        function mostrarVistaLibros(){
+        look = "<?php echo $_GET["look"];?>";
+        type = "<?php echo $_GET["type"];?>";
+
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+            $('#scroll-top').addClass('active');
+            } else {
+            $('#scroll-top').removeClass('active');
+            }
+        });
+
+        $('#scroll-top').click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 300);
+        });
+
+
+        function LibrosBuscador(){
             $.ajax({
                 url:'../controllers/biblioteca.controller.php',
                 type:'GET',
-                data:'operacion=listarVistaLibros',
+                data:{'operacion':'Buscarlibros',
+                        'look':look,
+                        'type':type
+                    },
                 success: function(result){
                 let registros = JSON.parse(result);
                 let nuevaFila = ``;
@@ -110,18 +138,19 @@
                 registros.forEach(registro => {  
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                     nuevaFila = ` 
-                    <div class="card-group">   
+                    <div>
+                        <div class="card-group">   
                             <div class="card col-md-12"> 
                                 <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="frontpage/${portada}">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
                                     <p class="card-text">${registro['author']}</p>
                                     <div>
-                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                                        <a href='detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>     
+                        </div>                          
                     </div>                              
                     `;
                     $(".datos").append(nuevaFila);
@@ -129,7 +158,6 @@
                 }
             });
         }
-
         function VistaprincipalCategoria(){
             $.ajax({
                 url:'../controllers/categoria.controller.php',
@@ -153,8 +181,7 @@
         }
 
         //Funciones de carga automatica
-        //LibrosBuscador();
-        mostrarVistaLibros();
+        LibrosBuscador();
         VistaprincipalCategoria();
     });
 </script>
