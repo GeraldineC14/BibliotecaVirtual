@@ -32,8 +32,15 @@ if (isset($_GET['operacion'])) {
         echo json_encode($dataComentario);
     }
 
+
+    if ($_GET['operacion'] == 'obtenerComentario') {
+        $idComentario = $_GET['idcomentario'];
+
+        $comentarioSeleccionado = $comentario->obtenerComentario($idComentario);
+
+        echo json_encode($comentarioSeleccionado);
+    }
 }
 
 ?>
 <?php
-

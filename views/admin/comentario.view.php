@@ -57,6 +57,31 @@ require_once './permisos.php';
                         </div>
                     </div>
 
+                    <!-- ... -->
+                    <div class="modal fade" id="modal-comentario" tabindex="-1" role="dialog" aria-labelledby="modal-comentario-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h5 class="modal-title text-black" id="modal-comentario-label"><i class="fa-solid fa-eye fa-beat fa-xl" style="color: #000000;"></i></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="comentario-contenido">
+                                        <!-- Llamado por AJAX -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ... -->
+
+
+
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
@@ -81,7 +106,7 @@ require_once './permisos.php';
 
                 Swal.fire({
                     title: 'Eliminar comentario',
-                    text:`¿Estás seguro de eliminar este comentario?`,
+                    text: `¿Estás seguro de eliminar este comentario?`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#7ebe7e',
@@ -124,20 +149,27 @@ require_once './permisos.php';
                         $("#tabla-comentario tbody").html("");
 
                         registros.forEach(registro => {
+                            let commentPreview = registro['commentary'].split(' ').slice(0, 5).join(' ');
 
                             nuevaFila = `
-                                <tr>
-                                    <td>${registro['idcomentario']}</td>
-                                    <td>${registro['namess']} ${registro['surnames']}</td>
-                                    <td>${registro['descriptions']}</td>
-                                    <td>${registro['commentary_date']}</td>
-                                    <td>${registro['commentary']}</td>
-                                    <td class='text-center'><button  id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}"><a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a></button></td>
-                                </tr>
-                            `;
+                    <tr>
+                        <td>${registro['idcomentario']}</td>
+                        <td>${registro['namess']} ${registro['surnames']}</td>
+                        <td>${registro['descriptions']}</td>
+                        <td>${registro['commentary_date']}</td>
+                        <td>${commentPreview}</td>
+                        <td class='text-center'>
+                            <button class='btn btn-info ver-comentario' data-id='${registro['idcomentario']}' data-toggle='modal' data-target='#modal-comentario'>
+                                <a style='color: black; font-weight:bold;'><i class="fa-solid fa-comment-dots fa-lg"></i></a>
+                            </button>
+                            <button id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}">
+                                <a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a>
+                            </button>
+                        </td>
+                    </tr>
+                `;
 
                             $("#tabla-comentario tbody").append(nuevaFila);
-
                         });
 
                         $('#tabla-comentario').DataTable({
@@ -145,10 +177,35 @@ require_once './permisos.php';
                                 url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
                             }
                         });
-
                     }
                 });
             }
+
+
+            $(document).on('click', '.ver-comentario', function() {
+                var dataID = $(this).data('id');
+
+                $.ajax({
+                    url: '../../controllers/comentario.controller.php',
+                    type: 'GET',
+                    data: {
+                        'operacion': 'obtenerComentario',
+                        'idcomentario': dataID
+                    },
+                    success: function(response) {
+                        let comentario = JSON.parse(response)[0];
+
+                        // Mostrar los datos en el modal
+                        let modalBody = $("#modal-comentario .modal-body");
+                        modalBody.html(`
+                    <p><strong>Comentario:</strong> ${comentario.commentary}</p>
+                `);
+
+                        // Abrir el modal
+                        $("#modal-comentario").modal('show');
+                    }
+                });
+            });
 
 
             listarComentario();

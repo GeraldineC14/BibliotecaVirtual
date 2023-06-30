@@ -53,5 +53,17 @@ class Comentario extends Conexion
     
     }
 
+    public function obtenerComentario($idComentario)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_obtener_Comentario(?)");
+            $consulta->execute(array($idComentario));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 }
-?>

@@ -48,7 +48,8 @@ switch ($permiso) {
       ["menu2" => "PDF", "url2" => "index.php?view=edit-pdf.php"],
       ["menu2" => "Portada", "url2" => "index.php?view=edit-frontpage.php"],
       ["menu2" => "Perfil", "url2" => "index.php?view=perfil.view.php"],
-      ["menu2" => "Reporte", "url2" => "index.php?view=report.php"]
+      ["menu2" => "Reporte Libro", "url2" => "index.php?view=report-libro.php"],
+      ["menu2" => "Reporte Prestamo", "url2" => "index.php?view=report-prestamo.php"]
     ];
 
     break;
@@ -61,7 +62,11 @@ switch ($permiso) {
       [
         "menu" => "Prestamos", "url" => "index.php?view=prestamos.admin.php",
         "icon" => "fas fa-truck-ramp-box fa-2xl"
-      ]
+      ],
+      [
+        "menu" => "Comentarios", "url" => "index.php?view=comentario.view.php",
+        "icon" => "fa-regular fa-comment-dots fa-2xl"
+      ],
     ];
     break;
   case "E":
@@ -73,7 +78,11 @@ switch ($permiso) {
       [
         "menu" => "Prestamos", "url" => "index.php?view=prestamos.admin.php",
         "icon" => "fas fa-truck-ramp-box fa-2xl"
-      ]
+      ],
+      [
+        "menu" => "Comentarios", "url" => "index.php?view=comentario.view.php",
+        "icon" => "fa-regular fa-comment-dots fa-2xl"
+      ],
     ];
     break;
 }

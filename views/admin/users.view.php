@@ -1,45 +1,46 @@
 <?php
 
 require_once './permisos.php';
- 
+
 ?>
 <div id="wrapper">
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <!-- INICIO PERFIL -->
-                
-                <!-- FIN PERFIL -->
-                <div class="container-fluid">
-                    <!-- Datatable  -->
-                    <div style="width: 90%; margin:auto" class="mt-2">
-                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-usuarios" data-target="#modal-usuarios" id="mostrar-modal-usuario">
-                                <i class="fa-solid fa-user-plus fa-2xl" style="color: #2fbf1d;"></i>
-                            </button>    
-                            <hr>
-                            <div class="card-body">
-                                <table class="table display responsive" id="tabla-usuarios">
-                                    <thead class="table-dark">    
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombres</th>
-                                            <th>Apellidos</th>
-                                            <th>Nombre de usuario</th>
-                                            <th>Email</th>
-                                            <th>Nivel de Acceso</th>
-                                            <th>Comandos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <!-- INICIO PERFIL -->
 
-                                    </tbody>
-                                </table>
-                            </div>
+            <!-- FIN PERFIL -->
+            <div class="container-fluid">
+                <!-- Datatable  -->
+                <div style="width: 90%; margin:auto" class="mt-2">
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-usuarios" data-target="#modal-usuarios" id="mostrar-modal-usuario">
+                        <i class="fa-solid fa-user-plus fa-2xl mr'5" style="color: #2fbf1d;"></i>
+                        <button class="btn btn-danger" id="generar-reportes">Generar Reporte</button>
+                    </button>
+                    <hr>
+                    <div class="card-body">
+                        <table class="table display responsive" id="tabla-usuarios">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Nombre de usuario</th>
+                                    <th>Email</th>
+                                    <th>Nivel de Acceso</th>
+                                    <th>Comandos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
-                    <!-- Zona Modal registro usuario-->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios" tabindex="-1" aria-labelledby="titulo-modal-usuarios" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-primary text-light">
+                </div>
+                <!-- Zona Modal registro usuario-->
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios" tabindex="-1" aria-labelledby="titulo-modal-usuarios" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-light">
                                 <h5 class="modal-title" id="titulo-modal-usuarios">Registrar Usuario</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span class="text-light" aria-hidden="true">&times;</span>
@@ -99,15 +100,15 @@ require_once './permisos.php';
                                 <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" id="guardar-usuario" class="btn btn-sm btn-primary">Guardar</button>
                             </div>
-                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Zona Modal editar usuario-->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios2" tabindex="-1" aria-labelledby="titulo-modal-usuarios2" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-primary text-light">
+                <!-- Zona Modal editar usuario-->
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios2" tabindex="-1" aria-labelledby="titulo-modal-usuarios2" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-light">
                                 <h5 class="modal-title" id="titulo-modal-usuarios2">Editar Usuario</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span class="text-light" aria-hidden="true">&times;</span>
@@ -165,111 +166,128 @@ require_once './permisos.php';
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="cancelar-modal2" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" id="guardar-usuario2" class="btn btn-sm btn-primary" >Guardar</button>
+                                <button type="button" id="guardar-usuario2" class="btn btn-sm btn-primary">Guardar</button>
                                 <button type="button" id="editar-contraseña" class="btn btn-sm btn-primary">Editar Contraseña</button>
-                            </div>
                             </div>
                         </div>
                     </div>
-                   
                 </div>
+
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © ARFECAS 2023</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © ARFECAS 2023</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
 
 <!-- Mis funciones y eventos javascript -->
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         var idusers = 0;
         var datosNuevos = true;
-        var datos={
-            'operacion'     : "",
-            'namess'        : "",
-            'surnames'      : "",
-            'username'       : "",
-            'email'         : "",
-            'accesskey'     : "",
-            'repetir'       : "",
-            'accesslevel'   : ""
+        var datos = {
+            'operacion': "",
+            'namess': "",
+            'surnames': "",
+            'username': "",
+            'email': "",
+            'accesskey': "",
+            'repetir': "",
+            'accesslevel': ""
         };
 
-        function alertar(textoMensaje = ""){
-                Swal.fire({
-                    title   : 'Usuarios',
-                    text    :  textoMensaje,
-                    icon    :  'info',
-                    footer  :   'Horacio Zeballos Gámez',
-                    timer   :   2000,
-                    confirmButtonText   :   'Aceptar'
-                });
-        }
-
-        function alertarToast(titulo = "",textoMensaje = "", icono = ""){
+        function alertar(textoMensaje = "") {
             Swal.fire({
-                title   : titulo,
-                text    : textoMensaje,
-                icon    : icono,
-                toast   : true,
-                position : 'bottom-end',
-                showConfirmButton   : false,
-                timer   : 1500,
-                timerProgressBar    : true
+                title: 'Usuarios',
+                text: textoMensaje,
+                icon: 'info',
+                footer: 'Horacio Zeballos Gámez',
+                timer: 2000,
+                confirmButtonText: 'Aceptar'
             });
         }
 
-        function listarUsuarios(){
+        function alertarToast(titulo = "", textoMensaje = "", icono = "") {
+            Swal.fire({
+                title: titulo,
+                text: textoMensaje,
+                icon: icono,
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true
+            });
+        }
+
+        function listarUsuarios() {
             $.ajax({
-                url:'../../controllers/usuario.controller.php',
-                type:'GET',
-                data:'operacion=listarUsuarios',
-                success: function(result){
-                let registros = JSON.parse(result);
-                let nuevaFila = ``;
+                url: '../../controllers/usuario.controller.php',
+                type: 'GET',
+                data: 'operacion=listarUsuarios',
+                success: function(result) {
+                    let registros = JSON.parse(result);
+                    let nuevaFila = ``;
 
-                let tabla = $("#tabla-usuarios").DataTable();
-                tabla.destroy();
+                    let tabla = $("#tabla-usuarios").DataTable();
+                    tabla.destroy();
 
-                $("#tabla-usuarios tbody").html("");
-                registros.forEach(registro => {
-                    nuevaFila = `
+                    $("#tabla-usuarios tbody").html("");
+                    registros.forEach(registro => {
+                        // Mapear los valores del nivel de acceso a su representación
+                        let accesslevel = '';
+                        switch (registro['accesslevel']) {
+                            case 'A':
+                                accesslevel = 'Administrador';
+                                break;
+                            case 'D':
+                                accesslevel = 'Docente';
+                                break;
+                            case 'E':
+                                accesslevel = 'Estudiante';
+                                break;
+                            default:
+                                accesslevel = '';
+                        }
+
+                        nuevaFila = `
                     <tr>
                         <td>${registro['idusers']}</td>
                         <td>${registro['namess']}</td>
                         <td>${registro['surnames']}</td>
                         <td>${registro['username']}</td>
                         <td>${registro['email']}</td>
-                        <td>${registro['accesslevel']}</td>
+                        <td>${accesslevel}</td>
                         <td>`;
-                            if (registro['accesslevel'] !== 'A'){
-                                nuevaFila+=`
-                                    <a href='#' data-idusers='${registro['idusers']}' class = ' eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
-                                    <a href='#' data-idusers='${registro['idusers']}' class = ' editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
-                                `;
-                            }
-                        nuevaFila+=`
+                        if (registro['accesslevel'] !== 'A') {
+                            nuevaFila += `
+                        <a href='#' data-idusers='${registro['idusers']}' class='eliminar'><i class="fa-solid fa-user-xmark fa-lg" style="color: #e00000;"></i></a>
+                        <a href='#' data-idusers='${registro['idusers']}' class='editar'><i class="fa-solid fa-user-pen fa-lg" style="color: #1959c8;"></i></a>
+                    `;
+                        }
+                        nuevaFila += `
                         </td>
-                    </tr> `;    
-                    $("#tabla-usuarios tbody").append(nuevaFila);
-                    // Cambiar el color del td si el accesslevel es "A"
-                    if (registro['accesslevel'] === 'A') {
-                        $("#tabla-usuarios tbody tr:last-child td").css("background-color", "#C2F889");
-                    }
-                });
+                    </tr> `;
+                        $("#tabla-usuarios tbody").append(nuevaFila);
+                        // Cambiar el color del td si el accesslevel es "A"
+                        if (registro['accesslevel'] === 'A') {
+                            $("#tabla-usuarios tbody tr:last-child td").css("background-color", "#C2F889");
+                        }
+                    });
                     $('#tabla-usuarios').DataTable({
-                        language:{ 
-                        url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-MX.json'
                         }
                     });
                 }
             });
         }
 
-        function abrirModalRegistro(){
+
+        function abrirModalRegistro() {
             datosNuevos = true;
 
             $(".modal-header").removeClass("bg-info");
@@ -315,9 +333,9 @@ require_once './permisos.php';
                 },
                 success: function(result) {
                     if (result !== '[]') {
-                            alertar("El USUARIO ya existe en el sistema");
-                            console.log(result);
-                            return;
+                        alertar("El USUARIO ya existe en el sistema");
+                        console.log(result);
+                        return;
                     }
 
                     if (accesslevel === "D") {
@@ -329,8 +347,8 @@ require_once './permisos.php';
                                 url: '../../controllers/usuario.controller.php',
                                 type: 'GET',
                                 data: {
-                                        'operacion': 'validacionCorreo',
-                                        'email': email
+                                    'operacion': 'validacionCorreo',
+                                    'email': email
                                 },
                                 success: function(result) {
                                     if (result !== '[]') {
@@ -341,7 +359,7 @@ require_once './permisos.php';
                                     registrar();
                                 }
                             });
-                        }else{
+                        } else {
                             Swal.fire({
                                 title: "Error",
                                 text: "Correo no autorizado",
@@ -351,34 +369,34 @@ require_once './permisos.php';
                                 confirmButtonColor: "#38AD4D"
                             });
                         }
-                    }else{
+                    } else {
                         const email = document.getElementById('email');
                         const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
                         const value = email.value.split('@');
 
                         if (!dominios.includes(value[1])) {
-                                Swal.fire({
-                                        title: "Error",
-                                        text: `Correos autorizados: ${dominios}`,
-                                        icon: "error",
-                                        footer: "Horacio Zeballos Gámez",
-                                        confirmButtonText: "Aceptar",
-                                        confirmButtonColor: "#38AD4D"
-                                });
-                        }else{
+                            Swal.fire({
+                                title: "Error",
+                                text: `Correos autorizados: ${dominios}`,
+                                icon: "error",
+                                footer: "Horacio Zeballos Gámez",
+                                confirmButtonText: "Aceptar",
+                                confirmButtonColor: "#38AD4D"
+                            });
+                        } else {
                             const email = $("#email").val();
                             $.ajax({
                                 url: '../../controllers/usuario.controller.php',
                                 type: 'GET',
                                 data: {
-                                        'operacion': 'validacionCorreo',
-                                        'email': email
+                                    'operacion': 'validacionCorreo',
+                                    'email': email
                                 },
                                 success: function(result) {
                                     if (result !== '[]') {
-                                            alertar("El correo de estudiante ya existe en el sistema");
-                                            console.log(result);
-                                            return;
+                                        alertar("El correo de estudiante ya existe en el sistema");
+                                        console.log(result);
+                                        return;
                                     }
                                     registrar();
                                 }
@@ -387,39 +405,39 @@ require_once './permisos.php';
                     }
                 }
             });
-		}
+        }
 
-        function registrar(){
-            if(datos['accesskey'] !== datos['repetir']){
+        function registrar() {
+            if (datos['accesskey'] !== datos['repetir']) {
                 Swal.fire({
-                    title   : "Ha sucecido un error",
-                    text    : `Las claves no coinciden`,
-                    icon    : "error",
-                    footer  : "Horacio Zeballos Gámez",
-                    confirmButtonText   : "Aceptar",
-                    confirmButtonColor  : "#38AD4D"
+                    title: "Ha sucecido un error",
+                    text: `Las claves no coinciden`,
+                    icon: "error",
+                    footer: "Horacio Zeballos Gámez",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "#38AD4D"
                 });
-            }else{
+            } else {
                 Swal.fire({
-                    title   : "Registro",
-                    text    : "¿Los datos ingresados son correctos?",
-                    icon    : "question",
-                    footer  : "Horacio Zeballos Gámez",
-                    confirmButtonText   : "Aceptar",
-                    confirmButtonColor  : "#38AD4D",
-                    showCancelButton    : true,
-                    cancelButtonText    : "Cancelar",
-                    cancelButtonColor   : "#D3280A"
+                    title: "Registro",
+                    text: "¿Los datos ingresados son correctos?",
+                    icon: "question",
+                    footer: "Horacio Zeballos Gámez",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "#38AD4D",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    cancelButtonColor: "#D3280A"
                 }).then(result => {
-                    if(result.isConfirmed){
+                    if (result.isConfirmed) {
                         $.ajax({
                             url: '../../controllers/usuario.controller.php',
                             type: 'GET',
                             data: datos,
-                            success: function(result){
-                                alertarToast("Registrado correctamente","Su usuario ha sido creado", "success")
+                            success: function(result) {
+                                alertarToast("Registrado correctamente", "Su usuario ha sido creado", "success")
                                 $("#formulario-usuarios")[0].reset();
-                                setTimeout(function(){
+                                setTimeout(function() {
                                     reiniciarFormulario();
                                     $("#modal-usuarios").modal('hide');
                                     listarUsuarios();
@@ -431,14 +449,14 @@ require_once './permisos.php';
             }
         }
 
-        function validarEdit(){
-            datos['accesslevel'] =   $("#accesslevel2").val();
-            if(datos['accesslevel'] == "D"){
+        function validarEdit() {
+            datos['accesslevel'] = $("#accesslevel2").val();
+            if (datos['accesslevel'] == "D") {
                 esvalido = document.getElementById('email2');
                 exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
-                if(exprecion.test(esvalido.value)){
+                if (exprecion.test(esvalido.value)) {
                     editarUsuario();
-                }else{
+                } else {
                     Swal.fire({
                         title: "Error",
                         text: "Correo no autorizado",
@@ -448,7 +466,7 @@ require_once './permisos.php';
                         confirmButtonColor: "#38AD4D"
                     });
                 }
-            }else{
+            } else {
                 const email = document.getElementById('email2');
                 const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
                 const value = email.value.split('@');
@@ -461,158 +479,162 @@ require_once './permisos.php';
                         confirmButtonText: "Aceptar",
                         confirmButtonColor: "#38AD4D"
                     });
-                }else{
+                } else {
                     editarUsuario();
-                } 
-            } 
+                }
+            }
         }
 
-        function editarUsuario(){
-            datos['surnames']    =   $("#surnames2").val();
-            datos['namess']      =   $("#namess2").val();
-            datos['username']    =   $("#username2").val();
-            datos['email']       =   $("#email2").val();
-            datos['accesslevel'] =   $("#accesslevel2").val();
-            datos['accesskey']   =   $("#accesskey2").val();
-            datos['repetir']     =   $("#repetir2").val();
-            
-            datos['operacion']  = "actualizarUsuario";
-            datos['idusers'] = idusers; 
+        function editarUsuario() {
+            datos['surnames'] = $("#surnames2").val();
+            datos['namess'] = $("#namess2").val();
+            datos['username'] = $("#username2").val();
+            datos['email'] = $("#email2").val();
+            datos['accesslevel'] = $("#accesslevel2").val();
+            datos['accesskey'] = $("#accesskey2").val();
+            datos['repetir'] = $("#repetir2").val();
+
+            datos['operacion'] = "actualizarUsuario";
+            datos['idusers'] = idusers;
 
 
-            if(datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "" ){
+            if (datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "") {
                 alertar("Complete el formulario por favor")
-                }else{
-                if(datos['accesskey'] !== datos['repetir']){
-                    alertarToast("Ha sucecido un error","Las claves no coinciden","error")
-                }else{
+            } else {
+                if (datos['accesskey'] !== datos['repetir']) {
+                    alertarToast("Ha sucecido un error", "Las claves no coinciden", "error")
+                } else {
                     Swal.fire({
-                        title   : "Actualizar",
-                        text    : "¿Los datos ingresados son correctos?",
-                        icon    : "question",
-                        footer  : "Horacio Zeballos Gámez",
-                        confirmButtonText   : "Aceptar",
-                        confirmButtonColor  : "#38AD4D",
-                        showCancelButton    : true,
-                        cancelButtonText    : "Cancelar",
-                        cancelButtonColor   : "#D3280A"
+                        title: "Actualizar",
+                        text: "¿Los datos ingresados son correctos?",
+                        icon: "question",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        cancelButtonColor: "#D3280A"
                     }).then(result => {
-                        if(result.isConfirmed){
+                        if (result.isConfirmed) {
                             $.ajax({
                                 url: '../../controllers/usuario.controller.php',
                                 type: 'GET',
                                 data: datos,
-                                success: function(result){
-                                    alertarToast("Proceso completado","Los datos del usuario ha sido actualizado", "success")
+                                success: function(result) {
+                                    alertarToast("Proceso completado", "Los datos del usuario ha sido actualizado", "success")
                                     document.getElementById('accesskey2').disabled = true;
                                     document.getElementById('repetir2').disabled = true;
-                                    $("#editar-contraseña").prop('disabled',false);
-                                    setTimeout(function(){
+                                    $("#editar-contraseña").prop('disabled', false);
+                                    setTimeout(function() {
                                         reiniciarFormulario();
                                         $('#modal-usuarios2').modal('hide');
-                                        listarUsuarios();                       
+                                        listarUsuarios();
                                     }, 1800)
                                 }
                             });
                         }
                     });
                 }
-            }                    
+            }
         }
 
-        function reiniciarFormulario(){
+        function reiniciarFormulario() {
             $("#formulario-usuarios")[0].reset();
             $("#formulario-usuarios2")[0].reset();
             document.getElementById('accesskey2').disabled = true;
             document.getElementById('repetir2').disabled = true;
-            $("#editar-contraseña").prop('disabled',false);
+            $("#editar-contraseña").prop('disabled', false);
         }
 
-        function activarContraseña(){
-           Swal.fire({
-                   title   : "Usuarios",
-                   text    : "¿Esta seguro modificar contraseña?",
-                   icon    : "question",
-                   footer  : "I.E. Horacio Zeballos Gámez",
-                   confirmButtonText   : "Aceptar",
-                   confirmButtonColor  : "#38AD4D",
-                   showCancelButton    : true,
-                   cancelButtonText    : "Cancelar",
-                   cancelButtonColor   : "#D3280A"
-               }).then(result => {
-                   if (result.isConfirmed){
-                       document.getElementById('accesskey2').disabled = false;
-                       document.getElementById('repetir2').disabled = false;
-                       $("#accesskey2").val("");
-                       $("#repetir2").val("");
-                       $("#editar-contraseña").prop('disabled',true);
-                       alertarToast("Modificación de contraseña activada","", "success")
-                   }
-               })
+        function activarContraseña() {
+            Swal.fire({
+                title: "Usuarios",
+                text: "¿Esta seguro modificar contraseña?",
+                icon: "question",
+                footer: "I.E. Horacio Zeballos Gámez",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#38AD4D",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: "#D3280A"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    document.getElementById('accesskey2').disabled = false;
+                    document.getElementById('repetir2').disabled = false;
+                    $("#accesskey2").val("");
+                    $("#repetir2").val("");
+                    $("#editar-contraseña").prop('disabled', true);
+                    alertarToast("Modificación de contraseña activada", "", "success")
+                }
+            })
 
         }
 
 
-        $("#tabla-usuarios tbody").on("click", ".eliminar", function(){
+        $("#tabla-usuarios tbody").on("click", ".eliminar", function() {
             //Almacenamos la PK en una variable
             let idusers = $(this).data("idusers");
             Swal.fire({
-                    title   : "Usuarios",
-                    text    : "¿Esta seguro de eliminar al usuario?",
-                    icon    : "question",
-                    footer  : "I.E. Horacio Zeballos Gámez",
-                    confirmButtonText   : "Aceptar",
-                    confirmButtonColor  : "#38AD4D",
-                    showCancelButton    : true,
-                    cancelButtonText    : "Cancelar",
-                    cancelButtonColor   : "#D3280A"
-                }).then(result => {
-                    if (result.isConfirmed){
-                        $.ajax({
-                            url: '../../controllers/usuario.controller.php',
-                            type: 'GET',
-                            data: {'operacion':'eliminarUsuario','idusers':idusers},
-                            success: function(result){
-                                if(result == ""){
-                                    idusers = ``;
-                                    alertarToast("Perfecto","Usuario eliminado correctamente","success")
-                                    listarUsuarios();
-                                }
+                title: "Usuarios",
+                text: "¿Esta seguro de eliminar al usuario?",
+                icon: "question",
+                footer: "I.E. Horacio Zeballos Gámez",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#38AD4D",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: "#D3280A"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '../../controllers/usuario.controller.php',
+                        type: 'GET',
+                        data: {
+                            'operacion': 'eliminarUsuario',
+                            'idusers': idusers
+                        },
+                        success: function(result) {
+                            if (result == "") {
+                                idusers = ``;
+                                alertarToast("Perfecto", "Usuario eliminado correctamente", "success")
+                                listarUsuarios();
                             }
-                        });
-                    }
-                })
+                        }
+                    });
+                }
+            })
         });
 
-        $("#tabla-usuarios tbody").on("click", ".editar", function(){
+        $("#tabla-usuarios tbody").on("click", ".editar", function() {
             idusers = $(this).data("idusers");
-                $.ajax({
-                    url: '../../controllers/usuario.controller.php',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: {
-                        'operacion' : 'getUsers',
-                        'idusers': idusers
-                    },
-                    success: function(result){
-                        $("#namess2").val(result['namess']);
-                        $("#surnames2").val(result['surnames']);
-                        $("#username2").val(result['username']);
-                        $("#email2").val(result['email']);
-                        $("#accesslevel2").val(result['accesslevel']);
-                        $("#accesskey2").val(result['accesskey']);
-                        $("#repetir2").val(result['accesskey']);
+            $.ajax({
+                url: '../../controllers/usuario.controller.php',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {
+                    'operacion': 'getUsers',
+                    'idusers': idusers
+                },
+                success: function(result) {
+                    $("#namess2").val(result['namess']);
+                    $("#surnames2").val(result['surnames']);
+                    $("#username2").val(result['username']);
+                    $("#email2").val(result['email']);
+                    $("#accesslevel2").val(result['accesslevel']);
+                    $("#accesskey2").val(result['accesskey']);
+                    $("#repetir2").val(result['accesskey']);
 
-                        //Cambiando configuración modal
-                        $("#titulo-modal-usuarios2").html("Actualizar datos de Usuario");
-                        $(".modal-header").removeClass("bg-primary");
-                        $(".modal-header").addClass("bg-secondary");
-                        $("#modal-usuarios2").modal("show");
-                        datosNuevos =false;
-                        console.log(result);
-                    }
-                });
+                    //Cambiando configuración modal
+                    $("#titulo-modal-usuarios2").html("Actualizar datos de Usuario");
+                    $(".modal-header").removeClass("bg-primary");
+                    $(".modal-header").addClass("bg-secondary");
+                    $("#modal-usuarios2").modal("show");
+                    datosNuevos = false;
+                    console.log(result);
+                }
+            });
         });
+
 
         //Funciones de carga automatica
         listarUsuarios();
@@ -630,4 +652,5 @@ require_once './permisos.php';
     });
 </script>
 </body>
+
 </html>

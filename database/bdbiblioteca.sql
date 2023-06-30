@@ -678,11 +678,12 @@
 				
 -- ZONA SOCIAL:
 	-- tb. social
-		CREATE TABLE commentaries(
+		CREATE TABLE commentaries
+		(
 			idcommentary		INT	AUTO_INCREMENT PRIMARY KEY ,
 			idbook				INT NOT NULL,
 			idusers				INT NOT NULL,
-			commentary			VARCHAR(150) NOT NULL,
+			commentary			VARCHAR(500) NOT NULL,
 			score				INT NOT NULL,
 			commentary_date		DATE NOT NULL DEFAULT NOW(),
 			commentary_delete	DATETIME NULL, 
@@ -691,6 +692,25 @@
 			CONSTRAINT fk_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
+		
+DELIMITER $$
+CREATE PROCEDURE spu_obtener_Comentario
+(
+    IN p_idcomentario INT
+)
+BEGIN
+    SELECT idcommentary, idusers, idbook, commentary
+    FROM commentaries
+    WHERE idcommentary = p_idcomentario
+        AND commentary_delete IS NULL
+        AND state = '1';
+END $$
+DELIMITER ;
+
+
+
+CALL spu_obtener_Comentario(1);
+
 		
 
 -- Procedimiento Almacenado para Listar los comentarios (usuario/comentario/fecha)

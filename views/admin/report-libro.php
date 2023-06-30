@@ -9,6 +9,13 @@ require_once 'permisos.php';
         <div class="container-fluid">
             <div class="container">
                 <!-- Cabecera -->
+                <!-- Botón de retroceso -->
+                <div class="text-left">
+                    <a href="javascript:history.back()" class="btn btn-primary btn-sm d-inline-block" role="button">
+                        <i class="fas fa-chevron-left"></i>
+                        &nbsp;Volver
+                    </a>
+                </div>
                 <div class="d-grid gap-2 col-12 col-md-6 mx-auto">
                     <!-- Título oculto para pc y laptop -->
                     <div class="d-inline-block d-md-none text-center">
@@ -16,7 +23,7 @@ require_once 'permisos.php';
                     </div>
                     <!-- Título oculto para móvil y tablet -->
                     <div class="row mt-3 d-none d-md-inline-block text-center">
-                        <h3 class="title-tablas">Módulo de Reportes</h3>
+                        <h3 class="title-tablas">Reportes de Libros</h3>
                     </div>
                 </div>
                 <!-- Filtro -->

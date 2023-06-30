@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+MySQL - 10.4.27-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.20-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,13 +40,13 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','02','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'14b4368f756bd5df75a89c41777ef8eaf4237004.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
-(2,1,1,'C002','02','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg','2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
+(1,1,1,'C001','0','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'14b4368f756bd5df75a89c41777ef8eaf4237004.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(2,1,1,'C002','0','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg','2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','02','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
 (5,1,1,'C005','02','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
@@ -311,7 +311,8 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (340,2,4,'C264','2','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL),
 (351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
 (352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
-(353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','1',NULL);
+(353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','1',NULL),
+(354,1,1,'C268','2','sdcasd','dsad','s','asdsa',NULL,NULL,'2023-06-29 22:40:01','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -326,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -339,7 +340,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -359,7 +360,7 @@ CREATE TABLE `commentaries` (
   `idcommentary` int(11) NOT NULL AUTO_INCREMENT,
   `idbook` int(11) NOT NULL,
   `idusers` int(11) NOT NULL,
-  `commentary` varchar(150) NOT NULL,
+  `commentary` varchar(500) NOT NULL,
   `score` int(11) NOT NULL,
   `commentary_date` date NOT NULL DEFAULT current_timestamp(),
   `commentary_delete` datetime DEFAULT NULL,
@@ -369,21 +370,14 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
 insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`score`,`commentary_date`,`commentary_delete`,`state`) values 
-(1,3,1,'Muy buen libro.',4,'2023-06-28',NULL,'1'),
-(2,1,1,'No me gustó el libro.',1,'2023-06-28',NULL,'1'),
-(3,1,3,'Buen contenido.',5,'2023-06-28',NULL,'1'),
-(4,1,1,'Buen libro x2 :D.',5,'2023-06-29',NULL,'1'),
-(5,2,1,'Prueba',5,'2023-06-29',NULL,'1'),
-(6,1,1,'Prueba ',1,'2023-06-29',NULL,'1'),
-(7,1,47,'COMO ES POSIBLE ESTE SUCESO',5,'2023-06-29',NULL,'1'),
-(8,1,47,'Prueba',0,'2023-06-29',NULL,'1'),
-(9,1,1,'preubafina',2,'2023-06-29',NULL,'1'),
-(10,2,1,'prueba geral',3,'2023-06-29',NULL,'1');
+(1,1,1,'Excelente\n',4,'2023-06-30',NULL,'1'),
+(2,2,1,'un libro brabazo\n',4,'2023-06-30',NULL,'0'),
+(3,3,1,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in\nEn términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo ',0,'2023-06-30',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -404,20 +398,16 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
 insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,3,47,'1','2023-06-28','2023-06-28','abc','1','2023-06-27 10:46:50'),
-(2,3,47,'1','2023-06-29','2023-07-06','fsfdsfdfdsf','0','2023-06-27 14:14:49'),
-(3,3,1,'1','2023-07-06','2023-07-06','hfhthrth','1','2023-06-27 15:04:20'),
-(4,1,47,'1','2023-06-29','2023-06-28','123456789','0','2023-06-27 16:04:22'),
-(5,1,3,'1','2023-07-03','2023-07-04','PRUEBA','1','2023-06-29 15:55:42'),
-(6,2,1,'1','2023-06-30','2023-07-01','PREUBA ADMIN','1','2023-06-29 16:11:26'),
-(7,3,25,'1','2023-06-29','2023-06-30','prueba docente','1','2023-06-29 16:13:19'),
-(8,6,3,'1','2023-06-30','2023-07-01','prueba estudiante','1','2023-06-29 16:14:44'),
-(9,4,48,'1','2023-06-29','2023-06-30','PRUEBA NUEVPO USUARIO','1','2023-06-29 16:16:50');
+(1,2,1,'1','2023-07-07','2023-07-13','aaaaaaaaaaaaaaaaa','0','2023-06-29 16:45:35'),
+(2,2,1,'1','2023-06-30','2023-07-01','abc','0','2023-06-29 16:47:38'),
+(3,1,1,'2','2023-06-30','2023-07-01','gjhcgnbgdxf','0','2023-06-29 16:50:55'),
+(4,3,1,'1','2023-07-01','2023-07-14','1111','0','2023-06-29 21:10:31'),
+(5,3,47,'1','2023-07-01','2023-07-15','dsadad','1','2023-06-29 23:46:20');
 
 /*Table structure for table `recuperarclave` */
 
@@ -433,7 +423,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusuario`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -452,7 +442,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -486,7 +476,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -970,6 +960,52 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_loan_registration` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_loan_registration` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loan_registration`(
+    IN _idbook INT,
+    IN _idusers INT,
+    IN _observation VARCHAR(100),
+    IN _loan_date DATETIME,
+    IN _return_date DATETIME,
+    IN _amount VARCHAR(30)
+)
+BEGIN
+    DECLARE v_book_amount INT;
+    
+    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
+    SELECT amount INTO v_book_amount
+    FROM books
+    WHERE idbook = _idbook;
+    
+    IF v_book_amount IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El libro no existe.';
+    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
+    ELSE
+        -- Realizar el préstamo y actualizar las tablas
+        START TRANSACTION;
+        
+        -- Restar la cantidad prestada al campo "amount" de la tabla "books"
+        UPDATE books
+        SET amount = amount - CAST(_amount AS INT)
+        WHERE idbook = _idbook;
+        
+        -- Insertar el préstamo en la tabla "loans" con return_date como NULL
+        INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
+        VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
+        
+        COMMIT;
+    END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_mainviewcategories_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_mainviewcategories_list` */;
@@ -1015,6 +1051,24 @@ BEGIN
 							FROM subcategories
 						WHERE idsubcategorie = _idsubcategorie;
 				END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtener_Comentario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtener_Comentario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_Comentario`(
+    IN p_idcomentario INT
+)
+BEGIN
+    SELECT idcommentary, idusers, idbook, commentary
+    FROM commentaries
+    WHERE idcommentary = p_idcomentario
+        AND commentary_delete IS NULL
+        AND state = '1';
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_productos_obtener` */
@@ -1078,6 +1132,53 @@ BEGIN
 					INSERT INTO subcategories(idcategorie, subcategoryname)
 					VALUES(_idcategorie,_subcategoryname);
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_return_book` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_return_book` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_return_book`(
+    IN p_idloan INT
+)
+BEGIN
+    DECLARE v_loan_amount INT;
+    DECLARE v_book_amount INT;
+    
+    -- Verificar si el préstamo existe
+    SELECT amount INTO v_loan_amount
+    FROM loans
+    WHERE idloan = p_idloan;
+    
+    IF v_loan_amount IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El préstamo no existe.';
+    END IF;
+    
+    -- Obtener la cantidad prestada y el ID del libro del préstamo
+    SELECT amount, idbook INTO v_loan_amount, v_book_amount
+    FROM loans
+    WHERE idloan = p_idloan;
+    
+    -- Realizar la devolución y actualizar las tablas
+    START TRANSACTION;
+    
+    -- Actualizar la cantidad prestada en el campo "amount" de la tabla "books"
+    UPDATE books
+    SET amount = amount + v_loan_amount
+    WHERE idbook = v_book_amount;
+    
+    -- Actualizar la cantidad prestada, la fecha de devolución y el estado en la tabla "loans"
+    UPDATE loans
+    SET amount = 0,
+        return_date = CURDATE(),
+        state = 0
+    WHERE idloan = p_idloan;
+    
+    COMMIT;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_searchuser` */
@@ -1249,7 +1350,6 @@ DELIMITER $$
 				IN _accesskey	VARCHAR(100)
 			)
 BEGIN
-
 				UPDATE users SET
 					namess 		= _namess,
 					surnames 	= _surnames,

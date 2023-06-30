@@ -18,9 +18,9 @@ $vistaActiva = $url_array[count($url_array) - 1];
 //3. Definir los permisos
 $permisos = [
   "A" => ["admin.view.php", "libros.view.php", "prestamos.admin.php", "users.view.php","perfil.view.php","categoria.view.php",
-          "subcategoria.view.php", "edit-pdf.php", "edit-frontpage.php", "report.php", "comentario.view.php"],
-  "D" => ["admin.view.php", "prestamos.admin.php","perfil.view.php"],
-  "E" => ["admin.view.php", "prestamos.admin.php","perfil.view.php"]
+          "subcategoria.view.php", "edit-pdf.php", "edit-frontpage.php", "report-libro.php", "report-prestamo.php", "comentario.view.php"],
+  "D" => ["admin.view.php", "prestamos.admin.php","perfil.view.php", "comentario.view.php"],
+  "E" => ["admin.view.php", "prestamos.admin.php","perfil.view.php", "comentario.view.php"]
 ];
 
 //4. Validar el acceso
@@ -37,7 +37,7 @@ foreach($vistasPermitidas as $item){
 
 if (!$autorizado){
   //Cargar una vista
-  echo "<h1>Acceso restringido</h1>";
+  echo "<h1 class='text-center'>Acceso restringido</h1>";
   exit();
 }
 
