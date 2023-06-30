@@ -78,8 +78,9 @@
         </div>
     </footer>
 
+
     <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
-       <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-arrow-up"></i>
     </a>
 
     <!-- JQUERY -->
@@ -102,18 +103,20 @@
 
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 200) {
-                $('#scroll-top').addClass('active');
+                    $('#scroll-top').addClass('active');
                 } else {
-                $('#scroll-top').removeClass('active');
+                    $('#scroll-top').removeClass('active');
                 }
             });
 
             $('#scroll-top').click(function(event) {
                 event.preventDefault();
-                $('html, body').animate({ scrollTop: 0 }, 300);
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 300);
             });
 
-            
+
 
             const url = new URL(window.location.href);
             const idlibro = url.searchParams.get("resumen");
@@ -138,7 +141,7 @@
                     <p class='text-center'>Debes iniciar sesion para registrar un comentario.</p>
                     <a href="./login.php" class="btn btn-primary d-flex justify-content-center align-items-center mx-auto w-25" role="button">Click Aquí</a>
                 `;
-            } 
+            }
 
 
             $(document).on('click', '#star', function(event) {
@@ -194,34 +197,45 @@
                     success: function(result) {
                         let registros = JSON.parse(result);
                         let nuevaFila = `
-                        <div class="row">
-                          <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
-                            <h5 class="text-center">${registros['descriptions']}</h5>
-                            <div class="text-center">
-                              <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
-                            </div>
-                          </div>
-                          <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
-                            <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
-                            <p>Libros disponibles: ${registros['amount']}</p>
-                            <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                              <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
-                            </p>
-                            <div class="text-center">
-                              <div class="btn-group" role="group">
-                                <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                                <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    `;
+          <div class="row">
+            <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
+              <h5 class="text-center">${registros['descriptions']}</h5>
+              <div class="text-center">
+                <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
+              <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
+              <p>Libros disponibles: ${registros['amount']}</p>
+              <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
+                <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+              </p>
+              <div class="text-center">
+                <div class="btn-group" role="group">
+                  <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                  <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
 
                         $(".resumen").append(nuevaFila);
 
                         // Verificar si el idusuario es igual a -1
                         if (idusuario === -1) {
                             $(".prestamos").attr("href", "login.php");
+                        }
+
+                        // Verificar si el stock es igual a 0
+                        if (registros['amount'] == 0) {
+                            Swal.fire({
+                                title: 'No hay libros disponibles',
+                                text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
+                                icon: 'info',
+                                footer: '<strong>Horacio Zeballos Gámez</strong>',
+                                confirmButtonText: 'Aceptar'
+                            });
                         }
                     }
                 });
@@ -241,18 +255,42 @@
                         let nuevaFila2 = ``;
 
                         registros.forEach(registro => {
+                            let comentario = registro['commentary'];
+                            let comentarioPreview = comentario.length > 100 ? comentario.substring(0, 100) + '...' : comentario;
+                            let estrellasHTML = generarEstrellasHTML(registro['score']);
+
                             nuevaFila2 = `
-                            <div class="card-body">
-                                <h5 class="card-title">${registro['Usuario']}</h5>
-                                <p class="card-text">${registro['commentary']}</p>
-                                <p class="card-text">${registro['commentary_date']}</p>
-                            </div>
-                        `;
+                    <div class="card-body" style="border-color: black">
+                        <h5 class="card-title">${registro['Usuario']}</h5>
+                        <p class="card-text">${comentarioPreview}</p>
+                        <div class="estrellas">${estrellasHTML}</div>
+                        <p class="card-text">${registro['commentary_date']}</p>
+                    </div>
+                    <hr style=" border: none; height: 0.5px; background-color: #a6d6e3; margin: 10px 0;">
+                `;
                             $(".datos").append(nuevaFila2);
                         });
                     }
                 });
             }
+
+            function generarEstrellasHTML(score) {
+                // Inicializamos la variable
+                // La variable estrellasHTML es una cadena que contiene codigo HTML para la clasificacion
+                let estrellasHTML = '';
+                // Recorre en bucle los numero 1a5
+                for (let i = 1; i <= 5; i++) {
+                    // Si el numero actual es menor o igual a la puntuacion cambia a amarillo
+                    if (i <= score) {
+                        estrellasHTML += '<i class="fas fa-star" style="color: #ffc800;"></i>';
+                        // Caso contrario se cambia a otro color
+                    } else {
+                        estrellasHTML += '<i class="fas fa-star" style="color: #a29e90;"></i>';
+                    }
+                }
+                return estrellasHTML;
+            }
+
 
 
             $('#stars i').click(function() {
