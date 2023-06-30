@@ -175,8 +175,8 @@ require_once 'permisos.php';
                 accesslevel = "<?php echo $_SESSION['login']['accesslevel']; ?>";
 
                 $(document).on('click', '#devolver', function(event) {
-                    var dataID = $(this).data('id')
-                    console.log(dataID)
+                    var dataID = $(this).data('id');
+                    console.log(dataID);
 
                     Swal.fire({
                         title: 'Devolver libro',
@@ -189,25 +189,20 @@ require_once 'permisos.php';
                         cancelButtonText: 'Cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-
                             $.ajax({
-                                url: `../../controllers/prestamo.controller.php`,
+                                url: '../../controllers/prestamo.controller.php',
                                 type: 'GET',
                                 data: {
-                                    'operacion': 'cambiarEstadoPrestamo',
-                                    'idloan': dataID,
-                                    'state': '0'
+                                    'operacion': 'devolverPrestamo',
+                                    'idloan': dataID
                                 },
                                 success: function(result) {
-                                    listarPrestamos()
+                                    listarPrestamos();
                                 }
-                            })
-
+                            });
                         }
-                    })
-
-
-                })
+                    });
+                });
 
                 function listarPrestamos() {
                     $.ajax({
@@ -229,22 +224,22 @@ require_once 'permisos.php';
                                 observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
                                 let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
                                 let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
-                                let disabled = (registro['state'] == 0) ? 'disabled' : ''; // Agregar la condición para habilitar o deshabilitar el botón
-                                let btnClass = (registro['state'] == 0) ? 'btn btn-success cambiar-estado-btn' : 'btn btn-danger cambiar-estado-btn'; // Agregar la clase para cambiar el color del botón
-                                let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>'; // Agregar el texto del botón correspondiente al estado
+                                let disabled = (accesslevel === 'D' || accesslevel === 'E') ? 'disabled' : '';
+                                let btnClass = (registro['state'] == 0) ? 'btn btn-success cambiar-estado-btn' : 'btn btn-danger cambiar-estado-btn';
+                                let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>';
 
                                 nuevaFila = `
-                    <tr>
-                        <td>${registro['idloan']}</td>
-                        <td>${registro['descriptions']}</td>
-                        <td>${registro['Usuario']}</td>
-                        <td>${observacion}</td>
-                        <td>${registro['loan_date']}</td>
-                        <td>${registro['return_date']}</td>
-                        <td>${registro['amount']}</td>
-                        <td style="color: ${colorCampo}">${estado}</td>
-                        <td><button  id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
-                    </tr>
+                <tr>
+                    <td>${registro['idloan']}</td>
+                    <td>${registro['descriptions']}</td>
+                    <td>${registro['Usuario']}</td>
+                    <td>${observacion}</td>
+                    <td>${registro['loan_date']}</td>
+                    <td>${registro['return_date']}</td>
+                    <td>${registro['amount']}</td>
+                    <td style="color: ${colorCampo}">${estado}</td>
+                    <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
+                </tr>
                 `;
 
                                 $("#tabla-prestamos tbody").append(nuevaFila);
@@ -256,14 +251,21 @@ require_once 'permisos.php';
                                 }
                             });
 
-                            // Agregar evento de clic a los botones
-                            $(".cambiar-estado-btn").click(function() {
-                                let idPrestamo = $(this).data("id");
-                                cambiarEstado(idPrestamo, 'Devuelto'); // Cambiar el estado a 'Devuelto'
-                            });
+                            // Ocultar botón y columna "Comandos" si el accesslevel es "D" o "E"
+                            if (accesslevel === 'D' || accesslevel === 'E') {
+                                $('.cambiar-estado-btn').hide();
+                                tabla.column(8).visible(false);
+                            } else {
+                                // Agregar evento de clic a los botones
+                                $(".cambiar-estado-btn").click(function() {
+                                    let idPrestamo = $(this).data("id");
+                                    cambiarEstado(idPrestamo, 'Devuelto');
+                                });
+                            }
                         }
                     });
                 }
+
 
                 function reiniciarFormulario() {
                     $("#formulario-prestamos")[0].reset();

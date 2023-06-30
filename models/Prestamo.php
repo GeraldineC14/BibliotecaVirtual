@@ -11,11 +11,11 @@ class Prestamo extends Conexion
         $this->acceso = parent::getConexion();
     }
 
-    public function listarPrestamos($idusers,$accesslevel)
+    public function listarPrestamos($idusers, $accesslevel)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_loans_list(?,?)");
-            $consulta->execute(array($idusers,$accesslevel));
+            $consulta = $this->acceso->prepare("CALL spu_loans_list(?, ?)");
+            $consulta->execute(array($idusers, $accesslevel));
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {
@@ -38,7 +38,7 @@ class Prestamo extends Conexion
     public function registrarPrestamos($datosGuardar)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_loans_register(?,?,?,?,?,?)");
+            $consulta = $this->acceso->prepare("CALL spu_loan_registration(?, ?, ?, ?, ?, ?)");
             $consulta->execute(array(
                 $datosGuardar['idbook'],
                 $datosGuardar['idusers'],
@@ -53,17 +53,25 @@ class Prestamo extends Conexion
     }
 
     public function cambiarEstadoPrestamo($datosGuardar)
-{
-    try {
-        $consulta = $this->acceso->prepare("CALL spu_change_state_loans(?, ?)");
-        $consulta->execute(array(
-            $datosGuardar['idloan'],
-            $datosGuardar['state']
-        ));
-    } catch (Exception $e) {
-        die($e->getMessage());
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_change_state_loans(?, ?)");
+            $consulta->execute(array(
+                $datosGuardar['idloan'],
+                $datosGuardar['state']
+            ));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 
-}
-
+    public function devolverPrestamo($idloan)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_return_book(?)");
+            $consulta->execute(array($idloan));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

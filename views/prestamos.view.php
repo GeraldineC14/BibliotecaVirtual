@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly/>
+                            <input type="date" class="form-control form-control-sm" id="fecha2" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly />
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,7 +77,7 @@
         </div>
     </footer>
     <a id="scroll-top" href="#" class="btn btn-primary btn-scroll-top">
-       <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-arrow-up"></i>
     </a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
@@ -93,15 +93,17 @@
 
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 200) {
-                $('#scroll-top').addClass('active');
+                    $('#scroll-top').addClass('active');
                 } else {
-                $('#scroll-top').removeClass('active');
+                    $('#scroll-top').removeClass('active');
                 }
             });
 
             $('#scroll-top').click(function(event) {
                 event.preventDefault();
-                $('html, body').animate({ scrollTop: 0 }, 300);
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 300);
             });
 
             var datos = {
@@ -167,16 +169,17 @@
 
                 // Obtener la fecha mínima permitida para el campo de fecha de devolución
                 var minFechaDevolucion = new Date(fechaRecojoValue);
-                
+
                 fechaDevolucion.prop('readonly', false);
 
                 minFechaDevolucion.setDate(minFechaDevolucion.getDate()); // Incrementar la fecha en 1 día
-                
+
                 // Establecer la fecha mínima para el campo de fecha de devolución
                 fechaDevolucion.attr("min", minFechaDevolucion.toISOString().split("T")[0]);
             });
 
             function RegistrarPrestamos() {
+                var datos = {};
                 datos['idbook'] = <?php echo $_GET["prestamo"]; ?>;
                 datos['idusers'] = <?php echo $_SESSION['login']["idusers"]; ?>;
                 datos['observation'] = $("#observacion").val();
@@ -206,7 +209,13 @@
                                 type: 'GET',
                                 data: datos,
                                 success: function(result) {
-                                    alertarToast("Proceso completado", "Su prestamo a sido solicitado", "success");
+                                    alertarToast("Proceso completado", "Su préstamo ha sido solicitado", "success");
+                                    // Actualizar el stock en la interfaz
+                                    var cantidadSolicitada = parseInt(datos['amount']);
+                                    var stockActual = parseInt($("#stock").text());
+                                    var stockActualizado = stockActual - cantidadSolicitada;
+                                    $("#stock").text(stockActualizado);
+
                                     setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
                                         window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';
@@ -217,6 +226,7 @@
                     });
                 }
             }
+
 
 
             // Obtener elementos del DOM

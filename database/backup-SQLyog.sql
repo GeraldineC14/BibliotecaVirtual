@@ -45,11 +45,11 @@ CREATE TABLE `books` (
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','0','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'14b4368f756bd5df75a89c41777ef8eaf4237004.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
-(2,1,1,'C002','0','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg','2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
-(3,1,1,'C003','02','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
+(1,1,1,'C001','1','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'14b4368f756bd5df75a89c41777ef8eaf4237004.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg','2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
+(3,1,1,'C003','0','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
-(5,1,1,'C005','02','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
+(5,1,1,'C005','2','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
 (6,1,1,'C006','02','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
 (7,1,1,'C007','08','Atlas del cuerpo humano','Editorial Ars Medica','B','Biblioteca escolar',NULL,'165242ba779c04ccc8751dcb3e7506df0e320e2d.jpg','2023-03-21 12:04:58','1','Esta guía aporta una información resumida pero muy completa del cuerpo humano. Analiza desde los más pequeños elementos estructurales hasta la constitución de sus órganos y sistemas más complejos tanto del hombre como de la mujer. Ilustrada con numerosos dibujos de gran calidad con diversos planos de los órganos, se explica además la terminología específica que distingue cada parte para un profundo conocimiento de la anatomía humana.'),
 (8,1,1,'C008','08','Atlas del cielo,un viaje entre las estrellas y planeta para conocer el universo','Ediciones V, D-SAC','B','Biblioteca escolar',NULL,'ab0962b41c6f2c6aae310850b92e382141b1c5db.jpg','2023-03-21 12:04:58','1',NULL),
@@ -370,14 +370,25 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
 insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`score`,`commentary_date`,`commentary_delete`,`state`) values 
 (1,1,1,'Excelente\n',4,'2023-06-30',NULL,'1'),
 (2,2,1,'un libro brabazo\n',4,'2023-06-30',NULL,'0'),
-(3,3,1,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in\nEn términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo ',0,'2023-06-30',NULL,'1');
+(3,3,1,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in\nEn términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo ',0,'2023-06-30',NULL,'1'),
+(4,1,1,'buen comentario',2,'2023-06-30',NULL,'1'),
+(5,3,1,'¿Qué es Lorem Ipsum?\nLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la i',1,'2023-06-30',NULL,'1'),
+(6,3,1,'fsdfsdf',0,'2023-06-30',NULL,'1'),
+(7,3,1,'fdsfsdf',3,'2023-06-30',NULL,'1'),
+(8,3,1,'dgfd',4,'2023-06-30',NULL,'1'),
+(9,3,1,'a',3,'2023-06-30',NULL,'1'),
+(10,3,1,'a',1,'2023-06-30',NULL,'1'),
+(11,3,1,'a',2,'2023-06-30',NULL,'1'),
+(12,3,1,'Este libro esta espectacular',4,'2023-06-30',NULL,'1'),
+(13,3,1,'¿Qué es Lorem Ipsum?\nLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la i',4,'2023-06-30',NULL,'1'),
+(14,1,1,'Genial',5,'2023-06-30',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -403,11 +414,11 @@ CREATE TABLE `loans` (
 /*Data for the table `loans` */
 
 insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,2,1,'1','2023-07-07','2023-07-13','aaaaaaaaaaaaaaaaa','0','2023-06-29 16:45:35'),
-(2,2,1,'1','2023-06-30','2023-07-01','abc','0','2023-06-29 16:47:38'),
-(3,1,1,'2','2023-06-30','2023-07-01','gjhcgnbgdxf','0','2023-06-29 16:50:55'),
-(4,3,1,'1','2023-07-01','2023-07-14','1111','0','2023-06-29 21:10:31'),
-(5,3,47,'1','2023-07-01','2023-07-15','dsadad','1','2023-06-29 23:46:20');
+(1,1,1,'1','2023-06-30','2023-07-01','Necesito llevarme el libro a mi casa.','1','2023-06-30 13:03:54'),
+(2,2,47,'0','2023-06-30','2023-06-30','Voy a devolver el libro la otra semana.','0','2023-06-30 13:04:57'),
+(3,5,49,'0','2023-06-30','2023-06-30','No tengo pensado devolverlo','0','2023-06-30 13:06:05'),
+(4,3,47,'1','2023-07-01','2023-07-15','fsdfsdf','1','2023-06-30 13:26:26'),
+(5,3,49,'1','2023-07-01','2023-07-14','aaaaa','1','2023-06-30 13:27:26');
 
 /*Table structure for table `recuperarclave` */
 
@@ -476,7 +487,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -488,7 +499,8 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (45,'milagros730','levano','Milagros','milagros73@midominio.com','$2y$10$9JvejDF7aj1Di2N.fWNU9e24v/XaLHqHkiDyu1XXDivdXPVVkAApO','D','2023-06-27 08:11:34',NULL,'1'),
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
 (47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
-(48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1');
+(48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1'),
+(49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 

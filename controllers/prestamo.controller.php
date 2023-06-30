@@ -25,13 +25,14 @@ if (isset($_GET['operacion'])) {
     }
 
     if ($_GET['operacion'] == 'cambiarEstadoPrestamo') {
-
         $datosSolicitados = [
             "idloan"         => $_GET['idloan'],
             "state"        => $_GET['state']
         ];
         $prestamo->cambiarEstadoPrestamo($datosSolicitados);
     }
-    
+
+    if ($_GET['operacion'] == 'devolverPrestamo') {
+        $prestamo->devolverPrestamo($_GET['idloan']);
+    }
 }
-?>

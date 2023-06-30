@@ -573,6 +573,94 @@
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
+-- Procedimiento para registrar prestamo y actualizar las tablas
+		DELIMITER $$
+CREATE PROCEDURE spu_loan_registration
+(
+    IN _idbook INT,
+    IN _idusers INT,
+    IN _observation VARCHAR(100),
+    IN _loan_date DATETIME,
+    IN _return_date DATETIME,
+    IN _amount VARCHAR(30)
+)
+BEGIN
+    DECLARE v_book_amount INT;
+    
+    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
+    SELECT amount INTO v_book_amount
+    FROM books
+    WHERE idbook = _idbook;
+    
+    IF v_book_amount IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El libro no existe.';
+    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
+    ELSE
+        -- Realizar el préstamo y actualizar las tablas
+        START TRANSACTION;
+        
+        -- Restar la cantidad prestada al campo "amount" de la tabla "books"
+        UPDATE books
+        SET amount = amount - CAST(_amount AS INT)
+        WHERE idbook = _idbook;
+        
+        -- Insertar el préstamo en la tabla "loans" con return_date como NULL
+        INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
+        VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
+        
+        COMMIT;
+    END IF;
+END $$
+
+
+-- Procedimiento almacenado para devolver un libro
+DELIMITER $$
+CREATE PROCEDURE spu_return_book
+(
+    IN p_idloan INT
+)
+BEGIN
+    DECLARE v_loan_amount INT;
+    DECLARE v_book_amount INT;
+    
+    -- Verificar si el préstamo existe
+    SELECT amount INTO v_loan_amount
+    FROM loans
+    WHERE idloan = p_idloan;
+    
+    IF v_loan_amount IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El préstamo no existe.';
+    END IF;
+    
+    -- Obtener la cantidad prestada y el ID del libro del préstamo
+    SELECT amount, idbook INTO v_loan_amount, v_book_amount
+    FROM loans
+    WHERE idloan = p_idloan;
+    
+    -- Realizar la devolución y actualizar las tablas
+    START TRANSACTION;
+    
+    -- Actualizar la cantidad prestada en el campo "amount" de la tabla "books"
+    UPDATE books
+    SET amount = amount + v_loan_amount
+    WHERE idbook = v_book_amount;
+    
+    -- Actualizar la cantidad prestada, la fecha de devolución y el estado en la tabla "loans"
+    UPDATE loans
+    SET amount = 0,
+        return_date = CURDATE(),
+        state = 0
+    WHERE idloan = p_idloan;
+    
+    COMMIT;
+END $$
+
+
+		
 		
 		-- Procedimiento para cambiar estado de prestamo
 		DELIMITER $$
