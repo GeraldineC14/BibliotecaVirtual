@@ -651,16 +651,14 @@ BEGIN
     
     -- Actualizar la cantidad prestada, la fecha de devolución y el estado en la tabla "loans"
     UPDATE loans
-    SET amount = 0,
-        return_date = CURDATE(),
-        state = 0
+    SET state = 0,
+        return_date = CURDATE()
     WHERE idloan = p_idloan;
     
     COMMIT;
 END $$
 
-
-		
+	
 		
 		-- Procedimiento para cambiar estado de prestamo
 		DELIMITER $$

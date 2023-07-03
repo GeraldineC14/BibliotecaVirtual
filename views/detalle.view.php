@@ -74,7 +74,7 @@
     <footer class="text-white bg-dark">
         <div class="container text-center py-4 py-lg-5">
 
-            <p class="text-white-50 mb-0">Copyright © 2023 By IA TECH</p>
+            <p class="text-white-50 mb-0">Copyright © ARFECAS 2023</p>
         </div>
     </footer>
 
@@ -187,59 +187,63 @@
 
 
             function VistaResumen() {
-                $.ajax({
-                    url: '../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    data: {
-                        'operacion': 'VistaResumen',
-                        'idbook': idbook2
-                    },
-                    success: function(result) {
-                        let registros = JSON.parse(result);
-                        let nuevaFila = `
-          <div class="row">
-            <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
-              <h5 class="text-center">${registros['descriptions']}</h5>
-              <div class="text-center">
-                <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
-              </div>
-            </div>
-            <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
-              <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
-              <p>Libros disponibles: ${registros['amount']}</p>
-              <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
-              </p>
-              <div class="text-center">
-                <div class="btn-group" role="group">
-                  <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                  <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos"  type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+    $.ajax({
+        url: '../controllers/biblioteca.controller.php',
+        type: 'GET',
+        data: {
+            'operacion': 'VistaResumen',
+            'idbook': idbook2
+        },
+        success: function(result) {
+            let registros = JSON.parse(result);
+            let nuevaFila = `
+            <div class="row">
+                <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
+                    <h5 class="text-center">${registros['descriptions']}</h5>
+                    <div class="text-center">
+                        <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                    </div>
                 </div>
-              </div>
+                <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
+                    <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
+                    <p>Libros disponibles: ${registros['amount']}</p>
+                    <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
+                        <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+                    </p>
+                    <div class="text-center">
+                        <div class="btn-group" role="group">
+                            <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                            <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        `;
+            `;
 
-                        $(".resumen").append(nuevaFila);
+            $(".resumen").append(nuevaFila);
 
-                        // Verificar si el idusuario es igual a -1
-                        if (idusuario === -1) {
-                            $(".prestamos").attr("href", "login.php");
-                        }
-
-                        // Verificar si el stock es igual a 0
-                        if (registros['amount'] == 0) {
-                            Swal.fire({
-                                title: 'No hay libros disponibles',
-                                text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
-                                icon: 'info',
-                                footer: '<strong>Horacio Zeballos Gámez</strong>',
-                                confirmButtonText: 'Aceptar'
-                            });
-                        }
-                    }
-                });
+            // Verificar si el idusuario es igual a -1
+            if (idusuario === -1) {
+                $(".prestamos").attr("href", "login.php");
             }
+
+            // Controlador de eventos para el enlace de Prestamo
+            $(".prestamos").on("click", function(e) {
+                if (registros['amount'] == 0) {
+                    e.preventDefault(); // Prevenir la acción predeterminada del enlace
+                    Swal.fire({
+                        title: 'No hay libros disponibles',
+                        text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
+                        icon: 'info',
+                        footer: '<strong>Horacio Zeballos Gámez</strong>',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        }
+    });
+}
+
 
             function listarComentarios() {
                 $.ajax({

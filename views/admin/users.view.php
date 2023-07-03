@@ -10,169 +10,239 @@ require_once './permisos.php';
 
             <!-- FIN PERFIL -->
             <div class="container-fluid">
-                <!-- Datatable  -->
-                <div style="width: 90%; margin:auto" class="mt-2">
-                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-usuarios" data-target="#modal-usuarios" id="mostrar-modal-usuario">
-                        <i class="fa-solid fa-user-plus fa-2xl mr'5" style="color: #2fbf1d;"></i>
-                        <button class="btn btn-danger" id="generar-reportes">Generar Reporte</button>
-                    </button>
-                    <hr>
-                    <div class="card-body">
-                        <table class="table display responsive" id="tabla-usuarios">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Nombre de usuario</th>
-                                    <th>Email</th>
-                                    <th>Nivel de Acceso</th>
-                                    <th>Comandos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <div class="card shadow">
+                    <!-- Datatable  -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 text-center">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <!-- Título oculto para pc y laptop -->
+                                <div class="d-inline-block d-md-none" style="text-align: center;">
+                                    <h3 class="title-tablas2">
+                                        Usuarios
+                                    </h3>
+                                </div>
+                                <!-- Título oculto para móvil y tablet -->
+                                <div class="d-none d-md-inline-block" style="text-align: center;">
+                                    <h3 class="title-tablas">
+                                        Módulo de Usuarios
+                                    </h3>
+                                </div>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- Zona Modal registro usuario-->
-                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios" tabindex="-1" aria-labelledby="titulo-modal-usuarios" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-light">
-                                <h5 class="modal-title" id="titulo-modal-usuarios">Registrar Usuario</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span class="text-light" aria-hidden="true">&times;</span>
-                                </button>
+                                <div class="btn-group" role="group">
+                                    <!-- Botón para mostrar el modal de registrar libros -->
+                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button"
+                                        data-toggle="modal" data-target="#modal-usuarios">
+                                        <i class="fa-solid fa-user-plus fa-sm text-black fa-xl"></i>
+                                        &nbsp;Registrar Usuario
+                                    </button>
+                                    <!-- Botón para mostrar la vista de reporte -->
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block"
+                                        style="margin-left: 50px;" id="reportButton">
+                                        <a href="#"></a>
+                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                        &nbsp;Generar Reporte
+                                    </button>
+                                </div>
+                                <!-- INICIO Versión Móvil -->
+                                <div class="d-flex mx-auto d-md-none">
+                                    <div class="btn-group w-100" role="group">
+                                        <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
+                                        <a class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button"
+                                            data-toggle="modal" data-target="#modal-usuarios"
+                                            data-target="#modal-libros-editar" id="mostrar-modal-registro" href="#">
+                                            <i class="fa-solid fa-user-plus fa-sm text-black fa-xl"></i>
+                                            &nbsp;Registrar
+                                        </a>
+                                        <!-- Botón para mostrar la vista de generación de reporte (versión móvil) -->
+                                        <a class="btn btn-outline-danger btn-sm d-inline-block" id="reportButton"
+                                            href="">
+                                            <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                            &nbsp;Reporte
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- FIN Versión Móvil -->
                             </div>
-                            <div class="modal-body">
-                                <form action="" id="formulario-usuarios" autocomplete="off">
-                                    <!-- Creación de controles -->
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="namess">Nombres:</label>
-                                            <input type="text" class="form-control form-control-sm" id="namess">
-                                        </div>
+                        </div>
 
-                                        <div class="col-md-6 form-group">
-                                            <label for="surnames">Apellidos:</label>
-                                            <input type="text" class="form-control form-control-sm" id="surnames">
-                                        </div>
-                                    </div>
+                        <!-- Datatable  -->
+                        <div style="width: 90%; margin:auto" class="mt-1">
+                            <div class="card-body">
+                                <table class="table display responsive" id="tabla-usuarios">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Nombre de usuario</th>
+                                            <th>Email</th>
+                                            <th>Nivel de Acceso</th>
+                                            <th>Comandos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="username">Nombre de Usuario:</label>
-                                            <input type="username" id="username" class="form-control form-control-sm">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="accesslevel"> Nivel de Acceso</label>
-                                            <select name="accesslevel" id="accesslevel" class="form-control form-control-sm">
-                                                <option value="E">Estudiante</option>
-                                                <option value="D">Docente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label for="email">Email:</label>
-                                            <input type="email" id="email" class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="accesskey">Contraseña:</label>
-                                            <input type="password" id="accesskey" class="form-control form-control-sm">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="repetir">Repetir contraseña:</label>
-                                            <input type="password" id="repetir" class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-
-                                </form>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" id="guardar-usuario" class="btn btn-sm btn-primary">Guardar</button>
+                        </div>
+                        <!-- Zona Modal registro usuario-->
+                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios"
+                            tabindex="-1" aria-labelledby="titulo-modal-usuarios" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-light">
+                                        <h5 class="modal-title" id="titulo-modal-usuarios">Registrar Usuario</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span class="text-light" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" id="formulario-usuarios" autocomplete="off">
+                                            <!-- Creación de controles -->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="namess">Nombres:</label>
+                                                    <input type="text" class="form-control form-control-sm" id="namess">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="surnames">Apellidos:</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        id="surnames">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="username">Nombre de Usuario:</label>
+                                                    <input type="username" id="username"
+                                                        class="form-control form-control-sm">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="accesslevel"> Nivel de Acceso</label>
+                                                    <select name="accesslevel" id="accesslevel"
+                                                        class="form-control form-control-sm">
+                                                        <option value="E">Estudiante</option>
+                                                        <option value="D">Docente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="email">Email:</label>
+                                                    <input type="email" id="email" class="form-control form-control-sm">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="accesskey">Contraseña:</label>
+                                                    <input type="password" id="accesskey"
+                                                        class="form-control form-control-sm">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="repetir">Repetir contraseña:</label>
+                                                    <input type="password" id="repetir"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" id="guardar-usuario"
+                                            class="btn btn-sm btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Zona Modal editar usuario-->
+                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios2"
+                            tabindex="-1" aria-labelledby="titulo-modal-usuarios2" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-light">
+                                        <h5 class="modal-title" id="titulo-modal-usuarios2">Editar Usuario</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span class="text-light" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" id="formulario-usuarios2" autocomplete="off">
+                                            <!-- Creación de controles -->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="namess2">Nombres:</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        id="namess2">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="surnames2">Apellidos:</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        id="surnames2">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="username2">Nombre de usuario:</label>
+                                                    <input type="text" id="username2"
+                                                        class="form-control form-control-sm">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="accesslevel2"> Nivel de Acceso</label>
+                                                    <select name="accesslevel2" id="accesslevel2"
+                                                        class="form-control form-control-sm">
+                                                        <option value="E">Estudiante</option>
+                                                        <option value="D">Docente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="email2">Email:</label>
+                                                    <input type="email" id="email2"
+                                                        class="form-control form-control-sm">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="accesskey2">Contraseña:</label>
+                                                    <input type="password" id="accesskey2"
+                                                        class="form-control form-control-sm" disabled>
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label for="repetir2">Repetir contraseña:</label>
+                                                    <input type="password" id="repetir2"
+                                                        class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="cancelar-modal2" class="btn btn-sm btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="button" id="guardar-usuario2"
+                                            class="btn btn-sm btn-primary">Guardar</button>
+                                        <button type="button" id="editar-contraseña"
+                                            class="btn btn-sm btn-primary">Editar Contraseña</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Zona Modal editar usuario-->
-                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-usuarios2" tabindex="-1" aria-labelledby="titulo-modal-usuarios2" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-light">
-                                <h5 class="modal-title" id="titulo-modal-usuarios2">Editar Usuario</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span class="text-light" aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" id="formulario-usuarios2" autocomplete="off">
-                                    <!-- Creación de controles -->
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="namess2">Nombres:</label>
-                                            <input type="text" class="form-control form-control-sm" id="namess2">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="surnames2">Apellidos:</label>
-                                            <input type="text" class="form-control form-control-sm" id="surnames2">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="username2">Nombre de usuario:</label>
-                                            <input type="text" id="username2" class="form-control form-control-sm">
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="accesslevel2"> Nivel de Acceso</label>
-                                            <select name="accesslevel2" id="accesslevel2" class="form-control form-control-sm">
-                                                <option value="E">Estudiante</option>
-                                                <option value="D">Docente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label for="email2">Email:</label>
-                                            <input type="email" id="email2" class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="accesskey2">Contraseña:</label>
-                                            <input type="password" id="accesskey2" class="form-control form-control-sm" disabled>
-                                        </div>
-
-                                        <div class="col-md-6 form-group">
-                                            <label for="repetir2">Repetir contraseña:</label>
-                                            <input type="password" id="repetir2" class="form-control form-control-sm" disabled>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="cancelar-modal2" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" id="guardar-usuario2" class="btn btn-sm btn-primary">Guardar</button>
-                                <button type="button" id="editar-contraseña" class="btn btn-sm btn-primary">Editar Contraseña</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
         <footer class="bg-white sticky-footer">
@@ -185,7 +255,7 @@ require_once './permisos.php';
 
 <!-- Mis funciones y eventos javascript -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var idusers = 0;
         var datosNuevos = true;
         var datos = {
@@ -228,7 +298,7 @@ require_once './permisos.php';
                 url: '../../controllers/usuario.controller.php',
                 type: 'GET',
                 data: 'operacion=listarUsuarios',
-                success: function(result) {
+                success: function (result) {
                     let registros = JSON.parse(result);
                     let nuevaFila = ``;
 
@@ -331,7 +401,7 @@ require_once './permisos.php';
                     'operacion': 'validacionUsuario',
                     'username': datos['username']
                 },
-                success: function(result) {
+                success: function (result) {
                     if (result !== '[]') {
                         alertar("El USUARIO ya existe en el sistema");
                         console.log(result);
@@ -350,7 +420,7 @@ require_once './permisos.php';
                                     'operacion': 'validacionCorreo',
                                     'email': email
                                 },
-                                success: function(result) {
+                                success: function (result) {
                                     if (result !== '[]') {
                                         alertar("El correo de docente ya existe en el sistema");
                                         console.log(result);
@@ -392,7 +462,7 @@ require_once './permisos.php';
                                     'operacion': 'validacionCorreo',
                                     'email': email
                                 },
-                                success: function(result) {
+                                success: function (result) {
                                     if (result !== '[]') {
                                         alertar("El correo de estudiante ya existe en el sistema");
                                         console.log(result);
@@ -434,10 +504,10 @@ require_once './permisos.php';
                             url: '../../controllers/usuario.controller.php',
                             type: 'GET',
                             data: datos,
-                            success: function(result) {
+                            success: function (result) {
                                 alertarToast("Registrado correctamente", "Su usuario ha sido creado", "success")
                                 $("#formulario-usuarios")[0].reset();
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     reiniciarFormulario();
                                     $("#modal-usuarios").modal('hide');
                                     listarUsuarios();
@@ -520,12 +590,12 @@ require_once './permisos.php';
                                 url: '../../controllers/usuario.controller.php',
                                 type: 'GET',
                                 data: datos,
-                                success: function(result) {
+                                success: function (result) {
                                     alertarToast("Proceso completado", "Los datos del usuario ha sido actualizado", "success")
                                     document.getElementById('accesskey2').disabled = true;
                                     document.getElementById('repetir2').disabled = true;
                                     $("#editar-contraseña").prop('disabled', false);
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         reiniciarFormulario();
                                         $('#modal-usuarios2').modal('hide');
                                         listarUsuarios();
@@ -571,7 +641,7 @@ require_once './permisos.php';
         }
 
 
-        $("#tabla-usuarios tbody").on("click", ".eliminar", function() {
+        $("#tabla-usuarios tbody").on("click", ".eliminar", function () {
             //Almacenamos la PK en una variable
             let idusers = $(this).data("idusers");
             Swal.fire({
@@ -593,7 +663,7 @@ require_once './permisos.php';
                             'operacion': 'eliminarUsuario',
                             'idusers': idusers
                         },
-                        success: function(result) {
+                        success: function (result) {
                             if (result == "") {
                                 idusers = ``;
                                 alertarToast("Perfecto", "Usuario eliminado correctamente", "success")
@@ -605,7 +675,7 @@ require_once './permisos.php';
             })
         });
 
-        $("#tabla-usuarios tbody").on("click", ".editar", function() {
+        $("#tabla-usuarios tbody").on("click", ".editar", function () {
             idusers = $(this).data("idusers");
             $.ajax({
                 url: '../../controllers/usuario.controller.php',
@@ -615,7 +685,7 @@ require_once './permisos.php';
                     'operacion': 'getUsers',
                     'idusers': idusers
                 },
-                success: function(result) {
+                success: function (result) {
                     $("#namess2").val(result['namess']);
                     $("#surnames2").val(result['surnames']);
                     $("#username2").val(result['username']);
