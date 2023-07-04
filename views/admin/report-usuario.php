@@ -38,9 +38,9 @@ require_once 'permisos.php';
                                     <div class="col-md-12">
                                         <div class="row tex-center">
                                             <select id="usuario" class="form-select" size="3" multiple name="usuario">
-                                                    <option value="A">Administrador</option>
-                                                    <option value="D">Docente</option>
-                                                    <option value="E">Estudiante</option>
+                                                <option value="A">Administrador</option>
+                                                <option value="D">Docente</option>
+                                                <option value="E">Estudiante</option>
                                             </select>
                                         </div>
                                     </div>
@@ -89,33 +89,61 @@ require_once 'permisos.php';
         </div>
     </div>
 </div>
-<!-- CDN JQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 <script>
-  
-        const btnObtener = document.querySelector("#btnObtener");
-        const selectUser = document.querySelector("#usuario");
-        const tableUser  = document.querySelector("#table-usuario tbody");
+    const btnObtener = document.querySelector("#btnObtener");
+    const selectUser = document.querySelector("#usuario");
+    const tableUser = document.querySelector("#table-usuario tbody");
+    const btnGenerarPDF = document.querySelector("#generarpdf");
 
-        console.log("Prueba")
+    function obtenerUsuarios(usuariosSeleccionados) {
+        // Limpiar la tabla antes de agregar los nuevos datos
+        tableUser.innerHTML = '';
 
-        function listarUser(){
-            fetch(`../../controllers/usuario.controller.php?operacion=listarUsuarios`)
-            .then(respuesta=>respuesta.json())
-            .then(datos=>{
-                console.log(datos);
-                datos.forEach(element=>{
-                   
+        // Realizar la solicitud al servidor para obtener los usuarios filtrados
+        fetch(`../../controllers/usuario.controller.php?operacion=getUsersReport&iduser=${usuariosSeleccionados}`)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                datos.forEach(usuario => {
+                    // Crear una nueva fila en la tabla con los datos del usuario
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                            <td>${usuario.idusers}</td>
+                            <td>${usuario.namess}</td>
+                            <td>${usuario.surnames}</td>
+                            <td>${usuario.username}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.accesslevel}</td>
+                        `;
+
+                    // Agregar la fila a la tabla
+                    tableUser.appendChild(fila);
                 });
-
             });
+    }
+
+    btnObtener.addEventListener("click", () => {
+        // Obtener los valores seleccionados del select
+        const usuariosSeleccionados = [...selectUser.selectedOptions].map(option => option.value).join(',');
+
+        obtenerUsuarios(usuariosSeleccionados);
+    });
+
+    function generarPDF() {
+        const iduser = document.getElementById(selectUser.value);
+        if(iduser > 0 ){
+          const parametros = new URLSearchParams();
+          parametros.append("id", idcasa);
+          parametros.append("titulo", selectCasas.options[selectCasas.selectedIndex].text);
+          window.open(`../../reports/report-user/reporte.php?${parametros}`,'_blank');
         }
+        
+    }
+
+    btnGenerarPDF.addEventListener("click", generarPDF);
 
 
-    //Método inicializador (control SELECT)
+
+    // Método inicializador (control SELECT)
     $("#usuario").select2();
-    listarUser();
-
-
 </script>

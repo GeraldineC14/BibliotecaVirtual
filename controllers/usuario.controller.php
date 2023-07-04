@@ -117,7 +117,7 @@ require_once '../models/Usuario.php';
 
         if($_GET['operacion'] == 'validacionUsuario'){
             echo json_encode($usuario->validacionUsuario($_GET['username']));
-        }        
+        }
 
         if($_GET['operacion'] == 'validacionCorreo'){
             echo json_encode($usuario->validacionCorreo($_GET['email']));
@@ -168,6 +168,11 @@ require_once '../models/Usuario.php';
             //Enviando información de la sesion a la vista
             echo json_encode($resultado);
         }
+
+        if ($_GET['operacion'] == 'getUsersReport') {
+            echo json_encode($usuario->getUsersReport($_GET['iduser']));
+        }
+        
 
     }
 

@@ -1084,6 +1084,23 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_order_user` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_order_user` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_order_user`(
+	IN _iduser VARCHAR(255)
+)
+BEGIN
+	SELECT us.idusers, us.username, us.surnames, us.namess, us.email, us.accesslevel
+		FROM users us
+		WHERE FIND_IN_SET(us.accesslevel, _iduser) > 0
+	ORDER BY us.username ASC, us.accesslevel ASC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_productos_obtener` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_productos_obtener` */;
