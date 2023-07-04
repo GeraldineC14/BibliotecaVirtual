@@ -26,8 +26,10 @@
             <a href="./index.php"><i class="fa-solid fa-arrow-left"></i>Volver</a>
         </div>
     </div>
-    <hr>
-    <div class="container mt-3">
+    <div class="text-center m">
+        
+    </div>
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-3">
@@ -68,7 +70,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- FOOTER -->
     <footer class="text-white bg-dark">
@@ -201,20 +202,22 @@
                 <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
                     <h5 class="text-center">${registros['descriptions']}</h5>
                     <div class="text-center">
-                        <img src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                        <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
-                    <p style="margin-top: 40px;margin-bottom: 0px;"> Autor: ${registros['author']}</p>
-                    <p>Libros disponibles: ${registros['amount']}</p>
+                    <p style="margin-top: 40px;margin-bottom: 0px;"> <label style="font-weight: bold;">AUTOR:</label> ${registros['author']}</p>
+                    <p><label style="font-weight: bold;">STOCK: </label> ${registros['amount']}</p>
                     <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
                         <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
                     </p>
                     <div class="text-center">
                         <div class="btn-group" role="group">
-                            <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" type="button">Descargar <i class="fa-solid fa-download"></i></a>
-                            <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                            <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;"    type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                            <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                         </div>
+                        <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
+
                     </div>
                 </div>
             </div>

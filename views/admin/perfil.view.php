@@ -37,7 +37,7 @@ require_once './permisos.php';
                             <div class="col-xl-4">
                                 <!-- Card Perfil-->
                                 <div class="card mb-4 mb-xl-0">
-                                    <div class="card-header">Usuario</div>
+                                    <label class="card-header" id="username" style="font-weight: bold; color: black;"></label>
                                     <div class="card-body text-center">
                                         <!-- Imagen estática-->
                                         <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
@@ -47,24 +47,24 @@ require_once './permisos.php';
                             <div class="col-xl-8">
                                 <!-- Account details card-->
                                 <div class="card mb-4">
-                                    <div class="card-header">Detalle de perfil</div>
+                                    <div class="card-header" style="font-weight: bold; color: black;">DETALLE DE PERFIL</div>
                                     <div class="card-body">
                                         <form>
                                             <!-- Form Group (Email)-->
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="email">Correo Electrónico</label>
+                                                <label class="small mb-1" for="email"  style="font-weight: bold;">Correo Electrónico</label>
                                                 <input class="form-control" id="email" type="text" readonly>
                                             </div>
                                             <!-- Form Row-->
                                             <div class="row gx-3 mb-3">
                                                 <!-- Form Group (Nombre)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="namess">Nombres</label>
+                                                    <label class="small mb-1" for="namess"  style="font-weight: bold;">Nombres</label>
                                                     <input class="form-control" id="namess" type="text" readonly>
                                                 </div>
                                                 <!-- Form Group (Apellidos)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="surnames">Apellidos</label>
+                                                    <label class="small mb-1" for="surnames"  style="font-weight: bold;">Apellidos</label>
                                                     <input class="form-control" id="surnames" type="text" readonly>
                                                 </div>
                                             </div>
@@ -72,24 +72,25 @@ require_once './permisos.php';
                                             <div class="row gx-3 mb-3">
                                                 <!-- Form Group (Contraseña Actual)-->
                                                 <div class="mb-3">
-                                                    <label class="small mb-1" for="actualkey">Contraseña Actual</label>
+                                                    <label class="small mb-1" for="actualkey"  style="font-weight: bold;">Contraseña Actual</label>
                                                     <input class="form-control" id="actualkey" type="password" placeholder="Ingrese su contraseña actual" disabled>
                                                 </div>
                                                 <!-- Form Group (Nueva contraseña)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="#">Nueva Contraseña</label>
+                                                    <label class="small mb-1" for="#"  style="font-weight: bold;">Nueva Contraseña</label>
                                                     <input class="form-control" id="accesskey" type="password" placeholder="Ingrese su nueva contraseña" disabled>
                                                 </div>
                                                 <!-- Form Group (Confirmar contraseña)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="repetir">Confirmar Contraseña</label>
+                                                    <label class="small mb-1" for="repetir"  style="font-weight: bold;">Confirmar Contraseña</label>
                                                     <input class="form-control" id="repetir" type="password" placeholder="Confirme su contraseña" disabled>
                                                 </div>
                                             </div>
                                             <!-- Actualizar button-->
                                             <button class="btn btn-primary" id="habilitar" type="button">Actualizar</button>
-                                            <button class="btn btn-info" id="actualizar" type="button">Cambiar</button>
-                                            <button class="btn btn-secondary" id="cancelar" type="button">Cancelar</button>
+                                            <button class="btn btn-info d-none" id="actualizar" type="button">Cambiar</button>
+                                            <button class="btn btn-secondary d-none" id="cancelar" type="button">Cancelar</button>
+
                                         </form>
                                     </div>
                                 </div>
@@ -154,6 +155,7 @@ require_once './permisos.php';
                     data: { 'operacion':'getUsers',
                           'idusers': idusers},
                     success: function (result){
+                        $("#username").text(result['username']);
                         $("#email").val(result['email']);
                         $("#namess").val(result['namess']);
                         $("#surnames").val(result['surnames']);
@@ -217,7 +219,28 @@ require_once './permisos.php';
                 document.getElementById('accesskey').disabled = false;
                 // Input - repetir nueva contraseña
                 document.getElementById('repetir').disabled = false;
-
+                // Mostrar los botones "Cambiar" y "Cancelar"
+                $('#actualizar').removeClass('d-none');
+                $('#cancelar').removeClass('d-none');
+                //Ocultar el boton de "Actualizar"
+                $('#habilitar').addClass('d-none');
+            });
+            $('#cancelar').on('click',function(){
+                // Limpia los campos de contraseña
+                $('#actualkey').val('');
+                $('#accesskey').val('');
+                $('#repetir').val('');
+                //Input - contraseña actual
+                document.getElementById('actualkey').disabled = true;
+                // Input - nueva contraseña
+                document.getElementById('accesskey').disabled = true;
+                // Input - repetir nueva contraseña
+                document.getElementById('repetir').disabled = true;
+                // Mostrar los botones "Cambiar" y "Cancelar"
+                $('#actualizar').addClass('d-none');
+                $('#cancelar').addClass('d-none');
+                //Ocultar el boton de "Actualizar"
+                $('#habilitar').removeClass('d-none');
             });
 
             $('#actualizar').on('click',function(){
@@ -257,8 +280,7 @@ require_once './permisos.php';
                     });
                 }
             });
-
-
+           
 
             datosUsers();
 

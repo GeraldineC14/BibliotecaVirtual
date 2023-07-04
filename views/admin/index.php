@@ -114,6 +114,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <script src="../../vendor/lightbox/js/lightbox.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- CDN Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             //Crearemos una función que obtenga la URL(vista)

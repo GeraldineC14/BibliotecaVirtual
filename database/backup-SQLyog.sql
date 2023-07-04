@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.24-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -45,7 +45,7 @@ CREATE TABLE `books` (
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','0','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(1,1,1,'C001','2','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
 (2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','2','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
@@ -419,7 +419,7 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_da
 (2,2,1,'1','2023-07-04','2023-07-03','Prueba 2','0','2023-07-03 15:40:00'),
 (3,2,1,'2','2023-07-05','2023-07-03','aaaaa','0','2023-07-03 15:41:07'),
 (4,2,1,'1','2023-07-03','2023-07-03','ppppp','0','2023-07-03 15:42:19'),
-(5,1,1,'2','2023-07-06','2023-07-07','Prueba\n','1','2023-07-03 22:11:05');
+(5,1,1,'2','2023-07-06','2023-07-04','Prueba\n','0','2023-07-03 22:11:05');
 
 /*Table structure for table `recuperarclave` */
 

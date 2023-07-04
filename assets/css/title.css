@@ -17,3 +17,10 @@
   justify-content: center;
   padding: 5px;
 }
+
+
+.derecho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

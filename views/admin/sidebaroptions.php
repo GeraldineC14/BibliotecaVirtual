@@ -49,7 +49,8 @@ switch ($permiso) {
       ["menu2" => "Portada", "url2" => "index.php?view=edit-frontpage.php"],
       ["menu2" => "Perfil", "url2" => "index.php?view=perfil.view.php"],
       ["menu2" => "Reporte Libro", "url2" => "index.php?view=report-libro.php"],
-      ["menu2" => "Reporte Prestamo", "url2" => "index.php?view=report-prestamo.php"]
+      ["menu2" => "Reporte Prestamo", "url2" => "index.php?view=report-prestamo.php"],
+      ["menu2" => "Reporte Usuario", "url2" => "index.php?view=report-usuario.php"]
     ];
 
     break;
