@@ -143,6 +143,45 @@ if (isset($_POST['operacion'])){
         $biblioteca->registrarLibros($datosSolicitados);
     }
     
+
+    if ($_POST['operacion'] == 'actualizarFrontpage') {
+        $idbook = $_POST['idbook'];
+    
+        // Verificando si el usuario envió el archivo
+        if (isset($_FILES['frontpage'])) {
+            // Carpeta
+            $rutaDestino = "../views/frontpage/";
+    
+            // Fecha y hora
+            $fechaActual = date("c"); // c = complete (fecha + hora)
+    
+            // Encriptando fecha y hora
+            $nombreArchivo = sha1($fechaActual) . ".jpg";
+    
+            // Ruta final
+            $rutaDestino .= $nombreArchivo;
+    
+            // Obtener la información actual del libro
+            $libroActual = $biblioteca->getBinarios($idbook);
+    
+            // Verificar si el frontpage actual es diferente de null
+            if (!empty($libroActual['frontpage'])) {
+                // Eliminar el frontpage actual
+                $rutaFrontpageActual = $rutaDestino . $libroActual['frontpage'];
+                unlink($rutaFrontpageActual);
+            }
+    
+            if (move_uploaded_file($_FILES['frontpage']['tmp_name'], $rutaDestino)) {
+                // Se logró subir el archivo
+                // Acciones por definir
+                $frontpage = $nombreArchivo;
+    
+                // Llamada a la función actualizarFrontpage
+                $biblioteca->actualizarFrontpage($idbook, $frontpage);
+            }
+        }
+    }
+    
 }
 
 

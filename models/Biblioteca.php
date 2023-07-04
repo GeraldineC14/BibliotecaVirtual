@@ -111,6 +111,17 @@ class Biblioteca extends Conexion{
         }
     }
 
+    public function actualizarFrontpage($idbook, $frontpage){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_update_frontpage(?, ?)");
+            
+            $consulta->execute(array($idbook, $frontpage));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
     //MODELO VISTA PRINCIPAL
     public function listarVistaLibros(){
         try{

@@ -257,11 +257,11 @@ require_once './permisos.php';
                                                 </div>
                                             </div>
                                             <div class="form-group mt-4 ml-md-5 text-center">
-                                                <button type="button" id="eliminar-pdf" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
+                                                <button type="button" id="eliminar-Portada" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
                                                     <i class="fa-solid fa-trash fa-xl"></i>
                                                     Eliminar
                                                 </button>
-                                                <button type="button" id="cambiar-pdf" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                                <button type="button" id="cambiarPortada" class="btn btn-sm btn-success" style="border-radius:8px;">
                                                     <i class="fa-solid fa-circle-check fa-xl"></i>
                                                     Cambiar
                                                 </button>
@@ -276,7 +276,6 @@ require_once './permisos.php';
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -798,31 +797,65 @@ require_once './permisos.php';
                 });
             });
 
-            // Agregar evento click para abrir el modal
-            $("#tabla-libros tbody").on("click", ".editarportada", function() {
-                idbook = $(this).data('idbook');
-                $.ajax({
-                    url: '../../controllers/biblioteca.controller.php',
-                    type: 'GET',
-                    data: {
-                        'operacion': 'getBinarios',
-                        'idbook': idbook
-                    },
-                    success: function(result) {
-                        let registros = JSON.parse(result);
-                        let nuevaFila = ``;
-                        portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
-                        nuevaFila = `
-                        <img src="../../views/frontpage/${portada}" width="100%" height="100%">
-                    `;
-                        $(".editportada").append(nuevaFila);
+            $("#cambiarPortada").click(function() {
+                var idbook = obtenerIdBook();
 
-                        // Abre el modal
-                        $('#editarportada').modal('show');
-                    }
+                var formData = new FormData();
+                var inputFile = $("#customFileLang")[0].files[0];
+                formData.append("frontpage", inputFile);
+                formData.append("idbook", idbook);
+                formData.append("operacion", "actualizarFrontpage");
+
+                $.ajax({
+                url: '../../controllers/biblioteca.controller.php',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Realizar acciones después de la actualización
+                    console.log("Frontpage actualizado correctamente");
+                    // Cierra el modal después de la actualización
+                    $('#editarportada').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    // Manejar errores
+                    console.error(error);
+                }
                 });
             });
 
+            $("#tabla-libros tbody").on("click", ".editarportada", function() {
+                idbook = $(this).data('idbook');
+                $.ajax({
+                url: '../../controllers/biblioteca.controller.php',
+                type: 'GET',
+                data: {
+                    'operacion': 'getBinarios',
+                    'idbook': idbook
+                },
+                success: function(result) {
+                    let registros = JSON.parse(result);
+                    let nuevaFila = ``;
+                    portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
+                    nuevaFila = `
+                    <img src="../frontpage/${portada}" width="100%" height="100%">
+                    `;
+                    $(".editportada").append(nuevaFila);
+
+                    // Establece el idbook como atributo data en el botón "Cambiar"
+                    $("#cambiarPortada").data("idbook", idbook);
+
+                    // Abre el modal
+                    $('#editarportada').modal('show');
+                }
+                });
+            });
+
+            // Función para obtener el valor del idbook
+            function obtenerIdBook() {
+                return $("#cambiarPortada").data("idbook");
+            }
 
             $('#editarportada').on('hidden.bs.modal', function() {
                 $(".editportada").empty(); // Vacía el contenido de la clase editportada

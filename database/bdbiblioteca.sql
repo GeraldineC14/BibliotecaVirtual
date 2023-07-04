@@ -256,7 +256,35 @@
 			
 			CALL spu_binarios_obtain(2);
 			
-		-- N°10 Register categorie
+		-- N°10 update frontpage
+			DELIMITER $$
+			CREATE PROCEDURE spu_update_frontpage(
+			    IN _idbook INT,
+			    IN _frontpage VARCHAR(150)
+			)
+			BEGIN
+			    UPDATE books
+			    SET frontpage = _frontpage
+			    WHERE idbook = _idbook;
+			END $$
+
+			CALL spu_update_frontpage(2,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg');
+			80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg
+		-- N°11 update pdf
+			DELIMITER $$
+			CREATE PROCEDURE spu_update_pdf(
+			    IN _idbook INT,
+			    IN _url VARCHAR(250)
+			)
+			BEGIN
+			    UPDATE books
+			    SET url = _url
+			    WHERE idbook = _idbook;
+			END $$
+
+			CALL spu_update_pdf(2, NULL);
+			
+		-- N°12 Register categorie
 			DELIMITER $$
 				CREATE PROCEDURE spu_register_categorie(
 					IN _categoryname VARCHAR(50)
@@ -268,7 +296,7 @@
 			
 			CALL spu_register_categorie('pruebadb');
 			
-			-- N°10.1 Obtain categorie
+			-- N°12.1 Obtain categorie
 			
 				DELIMITER $$
 					CREATE PROCEDURE spu_obtain_categorie(
@@ -282,7 +310,7 @@
 			
 				CALL spu_obtain_categorie(1);
 			
-			-- N°10.2 Edit categorie
+			-- N°12.2 Edit categorie
 				DELIMITER $$
 					CREATE PROCEDURE spu_edit_categorie(
 						IN _idcategorie INT,
@@ -295,7 +323,7 @@
 						WHERE idcategorie = _idcategorie; 	
 				END $$
 		
-		-- N°11 Register subcategories
+		-- N°13 Register subcategories
 			DELIMITER $$
 				CREATE PROCEDURE spu_register_subcategorie(
 					IN _idcategorie		INT,
@@ -306,7 +334,7 @@
 					VALUES(_idcategorie,_subcategoryname);
 			END$$
 			
-			-- N°11.1 Obtain subcategorie
+			-- N°13.1 Obtain subcategorie
 			
 				DELIMITER $$
 					CREATE PROCEDURE spu_obtain_subcategorie(
@@ -320,7 +348,7 @@
 			
 				CALL spu_obtain_subcategorie(1);
 			
-			-- N°11.2 Edit subcategorie
+			-- N°13.2 Edit subcategorie
 				DELIMITER $$
 					CREATE PROCEDURE spu_edit_subcategorie(
 						IN _idcategorie INT,
@@ -335,7 +363,7 @@
 						WHERE idsubcategorie = _idsubcategorie; 	
 				END $$	
 				
-		-- N°12 Counter dashboard/books,categorie, sub categorie
+		-- N°14 Counter dashboard/books,categorie, sub categorie
 			DELIMITER $$
 			CREATE PROCEDURE spu_list_dashboard_books()
 				SELECT 	COUNT(idbook) AS total_libros , 
@@ -346,7 +374,7 @@
 			
 			CALL spu_list_dashboard_books();
 			
-			-- N°12.1 Counter dashboard/users, docentes
+			-- N°14.1 Counter dashboard/users, docentes
 				DELIMITER $$
 				CREATE PROCEDURE spu_list_dashboard_users()
 
