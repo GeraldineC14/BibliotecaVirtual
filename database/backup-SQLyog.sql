@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - library
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.20-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
@@ -312,7 +312,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
 (352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
 (353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','1',NULL),
-(354,1,1,'C268','2','sdcasd','dsad','s','asdsa',NULL,NULL,'2023-06-29 22:40:01','1',NULL);
+(354,1,1,'C268','2','sdcasd','dsad','s','asdsa',NULL,'93f51f43ee577960b873a9c3db926be7255ceeb4.jpg','2023-06-29 22:40:01','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -327,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bookschinchanos` */
 
@@ -340,7 +340,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
@@ -370,7 +370,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `commentaries` */
 
@@ -410,7 +410,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
 
@@ -435,7 +435,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusuario`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recuperarclave` */
 
@@ -454,7 +454,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
@@ -488,12 +488,12 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
-(1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$P89Vc9s.Ab0inEZe.uSRM.ubsKxNKbz/7PVoxXS4j06YCvImCjmOu','A','2023-04-25 12:19:02',NULL,'1'),
+(1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$H0wjgr.Vsx0n8UvGX/Ui3OF.FkdNllKmvWor/.mqnZY5y9RC2XrIm','A','2023-04-25 12:19:02',NULL,'1'),
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
@@ -1290,6 +1290,23 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_update_users` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_update_users` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_users`(
+					IN _idusers INT,
+					in _accesskey VARCHAR(100)
+				)
+BEGIN
+					UPDATE users SET
+					accesskey 	= _accesskey
+					WHERE idusers = _idusers;
+			END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_usersloans_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usersloans_list` */;
@@ -1301,6 +1318,20 @@ BEGIN
 				SELECT idusers, CONCAT(namess, ' ' , surnames)as Users
 				FROM users;
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_users_contraseña` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_users_contraseña` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_contraseña`(IN _email VARCHAR(100))
+BEGIN
+				SELECT idusers, surnames, namess, email, accesskey, accesslevel
+					FROM users
+					WHERE email = _email AND state = '1';
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_users_disable` */

@@ -72,22 +72,24 @@ require_once './permisos.php';
                                             <div class="row gx-3 mb-3">
                                                 <!-- Form Group (Contraseña Actual)-->
                                                 <div class="mb-3">
-                                                    <label class="small mb-1" for="accesskey">Contraseña Actual</label>
-                                                    <input class="form-control" id="accesskey" type="password" placeholder="Ingrese su contraseña actual" readonly>
+                                                    <label class="small mb-1" for="actualkey">Contraseña Actual</label>
+                                                    <input class="form-control" id="actualkey" type="password" placeholder="Ingrese su contraseña actual" disabled>
                                                 </div>
                                                 <!-- Form Group (Nueva contraseña)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="#">Nueva Contraseña</label>
-                                                    <input class="form-control" id="#" type="password" placeholder="Ingrese su nueva contraseña" readonly>
+                                                    <input class="form-control" id="accesskey" type="password" placeholder="Ingrese su nueva contraseña" disabled>
                                                 </div>
                                                 <!-- Form Group (Confirmar contraseña)-->
                                                 <div class="col-md-6">
-                                                    <label class="small mb-1" for="#">Confirmar Contraseña</label>
-                                                    <input class="form-control" id="#" type="password" placeholder="Confirme su contraseña" readonly>
+                                                    <label class="small mb-1" for="repetir">Confirmar Contraseña</label>
+                                                    <input class="form-control" id="repetir" type="password" placeholder="Confirme su contraseña" disabled>
                                                 </div>
                                             </div>
                                             <!-- Actualizar button-->
-                                            <button class="btn btn-primary" type="button">Actualizar</button>
+                                            <button class="btn btn-primary" id="habilitar" type="button">Actualizar</button>
+                                            <button class="btn btn-info" id="actualizar" type="button">Cambiar</button>
+                                            <button class="btn btn-secondary" id="cancelar" type="button">Cancelar</button>
                                         </form>
                                     </div>
                                 </div>
@@ -113,6 +115,37 @@ require_once './permisos.php';
     <script>
         $(document).ready(function(){
             idusers = <?php echo $_SESSION['login']['idusers']; ?>;
+            var datos = {
+                'operacion': "",
+                'accesskey': "",
+                'repetir' : "",
+                'actualkey':""
+            };
+
+            function alertar(textoMensaje = "") {
+                Swal.fire({
+                    title: 'Usuarios',
+                    text: textoMensaje,
+                    icon: 'info',
+                    footer: 'Horacio Zeballos Gámez',
+                    timer: 2000,
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
+            function alertarToast(titulo = "", textoMensaje = "", icono = "") {
+                Swal.fire({
+                    title: titulo,
+                    text: textoMensaje,
+                    icon: icono,
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+
             function datosUsers(){
                 $.ajax({
                     url: '../../controllers/usuario.controller.php',
@@ -128,7 +161,107 @@ require_once './permisos.php';
                 });
             }
 
+            function actualizarPerfil(){
+                datos['accesskey'] = $("#accesskey").val();
+                datos['repetir'] = $("#repetir").val();
+
+                datos['operacion'] = "actualizarPerfil";
+                datos['idusers'] = idusers;
+
+                if (datos['accesskey'] !== datos['repetir']) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Las claves no coinciden",
+                        icon: "error",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Actualizar",
+                        text: "¿Los datos ingresados son correctos?",
+                        icon: "question",
+                        footer: "Horacio Zeballos Gámez",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#38AD4D",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        cancelButtonColor: "#D3280A"
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '../../controllers/usuario.controller.php',
+                                type: 'GET',
+                                data: datos,
+                                success: function (result) {
+                                    alertarToast("Proceso completado", "La contraseña del usuario ha sido actualizado", "success")
+                                    //document.getElementById('accesskey2').disabled = true;
+                                    //document.getElementById('repetir2').disabled = true;
+                                    //$("#editar-contraseña").prop('disabled', false);
+                                    setTimeout(function () {
+                                       location.reload();
+                                    }, 1800)
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+
+            $('#habilitar').on('click',function(){
+                //Input - contraseña actual
+                document.getElementById('actualkey').disabled = false;
+                // Input - nueva contraseña
+                document.getElementById('accesskey').disabled = false;
+                // Input - repetir nueva contraseña
+                document.getElementById('repetir').disabled = false;
+
+            });
+
+            $('#actualizar').on('click',function(){
+                email = '<?php echo $_SESSION['login']['email']; ?>';
+                actual = $("#actualkey").val();
+
+                datos['actualkey'] = $("#actualkey").val();
+                datos['accesskey'] = $("#accesskey").val();
+                datos['repetir'] = $("#repetir").val();
+
+                if (datos['accesskey'] == "" || datos['repetir'] == "" || datos['actualkey']=="") {
+                    alertar("Complete los campos por favor")
+                }else{
+                    $.ajax({
+                        url: '../../controllers/usuario.controller.php',
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: {
+                            'operacion': 'comparacionContraseña',
+                            'email': email,
+                            'accesskey': actual
+                        },
+                        success: function(result) {
+                            if (result.comparacion) {
+                                actualizarPerfil();
+                            }else{
+                                Swal.fire({
+                                    title: "Error",
+                                    text: result.mensaje,
+                                    icon: "error",
+                                    footer: "Horacio Zeballos Gámez",
+                                    confirmButtonText: "Aceptar",
+                                    confirmButtonColor: "#38AD4D"
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+
+
             datosUsers();
+
 
         });
 

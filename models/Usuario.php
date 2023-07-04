@@ -138,5 +138,30 @@ class Usuario extends Conexion {
             die($e->getMessage());
         }
     }
+
+    public function actualizarPerfil($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_update_users(?,?)");
+            $consulta->execute([
+                $datosGuardar['idusers'],
+                $datosGuardar['accesskey']
+            ]);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function comparacionContraseña($email){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_users_contraseña(?)");
+            $consulta->execute([$email]);
+
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 }
 ?>

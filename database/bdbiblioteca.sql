@@ -509,9 +509,17 @@
 					WHERE email = _email AND state = '1';
 			END $$
 			
-			CALL spu_users_login('felix@gmail.com');
+			CALL spu_users_login('geral@midominio.com');
 			
 			SELECT * FROM users
+			
+			DELIMITER $$ 
+			CREATE PROCEDURE spu_users_contraseña(IN _email VARCHAR(100))
+			BEGIN
+				SELECT idusers, surnames, namess, email, accesskey, accesslevel
+					FROM users
+					WHERE email = _email AND state = '1';
+			END $$
 			
 			
 		-- N°3 List Users
@@ -583,6 +591,19 @@
 					WHERE email = _email;
 			END $$ 
 		CALL spu_validate_email('geral@midominio.com');
+		
+		-- N° 8 Actualizar contraseña
+			DELIMITER $$
+				CREATE PROCEDURE spu_update_users(
+					IN _idusers INT,
+					IN _accesskey VARCHAR(100)
+				)
+				BEGIN
+					UPDATE users SET
+					accesskey 	= _accesskey
+					WHERE idusers = _idusers;
+			END $$
+					
 			
 -- BOOK LOANS:
 	-- Tb. Loans

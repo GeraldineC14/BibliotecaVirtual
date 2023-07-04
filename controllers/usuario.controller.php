@@ -8,6 +8,7 @@ if (!isset($_SESSION['login'])) {
     $_SESSION['login'] = [
         'acceso'      => '',
         'idusers'     => '',
+        'email'       => '',
         'username'    => '',
         'mensaje'     => '',
         'namess'      => '',
@@ -27,6 +28,7 @@ require_once '../models/Usuario.php';
             $resultado = [
                 "acceso"      => false,
                 "idusers"     => "",
+                "email"       => "",
                 "username"    => "",
                 "mensaje"     => "",
                 "namess"      => "",
@@ -49,6 +51,7 @@ require_once '../models/Usuario.php';
                         $resultado["acceso"] = true;
                         $resultado["mensaje"] = "Bienvenido al sistema";
                         $resultado["idusers"] = $data['idusers'];
+                        $resultado["email"] = $data['email'];
                         $resultado["surnames"] = $data['surnames'];
                         $resultado["namess"] = $data['namess'];
                         $resultado["accesslevel"] = $data['accesslevel'];
@@ -126,6 +129,44 @@ require_once '../models/Usuario.php';
 
         if ($_GET['operacion'] == 'contadorUsers'){
             echo json_encode($usuario->contadorUsers());
+        }
+
+        if($_GET['operacion'] == 'actualizarPerfil'){
+            $datosSolicitados = [
+                "idusers"   => $_GET['idusers'],
+                "accesskey" => password_hash($_GET['accesskey'],PASSWORD_BCRYPT)
+            ];
+            $usuario->actualizarPerfil($datosSolicitados);
+        }
+
+        if ($_GET['operacion'] == 'comparacionContraseña'){
+            $resultado = [
+                "mensaje"     => "",
+                "comparacion" => false,
+                "email"       => ""
+            ];
+
+            //1. Verificar si existe el usuario
+            $data = $usuario->comparacionContraseña($_GET['email']);
+
+            if($data){
+                $claveEncriptada = $data['accesskey'];
+            //3. Comprobar la clave de entrada con la encriptada
+                if (password_verify($_GET['accesskey'], $claveEncriptada)){
+                    $resultado ["mensaje"] = "Contraseña actual correcta";
+                    $resultado ["email"] = $data['email'];
+                    $resultado ["comparacion"] = true;
+                }else{
+                    $resultado ["mensaje"] = "Contraseña actual incorrecta";
+                }
+
+            }else{
+                //No existe el usuario
+                $resultado["mensaje"] = "El usuario no existe";
+            }
+
+            //Enviando información de la sesion a la vista
+            echo json_encode($resultado);
         }
 
     }
