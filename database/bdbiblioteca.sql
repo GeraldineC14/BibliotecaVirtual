@@ -268,8 +268,7 @@
 			    WHERE idbook = _idbook;
 			END $$
 
-			CALL spu_update_frontpage(2,'80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg');
-			80800719ad75ad6290190dd1bc1fa25ad7a0e04b.jpg
+			CALL spu_update_frontpage(354, NULL);
 		-- N°11 update pdf
 			DELIMITER $$
 			CREATE PROCEDURE spu_update_pdf(
@@ -282,7 +281,7 @@
 			    WHERE idbook = _idbook;
 			END $$
 
-			CALL spu_update_pdf(2, NULL);
+			CALL spu_update_pdf(354, NULL);
 			
 		-- N°12 Register categorie
 			DELIMITER $$

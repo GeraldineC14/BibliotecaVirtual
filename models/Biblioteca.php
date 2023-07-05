@@ -122,6 +122,18 @@ class Biblioteca extends Conexion{
         }
     }
 
+    public function actualizarPDF($idbook, $url){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_update_pdf(?, ?)");
+            
+            $consulta->execute(array($idbook, $url));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+    
+
     //MODELO VISTA PRINCIPAL
     public function listarVistaLibros(){
         try{

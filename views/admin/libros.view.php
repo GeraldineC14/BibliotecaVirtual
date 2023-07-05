@@ -252,16 +252,16 @@ require_once './permisos.php';
                                         <div class="col-md-6">
                                             <div class="form-group mt-3 mt-md-5 ml-md-5">
                                                 <div class="custom-file" lang="es">
-                                                    <input type="file" class="custom-file-input" id="customFileLang" accept=".png, .jpg, .jpeg">
-                                                    <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Seleccionar Archivo</label>
+                                                    <input type="file" class="custom-file-input" id="customFileLangModalPortada" accept=".png, .jpg, .jpeg">
+                                                    <label class="custom-file-label-portada" for="customFileLangModalPortada" data-browse="Elegir">Seleccionar Archivo</label>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-4 ml-md-5 text-center">
-                                                <button type="button" id="eliminar-Portada" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
+                                                <button type="button" id="eliminar-PortadaModal" class="btn btn-sm btn-danger mr-3" style="border-radius:8px;">
                                                     <i class="fa-solid fa-trash fa-xl"></i>
                                                     Eliminar
                                                 </button>
-                                                <button type="button" id="cambiarPortada" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                                <button type="button" id="cambiarPortadaModal" class="btn btn-sm btn-success" style="border-radius:8px;">
                                                     <i class="fa-solid fa-circle-check fa-xl"></i>
                                                     Cambiar
                                                 </button>
@@ -297,8 +297,8 @@ require_once './permisos.php';
                                         <div class="col-md-6">
                                             <div class="form-group mt-3 mt-md-5 ml-md-5">
                                                 <div class="custom-file" lang="es">
-                                                    <input type="file" class="custom-file-input" id="inputFile" accept=".pdf">
-                                                    <label class="custom-file-label" for="inputFile" data-browse="Elegir">Seleccionar Archivo</label>
+                                                    <input type="file" class="custom-file-input" id="customFileLangModalPDF" accept=".pdf">
+                                                    <label class="custom-file-label-PDF" for="customFileLangModalPDF" data-browse="Elegir">Seleccionar Archivo</label>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-4 ml-md-5 text-center">
@@ -306,14 +306,14 @@ require_once './permisos.php';
                                                     <i class="fa-solid fa-trash fa-xl"></i>
                                                     Eliminar
                                                 </button>
-                                                <button type="button" id="cambiar-pdf" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                                <button type="button" id="cambiarPDFModal" class="btn btn-sm btn-success" style="border-radius:8px;">
                                                     <i class="fa-solid fa-circle-check fa-xl"></i>
                                                     Cambiar
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="pdf mt-2 mt-md-0 ml-md-5 editpdf" id="pdfPreview">
+                                            <div class="pdf mt-2 mt-md-0 ml-md-5 editpdf">
                                                 <!-- Aquí se cargará la vista previa del PDF -->
                                             </div>
                                         </div>
@@ -321,7 +321,6 @@ require_once './permisos.php';
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="guardarPdf">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -797,68 +796,77 @@ require_once './permisos.php';
                 });
             });
 
-            $("#cambiarPortada").click(function() {
-                var idbook = obtenerIdBook();
-
-                var formData = new FormData();
-                var inputFile = $("#customFileLang")[0].files[0];
-                formData.append("frontpage", inputFile);
-                formData.append("idbook", idbook);
-                formData.append("operacion", "actualizarFrontpage");
-
-                $.ajax({
-                url: '../../controllers/biblioteca.controller.php',
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // Realizar acciones después de la actualización
-                    console.log("Frontpage actualizado correctamente");
-                    // Cierra el modal después de la actualización
-                    $('#editarportada').modal('hide');
-                },
-                error: function(xhr, status, error) {
-                    // Manejar errores
-                    console.error(error);
-                }
-                });
-            });
-
             $("#tabla-libros tbody").on("click", ".editarportada", function() {
                 idbook = $(this).data('idbook');
                 $.ajax({
-                url: '../../controllers/biblioteca.controller.php',
-                type: 'GET',
-                data: {
-                    'operacion': 'getBinarios',
-                    'idbook': idbook
-                },
-                success: function(result) {
-                    let registros = JSON.parse(result);
-                    let nuevaFila = ``;
-                    portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
-                    nuevaFila = `
-                    <img src="../frontpage/${portada}" width="100%" height="100%">
-                    `;
-                    $(".editportada").append(nuevaFila);
+                    url: '../../controllers/biblioteca.controller.php',
+                    type: 'GET',
+                    data: {
+                        'operacion': 'getBinarios',
+                        'idbook': idbook
+                    },
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        let nuevaFila = ``;
+                        portada = (registros['frontpage'] == null) ? 'noimagen.png' : registros['frontpage'];
+                        nuevaFila = `
+                        <img src="../frontpage/${portada}" width="100%" height="100%">
+                        `;
+                        $(".editportada").append(nuevaFila);
 
-                    // Establece el idbook como atributo data en el botón "Cambiar"
-                    $("#cambiarPortada").data("idbook", idbook);
+                        // Establece el idbook como atributo data en el botón "Cambiar"
+                        $("#cambiarPortadaModal").data("idbook", idbook);
 
-                    // Abre el modal
-                    $('#editarportada').modal('show');
-                }
+                        // Abre el modal
+                        $('#editarportada').modal('show');
+                    }
                 });
             });
 
             // Función para obtener el valor del idbook
-            function obtenerIdBook() {
-                return $("#cambiarPortada").data("idbook");
+            function obtenerIdBookModal() {
+                return $("#cambiarPortadaModal").data("idbook");
+                return $("#cambiarPDFModal").data("idbook");
             }
+
+            $("#cambiarPortadaModal").click(function() {
+                var idbook = obtenerIdBookModal();
+
+                var formData = new FormData();
+                var inputFilePortada = $("#customFileLangModalPortada")[0].files[0];
+                formData.append("frontpage", inputFilePortada);
+                formData.append("idbook", idbook);
+                formData.append("operacion", "actualizarFrontpage");
+
+                $.ajax({
+                    url: '../../controllers/biblioteca.controller.php',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response)
+                        // Realizar acciones después de la actualización
+                        console.log("Frontpage actualizado correctamente");
+                        // Cierra el modal después de la actualización
+                        $('#editarportada').modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        // Manejar errores
+                        console.error(error);
+                    }
+                });
+            });
+
+            $("#customFileLangModalPortada").change(function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label-portada").html(fileName);
+            });
 
             $('#editarportada').on('hidden.bs.modal', function() {
                 $(".editportada").empty(); // Vacía el contenido de la clase editportada
+                $("#customFileLangModalPortada").val(""); // Restablecer el valor del input de archivo
+                $(".custom-file-label-portada").html("Seleccionar Archivo"); // Restablecer la etiqueta del input personalizado
             });
 
             // Agregar evento click para abrir el modal
@@ -874,12 +882,14 @@ require_once './permisos.php';
                     success: function(result) {
                         let registros = JSON.parse(result);
                         let nuevaFila = ``;
-                        console.log(registros);
                         pdf = (registros['url'] == null) ? 'no-pdf.pdf' : registros['url'];
                         nuevaFila = `
                         <iframe src="../../views/PDF/${pdf}" width="100%" height="600"></iframe>
                     `;
                         $(".editpdf").append(nuevaFila);
+
+                        // Establece el idbook como atributo data en el botón "Cambiar"
+                        $("#cambiarPDFModal").data("idbook", idbook);
 
                         // Abre el modal
                         $('#editarpdf').modal('show');
@@ -887,42 +897,51 @@ require_once './permisos.php';
                 });
             });
 
-            $('#editarpdf').on('hidden.bs.modal', function() {
-                $(".editpdf").empty(); // Vacía el contenido de la clase editportada
-            });
+            $("#cambiarPDFModal").click(function() {
+                var idbook = obtenerIdBookModal();
 
-            $("#inputFile").change(function() {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).next(".custom-file-label").html(fileName);
-            });
-
-            // Evento hidden.bs.modal del modal
-            $("#editarpdf").on("hidden.bs.modal", function() {
-                $("#inputFile").val(""); // Restablecer el valor del input de archivo
-                $(".custom-file-label").html("Seleccionar Archivo"); // Restablecer la etiqueta del input personalizado
-            });
-
-            $("#guardarPdf").click(function() {
-                // Capturar los datos a enviar
-                var inputFile = $("#inputFile")[0].files[0];
-
-                // Crear un objeto FormData para enviar los datos
                 var formData = new FormData();
-                formData.append("pdfFile", inputFile);
-                console.log(inputFile)
-                console.log(formData)
-                // Enviar los datos mediante una función AJAX
+                var inputFilePDF = $("#customFileLangModalPDF")[0].files[0];
+                formData.append("url", inputFilePDF);
+                formData.append("idbook", idbook);
+                formData.append("operacion", "actualizarPDF");
+
                 $.ajax({
-                    url: "",
+                    url: '../../controllers/biblioteca.controller.php',
                     type: "POST",
                     data: formData,
-                    contentType: false,
                     processData: false,
+                    contentType: false,
                     success: function(response) {
-
+                        console.log(inputFilePDF)
+                        console.log(response)
+                        // Realizar acciones después de la actualización
+                        console.log("PDF actualizado correctamente");
+                        // Cierra el modal después de la actualización
+                        $('#editarpdf').modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        // Manejar errores
+                        console.error(error);
                     }
                 });
             });
+
+            $("#customFileLangModalPDF").change(function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label-PDF").html(fileName);
+            });
+
+            // Evento hidden.bs.modal del modal
+            $('#editarpdf').on('hidden.bs.modal', function() {
+                $(".editpdf").empty(); // Vacía el contenido de la clase editportada
+                $("#customFileLangModalPDF").val(""); // Restablecer el valor del input de archivo
+                $(".custom-file-label-PDF").html("Seleccionar Archivo"); // Restablecer la etiqueta del input personalizado
+            });
+
+
+
+
 
             //Eventos
             $("#mostrar-modal-registro").click(abrirModalRegistro);

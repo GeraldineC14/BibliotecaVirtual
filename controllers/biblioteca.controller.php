@@ -143,7 +143,6 @@ if (isset($_POST['operacion'])){
         $biblioteca->registrarLibros($datosSolicitados);
     }
     
-
     if ($_POST['operacion'] == 'actualizarFrontpage') {
         $idbook = $_POST['idbook'];
     
@@ -167,7 +166,7 @@ if (isset($_POST['operacion'])){
             // Verificar si el frontpage actual es diferente de null
             if (!empty($libroActual['frontpage'])) {
                 // Eliminar el frontpage actual
-                $rutaFrontpageActual = $rutaDestino . $libroActual['frontpage'];
+                $rutaFrontpageActual = "../views/frontpage/" . $libroActual['frontpage'];
                 unlink($rutaFrontpageActual);
             }
     
@@ -182,6 +181,46 @@ if (isset($_POST['operacion'])){
         }
     }
     
+    if ($_POST['operacion'] == 'actualizarPDF') {
+        $idbook = $_POST['idbook'];
+    
+        // Verificando si el usuario envió el archivo
+        if (isset($_FILES['url'])) {
+            // Carpeta
+            $rutaDestino = "../views/PDF/";
+    
+            // Fecha y hora
+            $fechaActual = date("c"); // c = complete (fecha + hora)
+    
+            // Encriptando fecha y hora
+            $nombreArchivo = sha1($fechaActual) . ".pdf";
+    
+            // Ruta final
+            $rutaDestino .= $nombreArchivo;
+    
+            // Obtener la información actual del libro
+            $libroActual = $biblioteca->getBinarios($idbook);
+    
+            // Verificar si el PDF actual es diferente de null
+            if (!empty($libroActual['url'])) {
+                // Eliminar el PDF actual
+                $rutaPDFActual = "../views/PDF/" . $libroActual['url'];
+                unlink($rutaPDFActual);
+            }
+    
+            if (move_uploaded_file($_FILES['url']['tmp_name'], $rutaDestino)) {
+                // Se logró subir el archivo
+                // Acciones por definir
+                $url = $nombreArchivo;
+    
+                // Llamada a la función actualizarPDF
+                $biblioteca->actualizarPDF($idbook, $url);
+            } else {
+                die("Error al mover el archivo PDF");
+            }
+        }
+    }
+
 }
 
 
