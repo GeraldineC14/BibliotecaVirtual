@@ -824,13 +824,17 @@ require_once './permisos.php';
             });
 
             // Función para obtener el valor del idbook
-            function obtenerIdBookModal() {
+            function obtenerIdBookModalPortada() {
                 return $("#cambiarPortadaModal").data("idbook");
+            }
+
+            // Función para obtener el valor del idbook
+            function obtenerIdBookModalPDF() {
                 return $("#cambiarPDFModal").data("idbook");
             }
 
             $("#cambiarPortadaModal").click(function() {
-                var idbook = obtenerIdBookModal();
+                var idbook = obtenerIdBookModalPortada();
 
                 var formData = new FormData();
                 var inputFilePortada = $("#customFileLangModalPortada")[0].files[0];
@@ -898,8 +902,9 @@ require_once './permisos.php';
             });
 
             $("#cambiarPDFModal").click(function() {
-                var idbook = obtenerIdBookModal();
+                var idbook = obtenerIdBookModalPDF();
 
+                console.log(idbook)
                 var formData = new FormData();
                 var inputFilePDF = $("#customFileLangModalPDF")[0].files[0];
                 formData.append("url", inputFilePDF);

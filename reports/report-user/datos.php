@@ -103,13 +103,22 @@
         function reportPublisher($registrosAccesslevel) {
             echo "<h3 class='mt-3'>Número de registros por Usuario:</h3>";
             echo "<ul>";
+            
             foreach ($registrosAccesslevel as $id => $numRegistros) {
+                if($id == 'A'){
+                    $id = 'Administrador';
+                  }else if( $id == 'E'){
+                    $id = 'Estudiante';
+                  }else{
+                    $id = 'Docente';
+                  }
                 echo "<li>{$id}: {$numRegistros} registros</li>";
             }
             echo "</ul>";
         }
 
         if (count($datos) > 0){
+            
             $rolActual = $datos[0]["accesslevel"];
             $registrosAccesslevel = array($rolActual => 0);
             crearTabla($rolActual);
