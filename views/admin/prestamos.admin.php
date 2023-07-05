@@ -109,15 +109,15 @@ require_once 'permisos.php';
                                         <form id="formulario-prestamos">
                                             <div class="form-group">
                                                 <label for="libro">Libro</label><br>
-                                                <select id="libro" class="form-control libro" name="libro" required style="width: 100%;">
-
+                                                <select id="libro" class="form-select libro" multiple name="libro" required style="width: 100%;">
                                                 </select>
                                             </div>
-                                            <div class="row">
+
+                                            <div class="row mt-3">
                                                 <div class="col-md-9">
-                                                    <div class="form-group">
+                                                    <div class="form-group ">
                                                         <label for="usuario">Usuario</label><br>
-                                                        <select name="usuario" id="usuario" class="form-control usuario" required style="width: 100%;">
+                                                        <select id="usuario" class="form-select usuario" multiple name="usuario" required style="width: 100%;">
 
                                                         </select>
                                                     </div>
@@ -126,7 +126,6 @@ require_once 'permisos.php';
                                                     <div class="form-group">
                                                         <label for="cantidad">Cant</label>
                                                         <input id="cantidad" class="form-control" min="1" type="number" name="cantidad" min="1">
-                                                        <strong id="msg_error"></strong>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -144,9 +143,9 @@ require_once 'permisos.php';
                                             </div>
                                             <div class="form-group">
                                                 <label for="observacion">Observación</label>
-                                                <textarea id="observacion" class="form-control" placeholder="Observación" name="observacion" rows="3"></textarea>
+                                                <textarea id="observacion" class="form-control" placeholder="Ingrese alguna observacion..." name="observacion" rows="3"></textarea>
                                             </div>
-                                            <button class="btn btn-primary" type="submit" id="btnAccion">Prestar</button>
+                                            <button class="btn btn-primary" type="button" id="prestar">Prestar</button>
                                             <button class="btn btn-danger" type="button" data-dismiss="modal" id="cancelar-modal">Cancelar</button>
                                         </form>
                                     </div>
@@ -229,18 +228,18 @@ require_once 'permisos.php';
                                 let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>';
 
                                 nuevaFila = `
-                <tr>
-                    <td>${registro['idloan']}</td>
-                    <td>${registro['descriptions']}</td>
-                    <td>${registro['Usuario']}</td>
-                    <td>${observacion}</td>
-                    <td>${registro['loan_date']}</td>
-                    <td>${registro['return_date']}</td>
-                    <td>${registro['amount']}</td>
-                    <td style="color: ${colorCampo}">${estado}</td>
-                    <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
-                </tr>
-                `;
+                                        <tr>
+                                            <td>${registro['idloan']}</td>
+                                            <td>${registro['descriptions']}</td>
+                                            <td>${registro['Usuario']}</td>
+                                            <td>${observacion}</td>
+                                            <td>${registro['loan_date']}</td>
+                                            <td>${registro['return_date']}</td>
+                                            <td>${registro['amount']}</td>
+                                            <td style="color: ${colorCampo}">${estado}</td>
+                                            <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
+                                        </tr>
+                                        `;
 
                                 $("#tabla-prestamos tbody").append(nuevaFila);
                             });
@@ -281,8 +280,6 @@ require_once 'permisos.php';
                             let elementosLista = ``;
 
                             if (registros.length > 0) {
-                                elementosLista = `<option selected>Seleccione:</option>`;
-
                                 registros.forEach(registro => {
                                     elementosLista += `<option value=${registro['idusers']}>${registro['Users']}</option>`;
 
@@ -295,9 +292,44 @@ require_once 'permisos.php';
                     });
                 }
 
+                function listarLibros() {
+                    $.ajax({
+                        url: '../../controllers/biblioteca.controller.php',
+                        type: 'GET',
+                        data: 'operacion=listarLibros',
+                        success: function(result) {
+                            let registros = JSON.parse(result);
+                            let elementosLista = '';
+
+                            if (registros.length > 0) {
+                                registros.forEach(registro => {
+                                    elementosLista += `<option value=${registro['descriptions']}>${registro['descriptions']}</option>`;
+                                });
+                            } else {
+                                elementosLista = '<option>No hay libros disponibles</option>';
+                            }
+
+                            $('#libro').html(elementosLista);
+                        }
+                    });
+                }
+
+
+
+                listarLibros();
                 listarPrestamos();
                 listarUsuarioLoans();
                 $("#cancelar-modal").click(reiniciarFormulario);
+            });
+
+            //$("#libro").select2();
+            $('.libro').select2({
+                maximumSelectionLength: 1,
+                placeholder: 'Seleccione: '
+            });
+            $('.usuario').select2({
+                maximumSelectionLength: 1,
+                placeholder: 'Seleccione: '
             });
         </script>
 
