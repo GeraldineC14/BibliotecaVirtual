@@ -18,6 +18,7 @@ if (!isset($_SESSION['login'])) {
 }
 
 require_once '../models/Usuario.php';
+require_once '../tools/helpers.php';
 
     if(isset($_GET['operacion'])){
 
@@ -170,15 +171,17 @@ require_once '../models/Usuario.php';
         }
 
         if ($_GET['operacion'] == 'getUsersReport') {
-            echo json_encode($usuario->getUsersReport($_GET['iduser']));
+            renderJSON($usuario->getUsersReport(
+                ['iduser' => $_GET['iduser']]
+            ));
         }
-        
+
 
     }
 
     if (isset($_POST['operacion'])) {
         $usuario = new Usuario();
-    
+
         if ($_POST['operacion'] == 'searchUser') {
             $datoObtenido = $usuario->searchUser($_POST['user']);
             if ($datoObtenido) {

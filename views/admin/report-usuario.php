@@ -96,6 +96,8 @@ require_once 'permisos.php';
     const tableUser = document.querySelector("#table-usuario tbody");
     const btnGenerarPDF = document.querySelector("#generarpdf");
 
+    let filtroPDF = -1;
+
     function obtenerUsuarios(usuariosSeleccionados) {
         // Limpiar la tabla antes de agregar los nuevos datos
         tableUser.innerHTML = '';
@@ -107,6 +109,7 @@ require_once 'permisos.php';
                 datos.forEach(usuario => {
                     // Crear una nueva fila en la tabla con los datos del usuario
                     const fila = document.createElement('tr');
+                    filtroPDF = 1;
                     fila.innerHTML = `
                             <td>${usuario.idusers}</td>
                             <td>${usuario.namess}</td>
@@ -125,25 +128,31 @@ require_once 'permisos.php';
     btnObtener.addEventListener("click", () => {
         // Obtener los valores seleccionados del select
         const usuariosSeleccionados = [...selectUser.selectedOptions].map(option => option.value).join(',');
+        console.log(usuariosSeleccionados);
 
         obtenerUsuarios(usuariosSeleccionados);
     });
 
+
     function generarPDF() {
-        const iduser = document.getElementById(selectUser.value);
-        if(iduser > 0 ){
+        if (selectUser.value == 0) {
+          alert("Debes elegir un usuario para poder crear el PDF");
+        } else if (filtroPDF > 0) {
           const parametros = new URLSearchParams();
-          parametros.append("id", idcasa);
-          parametros.append("titulo", selectCasas.options[selectCasas.selectedIndex].text);
-          window.open(`../../reports/report-user/reporte.php?${parametros}`,'_blank');
+          parametros.append("iduser", [...selectUser.selectedOptions].map(option => option.value).join(','));
+          parametros.append("titulo", selectUser.options[selectUser.selectedIndex].text);
+          //console.log([...selectUser.selectedOptions].map(option => option.value).join(','));
+          window.open(`../../reports/report-user/reporte.php?${parametros}`, '_blank');
+        } else {
+          alert("No existen datos disponibles para generar el PDF");
         }
-        
-    }
 
+      }
+
+    //Generar reportes
     btnGenerarPDF.addEventListener("click", generarPDF);
-
-
 
     // Método inicializador (control SELECT)
     $("#usuario").select2();
+
 </script>

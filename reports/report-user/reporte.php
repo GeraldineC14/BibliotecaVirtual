@@ -10,8 +10,16 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     $usuario = new Usuario();
-    $datos = $usuario->getUsersReport(["id"]);
-    $titulo = "Cyborg";
+    $datos = $usuario->getUsersReport(
+        [
+            "iduser" =>$_GET['iduser']
+        ]
+    );
+
+    $titulo = $_GET['titulo'];
+
+    // Contenido (HTML) que renderizaremos como PDF
+    $content = "";
 
     // Construcción del contenido HTML del reporte
     ob_start();
@@ -22,7 +30,7 @@ try {
     // Configuración del archivo PDF
     $html2pdf = new Html2Pdf('P', 'A4', 'es', true, 'UTF-8');
     $html2pdf->writeHTML($content);
-    $html2pdf->output('reporte.pdf');
+    $html2pdf->output('reporteusuario.pdf');
 } catch (Html2PdfException $error) {
     $formatter = new ExceptionFormatter($error);
     echo $formatter->getHtmlMessage();

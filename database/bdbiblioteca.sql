@@ -918,7 +918,7 @@ SELECT * FROM commentaries;
 					FROM commentaries c
 						INNER JOIN	books b ON b.idbook = c.idbook
 						INNER JOIN	users u ON u.idusers = c.idusers
-					WHERE b.idbook = _idbook AND c.state = 1;			
+					WHERE b.idbook = _idbook AND c.state =spu_order_user 1;			
 			END	$$
 			
 			CALL spu_list_commentaries(2);

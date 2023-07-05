@@ -1,19 +1,24 @@
 <div class="mb-3">
   <h2 class="text-lg">
-    <?= $titulo ?>
+    Reportes por tipo de usuarios
   </h2>
   <hr>
-  <p>Generado desde backend</p>
 </div>
 
 <div>
   <?php
-
-        function crearTabla($id = ""){
+        function crearTabla($accesslevel = ""){
+            if($accesslevel == 'A'){
+                $accesslevel = 'Administrador';
+              }else if( $accesslevel == 'E'){
+                $accesslevel = 'Estudiante';
+              }else{
+                $accesslevel = 'Docente';
+              }
             $nuevaTabla = "
-            <h4>{$id}</h4>
+            <h4 class='mb-2 mt-5'>{$accesslevel}</h4>
             <table class='table table-border mb-3'>
-                '<colgroup>
+                <colgroup>
                       <col width='5%'>
                       <col width='25%'>
                       <col width='20%'>
@@ -22,7 +27,7 @@
                       <col width='15%'>
                   </colgroup>
                   <thead>
-                      <tr>
+                      <tr class='bg-primary'>
                           <th>ID</th>
                           <th>Nombres</th>
                           <th>Apellidos</th>
@@ -58,9 +63,9 @@
       }
       
         // ----------------------------------------------
-        function crearTablaReport($registrosAccesslevel){
+        /*function crearTablaReport($registrosAccesslevel){
             $nuevaTablaReport = "
-            <h3 class='mt-3'>Número de registros por Raza:</h3>
+            <h3 class='mt-3'>Número de registros por Nivel de Usuario:</h3>
             <table class='table table-border mb-3'>
                 <colgroup>
                     <col style='width: 15%;'>
@@ -68,7 +73,7 @@
                 </colgroup>
                 <thead>
                     <tr class='bg-success'>
-                        <th>Raza</th>
+                        <th>Usuario</th>
                         <th>Numero de Registros</th>
                     </tr>
                 </thead>
@@ -84,19 +89,19 @@
             }
 
         echo  $nuevaTablaReport;
-        }
+        }*/
 
-        function cerrarTablaReport(){
+        /*function cerrarTablaReport(){
             $cerrarTablaReport = "
             </tbody>
             </table>
             ";
         echo $cerrarTablaReport;
-        }
+        }*/
         // ----------------------------------------------
 
         function reportPublisher($registrosAccesslevel) {
-            echo "<h3 class='mt-3'>Número de registros por Raza:</h3>";
+            echo "<h3 class='mt-3'>Número de registros por Usuario:</h3>";
             echo "<ul>";
             foreach ($registrosAccesslevel as $id => $numRegistros) {
                 echo "<li>{$id}: {$numRegistros} registros</li>";
@@ -105,15 +110,15 @@
         }
 
         if (count($datos) > 0){
-            $rolActual = $datos[0]["id"];
+            $rolActual = $datos[0]["accesslevel"];
             $registrosAccesslevel = array($rolActual => 0);
             crearTabla($rolActual);
             foreach($datos as $registro){
-                if($rolActual == $registro["id"]){
+                if($rolActual == $registro["accesslevel"]){
                     agregarFila($registro);
                     $registrosAccesslevel[$rolActual]++;
                 }else{
-                    $rolActual = $registro["id"];
+                    $rolActual = $registro["accesslevel"];
                     cerrarTabla();
                     crearTabla($rolActual);
                     agregarFila($registro);

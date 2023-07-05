@@ -165,15 +165,19 @@ class Usuario extends Conexion {
     }
 
     // Reportes
-    public function getUsersReport($iduser) {
+    public function getUsersReport($data=[]) {
         try {
             $consulta = $this->acceso->prepare("CALL spu_order_user(?)");
-            $consulta->execute([$iduser]);
-            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            return $datos;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
+            $consulta->execute(
+                array(
+                  $data['iduser']
+                )
+              );
+              return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+              die($e->getMessage());
+            }
     }
+
 }
 ?>

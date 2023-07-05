@@ -104,7 +104,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
     <!-- Script de Siderbar -->
     <script src=".././../assets/js/navSid.js"></script>
-   
+
 
     <!-- Datatable -->
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -115,7 +115,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- CDN Select2 -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             //Crearemos una función que obtenga la URL(vista)
