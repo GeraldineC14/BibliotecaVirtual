@@ -19,6 +19,7 @@ if (!isset($_SESSION['login'])) {
 
 require_once '../models/Usuario.php';
 require_once '../tools/helpers.php';
+require_once '../models/Mail.php';
 
     if(isset($_GET['operacion'])){
 
@@ -188,6 +189,46 @@ require_once '../tools/helpers.php';
                 echo json_encode($datoObtenido);
             }
         }
+
+        if($_POST['operacion'] == 'enviarCorreo'){
+            //VALIDAR QUE ESTE PROCESO ¡NO! SE EJECUTE SINO HASTA DESPUÉS 15MIN
+            $respuesta = $usuario->validarTiempo(["idusers" => $_POST['idusers']]);
+        
+            $retornoDatos = ["mensaje" => "Ya se te envió una clave, revisa tu correo"];
+        
+        
+            if($respuesta ["status"] == "GENERAR"){
+              //Crear un valor aleatorio de 4 dígitos
+              $valorAleatorio = random_int(1000,9999);
+        
+              //Cuerpo del mensaje a enviar por EMAIL
+              $mensaje = "
+                <h3> App SENATI </h3>
+                <strong> Recuperación de cuenta </strong>
+                <hr>
+                <p> Estimado usuario, para recuperación el acceso, utilice la siguiente contraseña: </p>
+                <h3> {$valorAleatorio}</h3>
+              ";
+        
+              //Arreglo con datos a guardar en la tabla de recuperación
+              $data = [
+                  "idusers"        => $_POST['idusers'],
+                  "email"         => $_POST['email'],
+                  "clavegenerada" => $valorAleatorio
+        
+              ];
+        
+              //Creando registro
+              $usuario->registraRecuperacion($data);
+        
+              //Enviando correo
+              enviarCorreo($_POST['email'],'Código de Restauración',$mensaje);
+               $retornoDatos["mensaje"] = "Se ha generado y enviado la clave al email indicado";
+            }
+            //Enviado a la vista
+            echo json_encode($retornoDatos);
+            
+          }
     }
 
     

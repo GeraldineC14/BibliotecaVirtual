@@ -91,6 +91,69 @@ class Usuario extends Conexion {
         }
     }
 
+    public function searchUser($username = ''){
+        try{
+          $sql = ("SELECT idusers,surnames,namess,email FROM users WHERE username = ? AND state = '1'");
+          $consulta = $this->acceso->prepare($sql);
+          $consulta->execute(array($username));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+    }
+
+    public function registraRecuperacion($data = []){
+        try{
+          $consulta = $this->acceso->prepare("CALL spu_registra_claverecuperacion(?,?,?)");
+          $consulta->execute(
+            array(
+              $data['idusers'],
+              $data['email'],
+              $data['clavegenerada']
+          ));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+    }
+
+    //Retornará: PERMITIDO/DENEGADO
+    //Se sugiere retornar bool/int/string
+    public function validarClave($data = []){
+        try{
+        $consulta = $this->acceso->prepare("CALL spu_usuario_validarclave(?,?)");
+        $consulta->execute(
+            array(
+            $data['idusers'],
+            $data['clavegenerada']
+        ));
+
+        return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+        die($e->getMessage());
+        }
+    }
+
+    public function validarTiempo($data = []){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_usuario_validartiempo(?)");
+            $consulta->execute(
+            array(
+                $data['idusers']
+            ));
+
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
     public function validacionUsuario($username){
         try{
             $consulta = $this->acceso->prepare("CALL spu_validate_username(?)");
@@ -178,6 +241,8 @@ class Usuario extends Conexion {
               die($e->getMessage());
             }
     }
+
+
 
 }
 ?>

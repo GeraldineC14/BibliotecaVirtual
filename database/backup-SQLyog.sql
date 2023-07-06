@@ -45,12 +45,12 @@ CREATE TABLE `books` (
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','2','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(1,1,1,'C001','1','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
 (2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','2','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
 (5,1,1,'C005','2','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
-(6,1,1,'C006','02','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
+(6,1,1,'C006','1','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
 (7,1,1,'C007','08','Atlas del cuerpo humano','Editorial Ars Medica','B','Biblioteca escolar',NULL,'165242ba779c04ccc8751dcb3e7506df0e320e2d.jpg','2023-03-21 12:04:58','1','Esta guía aporta una información resumida pero muy completa del cuerpo humano. Analiza desde los más pequeños elementos estructurales hasta la constitución de sus órganos y sistemas más complejos tanto del hombre como de la mujer. Ilustrada con numerosos dibujos de gran calidad con diversos planos de los órganos, se explica además la terminología específica que distingue cada parte para un profundo conocimiento de la anatomía humana.'),
 (8,1,1,'C008','08','Atlas del cielo,un viaje entre las estrellas y planeta para conocer el universo','Ediciones V, D-SAC','B','Biblioteca escolar',NULL,'ab0962b41c6f2c6aae310850b92e382141b1c5db.jpg','2023-03-21 12:04:58','1',NULL),
 (9,1,1,'C009','02','Matemáticas para el c´álculo, pre cálculo N°06','James, Stewart/Lother Redlin','B','Biblioteca escolar',NULL,'cafeaa4b152a3f0649512798d2d7a006ce633ca6.jpg','2023-03-21 12:04:58','1',NULL),
@@ -312,7 +312,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
 (352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
 (353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','1',NULL),
-(354,1,1,'C268','2','sdcasd','dsad','s','asdsa',NULL,'b6e1e8030ba2b8c0d3474f3c0f02347f226d9e99.jpg','2023-06-29 22:40:01','1',NULL);
+(354,1,1,'C268','2','sdcasd','dsad','s','asdsa','90614788a754c8c9db1bee5970dba6ba20f1cfc7.pdf','0b5ce98ac0fc74ebb05d8a5377fd1d95ae9dbf32.jpg','2023-06-29 22:40:01','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -370,7 +370,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -389,7 +389,8 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (12,3,1,'Este libro esta espectacular',4,'2023-06-30',NULL,'1'),
 (13,3,1,'¿Qué es Lorem Ipsum?\nLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la i',4,'2023-06-30',NULL,'1'),
 (14,1,1,'Genial',5,'2023-06-30',NULL,'1'),
-(15,5,1,'giuyhiuh',3,'2023-07-03',NULL,'1');
+(15,5,1,'giuyhiuh',3,'2023-07-03',NULL,'1'),
+(16,5,3,'El capitulo 3 a sido interesante.',4,'2023-07-05',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -410,7 +411,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -419,7 +420,11 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_da
 (2,2,1,'1','2023-07-04','2023-07-03','Prueba 2','0','2023-07-03 15:40:00'),
 (3,2,1,'2','2023-07-05','2023-07-03','aaaaa','0','2023-07-03 15:41:07'),
 (4,2,1,'1','2023-07-03','2023-07-03','ppppp','0','2023-07-03 15:42:19'),
-(5,1,1,'2','2023-07-06','2023-07-04','Prueba\n','0','2023-07-03 22:11:05');
+(5,1,1,'2','2023-07-06','2023-07-04','Prueba\n','0','2023-07-03 22:11:05'),
+(6,5,3,'2','2023-07-06','2023-07-05','Lo recogere a la hora del almuerzo','0','2023-07-05 17:37:51'),
+(7,5,3,'1','2023-07-06','2023-07-05','','0','2023-07-05 17:38:46'),
+(8,1,1,'1','2023-07-08','2023-07-12','123','1','2023-07-06 00:06:48'),
+(9,6,1,'1','2023-07-07','2023-07-14','','1','2023-07-06 00:28:11');
 
 /*Table structure for table `recuperarclave` */
 
@@ -427,20 +432,21 @@ DROP TABLE IF EXISTS `recuperarclave`;
 
 CREATE TABLE `recuperarclave` (
   `idrecuperar` int(11) NOT NULL AUTO_INCREMENT,
-  `idusuario` int(11) NOT NULL,
+  `idusers` int(11) NOT NULL,
   `fechageneracion` datetime NOT NULL DEFAULT current_timestamp(),
   `email` varchar(120) NOT NULL,
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idrecuperar`),
-  KEY `fk_idusuario_rcl` (`idusuario`),
-  CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusuario`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `fk_idusuario_rcl` (`idusers`),
+  CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
-insert  into `recuperarclave`(`idrecuperar`,`idusuario`,`fechageneracion`,`email`,`clavegenerada`,`estado`) values 
-(1,3,'2023-06-24 10:43:34','diegofelipa6@gmail.com','4899','1');
+insert  into `recuperarclave`(`idrecuperar`,`idusers`,`fechageneracion`,`email`,`clavegenerada`,`estado`) values 
+(1,3,'2023-07-06 01:59:43','diegofelipa11@gmail.com','6199','0'),
+(2,3,'2023-07-06 06:59:00','diegofelipa11@gmail.com','8659','1');
 
 /*Table structure for table `subcategories` */
 
@@ -488,20 +494,21 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
 (1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$H0wjgr.Vsx0n8UvGX/Ui3OF.FkdNllKmvWor/.mqnZY5y9RC2XrIm','A','2023-04-25 12:19:02',NULL,'1'),
-(3,'Diego10','Felipa Avalos','Diego','diegofelipa6@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
+(3,'Diego10','Felipa Avalos','Diego','diegofelipa11@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
 (45,'milagros730','levano','Milagros','milagros73@midominio.com','$2y$10$9JvejDF7aj1Di2N.fWNU9e24v/XaLHqHkiDyu1XXDivdXPVVkAApO','D','2023-06-27 08:11:34',NULL,'1'),
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
 (47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
 (48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1'),
-(49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'1');
+(49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'1'),
+(50,'Piero123','Arias Tasayco','Piero ','piero123@midominio.com','$2y$10$9KJ/s9YXXXVF676FLNJWEe/E.AN.pbRsczw4/YmdLI8rHDOhWyZaC','D','2023-07-05 17:06:15',NULL,'1');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -509,9 +516,7 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_binarios_obtain`(
-		IN _idbook INT
-		)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_binarios_obtain`(IN `_idbook` INT)
 BEGIN
 		SELECT  idbook,frontpage,url
 				FROM books 
@@ -583,7 +588,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksummaries_list`(IN _idbook INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksummaries_list`(IN `_idbook` INT)
 BEGIN
 				SELECT  idbook,summary, author, frontpage,descriptions, url, amount
 					FROM books 
@@ -648,9 +653,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_obtain`(
-		IN _idbook INT
-		)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_obtain`(IN `_idbook` INT)
 BEGIN
 		SELECT  idbook,idcategorie,idsubcategorie,amount, descriptions,
 				author, state, locationresponsible
@@ -665,17 +668,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_register`(
-				IN _idcategorie		INT,
-				IN _idsubcategorie	INT,
-				IN _amount 		VARCHAR(30),
-				IN _descriptions 	VARCHAR(150),
-				IN _author		VARCHAR(150),
-				IN _state 		VARCHAR(30),
-				IN _locationresponsible VARCHAR(50),
-				IN _url			VARCHAR(150),
-				IN _frontpage		VARCHAR(150)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_register`(IN `_idcategorie` INT, IN `_idsubcategorie` INT, IN `_amount` VARCHAR(30) CHARSET utf8mb4, IN `_descriptions` VARCHAR(150) CHARSET utf8mb4, IN `_author` VARCHAR(150) CHARSET utf8mb4, IN `_state` VARCHAR(30) CHARSET utf8mb4, IN `_locationresponsible` VARCHAR(50) CHARSET utf8mb4, IN `_url` VARCHAR(150) CHARSET utf8mb4, IN `_frontpage` VARCHAR(150) CHARSET utf8mb4)
 BEGIN
 				DECLARE maximo VARCHAR (30);	
 				DECLARE num INT;
@@ -741,10 +734,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_change_state_loans`(
-				 IN p_idLoan INT,
-				 IN p_newState CHAR(1)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_change_state_loans`(IN `p_idLoan` INT, IN `p_newState` CHAR(1) CHARSET utf8mb4)
 BEGIN
 				 UPDATE loans
 				 SET state = p_newState
@@ -781,9 +771,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_delete_commentaries`(
-				 IN _idcomentario INT
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_delete_commentaries`(IN `_idcomentario` INT)
 BEGIN
 				 UPDATE commentaries
 				 SET state = 0
@@ -797,10 +785,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_categorie`(
-					IN _idcategorie INT,
-					IN _categoryname VARCHAR(50)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_categorie`(IN `_idcategorie` INT, IN `_categoryname` VARCHAR(50) CHARSET utf8mb4)
 BEGIN
 					UPDATE categories SET
 						idcategorie 	= _idcategorie,
@@ -815,11 +800,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_subcategorie`(
-						IN _idcategorie INT,
-						IN _idsubcategorie INT,
-						IN _subcategoryname VARCHAR(50)
-					)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_edit_subcategorie`(IN `_idcategorie` INT, IN `_idsubcategorie` INT, IN `_subcategoryname` VARCHAR(50) CHARSET utf8mb4)
 BEGIN
 						UPDATE subcategories SET
 							idcategorie 	= _idcategorie,
@@ -835,7 +816,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listloans_user`(IN _idusers INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listloans_user`(IN `_idusers` INT)
 BEGIN
 				SELECT 	ls.idloan,bs.idbook,ls.idusers,
 					bs.descriptions,
@@ -854,7 +835,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_all_commentaries`( IN _idbook INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_all_commentaries`(IN `_idbook` INT)
 BEGIN 
 						SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 							c.commentary, c.score, c.commentary_date
@@ -870,7 +851,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_commentaries`( IN _idbook INT )
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_commentaries`(IN `_idbook` INT)
 BEGIN 
 					SELECT c.idcommentary, b.idbook, CONCAT(u.namess, ' ', u.surnames) AS Usuario,
 						c.commentary, c.score, c.commentary_date
@@ -919,10 +900,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`( 
-					IN _idusers 	INT,
-					IN _accesslevel	CHAR(1)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_list`(IN `_idusers` INT, IN `_accesslevel` CHAR(1) CHARSET utf8mb4)
 BEGIN
 					if _accesslevel = 'D' THEN 
 						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
@@ -958,15 +936,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_register`(
-					IN _idbook		INT,
-					IN _idusers		INT,
-					IN _observation		VARCHAR(100),
-					IN _loan_date		DATETIME,
-					IN _return_date		DATETIME,
-					IN _amount		VARCHAR(30)
-				
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loans_register`(IN `_idbook` INT, IN `_idusers` INT, IN `_observation` VARCHAR(100) CHARSET utf8mb4, IN `_loan_date` DATETIME, IN `_return_date` DATETIME, IN `_amount` VARCHAR(30) CHARSET utf8mb4)
 BEGIN
 					INSERT INTO loans(idbook,idusers,observation,loan_date,return_date,amount)
 					VALUES(_idbook,_idusers,_observation,_loan_date,_return_date,_amount);	
@@ -979,14 +949,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loan_registration`(
-    IN _idbook INT,
-    IN _idusers INT,
-    IN _observation VARCHAR(100),
-    IN _loan_date DATETIME,
-    IN _return_date DATETIME,
-    IN _amount VARCHAR(30)
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loan_registration`(IN `_idbook` INT, IN `_idusers` INT, IN `_observation` VARCHAR(100) CHARSET utf8mb4, IN `_loan_date` DATETIME, IN `_return_date` DATETIME, IN `_amount` VARCHAR(30) CHARSET utf8mb4)
 BEGIN
     DECLARE v_book_amount INT;
     
@@ -1040,9 +1003,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_categorie`(
-					IN _idcategorie INT
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_categorie`(IN `_idcategorie` INT)
 BEGIN
 					SELECT idcategorie, categoryname 
 						FROM categories
@@ -1056,9 +1017,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_subcategorie`(
-						IN _idsubcategorie INT
-					)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtain_subcategorie`(IN `_idsubcategorie` INT)
 BEGIN
 						SELECT idcategorie,idsubcategorie, subcategoryname 
 							FROM subcategories
@@ -1072,9 +1031,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_Comentario`(
-    IN p_idcomentario INT
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_Comentario`(IN `p_idcomentario` INT)
 BEGIN
     SELECT idcommentary, idusers, idbook, commentary
     FROM commentaries
@@ -1090,9 +1047,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_order_user`(
-	IN _iduser VARCHAR(255)
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_order_user`(IN `_iduser` VARCHAR(255) CHARSET utf8mb4)
 BEGIN
 	SELECT us.idusers, us.username, us.surnames, us.namess, us.email, us.accesslevel
 		FROM users us
@@ -1121,9 +1076,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_categorie`(
-					IN _categoryname VARCHAR(50)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_categorie`(IN `_categoryname` VARCHAR(50) CHARSET utf8mb4)
 BEGIN
 					INSERT INTO categories(categoryname)
 					VALUES(_categoryname);
@@ -1136,12 +1089,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_commentaries`(
-					IN _idbook 		INT,
-					IN _idusers		INT,
-					IN _commentary	VARCHAR(250),
-					IN _score		INT	
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_commentaries`(IN `_idbook` INT, IN `_idusers` INT, IN `_commentary` VARCHAR(250) CHARSET utf8mb4, IN `_score` INT)
 BEGIN
 					INSERT INTO commentaries(idbook,idusers,commentary,score)
 					VALUES(_idbook,_idusers,_commentary,_score);
@@ -1154,14 +1102,28 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_subcategorie`(
-					IN _idcategorie		INT,
-					IN _subcategoryname 	VARCHAR(50)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_register_subcategorie`(IN `_idcategorie` INT, IN `_subcategoryname` VARCHAR(50) CHARSET utf8mb4)
 BEGIN
 					INSERT INTO subcategories(idcategorie, subcategoryname)
 					VALUES(_idcategorie,_subcategoryname);
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_registra_claverecuperacion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_registra_claverecuperacion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registra_claverecuperacion`(
+			IN _idusers INT, 
+			IN _email VARCHAR(120),
+			IN _clavegenerada CHAR(4)
+		)
+BEGIN
+			UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
+			INSERT INTO recuperarclave (idusers, email, clavegenerada) VALUES (_idusers, _email, _clavegenerada);
+		END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_return_book` */
@@ -1170,9 +1132,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_return_book`(
-    IN p_idloan INT
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_return_book`(IN `p_idloan` INT)
 BEGIN
     DECLARE v_loan_amount INT;
     DECLARE v_book_amount INT;
@@ -1216,7 +1176,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(IN _username VARCHAR(150))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_searchuser`(IN `_username` VARCHAR(150) CHARSET utf8mb4)
 BEGIN
 	  SELECT 
 		idusers,
@@ -1235,8 +1195,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories2_list`(
-		)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories2_list`()
 BEGIN
 			SELECT idsubcategorie, subcategoryname
 				FROM subcategories;
@@ -1249,8 +1208,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories3_list`(
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories3_list`()
 BEGIN
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
 					FROM subcategories sub
@@ -1264,8 +1222,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories_list`( IN _idcategorie INT
-		)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_subcategories_list`(IN `_idcategorie` INT)
 BEGIN
 			SELECT idsubcategorie, subcategoryname
 				FROM subcategories
@@ -1279,10 +1236,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_frontpage`(
-			    IN _idbook INT,
-			    IN _frontpage VARCHAR(150)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_frontpage`(IN `_idbook` INT, IN `_frontpage` VARCHAR(150) CHARSET utf8mb4)
 BEGIN
 			    UPDATE books
 			    SET frontpage = _frontpage
@@ -1296,10 +1250,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_pdf`(
-			    IN _idbook INT,
-			    IN _url VARCHAR(250)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_pdf`(IN `_idbook` INT, IN `_url` VARCHAR(250) CHARSET utf8mb4)
 BEGIN
 			    UPDATE books
 			    SET url = _url
@@ -1313,10 +1264,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_users`(
-					IN _idusers INT,
-					in _accesskey VARCHAR(100)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_update_users`(IN `_idusers` INT, IN `_accesskey` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 					UPDATE users SET
 					accesskey 	= _accesskey
@@ -1343,7 +1291,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_contraseña`(IN _email VARCHAR(100))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_contraseña`(IN `_email` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 				SELECT idusers, surnames, namess, email, accesskey, accesslevel
 					FROM users
@@ -1357,7 +1305,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_disable`(IN _idusers INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_disable`(IN `_idusers` INT)
 BEGIN
 			UPDATE users SET state = '0' WHERE idusers = _idusers;
 		END */$$
@@ -1383,7 +1331,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_login`(IN _email VARCHAR(100))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_login`(IN `_email` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 				SELECT idusers, surnames, namess, email, accesskey, accesslevel,state
 					FROM users
@@ -1397,9 +1345,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_obtain`(
-					IN _idusers INT
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_obtain`(IN `_idusers` INT)
 BEGIN
 				SELECT  idusers, namess, username,surnames, accesslevel,email,accesskey
 						FROM users 
@@ -1413,15 +1359,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_register`(
-				IN _username		VARCHAR(50),
-				IN _surnames		VARCHAR(30),
-				IN _namess		VARCHAR(30),
-				IN _email		VARCHAR(100),
-				IN _accesskey		VARCHAR(100),	
-				IN _accesslevel		VARCHAR(100)
-				
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_register`(IN `_username` VARCHAR(50) CHARSET utf8mb4, IN `_surnames` VARCHAR(30) CHARSET utf8mb4, IN `_namess` VARCHAR(30) CHARSET utf8mb4, IN `_email` VARCHAR(100) CHARSET utf8mb4, IN `_accesskey` VARCHAR(100) CHARSET utf8mb4, IN `_accesslevel` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 				INSERT INTO users (username,surnames, namess, email, accesskey, accesslevel) VALUES
 				(_username, _surnames, _namess, _email, _accesskey, _accesslevel);
@@ -1434,15 +1372,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(
-				IN _idusers	INT,
-				IN _namess	VARCHAR(30),
-				IN _surnames	VARCHAR(100),
-				IN _username	VARCHAR(50),
-				IN _email	VARCHAR(100),
-				IN _accesslevel	VARCHAR(100),
-				IN _accesskey	VARCHAR(100)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(IN `_idusers` INT, IN `_namess` VARCHAR(30) CHARSET utf8mb4, IN `_surnames` VARCHAR(100) CHARSET utf8mb4, IN `_username` VARCHAR(50) CHARSET utf8mb4, IN `_email` VARCHAR(100) CHARSET utf8mb4, IN `_accesslevel` VARCHAR(100) CHARSET utf8mb4, IN `_accesskey` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 				UPDATE users SET
 					namess 		= _namess,
@@ -1456,15 +1386,50 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_usuario_validartiempo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuario_validartiempo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuario_validartiempo`(
+			IN _idusers INT
+		)
+BEGIN
+			IF ((SELECT COUNT(*) FROM recuperarclave WHERE idusers = _idusers) =0) THEN
+				SELECT 'GENERAR' AS 'status';
+				ELSE
+					-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
+					IF ((SELECT estado FROM recuperarclave WHERE idusers = _idusers ORDER BY 1 DESC LIMIT 1)= 0)THEN
+						SELECT 'GENERAR' AS 'status';
+					ELSE
+						-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
+						IF
+						(
+								(
+									SELECT COUNT(*) FROM recuperarclave 
+									WHERE idusers = _idusers AND estado = '1' AND
+									NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
+									ORDER BY fechageneracion DESC LIMIT 1						
+								) = 1
+							)THEN
+								-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
+								SELECT 'GENERAR' AS 'status';
+							ELSE
+								SELECT 'DENEGAR' AS 'status';
+						END IF;
+					END IF;
+				END IF;
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_validate_email` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_validate_email` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_email`(
-					IN _email VARCHAR(100)
-				)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_email`(IN `_email` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 					SELECT email 
 						FROM users
@@ -1478,9 +1443,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_username`(
-				IN _username VARCHAR(100)
-			)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validate_username`(IN `_username` VARCHAR(100) CHARSET utf8mb4)
 BEGIN
 				SELECT username 
 					FROM users
