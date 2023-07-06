@@ -33,7 +33,7 @@ require_once './permisos.php';
                                         &nbsp;Registrar Categoría
                                     </button>
                                     <!-- Botón para mostrar el modal de Generar  Reporte -->
-                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="generar-reporte">
                                         <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                         &nbsp;Generar Reporte
                                     </button>
@@ -47,7 +47,7 @@ require_once './permisos.php';
                                             &nbsp;Registrar
                                         </button>
                                         <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
-                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="mostrar-modal-reporte">
+                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="generar-reporte">
                                             <i class="fas fa-download fa-sm text-black  fa-xl"></i>
                                             &nbsp;Reporte
                                         </button>
@@ -309,6 +309,9 @@ require_once './permisos.php';
                 })
             });
 
+            $("#generar-reporte").on("click",function(){
+                window.open(`../../reports/reporte-categoria/reporte.php`, '_blank');
+            })
 
 
             $("#guardar-categoria").click(RegistrarCategoria);
