@@ -25,7 +25,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <!-- CDN datatable -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <!-- LightBox -->
-    <link rel="stylesheet" href="../../vendor/lightbox/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../node_modules/lightbox2/dist/css/lightbox.min.css">
     <!-- DataTable Responsive -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
     <!-- Librería Select2 -->
@@ -111,7 +111,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <!-- DataTable Responsive -->
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
     <!-- Lightbox -->
-    <script src="../../vendor/lightbox/js/lightbox.min.js"></script>
+    <script src="../../node_modules/lightbox2/src/js/lightbox.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- CDN Select2 -->
