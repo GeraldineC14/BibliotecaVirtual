@@ -440,13 +440,18 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
 insert  into `recuperarclave`(`idrecuperar`,`idusers`,`fechageneracion`,`email`,`clavegenerada`,`estado`) values 
-(1,3,'2023-07-06 01:59:43','diegofelipa11@gmail.com','6199','0'),
-(2,3,'2023-07-06 06:59:00','diegofelipa11@gmail.com','8659','1');
+(1,3,'2023-07-06 21:33:45','diegofelipa11@gmail.com','3352','0'),
+(2,3,'2023-07-06 22:12:43','diegofelipa11@gmail.com','1718','0'),
+(3,3,'2023-07-07 00:02:04','diegofelipa11@gmail.com','8608','0'),
+(4,3,'2023-07-07 00:23:18','diegofelipa11@gmail.com','1476','0'),
+(5,3,'2023-07-07 00:43:28','diegofelipa11@gmail.com','2420','0'),
+(6,3,'2023-07-07 01:11:27','diegofelipa11@gmail.com','3663','0'),
+(7,3,'2023-07-07 01:19:33','diegofelipa11@gmail.com','5801','0');
 
 /*Table structure for table `subcategories` */
 
@@ -500,7 +505,7 @@ CREATE TABLE `users` (
 
 insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
 (1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$H0wjgr.Vsx0n8UvGX/Ui3OF.FkdNllKmvWor/.mqnZY5y9RC2XrIm','A','2023-04-25 12:19:02',NULL,'1'),
-(3,'Diego10','Felipa Avalos','Diego','diegofelipa11@gmail.com','$2y$10$z4MzPW7TAtWlJ71jLDjbZ.3fNq.MZGahDTlmT7nrU8qaa23ZzKksW','E','2023-04-25 23:48:47',NULL,'1'),
+(3,'Diego10','Felipa Avalos','Diego','diegofelipa11@gmail.com','$2y$10$fuJ642I9ajOyQakiHwSWDuikFAnYtwpLfOPRHE.LWP9/Rb7EtZPim','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
 (45,'milagros730','levano','Milagros','milagros73@midominio.com','$2y$10$9JvejDF7aj1Di2N.fWNU9e24v/XaLHqHkiDyu1XXDivdXPVVkAApO','D','2023-06-27 08:11:34',NULL,'1'),
@@ -1384,6 +1389,49 @@ BEGIN
 					
 				WHERE idusers = _idusers;
 			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuario_actualizarpasssword` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuario_actualizarpasssword` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuario_actualizarpasssword`(
+    IN _idusers INT,
+    IN _accesskey VARCHAR(100)
+)
+BEGIN
+    UPDATE users SET accesskey = _accesskey WHERE idusers = _idusers;
+    UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuario_validarclave` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuario_validarclave` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuario_validarclave`(
+    IN _idusers INT,
+    IN _clavegenerada CHAR(4)
+)
+BEGIN
+    IF (
+        (
+        SELECT clavegenerada
+        FROM recuperarclave
+        WHERE idusers = _idusers AND estado = '1'
+        LIMIT 1
+        ) = _clavegenerada
+    )
+    THEN
+        SELECT 'PERMITIDO' AS 'status';
+    ELSE
+        SELECT 'DENEGADO' AS 'status';
+    END IF;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_usuario_validartiempo` */

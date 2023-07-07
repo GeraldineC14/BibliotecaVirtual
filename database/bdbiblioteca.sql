@@ -1027,7 +1027,7 @@ SELECT * FROM commentaries;
 		       UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
 		   END $$
 
-SELECT * FROM recuperarclave
+SELECT * FROM users
 	   
 	-- Procedimientos almacenados
 	
