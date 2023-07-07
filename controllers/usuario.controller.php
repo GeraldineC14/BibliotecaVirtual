@@ -228,8 +228,26 @@ require_once '../models/Mail.php';
             //Enviado a la vista
             echo json_encode($retornoDatos);
             
-          }
-    }
+        }
 
-    
+        if($_POST['operacion'] == 'validarClave'){
+            $datos = [
+              "idusers"     => $_POST['idusers'],
+              "clavegenerada" => $_POST['clavegenerada'] //modal
+            ];
+            $resultado = $usuario->validarClave($datos);
+            echo json_encode($resultado);
+        }
+
+        if ($_POST['operacion'] == 'actualizarClave'){
+   
+            $claveEncriptada = password_hash($_POST['accesskey'],PASSWORD_BCRYPT);
+            $iduser = $_POST['idusers'];
+            $datos =[
+              "idusers"   => $iduser,
+              "accesskey" => $claveEncriptada
+            ];
+            echo json_encode($usuario->actualizarClave($datos));
+          }
+    } 
 ?>

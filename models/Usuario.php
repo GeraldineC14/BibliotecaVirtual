@@ -154,6 +154,22 @@ class Usuario extends Conexion {
         }
     }
 
+    public function actualizarClave($data = []){
+        $resultado = ["status" => false];
+        try{
+          $consulta = $this->acceso->prepare("CALL spu_usuario_actualizarpasssword(?,?)");
+          $resultado ["status"] = $consulta->execute(
+            array(
+              $data['idusers'],
+              $data['accesskey']
+          ));
+          return $resultado;
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+      }
+
     public function validacionUsuario($username){
         try{
             $consulta = $this->acceso->prepare("CALL spu_validate_username(?)");

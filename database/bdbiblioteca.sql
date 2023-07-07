@@ -952,7 +952,82 @@ SELECT * FROM commentaries;
 		CONSTRAINT fk_idusuario_rcl FOREIGN KEY (idusuario) REFERENCES users(idusers)	
 	   )ENGINE = INNODB;
 	   
+	   DELIMITER $$
+	   CREATE PROCEDURE spu_registra_claverecuperacion(
+			IN _idusers INT, 
+			IN _email VARCHAR(120),
+			IN _clavegenerada CHAR(4)
+		)
+	   BEGIN
+		UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
+		INSERT INTO recuperarclave (idusers, email, clavegenerada) VALUES (_idusers, _email, _clavegenerada);
+	   END$$
 	   
+	   DELIMITER $$
+	   CREATE PROCEDURE spu_usuario_validartiempo(IN _idusers INT)
+	   BEGIN
+		IF ((SELECT COUNT(*) FROM recuperarclave WHERE idusers = _idusers) =0) THEN
+			SELECT 'GENERAR' AS 'status';
+			ELSE
+				-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
+				IF ((SELECT estado FROM recuperarclave WHERE idusers = _idusers ORDER BY 1 DESC LIMIT 1)= 0)THEN
+					SELECT 'GENERAR' AS 'status';
+				ELSE
+					-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
+					IF
+					(
+							(
+								SELECT COUNT(*) FROM recuperarclave 
+								WHERE idusers = _idusers AND estado = '1' AND
+								NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
+								ORDER BY fechageneracion DESC LIMIT 1						
+							) = 1
+						)THEN
+							-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
+							SELECT 'GENERAR' AS 'status';
+						ELSE
+							SELECT 'DENEGAR' AS 'status';
+					END IF;
+				END IF;
+			END IF;
+		END$$
+	   
+		-- Procedimiento que valida la clave ingresada
+		   DELIMITER $$
+		   CREATE PROCEDURE spu_usuario_validarclave
+		   (
+		       IN _idusers INT,
+		       IN _clavegenerada CHAR(4)
+		   )
+		   BEGIN
+		       IF (
+			   (
+			   SELECT clavegenerada
+			   FROM recuperarclave
+			   WHERE idusers = _idusers AND estado = '1'
+			   LIMIT 1
+			   ) = _clavegenerada
+		       )
+		       THEN
+			   SELECT 'PERMITIDO' AS 'status';
+		       ELSE
+		   	   SELECT 'DENEGADO' AS 'status';
+		       END IF;
+		   END $$
+		
+		-- PROCEDIMIENTO QUE FINALMENTE ACTUALIZARA LA CLAVE DESPUES DE TODAS LAS VALIDACIONES
+		   DELIMITER $$
+		   CREATE PROCEDURE spu_usuario_actualizarpasssword
+		   (
+		       IN _idusers INT,
+		       IN _accesskey VARCHAR(100)
+		   )
+		   BEGIN
+		       UPDATE users SET accesskey = _accesskey WHERE idusers = _idusers;
+		       UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
+		   END $$
+
+SELECT * FROM recuperarclave
 	   
 	-- Procedimientos almacenados
 	
@@ -971,6 +1046,8 @@ SELECT * FROM commentaries;
 	 CALL spu_searchuser('Diego10');
 	 
 	 SELECT * FROM users
+	 
+	 
 	 
 -- DASHBOARD
 -- Procedimiento almacenado (count)
