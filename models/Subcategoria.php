@@ -124,6 +124,21 @@ class Subcategoria extends Conexion{
         }
     }
 
+    // Reportes
+    public function ReporteSubcategoria($data=[]) {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_report_subcategoria(?)");
+            $consulta->execute(
+                array(
+                  $data['idcategorie']
+                )
+              );
+              return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+              die($e->getMessage());
+            }
+    }
+
 
 
 }

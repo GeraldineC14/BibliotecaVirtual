@@ -17,7 +17,6 @@ require_once 'permisos.php';
                     <!-- Datatable  -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 text-center">
-                            
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <!-- Título oculto para pc y laptop -->
                                 <div class="d-inline-block d-md-none" style="text-align: center;">
@@ -39,7 +38,8 @@ require_once 'permisos.php';
                                         &nbsp;Registrar Subcategoría
                                     </button>
                                     <!-- Botón para mostrar el modal de Generar  Reporte -->
-                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" role="button" href="#" style="margin-left: 50px;" id="mostrar-modal-reporte">
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-left: 50px;" id="reportButton">
+                                        <a href="index.php?view=report-subcategoria.php"></a>
                                         <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                         &nbsp;Generar Reporte
                                     </button>
@@ -53,10 +53,10 @@ require_once 'permisos.php';
                                             &nbsp;Registrar
                                         </button>
                                         <!-- Botón para mostrar el modal de generación de reporte (versión móvil) -->
-                                        <button class="btn btn-outline-danger btn-sm d-inline-block" role="button" id="mostrar-modal-reporte">
-                                            <i class="fas fa-download fa-sm text-black  fa-xl"></i>
+                                        <a class="btn btn-outline-danger btn-sm d-inline-block" id="reportButton" href="index.php?view=report-subcategoria.php">
+                                            <i class="fas fa-download fa-sm text-black fa-xl"></i>
                                             &nbsp;Reporte
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- FIN Versión Móvil -->
@@ -362,6 +362,20 @@ require_once 'permisos.php';
                     }
                 })
 
+            });
+
+            document.getElementById('reportButton').addEventListener('click', function(event) {
+                // Evitar que el evento de clic se propague al botón
+                event.preventDefault();
+
+                // Obtener el enlace dentro del botón
+                var link = this.querySelector('a');
+
+                // Obtener la URL de href del enlace
+                var url = link.getAttribute('href');
+
+                // Redirigir a la URL indicada en el href
+                window.location.href = url;
             });
 
 

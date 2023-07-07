@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - library
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.20-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
@@ -327,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bookschinchanos` */
 
@@ -340,7 +340,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
@@ -370,7 +370,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `commentaries` */
 
@@ -390,7 +390,8 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (13,3,1,'¿Qué es Lorem Ipsum?\nLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la i',4,'2023-06-30',NULL,'1'),
 (14,1,1,'Genial',5,'2023-06-30',NULL,'1'),
 (15,5,1,'giuyhiuh',3,'2023-07-03',NULL,'1'),
-(16,5,3,'El capitulo 3 a sido interesante.',4,'2023-07-05',NULL,'1');
+(16,5,3,'El capitulo 3 a sido interesante.',4,'2023-07-05',NULL,'1'),
+(17,2,25,'bonito',1,'2023-07-07',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -411,7 +412,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
 
@@ -440,7 +441,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recuperarclave` */
 
@@ -465,7 +466,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
@@ -499,7 +500,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -753,21 +754,53 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_commentaries_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_commentaries_list`(
+	    IN _idusers INT,
+	    IN _accesslevel CHAR(1)
+	)
 BEGIN
-    SELECT
-        commentaries.`idcommentary` AS idcomentario,
-        users.namess AS namess,
-        users.surnames AS surnames,
-        books.descriptions AS descriptions,
-        commentaries.commentary_date,
-        commentaries.commentary,
-        commentaries.`state` AS estado
-    FROM commentaries
-    INNER JOIN users ON commentaries.idusers = users.idusers
-    INNER JOIN books ON commentaries.idbook = books.idbook
-    WHERE commentaries.state = 1;
-END */$$
+	    IF _accesslevel = 'D' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1 AND (users.idusers = _idusers OR users.accesslevel = 'E');
+	    END IF;
+
+	    IF _accesslevel = 'E' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1 AND users.idusers = _idusers;
+	    END IF;
+
+	    IF _accesslevel = 'A' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1;
+	    END IF;
+	END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_delete_commentaries` */
@@ -1129,6 +1162,24 @@ BEGIN
 			UPDATE recuperarclave SET estado = '0' WHERE idusers = _idusers;
 			INSERT INTO recuperarclave (idusers, email, clavegenerada) VALUES (_idusers, _email, _clavegenerada);
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_report_subcategoria` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_report_subcategoria` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_report_subcategoria`(
+				IN _idcategorie VARCHAR(255)
+			)
+BEGIN
+				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
+					FROM subcategories sub
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+					WHERE FIND_IN_SET (cat.idcategorie,_idcategorie) > 0
+				ORDER BY sub.idsubcategorie ASC;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_return_book` */

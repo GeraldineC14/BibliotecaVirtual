@@ -194,6 +194,7 @@
 			END $$
 			
 			CALL spu_categories_list();
+		
 			
 		-- N°7 List subcategories
 			-- Editar
@@ -226,11 +227,26 @@
 			BEGIN
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
 					FROM subcategories sub
-					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie;
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+					
 			END $$
 			
 			CALL spu_subcategories3_list();
 			
+			-- Reporte
+			DELIMITER $$
+			CREATE PROCEDURE  spu_report_subcategoria(
+				IN _idcategorie VARCHAR(255)
+			)
+			BEGIN
+				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
+					FROM subcategories sub
+					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+					WHERE FIND_IN_SET (cat.idcategorie,_idcategorie) > 0
+				ORDER BY sub.idsubcategorie ASC;
+			END $$
+
+			CALL spu_report_subcategoria('1,2,3,4');
 			
 		-- N°8 list booksChinchanos admin view:
 			DELIMITER $$
@@ -846,25 +862,57 @@ DELIMITER ;
 CALL spu_obtener_Comentario(1);
 
 		
-
 -- Procedimiento Almacenado para Listar los comentarios (usuario/comentario/fecha)
-DELIMITER $$
-CREATE PROCEDURE spu_commentaries_list()
-BEGIN
-    SELECT
-        commentaries.idcommentary AS idcomentario,
-        CONCAT(users.namess, ' ', users.surnames) AS datos,
-        books.descriptions AS descriptions,
-        commentaries.commentary_date,
-        commentaries.commentary,
-        commentaries.state AS estado
-    FROM commentaries
-    INNER JOIN users ON commentaries.idusers = users.idusers
-    INNER JOIN books ON commentaries.idbook = books.idbook
-    WHERE commentaries.state = 1;
-END $$
-SELECT * FROM commentaries;
-CALL spu_commentaries_list()
+	DELIMITER $$
+	CREATE PROCEDURE spu_commentaries_list(
+	    IN _idusers INT,
+	    IN _accesslevel CHAR(1)
+	)
+	BEGIN
+	    IF _accesslevel = 'D' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1 AND (users.idusers = _idusers OR users.accesslevel = 'E');
+	    END IF;
+
+	    IF _accesslevel = 'E' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1 AND users.idusers = _idusers;
+	    END IF;
+
+	    IF _accesslevel = 'A' THEN
+		SELECT
+		    commentaries.idcommentary AS idcomentario,
+		    CONCAT(users.namess, ' ', users.surnames) AS datos,
+		    books.descriptions AS descriptions,
+		    commentaries.commentary_date,
+		    commentaries.commentary,
+		    commentaries.state AS estado
+		FROM commentaries
+		INNER JOIN users ON commentaries.idusers = users.idusers
+		INNER JOIN books ON commentaries.idbook = books.idbook
+		WHERE commentaries.state = 1;
+	    END IF;
+	END $$
+	
+	CALL spu_commentaries_list()
 
 DELIMITER $$
 	CREATE PROCEDURE spu_delete_commentaries

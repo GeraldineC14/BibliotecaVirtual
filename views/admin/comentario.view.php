@@ -100,6 +100,8 @@ require_once './permisos.php';
     <!-- Mis funciones y eventos javascript -->
     <script>
         $(document).ready(function() {
+            idusers = <?php echo $_SESSION['login']['idusers']; ?>;
+            accesslevel = "<?php echo $_SESSION['login']['accesslevel']; ?>";
 
             $(document).on('click', '#borrar', function(event) {
                 var dataID = $(this).data('id');
@@ -138,7 +140,11 @@ require_once './permisos.php';
                 $.ajax({
                     url: "../../controllers/comentario.controller.php",
                     type: "GET",
-                    data: 'operacion=listarComentario',
+                    data: {
+                            'operacion': 'listarComentario',
+                            'idusers': idusers,
+                            'accesslevel': accesslevel
+                        },
                     success: function(response) {
                         let registros = JSON.parse(response);
                         let nuevaFila = "";
@@ -150,11 +156,11 @@ require_once './permisos.php';
 
                         registros.forEach(registro => {
                             let commentPreview = registro['commentary'].split(' ').slice(0, 5).join(' ');
-
+                            let disabled = (accesslevel === 'D' || accesslevel === 'E') ? 'disabled' : '';
                             nuevaFila = `
                     <tr>
                         <td>${registro['idcomentario']}</td>
-                        <td>${registro['namess']} ${registro['surnames']}</td>
+                        <td>${registro['datos']}</td>
                         <td>${registro['descriptions']}</td>
                         <td>${registro['commentary_date']}</td>
                         <td>${commentPreview}</td>
@@ -162,7 +168,7 @@ require_once './permisos.php';
                             <button class='btn btn-info ver-comentario' data-id='${registro['idcomentario']}' data-toggle='modal' data-target='#modal-comentario'>
                                 <a style='color: black; font-weight:bold;'><i class="fa-solid fa-comment-dots fa-lg"></i></a>
                             </button>
-                            <button id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}">
+                            <button id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}"${disabled}>
                                 <a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a>
                             </button>
                         </td>

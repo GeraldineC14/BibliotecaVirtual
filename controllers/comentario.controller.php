@@ -6,11 +6,9 @@ if (isset($_GET['operacion'])) {
     $comentario = new Comentario();
 
     if ($_GET['operacion'] == 'listarComentario') {
-        // Obtener la lista de comentarios
-        $dataComentario = $comentario->mostrarCommentaries();
-        // Mostrar los comentarios
-        echo json_encode($dataComentario);
+        echo json_encode($comentario->mostrarCommentaries($_GET['idusers'], $_GET['accesslevel']));
     }
+    
     if ($_GET['operacion'] == 'eliminarComentario') {
         $datosSolicitados = [
             "idcomentario"         => $_GET['idcomentario']

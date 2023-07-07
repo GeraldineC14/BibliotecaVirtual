@@ -2,6 +2,7 @@
 
 //Requerimos acceso al modelo
 require_once '../models/Subcategoria.php';
+require_once '../tools/helpers.php';
 
 //Verificamos si existe un objeto
 if(isset($_GET['operacion'])){
@@ -55,6 +56,13 @@ if(isset($_GET['operacion'])){
     //Eliminar(tb.individual)
     if($_GET['operacion'] == 'eliminarSubcategoria'){
         $subcategoria->eliminarSubcategoria($_GET['idsubcategorie']);
+    }
+
+    //Reporte
+    if ($_GET['operacion'] == 'ReporteSubcategoria') {
+        renderJSON($subcategoria->ReporteSubcategoria(
+            ['idcategorie' => $_GET['idcategorie']]
+        ));
     }
 
 
