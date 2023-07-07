@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <!-- LightBox -->
-    <link rel="stylesheet" href="../vendor/lightbox/css/lightbox.min.css">
+    <link rel="stylesheet" href="../node_modules/lightbox2/dist/css/lightbox.min.css">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
 </head>
 
@@ -91,7 +91,7 @@
     <!-- FONTWASOME -->
     <script src="https://kit.fontawesome.com/9b57fc34f2.js" crossorigin="anonymous"></script>
     <!-- Lightbox -->
-    <script src="../vendor/lightbox/js/lightbox.min.js"></script>
+    <script src="../node_modules/lightbox2/src/js/lightbox.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

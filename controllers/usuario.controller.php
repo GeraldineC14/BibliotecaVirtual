@@ -20,6 +20,7 @@ if (!isset($_SESSION['login'])) {
 require_once '../models/Usuario.php';
 require_once '../tools/helpers.php';
 require_once '../models/Mail.php';
+require_once '../models/MailPrestamo.php';
 
     if(isset($_GET['operacion'])){
 
@@ -200,14 +201,15 @@ require_once '../models/Mail.php';
             if($respuesta ["status"] == "GENERAR"){
               //Crear un valor aleatorio de 4 dígitos
               $valorAleatorio = random_int(1000,9999);
+              $username = $_POST['usuario'];
         
               //Cuerpo del mensaje a enviar por EMAIL
               $mensaje = "
-                <h3> App SENATI </h3>
-                <strong> Recuperación de cuenta </strong>
+                <h3>Horacio Zeballos Gámez</h3>
+                <strong>Recuperación de cuenta</strong>
                 <hr>
-                <p> Estimado usuario, para recuperación el acceso, utilice la siguiente contraseña: </p>
-                <h3> {$valorAleatorio}</h3>
+                <p>Estimado {$username}, para recuperar el acceso, utilice la siguiente codigo:</p>
+                <h3>{$valorAleatorio}</h3>
               ";
         
               //Arreglo con datos a guardar en la tabla de recuperación
@@ -248,6 +250,30 @@ require_once '../models/Mail.php';
               "accesskey" => $claveEncriptada
             ];
             echo json_encode($usuario->actualizarClave($datos));
-          }
+        }
+
+        if($_POST['operacion'] == 'solicitudPrestamo'){
+
+            $username = $_POST['usuario'];
+            $cantidad = $_POST['cantidad'];
+            $libro = $_POST['libro'];
+            $fechaRecojo = $_POST['fechaRecojo'];
+            $fechaEntrega = $_POST['fechaEntrega'];
+            $observaciones = $_POST['observaciones'];
+
+            $mensaje = "
+                <h3> Horacio Zeballos Gámez </h3>
+                <strong> Nueva Solicitud de prestamo </strong>
+                <hr>
+                <p> El usuario $username a solicitado $cantidad libro de $libro.</p>
+                <p> Lo recogera el $fechaRecojo con una entrega estimada el dia $fechaEntrega</p>
+                <p> $observaciones </p>
+            ";
+    
+        
+              //Enviando correo
+              enviarCorreoPrestamo('1342318@senati.pe','Nuevo Prestamo',$mensaje);
+        }
+            
     } 
 ?>

@@ -216,6 +216,7 @@
                                     var stockActualizado = stockActual - cantidadSolicitada;
                                     $("#stock").text(stockActualizado);
 
+                                    solicitudPrestamo();
                                     setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
                                         window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';
@@ -225,6 +226,28 @@
                         }
                     });
                 }
+            }
+
+            function solicitudPrestamo(){
+                var datos = {};
+
+                datos['usuario']    = $("#nombrecompleto").val();
+                datos['cantidad']   = $("#cantidad").val();
+                datos['libro']      = $('#titulo').val();
+                datos['fechaRecojo']  = $("#fecha1").val();
+                datos['fechaEntrega'] = $("#fecha2").val();
+                datos['observaciones'] = $("#observacion").val();
+
+                datos['operacion'] = "solicitudPrestamo";
+
+                $.ajax({
+                    url: '../controllers/usuario.controller.php',
+                    type: 'POST',
+                    data: datos,
+                    success: function(result) {
+                        alertarToast("Proceso completado", "Se envio un correo de suprestamo", "success");
+                    }
+                });
             }
 
 

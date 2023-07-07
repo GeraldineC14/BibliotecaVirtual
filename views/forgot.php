@@ -171,6 +171,7 @@ session_start();
         const parametros = new URLSearchParams()
         parametros.append("operacion","enviarCorreo");
         parametros.append("email", document.querySelector("#email").value);
+        parametros.append("usuario", document.querySelector("#datosuser").value);
         parametros.append("idusers", iduser);
         console.log(iduser)
         fetch('../controllers/usuario.controller.php', {
