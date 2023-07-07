@@ -30,7 +30,7 @@ try {
     // Configuración del archivo PDF
     $html2pdf = new Html2Pdf('P', 'A4', 'es', true, 'UTF-8', array(20,20,20,20));
     $html2pdf->writeHTML($content);
-    $html2pdf->output('reporteusuario.pdf');
+    $html2pdf->output('ReporteUsuario.pdf');
 } catch (Html2PdfException $error) {
     $formatter = new ExceptionFormatter($error);
     echo $formatter->getHtmlMessage();
