@@ -21,6 +21,7 @@ require_once '../models/Usuario.php';
 require_once '../tools/helpers.php';
 require_once '../models/Mail.php';
 require_once '../models/MailPrestamo.php';
+require_once '../models/MailValidar.php';
 
     if(isset($_GET['operacion'])){
 
@@ -274,6 +275,60 @@ require_once '../models/MailPrestamo.php';
               //Enviando correo
               enviarCorreoPrestamo('1342318@senati.pe','Nuevo Prestamo',$mensaje);
         }
+
+        if($_POST['operacion'] == 'correoValidaremail'){
+            //VALIDAR QUE ESTE PROCESO ¡NO! SE EJECUTE SINO HASTA DESPUÉS 15MIN
+            $respuesta = $usuario->validarCorreotiempo(["email" => $_POST['email']]);
+        
+            $retornoDatos = ["mensaje" => "Ya se te envió una clave, revisa tu correo"];
+        
+        
+            if($respuesta ["status"] == "GENERAR"){
+              //Crear un valor aleatorio de 4 dígitos
+              $valorAleatorio = random_int(1000,9999);
+              $username = $_POST['usuario'];
+        
+              //Cuerpo del mensaje a enviar por EMAIL
+              $mensaje = "
+                <h3>Horacio Zeballos Gámez</h3>
+                <strong> Validacion de correo</strong>
+                <hr>
+                <p>Estimado(a) {$username}, el codigo para validar su correo es:</p>
+                <h3>{$valorAleatorio}</h3>
+              ";
+        
+              //Arreglo con datos a guardar en la tabla de recuperación
+              $data = [
+                  "email"         => $_POST['email'],
+                  "clavegenerada" => $valorAleatorio
+        
+              ];
+        
+              //Creando registro
+              $usuario->registraValidacioncorreo($data);
+        
+              //Enviando correo
+              enviarValidarcorreo($_POST['email'],'Código de Validacion',$mensaje);
+               $retornoDatos["mensaje"] = "Se ha generado y enviado la clave al email indicado";
+            }
+            //Enviado a la vista
+            echo json_encode($retornoDatos);
+            
+        }
+
+        if($_POST['operacion'] == 'validarClavecorreo'){
+            $datos = [
+              "email"     => $_POST['email'],
+              "clavegenerada" => $_POST['clavegenerada'] //modal
+            ];
+            $resultado = $usuario->validarClavecorreo($datos);
+            echo json_encode($resultado);
+        }
+
+        if ($_POST['operacion'] == 'validacionCompleta'){
+            echo json_encode($usuario->validacionCompleta($_POST['email']));
+        }
+
             
     } 
 ?>

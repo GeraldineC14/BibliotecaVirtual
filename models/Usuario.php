@@ -168,7 +168,7 @@ class Usuario extends Conexion {
         catch(Exception $e){
           die($e->getMessage());
         }
-      }
+    }
 
     public function validacionUsuario($username){
         try{
@@ -191,6 +191,65 @@ class Usuario extends Conexion {
         }
         catch(Exception $e){
             die($e->getMessage());
+        }
+    }
+
+    public function registraValidacioncorreo($data = []){
+        try{
+          $consulta = $this->acceso->prepare("CALL spu_registra_clavevalidacioncorreo(?,?)");
+          $consulta->execute(
+            array(
+              $data['email'],
+              $data['clavegenerada']
+          ));
+    
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die($e->getMessage());
+        }
+    }
+
+    public function validarCorreotiempo($data = []){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_correo_validartiempo(?)");
+            $consulta->execute(
+            array(
+                $data['email']
+            ));
+
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function validarClavecorreo($data = []){
+        try{
+        $consulta = $this->acceso->prepare("CALL spu_correo_validarclave(?,?)");
+        $consulta->execute(
+            array(
+            $data['email'],
+            $data['clavegenerada']
+        ));
+
+        return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+        die($e->getMessage());
+        }
+    }
+
+    public function validacionCompleta($data = ''){
+        $resultado = ["status" => false];
+        try{
+          $consulta = $this->acceso->prepare("CALL spu_correo_validacioncompleta(?)");
+          $resultado ["status"] = $consulta->execute(array($data));
+          return $resultado;
+        }
+        catch(Exception $e){
+          die($e->getMessage());
         }
     }
 

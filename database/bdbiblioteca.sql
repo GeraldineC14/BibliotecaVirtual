@@ -619,7 +619,95 @@
 					WHERE idusers = _idusers;
 			END $$
 					
+	-- Tabla de validacioncorreo
+	CREATE TABLE validacioncorreo(
+		idvalidacion			INT AUTO_INCREMENT PRIMARY KEY,
+		fechageneracion			DATETIME 	NOT NULL DEFAULT NOW(),
+		email				VARCHAR(120) 	NOT NULL,	-- Email que se utilizó en ese momento
+		clavegenerada			CHAR(4)	 	NOT NULL,
+		estado				CHAR(1)	 	NOT NULL DEFAULT '1'
+	)ENGINE = INNODB;
+		-- PROCEDIMIENTO ALMACENADO
+			-- N°1 Creacion del codigo para verificar correo
+			DELIMITER $$
+			CREATE PROCEDURE spu_registra_clavevalidacioncorreo(
+				IN _email VARCHAR(120) CHARSET utf8mb4,
+				IN _clavegenerada CHAR(4)
+			)
+			BEGIN
+				UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
+				INSERT INTO validacioncorreo (email, clavegenerada) VALUES (_email, _clavegenerada);
+			END $$
 			
+			-- N°2 verificacion de tiempo codigo
+			DELIMITER $$
+			CREATE PROCEDURE spu_correo_validartiempo(IN _email VARCHAR(120))
+			BEGIN
+			IF ((SELECT COUNT(*) FROM validacioncorreo WHERE email = _email) =0) THEN
+				SELECT 'GENERAR' AS 'status';
+				ELSE
+					-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
+					IF ((SELECT estado FROM validacioncorreo WHERE email = _email ORDER BY 1 DESC LIMIT 1)= 0)THEN
+						SELECT 'GENERAR' AS 'status';
+					ELSE
+						-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
+						IF
+						(
+								(
+									SELECT COUNT(*) FROM validacioncorreo 
+									WHERE email = _email AND estado = '1' AND
+									NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
+									ORDER BY fechageneracion DESC LIMIT 1						
+								) = 1
+							)THEN
+								-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
+								SELECT 'GENERAR' AS 'status';
+							ELSE
+								SELECT 'DENEGAR' AS 'status';
+						END IF;
+					END IF;
+				END IF;
+			END$$
+
+
+			-- Procedimiento que valida la clave ingresada
+			DELIMITER $$
+			CREATE PROCEDURE spu_correo_validarclave
+				(
+					IN _email VARCHAR(150) CHARSET utf8mb4,
+					IN _clavegenerada CHAR(4)
+				)
+			BEGIN
+			IF (
+			   (
+			   SELECT clavegenerada
+			   FROM validacioncorreo
+			   WHERE email = _email AND estado = '1'
+			   LIMIT 1
+			   ) = _clavegenerada
+			   )
+			THEN
+			   SELECT 'PERMITIDO' AS 'status';
+			ELSE
+			   SELECT 'DENEGADO' AS 'status';
+			END IF;
+			END $$
+
+			DELIMITER $$
+			CREATE PROCEDURE spu_correo_validacioncompleta
+			(
+				IN _email VARCHAR(120) CHARSET utf8mb4
+			)
+			BEGIN
+				UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
+			END $$
+
+		
+		
+		
+		
+		
+		
 -- BOOK LOANS:
 	-- Tb. Loans
 		CREATE TABLE loans
