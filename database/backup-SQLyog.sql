@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.20-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -327,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -340,7 +340,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -370,7 +370,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -412,7 +412,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -441,7 +441,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -466,7 +466,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -500,7 +500,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -515,6 +515,24 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1'),
 (49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'1'),
 (50,'Piero123','Arias Tasayco','Piero ','piero123@midominio.com','$2y$10$9KJ/s9YXXXVF676FLNJWEe/E.AN.pbRsczw4/YmdLI8rHDOhWyZaC','D','2023-07-05 17:06:15',NULL,'1');
+
+/*Table structure for table `validacioncorreo` */
+
+DROP TABLE IF EXISTS `validacioncorreo`;
+
+CREATE TABLE `validacioncorreo` (
+  `idvalidacion` int(11) NOT NULL AUTO_INCREMENT,
+  `fechageneracion` datetime NOT NULL DEFAULT current_timestamp(),
+  `email` varchar(120) NOT NULL,
+  `clavegenerada` char(4) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idvalidacion`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `validacioncorreo` */
+
+insert  into `validacioncorreo`(`idvalidacion`,`fechageneracion`,`email`,`clavegenerada`,`estado`) values 
+(1,'2023-07-08 08:00:44','defcmr10@gmail.com','5254','0');
 
 /* Procedure structure for procedure `spu_binarios_obtain` */
 
@@ -772,7 +790,6 @@ BEGIN
 		INNER JOIN books ON commentaries.idbook = books.idbook
 		WHERE commentaries.state = 1 AND (users.idusers = _idusers OR users.accesslevel = 'E');
 	    END IF;
-
 	    IF _accesslevel = 'E' THEN
 		SELECT
 		    commentaries.idcommentary AS idcomentario,
@@ -786,7 +803,6 @@ BEGIN
 		INNER JOIN books ON commentaries.idbook = books.idbook
 		WHERE commentaries.state = 1 AND users.idusers = _idusers;
 	    END IF;
-
 	    IF _accesslevel = 'A' THEN
 		SELECT
 		    commentaries.idcommentary AS idcomentario,
@@ -801,6 +817,82 @@ BEGIN
 		WHERE commentaries.state = 1;
 	    END IF;
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_correo_validacioncompleta` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_correo_validacioncompleta` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_correo_validacioncompleta`(
+				IN _email VARCHAR(120) CHARSET utf8mb4
+			)
+BEGIN
+				UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_correo_validarclave` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_correo_validarclave` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_correo_validarclave`(
+					IN _email VARCHAR(150) CHARSET utf8mb4,
+					IN _clavegenerada CHAR(4)
+				)
+BEGIN
+			IF (
+			   (
+			   SELECT clavegenerada
+			   FROM validacioncorreo
+			   WHERE email = _email AND estado = '1'
+			   LIMIT 1
+			   ) = _clavegenerada
+			   )
+			THEN
+			   SELECT 'PERMITIDO' AS 'status';
+			ELSE
+			   SELECT 'DENEGADO' AS 'status';
+			END IF;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_correo_validartiempo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_correo_validartiempo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_correo_validartiempo`(IN _email VARCHAR(120))
+BEGIN
+			IF ((SELECT COUNT(*) FROM validacioncorreo WHERE email = _email) =0) THEN
+				SELECT 'GENERAR' AS 'status';
+				ELSE
+					-- Buscamos el último estado del usuario . si es 0, entonces debe GENERAR el código
+					IF ((SELECT estado FROM validacioncorreo WHERE email = _email ORDER BY 1 DESC LIMIT 1)= 0)THEN
+						SELECT 'GENERAR' AS 'status';
+					ELSE
+						-- En esta sección, el último registro es '1', NO sabemos si está dentro de los 15min permitidos
+						IF
+						(
+								(
+									SELECT COUNT(*) FROM validacioncorreo 
+									WHERE email = _email AND estado = '1' AND
+									NOW()NOT BETWEEN fechageneracion AND DATE_ADD(fechageneracion,INTERVAL 15 MINUTE)
+									ORDER BY fechageneracion DESC LIMIT 1						
+								) = 1
+							)THEN
+								-- El usuario tiene estado 1, pero esta fuera de los 15 minutos
+								SELECT 'GENERAR' AS 'status';
+							ELSE
+								SELECT 'DENEGAR' AS 'status';
+						END IF;
+					END IF;
+				END IF;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_delete_commentaries` */
@@ -1164,6 +1256,22 @@ BEGIN
 		END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_registra_clavevalidacioncorreo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_registra_clavevalidacioncorreo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registra_clavevalidacioncorreo`(
+	IN _email VARCHAR(120) CHARSET utf8mb4,
+	IN _clavegenerada CHAR(4)
+)
+BEGIN
+	UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
+	INSERT INTO validacioncorreo (email, clavegenerada) VALUES (_email, _clavegenerada);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_reporte_comentario` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_reporte_comentario` */;
@@ -1193,7 +1301,6 @@ BEGIN
 			AND year(commentaries.commentary_date) = _anio
 			AND month(commentaries.commentary_date) = _mes
 			AND users.accesslevel = 'E';
-
 		  ELSEIF _accesslevel = 'A' then
 			SELECT
 			    commentaries.idcommentary AS idcomentario,
@@ -1223,7 +1330,6 @@ BEGIN
 			INNER JOIN books ON commentaries.idbook = books.idbook
 		    WHERE commentaries.idbook  = _idbook 
 			AND users.accesslevel = 'E';
-
 		  ELSEIF _accesslevel = 'A' THEN
 			SELECT
 			    commentaries.idcommentary AS idcomentario,
