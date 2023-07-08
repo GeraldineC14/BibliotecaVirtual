@@ -13,12 +13,12 @@ require_once './permisos.php';
                 <div class="card shadow">
                     <!-- Datatable  -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 text-center">
+                    <div class="card-header py-3 text-center">
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <!-- Título oculto para pc y laptop -->
                                 <div class="d-inline-block d-md-none" style="text-align: center;">
                                     <h3 class="title-tablas2">
-                                        Comentarios
+                                        Usuarios
                                     </h3>
                                 </div>
                                 <!-- Título oculto para móvil y tablet -->
@@ -27,6 +27,26 @@ require_once './permisos.php';
                                         Módulo de Comentarios
                                     </h3>
                                 </div>
+
+                                <div class="btn-group" role="group">
+                                    <!-- Botón para mostrar la vista de reporte -->
+                                    <button class="btn btn-danger btn-sm d-none d-md-inline-block"  id="reportButton">
+                                        <a href="index.php?view=report-comentario.php"></a>
+                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                        &nbsp;Generar Reporte
+                                    </button>
+                                </div>
+                                <!-- INICIO Versión Móvil -->
+                                <div class="d-flex mx-auto d-md-none">
+                                    <div class="btn-group w-100" role="group">
+                                        <!-- Botón para mostrar la vista de generación de reporte (versión móvil) -->
+                                        <a class="btn btn-outline-danger btn-sm d-inline-block" id="reportButton" href="index.php?view=report-comentario.php">
+                                            <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                            &nbsp;Reporte
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- FIN Versión Móvil -->
                             </div>
                         </div>
                         <div class="card-body">
@@ -43,7 +63,7 @@ require_once './permisos.php';
                                     <thead class="table-dark">
                                         <tr>
                                             <th>#</th>
-                                            <th>Datos personales</th>
+                                            <th>Usuario</th>
                                             <th>Libro</th>
                                             <th>Fecha</th>
                                             <th>Comentario</th>
@@ -79,9 +99,6 @@ require_once './permisos.php';
                         </div>
                     </div>
                     <!-- ... -->
-
-
-
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
@@ -211,6 +228,20 @@ require_once './permisos.php';
                         $("#modal-comentario").modal('show');
                     }
                 });
+            });
+
+            document.getElementById('reportButton').addEventListener('click', function(event) {
+                // Evitar que el evento de clic se propague al botón
+                event.preventDefault();
+
+                // Obtener el enlace dentro del botón
+                var link = this.querySelector('a');
+
+                // Obtener la URL de href del enlace
+                var url = link.getAttribute('href');
+
+                // Redirigir a la URL indicada en el href
+                window.location.href = url;
             });
 
 

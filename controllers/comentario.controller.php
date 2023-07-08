@@ -38,6 +38,10 @@ if (isset($_GET['operacion'])) {
 
         echo json_encode($comentarioSeleccionado);
     }
+
+    if ($_GET['operacion'] == 'reporteComentario') {
+        echo json_encode($comentario->reporteComentario($_GET['idbook'], $_GET['anio'], $_GET['mes'],$_GET['accesslevel']));
+    }
 }
 
 ?>

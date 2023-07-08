@@ -638,46 +638,46 @@
 		)ENGINE = INNODB;
 		
 -- Procedimiento para registrar prestamo y actualizar las tablas
-		DELIMITER $$
-CREATE PROCEDURE spu_loan_registration
-(
-    IN _idbook INT,
-    IN _idusers INT,
-    IN _observation VARCHAR(100),
-    IN _loan_date DATETIME,
-    IN _return_date DATETIME,
-    IN _amount VARCHAR(30)
-)
-BEGIN
-    DECLARE v_book_amount INT;
-    
-    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
-    SELECT amount INTO v_book_amount
-    FROM books
-    WHERE idbook = _idbook;
-    
-    IF v_book_amount IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El libro no existe.';
-    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
-    ELSE
-        -- Realizar el préstamo y actualizar las tablas
-        START TRANSACTION;
-        
-        -- Restar la cantidad prestada al campo "amount" de la tabla "books"
-        UPDATE books
-        SET amount = amount - CAST(_amount AS INT)
-        WHERE idbook = _idbook;
-        
-        -- Insertar el préstamo en la tabla "loans" con return_date como NULL
-        INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
-        VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
-        
-        COMMIT;
-    END IF;
-END $$
+	DELIMITER $$
+	CREATE PROCEDURE spu_loan_registration
+	(
+	    IN _idbook INT,
+	    IN _idusers INT,
+	    IN _observation VARCHAR(100),
+	    IN _loan_date DATETIME,
+	    IN _return_date DATETIME,
+	    IN _amount VARCHAR(30)
+	)
+	BEGIN
+	    DECLARE v_book_amount INT;
+	    
+	    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
+	    SELECT amount INTO v_book_amount
+	    FROM books
+	    WHERE idbook = _idbook;
+	    
+	    IF v_book_amount IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		    SET MESSAGE_TEXT = 'El libro no existe.';
+	    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
+		SIGNAL SQLSTATE '45000'
+		    SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
+	    ELSE
+		-- Realizar el préstamo y actualizar las tablas
+		START TRANSACTION;
+		
+		-- Restar la cantidad prestada al campo "amount" de la tabla "books"
+		UPDATE books
+		SET amount = amount - CAST(_amount AS INT)
+		WHERE idbook = _idbook;
+		
+		-- Insertar el préstamo en la tabla "loans" con return_date como NULL
+		INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
+		VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
+		
+		COMMIT;
+	    END IF;
+	END $$
 
 
 -- Procedimiento almacenado para devolver un libro
@@ -861,7 +861,7 @@ DELIMITER ;
 
 CALL spu_obtener_Comentario(1);
 
-		
+-- COMENTARIOS:	
 -- Procedimiento Almacenado para Listar los comentarios (usuario/comentario/fecha)
 	DELIMITER $$
 	CREATE PROCEDURE spu_commentaries_list(
@@ -912,29 +912,99 @@ CALL spu_obtener_Comentario(1);
 	    END IF;
 	END $$
 	
-	CALL spu_commentaries_list()
+	CALL spu_commentaries_list(25,'D')
 
-DELIMITER $$
-	CREATE PROCEDURE spu_delete_commentaries
-	(
-		 IN _idcomentario INT
+	
+	-- Eliminar comentario
+	DELIMITER $$
+		CREATE PROCEDURE spu_delete_commentaries
+		(
+			 IN _idcomentario INT
+		)
+		BEGIN
+		 UPDATE commentaries
+		 SET state = 0
+		 WHERE idcommentary = _idcomentario;
+	END $$
+	
+	-- Reporte comentario
+	DELIMITER $$
+	CREATE PROCEDURE spu_reporte_comentario(
+	    IN _idbook INT,
+	    IN _anio CHAR(4),
+	    IN _mes CHAR(2),
+	    IN _accesslevel CHAR(1)    
 	)
 	BEGIN
-	 UPDATE commentaries
-	 SET state = 0
-	 WHERE idcommentary = _idcomentario;
-END $$
+	  IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+		IF _accesslevel = 'D' THEN 
+		    SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook 
+			AND YEAR(commentaries.commentary_date) = _anio
+			AND MONTH(commentaries.commentary_date) = _mes
+			AND users.accesslevel = 'E';
 
-CALL spu_delete_commentaries(4);
-CALL spu_commentaries_list();
+		  ELSEIF _accesslevel = 'A' THEN
+			SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook
+			AND YEAR(commentaries.commentary_date) = _anio
+			AND MONTH(commentaries.commentary_date) = _mes;
+		END IF;
+	ELSE
+		IF _accesslevel = 'D' THEN 
+		    SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook 
+			AND users.accesslevel = 'E';
 
-TRUNCATE commentaries
-
-SELECT * FROM commentaries;
-		
-		SELECT * FROM commentaries
+		  ELSEIF _accesslevel = 'A' THEN
+			SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook;
+		END IF;
+	END IF;
+	END $$
 	
-	-- PROCEDIMIENTO ALMACENADO
+	DROP PROCEDURE spu_reporte_comentario
+	CALL spu_reporte_comentario(2,NULL,NULL,'A')
+	
+
+	
+	-- PROCEDIMIENTO ALMACENADO	
 	-- VISTA ZONA SOCIAL:
 		-- N°1 Register comments
 			DELIMITER $$

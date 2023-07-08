@@ -1164,6 +1164,83 @@ BEGIN
 		END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_reporte_comentario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reporte_comentario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reporte_comentario`(
+	    IN _idbook INT,
+	    IN _anio char(4),
+	    in _mes char(2),
+	    IN _accesslevel CHAR(1)    
+	)
+BEGIN
+	  IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+		IF _accesslevel = 'D' then 
+		    SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook 
+			AND year(commentaries.commentary_date) = _anio
+			AND month(commentaries.commentary_date) = _mes
+			AND users.accesslevel = 'E';
+
+		  ELSEIF _accesslevel = 'A' then
+			SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook
+			AND YEAR(commentaries.commentary_date) = _anio
+			AND MONTH(commentaries.commentary_date) = _mes;
+		END IF;
+	ELSE
+		IF _accesslevel = 'D' THEN 
+		    SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook 
+			AND users.accesslevel = 'E';
+
+		  ELSEIF _accesslevel = 'A' THEN
+			SELECT
+			    commentaries.idcommentary AS idcomentario,
+			    CONCAT(users.namess, ' ', users.surnames) AS datos,
+			    books.descriptions AS descriptions,
+			    commentaries.commentary_date,
+			    commentaries.commentary,
+			    commentaries.state AS estado
+			FROM commentaries
+			INNER JOIN users ON commentaries.idusers = users.idusers
+			INNER JOIN books ON commentaries.idbook = books.idbook
+		    WHERE commentaries.idbook  = _idbook;
+		END IF;
+	END IF;
+	END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_report_subcategoria` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_report_subcategoria` */;

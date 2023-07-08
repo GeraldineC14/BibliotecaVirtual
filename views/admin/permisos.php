@@ -18,9 +18,9 @@ $vistaActiva = $url_array[count($url_array) - 1];
 //3. Definir los permisos
 $permisos = [
   "A" => ["admin.view.php", "libros.view.php", "prestamos.admin.php", "users.view.php","perfil.view.php","categoria.view.php",
-          "subcategoria.view.php", "edit-pdf.php", "edit-frontpage.php", "report-libro.php", "report-prestamo.php", 
-          "report-usuario.php", "comentario.view.php", "report-subcategoria.php"],
-  "D" => ["admin.view.php", "prestamos.admin.php","perfil.view.php", "comentario.view.php"],
+          "subcategoria.view.php", "edit-pdf.php", "edit-frontpage.php", "report-libro.php", "report-prestamo.php",
+          "report-usuario.php", "comentario.view.php", "report-subcategoria.php", "report-comentario.php"],
+  "D" => ["admin.view.php", "prestamos.admin.php","perfil.view.php", "comentario.view.php", "report-comentario.php"],
   "E" => ["admin.view.php", "prestamos.admin.php","perfil.view.php", "comentario.view.php"]
 ];
 

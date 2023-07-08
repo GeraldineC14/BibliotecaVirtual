@@ -65,5 +65,18 @@ class Comentario extends Conexion
         }
     }
 
+    //Reporte
+    public function reporteComentario($idbook,$anio,$mes,$accesslevel)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_reporte_comentario(?,?,?,?)");
+            $consulta->execute(array($idbook,$anio,$mes,$accesslevel));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 }

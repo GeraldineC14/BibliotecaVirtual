@@ -327,6 +327,7 @@ require_once 'permisos.php';
                 maximumSelectionLength: 1,
                 placeholder: 'Seleccione: '
             });
+            
             $('.usuario').select2({
                 maximumSelectionLength: 1,
                 placeholder: 'Seleccione: '
