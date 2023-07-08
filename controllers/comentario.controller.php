@@ -1,6 +1,7 @@
 <?php
 
 require_once "../models/Comentario.php";
+require_once '../tools/helpers.php';
 
 if (isset($_GET['operacion'])) {
     $comentario = new Comentario();
@@ -40,7 +41,14 @@ if (isset($_GET['operacion'])) {
     }
 
     if ($_GET['operacion'] == 'reporteComentario') {
-        echo json_encode($comentario->reporteComentario($_GET['idbook'], $_GET['anio'], $_GET['mes'],$_GET['accesslevel']));
+        renderJSON($comentario->reporteComentario(
+            [
+                'idbook' => $_GET['idbook'],
+                'anio' => $_GET['anio'],
+                'mes' => $_GET['mes'],
+                'accesslevel' => $_GET['accesslevel']
+            ]
+        ));
     }
 }
 

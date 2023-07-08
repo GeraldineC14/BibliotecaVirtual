@@ -1,4 +1,4 @@
-<page orientation="portrait">
+<page orientation="landscape">
     <bookmark title="Document" level="0"></bookmark>
     <a name="document_reprise"></a>
     <table cellspacing="0" style="width: 100%;">
@@ -9,7 +9,7 @@
             <td style="width: 80%; font-weight: bold;">
                 <span style="font-size: 10pt"><br></span>
                 <div class="center" style="font-size: 20pt;">
-                    REPORTE DE SUB CATEGORÍA
+                    REPORTE DE COMENTARIOS
                 </div>
             </td>
             <td style="width: 10%;">
@@ -48,9 +48,9 @@
                         <td style="width: 100%">
                             <div>
                                 <?php
-                                    function crearTabla($categoria = ""){
+                                    function crearTabla($libro = ""){
                                         $nuevaTabla = "
-                                        <h4 class='mb-2 mt-5'>{$categoria}</h4>
+                                        <h4 class='mb-2 mt-5'>LIBRO: {$libro}</h4>
                                         <table class='table table-border mb-3'>
                                             <colgroup>
                                                   <col width='5%'>
@@ -63,8 +63,9 @@
                                               <thead>
                                                   <tr class='bg-primary'>
                                                       <th>#</th>
-                                                      <th>Sub Categoría</th>
-                                                      <th>Fecha de Registro</th>
+                                                      <th>Usuario</th>
+                                                      <th>Fecha de registro</th>
+                                                      <th>Comentario</th>
                                                   </tr>
                                               </thead>
                                             <tbody>
@@ -83,42 +84,43 @@
                                     function agregarFila($arreglo = []) {
                                       echo "
                                           <tr>
-                                              <td>{$arreglo['idsubcategorie']}</td>
-                                              <td>{$arreglo['subcategoryname']}</td>
-                                              <td>{$arreglo['registrationdate']}</td>
+                                              <td>{$arreglo['idcomentario']}</td>
+                                              <td>{$arreglo['datos']}</td>
+                                              <td>{$arreglo['commentary_date']}</td>
+                                              <td>{$arreglo['commentary']}</td>
                                           </tr>
                                       ";
                                   }
                                   
-                                    function reporteSubcategoria($registrosCategoria) {
-                                        echo "<h3 class='mt-3'>Número de Sub Categoría por Categorías:</h3>";
+                                    function reporteSubcategoria($registrosLibros) {
+                                        echo "<h3 class='mt-3'>Número de Comentarios por Libros:</h3>";
                                         echo "<ul>";
                                         
-                                        foreach ($registrosCategoria as $id => $numRegistros) {
-                                            echo "<li>{$id}: {$numRegistros} registros</li>";
+                                        foreach ($registrosLibros as $id => $numRegistros) {
+                                            echo "<li>{$id}: {$numRegistros} comentarios</li>";
                                         }
                                         echo "</ul>";
                                     }
                             
                                     if (count($datos) > 0){
-                                        $categoria = $datos[0]["categoryname"];
-                                        $registrosCategoria= array($categoria => 0);
-                                        crearTabla($categoria);
+                                        $libro = $datos[0]["descriptions"];
+                                        $registrosLibros= array($libro => 0);
+                                        crearTabla($libro);
                                         foreach($datos as $registro){
-                                            if($categoria == $registro["categoryname"]){
+                                            if($libro == $registro["descriptions"]){
                                                 agregarFila($registro);
-                                                $registrosCategoria[$categoria]++;
+                                                $registrosLibros[$libro]++;
                                             }else{
-                                                $categoria = $registro["categoryname"];
+                                                $libro = $registro["descriptions"];
                                                 cerrarTabla();
-                                                crearTabla($categoria);
+                                                crearTabla($libro);
                                                 agregarFila($registro);
-                                                $registrosCategoria[$categoria] = 1;
+                                                $registrosLibros[$libro] = 1;
                                             }
                                         }
                                         cerrarTabla();
                                         // Llamamos las funciones
-                                        reporteSubcategoria($registrosCategoria);
+                                        reporteSubcategoria($registrosLibros);
                                     }else{
                                         echo "<h3 class='mt-3'>No encontramos registros</h3>";
                                     }

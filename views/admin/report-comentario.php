@@ -50,8 +50,7 @@ require_once 'permisos.php';
                             </div>
                             <!-- Fin body -->
                             <div class="card-footer text-muted text-center">
-                                <button type="button" class="btn btn-success mt-2" id="obtener">Mostrar</button>
-                                <button type="button" class="btn btn-danger mt-2" id="generar">Generar PDF</button>
+                                <button type="button" class="btn btn-danger mt-2" id="btnGenerarPDF">Generar PDF</button>
                             </div>
                         </div>
                         <!-- Fin Card -->
@@ -99,6 +98,18 @@ require_once 'permisos.php';
     const inputFecha = document.querySelector('#fecha');
     const selectLibro = document.querySelector("#libro");
     const tablaComentario = document.querySelector("#comentario tbody");
+    let filtroPDF = -1;
+
+    function alerta(textoMensaje = "") {
+        Swal.fire({
+            title: 'Comentarios',
+            text: textoMensaje,
+            icon: 'info',
+            footer: 'Horacio Zeballos Gámez',
+            timer: 2500,
+            confirmButtonText: 'Aceptar'
+        });
+    }
 
     function listarLibros(){
         fetch(`../../controllers/biblioteca.controller.php?operacion=listarLibros`)
@@ -117,11 +128,11 @@ require_once 'permisos.php';
     function listarComentario() {
         const indiceLibro = parseInt(selectLibro.value);
         const indiceLibroSeleccionado = indiceLibro >= 1 ? indiceLibro : "0";
-        let filtroPDF = -1;
+    
         // Obtener el valor del año y del mes
         var valorFecha = inputFecha.value;
-        var anio = null;
-        var mes = null;
+        var anio = '';
+        var mes = '';
 
         if (valorFecha) {
             anio = valorFecha.split("-")[0];
@@ -134,22 +145,18 @@ require_once 'permisos.php';
         parametros.append("mes",mes);
         parametros.append("accesslevel",accesslevel);
         console.log(parametros.toString());
-
         fetch(`../../controllers/comentario.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
-            .then(datos =>{
-                let i=1;
+            .then(datos => {
                 if(!datos || datos.length === 0){
-                    alert('No hay datos disponibles.');
-                    tablaComentario.innerHTML = '';
-                    selectLibro.value = 0;
+                    tablaComentario.innerHTML = '<tr><td colspan="5">No ha seleccionado ningún libro</td></tr>';
                     filtroPDF = -1;
                 }else{
                     registro = JSON.parse(datos);
                     tablaComentario.innerHTML=``;
                     filtroPDF = 1;
 
-                    registro.forEach(element=>{
+                    registro.forEach(element => {
                     const tableRow = `
                     <tr>
                         <td>${element.idcomentario}</td>
@@ -166,9 +173,37 @@ require_once 'permisos.php';
             });
     }
 
+    function generarPDF() {
+        var valorFecha = inputFecha.value;
+        var anio = '';
+        var mes = '';
 
-    selectLibro.addEventListener("change", listarComentario);
+        if (valorFecha) {
+            anio = valorFecha.split("-")[0];
+            mes = valorFecha.split("-")[1];
+        }
+
+        if (selectLibro.value == 0) {
+          alerta("Debes elegir un libro para poder crear el PDF");
+        } else if (filtroPDF > 0) {
+          const parametros = new URLSearchParams();
+            parametros.append("idbook", selectLibro.value);
+            parametros.append("anio",anio);
+            parametros.append("mes",mes);
+            parametros.append("accesslevel",accesslevel);
+            parametros.append("titulo", selectLibro.options[selectLibro.selectedIndex].text);
+
+          window.open(`../../reports/report-comentario/reporte.php?${parametros}`, '_blank');
+        } else {
+          alert("No existen datos disponibles para generar el PDF");
+        }
+
+      }
+
+
+    $(selectLibro).on('change', listarComentario);
     inputFecha.addEventListener("change", listarComentario);
+    btnGenerarPDF.addEventListener("click", generarPDF);
     listarLibros();
     $('.libro').select2({
         maximumSelectionLength: 1,

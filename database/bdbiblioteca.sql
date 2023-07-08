@@ -702,10 +702,7 @@
 				UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
 			END $$
 
-		
-		
-		
-		
+			
 		
 		
 -- BOOK LOANS:
@@ -1036,7 +1033,7 @@ CALL spu_obtener_Comentario(1);
 			FROM commentaries
 			INNER JOIN users ON commentaries.idusers = users.idusers
 			INNER JOIN books ON commentaries.idbook = books.idbook
-		    WHERE commentaries.idbook  = _idbook 
+		    WHERE commentaries.idbook  = _idbook AND commentaries.state = '1'
 			AND YEAR(commentaries.commentary_date) = _anio
 			AND MONTH(commentaries.commentary_date) = _mes
 			AND users.accesslevel = 'E';
@@ -1052,7 +1049,7 @@ CALL spu_obtener_Comentario(1);
 			FROM commentaries
 			INNER JOIN users ON commentaries.idusers = users.idusers
 			INNER JOIN books ON commentaries.idbook = books.idbook
-		    WHERE commentaries.idbook  = _idbook
+		    WHERE commentaries.idbook  = _idbook AND commentaries.state = '1'
 			AND YEAR(commentaries.commentary_date) = _anio
 			AND MONTH(commentaries.commentary_date) = _mes;
 		END IF;
@@ -1068,7 +1065,7 @@ CALL spu_obtener_Comentario(1);
 			FROM commentaries
 			INNER JOIN users ON commentaries.idusers = users.idusers
 			INNER JOIN books ON commentaries.idbook = books.idbook
-		    WHERE commentaries.idbook  = _idbook 
+		    WHERE commentaries.idbook  = _idbook AND commentaries.state = '1'
 			AND users.accesslevel = 'E';
 
 		  ELSEIF _accesslevel = 'A' THEN
@@ -1082,13 +1079,14 @@ CALL spu_obtener_Comentario(1);
 			FROM commentaries
 			INNER JOIN users ON commentaries.idusers = users.idusers
 			INNER JOIN books ON commentaries.idbook = books.idbook
-		    WHERE commentaries.idbook  = _idbook;
+		    WHERE commentaries.idbook  = _idbook AND commentaries.state = '1';
 		END IF;
 	END IF;
 	END $$
 	
 	DROP PROCEDURE spu_reporte_comentario
-	CALL spu_reporte_comentario(2,NULL,NULL,'A')
+	SELECT * FROM commentaries;
+	CALL spu_reporte_comentario(1,2023,06,'A')
 	
 
 	
