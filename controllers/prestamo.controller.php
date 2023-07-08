@@ -35,4 +35,9 @@ if (isset($_GET['operacion'])) {
     if ($_GET['operacion'] == 'devolverPrestamo') {
         $prestamo->devolverPrestamo($_GET['idloan']);
     }
+
+    // Grafico Prestamos
+    if ($_GET['operacion'] == 'graficoPrestamos') {
+        echo json_encode($prestamo->graficoPrestamos($_GET['selectedMonth'], $_GET['selectedYear']));
+    }
 }

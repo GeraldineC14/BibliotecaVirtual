@@ -74,4 +74,20 @@ class Prestamo extends Conexion
             die($e->getMessage());
         }
     }
+
+
+
+// Grafico de Prestamos
+
+    public function graficoPrestamos($selectedMonth, $selectedYear)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_grafico_prestamos(?, ?)");
+            $consulta->execute(array($selectedMonth, $selectedYear));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

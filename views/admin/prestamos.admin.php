@@ -33,12 +33,17 @@ require_once 'permisos.php';
                                     <!-- Botón para mostrar el modal de registrar préstamos -->
                                     <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-prestamo">
                                         <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
-                                        &nbsp;Registrar Préstamo
+                                        &nbsp;Registrar
                                     </button>
                                     <!-- Enlace para redirigir a la vista de reporte -->
                                     <a href="index.php?view=report-prestamo.php" class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-left: 50px;">
-                                        <i class="fas fa-download fa-sm text-black fa-xl"></i>
-                                        &nbsp;Generar Reporte
+                                        <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
+                                        &nbsp;Reporte
+                                    </a>
+                                    <!-- Enlace para redirigir a la vista de gráficos -->
+                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info btn-sm d-none d-md-inline-block" style="margin-left: 50px;">
+                                        <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
+                                        &nbsp;Gráfico
                                     </a>
                                 </div>
 
@@ -52,9 +57,14 @@ require_once 'permisos.php';
                                                 &nbsp;Registrar
                                             </a>
                                             <!-- Botón para mostrar la vista de generar de reporte (versión móvil) -->
-                                            <a class="btn btn-outline-danger btn-sm d-inline-block" id="reportButton" href="index.php?view=report-prestamo.php">
-                                                <i class="fas fa-download fa-sm text-black fa-xl"></i>
+                                            <a class="btn btn-outline-danger btn-sm d-inline-block mr-2" id="reportButton" href="index.php?view=report-prestamo.php">
+                                                <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
                                                 &nbsp;Reporte
+                                            </a>
+                                            <!-- Botón para mostrar la vista de generar de reporte (versión móvil) -->
+                                            <a class="btn btn-outline-info btn-sm d-inline-block" id="chartsButton" href="index.php?view=grafico-prestamos.php">
+                                                <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
+                                                &nbsp;Gráfico
                                             </a>
                                         </div>
                                     </div>

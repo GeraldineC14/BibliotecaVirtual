@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Lima');
 //Librerías obtenidas mediante Composer
 require '../../vendor/autoload.php';
 require '../../models/Categoria.php';

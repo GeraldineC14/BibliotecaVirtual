@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.20-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -327,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -340,7 +340,7 @@ CREATE TABLE `categories` (
   `categoryname` varchar(50) NOT NULL,
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -370,7 +370,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -412,7 +412,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -441,7 +441,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -466,7 +466,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -500,7 +500,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -527,7 +527,7 @@ CREATE TABLE `validacioncorreo` (
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idvalidacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `validacioncorreo` */
 
@@ -942,6 +942,30 @@ BEGIN
 				END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_grafico_prestamos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_prestamos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_prestamos`(
+		IN selectedMonth INT, 
+		IN selectedYear INT
+	)
+BEGIN
+	  SELECT l.idloan, 
+		 b.descriptions AS Titulo, 
+		 u.username AS Usuario,
+		 l.amount AS Cantidad, 
+		 l.loan_date AS Fecha
+	  FROM loans l
+	  INNER JOIN books b ON l.idbook = b.idbook
+	  INNER JOIN users u ON l.idusers = u.idusers
+	  WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = selectedMonth
+	  ORDER BY l.loan_date DESC;
+	END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_listloans_user` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_listloans_user` */;
@@ -1303,7 +1327,6 @@ BEGIN
 			AND YEAR(commentaries.commentary_date) = _anio
 			AND MONTH(commentaries.commentary_date) = _mes
 			AND users.accesslevel = 'E';
-
 		  ELSEIF _accesslevel = 'A' THEN
 			SELECT
 			    commentaries.idcommentary AS idcomentario,
@@ -1333,7 +1356,6 @@ BEGIN
 			INNER JOIN books ON commentaries.idbook = books.idbook
 		    WHERE commentaries.idbook  = _idbook AND commentaries.state = '1'
 			AND users.accesslevel = 'E';
-
 		  ELSEIF _accesslevel = 'A' THEN
 			SELECT
 			    commentaries.idcommentary AS idcomentario,

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Lima');
 //Librerías obtenidas mediante Composer
 require '../../vendor/autoload.php';
 require '../../models/Usuario.php';
@@ -28,7 +29,7 @@ try {
     $content = ob_get_clean();
 
     // Configuración del archivo PDF
-    $html2pdf = new Html2Pdf('P', 'A4', 'es', true, 'UTF-8', array(20,20,20,20));
+    $html2pdf = new Html2Pdf('P', 'A4', 'es', true, 'UTF-8', array(15,15,15,15));
     $html2pdf->writeHTML($content);
     $html2pdf->output('ReporteUsuario.pdf');
 } catch (Html2PdfException $error) {

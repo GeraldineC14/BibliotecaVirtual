@@ -1277,6 +1277,31 @@ SELECT * FROM users
 	SELECT * FROM books;
 	
 	CALL spu_list_dashboard_users()
+	
+	
+-- GRAFICOS
+	-- N1. Grafico de Prestamos
+	DELIMITER $$
+	CREATE PROCEDURE spu_grafico_prestamos
+	(
+		IN selectedMonth INT, 
+		IN selectedYear INT
+	)
+	BEGIN
+	  SELECT l.idloan, 
+		 b.descriptions AS Titulo, 
+		 u.username AS Usuario,
+		 l.amount AS Cantidad, 
+		 l.loan_date AS Fecha
+	  FROM loans l
+	  INNER JOIN books b ON l.idbook = b.idbook
+	  INNER JOIN users u ON l.idusers = u.idusers
+	  WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = selectedMonth
+	  ORDER BY l.loan_date DESC;
+	END $$
+
+CALL spu_grafico_prestamos(7, 2023); 
+
 
 -- DATA:	
 -- categoria 1 data:

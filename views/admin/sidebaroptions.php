@@ -50,7 +50,8 @@ switch ($permiso) {
       ["menu2" => "Perfil", "url2" => "index.php?view=perfil.view.php"],
       ["menu2" => "Reporte Libro", "url2" => "index.php?view=report-libro.php"],
       ["menu2" => "Reporte Prestamo", "url2" => "index.php?view=report-prestamo.php"],
-      ["menu2" => "Reporte Usuario", "url2" => "index.php?view=report-usuario.php"]
+      ["menu2" => "Reporte Usuario", "url2" => "index.php?view=report-usuario.php"],
+      ["menu2" => "Grafico Prestamos", "url2" => "index.php?view=grafico-prestamos.php"]
     ];
 
     break;
