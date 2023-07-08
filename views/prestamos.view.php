@@ -245,7 +245,7 @@
                     type: 'POST',
                     data: datos,
                     success: function(result) {
-                        alertarToast("Proceso completado", "Se envio un correo de suprestamo", "success");
+                        alertarToast("Proceso completado", "Se envio un correo de su prestamo", "success");
                     }
                 });
             }
