@@ -31,15 +31,22 @@ require_once 'permisos.php';
                     <div class="col-md-12">
                         <!-- Inicio Card -->
                         <div class="card">
-                            <div class="card-header">Seleccione las subcategorias que desea filtrar:</div>
+                            <div class="card-header">Filtro Libros por categoría y subcategoría:</div>
                             <!-- Inicio body -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row tex-center">
-                                            <select name="#" id="#" class="form-select" multiple>
-                                                <option value="">Seleccione..</option>
-                                            </select>
+                                        <div class="col">
+                                            <label for="">Categoría:</label>
+                                                <select id="categoria" class="form-select categoria" multiple name="libro" required style="width: 100%;">
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                            <label for="">Sub Categoría:</label>
+                                                <select id="subcategoria" class="form-select subcategoria" multiple name="libro" required style="width: 100%;">
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -84,10 +91,72 @@ require_once 'permisos.php';
                     </div>
                 </div>
             </div>
-            <!-- CDN JQuery -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-            <!-- CDN Select2 -->
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         </div>
     </div>
 </div>
+
+<script>
+    const selectCategoria = document.querySelector("#categoria");
+    const selectSubcategoria = document.querySelector("#subcategoria");
+
+    function listarCategoria() {
+        fetch(`../../controllers/categoria.controller.php?operacion=listarCategoria`)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+            datos.forEach(element => {
+                const optionTag = new Option(element.categoryname, element.idcategorie);
+                selectCategoria.append(optionTag);
+            });
+
+            // Inicializar Select2 después de agregar las opciones
+            $(selectCategoria).select2();
+            })
+            .then(() => {
+            // Agregar el evento change al select de categoría
+            selectCategoria.addEventListener('change', function() {
+                var categoria_id = $(this).val();
+                listarSubcategoria(categoria_id);
+            });
+            });
+    }
+
+    function listarSubcategoria(categoria_id) {
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "listarSubcategoria");
+        parametros.append("idcategorie", categoria_id);
+        fetch(`../../controllers/subcategoria.controller.php?${parametros}`)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+            // Limpiar selectSubcategoria antes de agregar las nuevas opciones
+            $(selectSubcategoria).empty();
+
+            datos.forEach(element => {
+                const optionTag = new Option(element.subcategoryname, element.idsubcategorie);
+                $(selectSubcategoria).append(optionTag);
+            });
+
+            // Actualizar Select2 después de cambiar las opciones
+            $(selectSubcategoria).select2();
+            });
+    }
+
+
+
+
+    //Select2
+    $('.categoria').select2({
+        maximumSelectionLength: 1,
+        placeholder: 'Seleccione: '
+    });
+
+    $('.subcategoria').select2({
+        maximumSelectionLength: 1,
+        placeholder: 'Seleccione: '
+    });
+
+    //funciones
+    listarCategoria();
+    listarSubcategoria();
+
+
+</script>

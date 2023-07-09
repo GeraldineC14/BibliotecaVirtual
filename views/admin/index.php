@@ -91,9 +91,11 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
         </div>
     </div>
      <!-- Script jquery -->
-     <script src="../../assets/js/jquery.min.js"></script>
+    <!-- CDN JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/chart.min.js"></script>
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../assets/js/bs-init.js"></script>
     <script src="../../assets/js/jquery.easing.min.js"></script>
     <script src="../../assets/js/theme.js"></script>
@@ -104,10 +106,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
     <!-- Script de Siderbar -->
     <script src=".././../assets/js/navSid.js"></script>
-    <!-- ChartJS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- CDN JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
+    
 
 
 

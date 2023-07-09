@@ -7,8 +7,8 @@
 		CREATE TABLE categories(
 			idcategorie 	 INT AUTO_INCREMENT PRIMARY KEY,
 			categoryname	 VARCHAR(50) NOT NULL,
-			registrationdate DATETIME NOT NULL DEFAULT NOW()
-
+			registrationdate DATETIME NOT NULL DEFAULT NOW(),
+			state CHAR(1) NOT NULL DEFAULT '1'
 		)ENGINE=INNODB;
 		
 	-- REGISTRATION OF CATEGORIES:
@@ -23,6 +23,7 @@
 			idcategorie	 INT NOT NULL,
 			subcategoryname	 VARCHAR(100) NOT NULL,
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
+			state CHAR(1) NOT NULL DEFAULT '1'
 			CONSTRAINT fk_idcategorie_subcategories FOREIGN KEY (idcategorie) REFERENCES categories (idcategorie)
 		)ENGINE=INNODB;
 
@@ -190,7 +191,8 @@
 			CREATE PROCEDURE spu_categories_list()
 			BEGIN
 				SELECT idcategorie, categoryname,registrationdate
-					FROM categories;
+					FROM categories
+				WHERE state = "1";
 			END $$
 			
 			CALL spu_categories_list();
@@ -215,10 +217,11 @@
 			BEGIN
 				SELECT idsubcategorie, subcategoryname
 					FROM subcategories
-					WHERE _idcategorie = idcategorie;
+					WHERE _idcategorie = idcategorie AND state = '1';
 			END $$
 			
 			CALL spu_subcategories_list(1);
+
 			
 			-- Mostrar 
 			DELIMITER $$
@@ -228,6 +231,7 @@
 				SELECT sub.idsubcategorie, cat.categoryname,sub.subcategoryname,sub.registrationdate
 					FROM subcategories sub
 					INNER JOIN categories cat ON cat.idcategorie = sub.idcategorie
+				WHERE sub.state = '1';
 					
 			END $$
 			
@@ -248,6 +252,12 @@
 
 			CALL spu_report_subcategoria('1,2,3,4');
 			
+			-- Eliminar Subcategorie	
+			DELIMITER $$
+			CREATE PROCEDURE spu_subcategorie_delete(IN _idsubcategorie INT)
+			BEGIN
+				UPDATE subcategories SET state = '0' WHERE idsubcategorie = _idsubcategorie;
+			END $$
 		-- N°8 list booksChinchanos admin view:
 			DELIMITER $$
 			CREATE PROCEDURE spu_bookChinchanos_list()
@@ -336,6 +346,13 @@
 							idcategorie 	= _idcategorie,
 							categoryname	= _categoryname
 						WHERE idcategorie = _idcategorie; 	
+				END $$
+				
+			-- N°12.3 Eliminar Categorie	
+				DELIMITER $$
+				CREATE PROCEDURE spu_categorie_delete(IN _idcategorie INT)
+				BEGIN
+					UPDATE categories SET state = '0' WHERE idcategorie = _idcategorie;
 				END $$
 		
 		-- N°13 Register subcategories

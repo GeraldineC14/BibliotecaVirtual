@@ -94,7 +94,7 @@ require_once './permisos.php';
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" id="cancelar-modal" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
                                     <button id="guardar-categoria" class="btn btn-sm btn-success" type="button">Guardar</button>
                                 </div>
                             </div>

@@ -962,7 +962,6 @@ require_once './permisos.php';
             //Funciones de carga automatica
             mostrarLibros();
             listarCategorias();
-            //listarSubcategorias2();
 
         });
     </script>
