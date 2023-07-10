@@ -64,7 +64,7 @@ require_once 'permisos.php';
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table id="multiselect" class="table table-sm table-striped">
+                            <table id="libros" class="table table-sm table-striped">
                                 <colgroup>
                                     <col width="5%">
                                     <col width="25%">
@@ -76,11 +76,12 @@ require_once 'permisos.php';
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Titulo</th>
-                                        <th>Categoria</th>
-                                        <th>Subcategoria</th>
+                                        <th>Categoría</th>
+                                        <th>Sub Categoría</th>
+                                        <th>Código</th>
+                                        <th>Contidad disponible</th>
+                                        <th>Libro</th>
                                         <th>Autor</th>
-                                        <th>Cantidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,48 +99,89 @@ require_once 'permisos.php';
 <script>
     const selectCategoria = document.querySelector("#categoria");
     const selectSubcategoria = document.querySelector("#subcategoria");
+    const tablaLibro = document.querySelector("#libros tbody");
 
-    function listarCategoria() {
+    let filtroPDF = -1;
+
+    function listarCategoria(){
         fetch(`../../controllers/categoria.controller.php?operacion=listarCategoria`)
             .then(respuesta => respuesta.json())
             .then(datos => {
-            datos.forEach(element => {
-                const optionTag = new Option(element.categoryname, element.idcategorie);
-                selectCategoria.append(optionTag);
-            });
-
-            // Inicializar Select2 después de agregar las opciones
-            $(selectCategoria).select2();
-            })
-            .then(() => {
-            // Agregar el evento change al select de categoría
-            selectCategoria.addEventListener('change', function() {
-                var categoria_id = $(this).val();
-                listarSubcategoria(categoria_id);
-            });
+                datos.forEach(element=> {
+                    const optionTag = document.createElement("option");
+                    optionTag.value = element.idcategorie
+                    optionTag.text = element.categoryname;
+                    selectCategoria.appendChild(optionTag);
+                });
+                // Agregar evento onchange al selectCategoria
+                selectCategoria.onchange = function() {
+                    const selectedValue = this.value; // Obtener el valor seleccionado
+                    //otraFuncion(selectedValue); // Llamar a la otra función y pasar el valor seleccionado
+                    listarSubcategoria(selectedValue);
+                    listarLibro(selectedValue);
+                };
             });
     }
 
-    function listarSubcategoria(categoria_id) {
+
+    function listarSubcategoria(selectedValue) {
+        // Limpiar opciones existentes en el selectSubcategoria
+        selectSubcategoria.innerHTML = "";
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listarSubcategoria");
-        parametros.append("idcategorie", categoria_id);
+        parametros.append("idcategorie", selectedValue);
         fetch(`../../controllers/subcategoria.controller.php?${parametros}`)
             .then(respuesta => respuesta.json())
             .then(datos => {
-            // Limpiar selectSubcategoria antes de agregar las nuevas opciones
-            $(selectSubcategoria).empty();
-
-            datos.forEach(element => {
-                const optionTag = new Option(element.subcategoryname, element.idsubcategorie);
-                $(selectSubcategoria).append(optionTag);
-            });
-
-            // Actualizar Select2 después de cambiar las opciones
-            $(selectSubcategoria).select2();
+                datos.forEach(element=> {
+                    const optionTag = document.createElement("option");
+                    optionTag.value = element.idsubcategorie
+                    optionTag.text = element.subcategoryname;
+                    selectSubcategoria.appendChild(optionTag);
+                });
+                selectSubcategoria.onchange = function() {
+                    const idsubcategorie = this.value; // Obtener el valor seleccionado
+                    //otraFuncion(selectedValue); // Llamar a la otra función y pasar el valor seleccionado
+                    listarLibro(idsubcategorie); 
+                };
             });
     }
 
+    function listarLibro(selectedValue,idsubcategorie) {
+        const parametros = new URLSearchParams();
+        parametros.append("operacion","reporteLibro");
+        parametros.append("idcategorie", selectedValue);
+        parametros.append("idsubcategorie",idsubcategorie);
+        console.log(parametros.toString());
+        fetch(`../../controllers/biblioteca.controller.php?${parametros}`)
+        .then(respuesta => respuesta.text())
+            .then(datos => {
+                if(!datos || datos.length === 0){
+                    tablaLibro.innerHTML = '<tr><td colspan="5">No ha seleccionado ningún Categoría</td></tr>';
+                    filtroPDF = -1;
+                }else{
+                    registro = JSON.parse(datos);
+                    tablaLibro.innerHTML=``;
+                    filtroPDF = 1;
+
+                    registro.forEach(element => {
+                    const tableRow = `
+                    <tr>
+                        <td>${element.idbook}</td>
+                        <td>${element.categoryname}</td>
+                        <td>${element.subcategoryname}</td>
+                        <td>${element.codes}</td>
+                        <td>${element.amount}</td>
+                        <td>${element.descriptions}</td>
+                        <td>${element.author}</td>
+                    </tr>
+                    `;
+                    tablaLibro.innerHTML += tableRow;
+
+                    });
+                }
+            });
+    }
 
 
 

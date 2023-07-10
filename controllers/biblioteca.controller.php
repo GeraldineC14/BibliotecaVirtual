@@ -1,6 +1,7 @@
 <?php
 
 require_once '../models/Biblioteca.php';
+require_once '../tools/helpers.php';
 $biblioteca = new Biblioteca();
 
 if(isset($_GET['operacion'])){ 
@@ -71,6 +72,16 @@ if(isset($_GET['operacion'])){
         ];
         
         $biblioteca->registrarComentario($datosSolicitados);
+    }
+
+    //Reporte
+    if ($_GET['operacion'] == 'reporteLibro') {
+        renderJSON($biblioteca->reporteLibro(
+            [
+                'idcategorie' => $_GET['idcategorie'],
+                'idsubcategorie' => $_GET['idsubcategorie']
+            ]
+        ));
     }
 
     

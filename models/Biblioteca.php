@@ -238,6 +238,24 @@ class Biblioteca extends Conexion{
             die($e->getMessage());
         }
     }
+
+    //Reporte
+    public function reporteLibro($data=[])
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_reporte_libro(?,?)");
+            $consulta->execute(
+                array(
+                    $data['idcategorie'],
+                    $data['idsubcategorie']
+                  )
+            );
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }
 
 

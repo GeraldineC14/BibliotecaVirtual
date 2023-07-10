@@ -416,6 +416,35 @@
 				END $$
 
 				CALL spu_list_dashboard_users();
+		-- N° Reporte libro
+			DELIMITER $$
+			CREATE PROCEDURE spu_reporte_libro(
+			    IN _idcategorie INT,
+			    IN _idsubcategorie INT    
+			)
+			BEGIN
+			  IF _idsubcategorie IS NULL || _idsubcategorie = '' THEN
+				SELECT  b.idbook, ca.categoryname, c.subcategoryname, b.codes, b.amount, b.descriptions,
+					b.author, b.state, b.locationresponsible
+					FROM books b
+				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
+				INNER JOIN categories ca ON ca.idcategorie = b.idcategorie
+				WHERE b.state2 = "1" AND b.idcategorie = _idcategorie;
+			ELSE
+			
+				SELECT  b.idbook, ca.categoryname, c.subcategoryname, b.codes, b.amount, b.descriptions,
+					b.author, b.state, b.locationresponsible
+					FROM books b
+				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
+				INNER JOIN categories ca ON ca.idcategorie = b.idcategorie
+				WHERE b.state2 = "1" AND b.idcategorie = _idcategorie AND b.idsubcategorie = _idsubcategorie;
+				 
+			END IF;
+			END $$
+			
+			DROP PROCEDURE spu_reporte_libro
+			SELECT * FROM books;
+			CALL spu_reporte_libro(1,1);
 
 	-- VISTA PRINCIPAL:
 		-- N°1 list book
