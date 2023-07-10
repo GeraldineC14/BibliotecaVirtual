@@ -165,24 +165,23 @@ require_once 'permisos.php';
                                 observacion = (registro['observation'] == null || registro['observation'] == '') ? 'No cuenta con observación' : registro['observation'];
                                 let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
                                 let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
-                                let disabled = (accesslevel === 'D' || accesslevel === 'E') ? 'disabled' : '';
+                                let disabled = (accesslevel === 'D' || accesslevel === 'E' || registro['state'] == 0) ? 'disabled' : '';
                                 let btnClass = (registro['state'] == 0) ? 'btn btn-success cambiar-estado-btn' : 'btn btn-danger cambiar-estado-btn';
                                 let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>';
 
                                 nuevaFila = `
-                                        <tr>
-                                            <td>${registro['idloan']}</td>
-                                            <td>${registro['descriptions']}</td>
-                                            <td>${registro['Usuario']}</td>
-                                            <td>${observacion}</td>
-                                            <td>${registro['loan_date']}</td>
-                                            <td>${registro['return_date']}</td>
-                                            <td>${registro['amount']}</td>
-                                            <td style="color: ${colorCampo}">${estado}</td>
-                                            <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
-                                        </tr>
-                                        `;
-
+                                    <tr>
+                                        <td>${registro['idloan']}</td>
+                                        <td>${registro['descriptions']}</td>
+                                        <td>${registro['Usuario']}</td>
+                                        <td>${observacion}</td>
+                                        <td>${registro['loan_date']}</td>
+                                        <td>${registro['return_date']}</td>
+                                        <td>${registro['amount']}</td>
+                                        <td style="color: ${colorCampo}">${estado}</td>
+                                        <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
+                                    </tr>
+                                `;
                                 $("#tabla-prestamos tbody").append(nuevaFila);
                             });
 
@@ -208,9 +207,8 @@ require_once 'permisos.php';
                 }
 
                 listarPrestamos();
-                
-            });
 
+            });
         </script>
 
         </body>
