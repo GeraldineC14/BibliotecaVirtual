@@ -191,7 +191,7 @@ require_once 'permisos.php';
 
           window.open(`../../reports/report-comentario/reporte.php?${parametros}`, '_blank');
         } else {
-          alert("No existen datos disponibles para generar el PDF");
+          alerta("No existen datos disponibles para generar el PDF");
         }
 
     }

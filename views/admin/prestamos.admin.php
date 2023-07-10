@@ -187,6 +187,7 @@ require_once 'permisos.php';
             $(document).ready(function() {
                 idusers = <?php echo $_SESSION['login']['idusers']; ?>;
                 accesslevel = "<?php echo $_SESSION['login']['accesslevel']; ?>";
+                const selectLibro = document.querySelector("#libro");
 
                 $(document).on('click', '#devolver', function(event) {
                     var dataID = $(this).data('id');
@@ -318,7 +319,7 @@ require_once 'permisos.php';
 
                             if (registros.length > 0) {
                                 registros.forEach(registro => {
-                                    elementosLista += `<option value=${registro['descriptions']}>${registro['descriptions']}</option>`;
+                                    elementosLista += `<option value=${registro['idbook']}>${registro['descriptions']}</option>`;
                                 });
                             } else {
                                 elementosLista = '<option>No hay libros disponibles</option>';
@@ -328,6 +329,26 @@ require_once 'permisos.php';
                         }
                     });
                 }
+
+                function obtenerStock (){
+                    const indiceLibro = parseInt(selectLibro.value);
+                    const indiceLibroSeleccionado = indiceLibro >= 1 ? indiceLibro : "0";
+                    console.log(indiceLibroSeleccionado);
+                    $.ajax({
+                        url: '../../controllers/biblioteca.controller.php',
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: {
+                            'operacion': 'getLibro',
+                            'idbook': indiceLibroSeleccionado
+                        },
+                        success: function(result) {
+                            $("#cantidad").val(result['amount']);
+                            console.log(result);
+                        }
+                    });
+                }
+
 
                 // Obtener los elementos de entrada de fecha
                 var fechaRecojo = $("#fecha_prestamo");
@@ -353,6 +374,7 @@ require_once 'permisos.php';
                 listarPrestamos();
                 listarUsuarioLoans();
                 $("#cancelar-modal").click(reiniciarFormulario);
+                $(selectLibro).on('change', obtenerStock);
 
 
                 $('.libro').select2({

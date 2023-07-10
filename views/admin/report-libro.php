@@ -144,8 +144,9 @@ require_once 'permisos.php';
     function listarLibro() {
         const indiceCategoria = parseInt(selectCategoria.value);
         const indiceCategoriaSeleccionado = indiceCategoria >= 1 ? indiceCategoria : "0";
+
         const indiceSubCategoria = parseInt(selectSubcategoria.value);
-        const indiceSubcategoriaSeleccionado = indiceSubCategoria >= 1 ? indiceSubCategoria : "0";
+        const indiceSubcategoriaSeleccionado = indiceSubCategoria >= 1 ? indiceSubCategoria : '';
 
         const parametros = new URLSearchParams();
         parametros.append("operacion","reporteLibro");
@@ -190,8 +191,11 @@ require_once 'permisos.php';
             parametros.append("idcategorie", selectCategoria.value);
             parametros.append("idsubcategorie", selectSubcategoria.value);
             parametros.append("titulo_Categoria", selectCategoria.options[selectCategoria.selectedIndex].text);
-            parametros.append("titulo_Subcategoria", selectSubcategoria.options[selectSubcategoria.selectedIndex].text);
-
+            if (selectSubcategoria >0){
+                parametros.append("titulo_Subcategoria", selectSubcategoria.options[selectSubcategoria.selectedIndex].text);
+            }else{
+                parametros.append("titulo_Subcategoria", 'No ha seleccionado una Sub Categoría');
+            }
           window.open(`../../reports/report-libro/reporte.php?${parametros}`, '_blank');
         } else {
           alert("No existen datos disponibles para generar el PDF");
