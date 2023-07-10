@@ -90,6 +90,8 @@ if(isset($_SESSION['login'])){
 	<script>
 		$(document).ready(function() {
 
+			ruta = document.referrer.split("/")[5];
+
 			function login() {
 				let email = $("#email").val();
 				let accesskey = $("#accesskey").val();
@@ -114,7 +116,11 @@ if(isset($_SESSION['login'])){
 							});
 
 							setTimeout(function() {
-								window.location.href = document.referrer;
+								if (ruta != 'register.php'){
+									window.location.href = document.referrer;
+								}else{
+									window.location.href = './index.php'
+								}
 							}, 1500)
 						} else {
 							Swal.fire({
