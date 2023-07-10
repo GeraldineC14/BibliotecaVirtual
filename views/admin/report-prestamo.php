@@ -37,9 +37,13 @@ require_once 'permisos.php';
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row tex-center">
-                                            <select name="#" id="#" class="form-select" multiple>
-                                                <option value="">Seleccione..</option>
-                                            </select>
+                                            <div class="col">
+                                                <select id="libro" class="form-select libro" multiple name="libro" required style="width: 100%;">
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <input type="month" id="month-year-input" name="month-year"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -87,3 +91,10 @@ require_once 'permisos.php';
         </div>
     </div>
 </div>
+<script>
+    //Select2
+    $('.libro').select2({
+        maximumSelectionLength: 1,
+        placeholder: 'Seleccione: '
+    });
+</script>

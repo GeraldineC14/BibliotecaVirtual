@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.24-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -1272,6 +1272,30 @@ BEGIN
     WHERE idcommentary = p_idcomentario
         AND commentary_delete IS NULL
         AND state = '1';
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtener_libros_meses` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtener_libros_meses` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_libros_meses`(
+    IN bookId INT,
+    IN loanMonth INT
+)
+BEGIN
+    SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, loans.amount, loans.loan_date,
+        CASE loans.state
+            WHEN 1 THEN 'PRESTADO'
+            WHEN 0 THEN 'DEVUELTO'
+        END AS estado
+    FROM loans
+    INNER JOIN books ON loans.idbook = books.idbook
+    INNER JOIN users ON loans.idusers = users.idusers
+    WHERE loans.idbook = bookId
+    AND MONTH(loans.loan_date) = loanMonth;
 END */$$
 DELIMITER ;
 
