@@ -51,6 +51,12 @@ if ($idusers > 0) {
                 <span class="ml-2" style="color: white;">Ingresar</span>
             </a>
         </li>
+        <li class="nav-item mb-2 mr-2">
+            <a class="nav-link active text-dark btn btn-info" href="../views/register.php" style="background-color: #39a2db; border-color: #39a2db;">
+                <i class="fa-solid fa-user-plus fa-xl" style="color: #ffffff;"></i>
+                <span class="ml-2" style="color: white;">Registrar</span>
+            </a>
+        </li>
     ';
 }
 ?>

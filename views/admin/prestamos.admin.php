@@ -124,12 +124,17 @@ require_once 'permisos.php';
                                             </div>
 
                                             <div class="row mt-3">
-                                                <div class="col-md-9">
+                                                <div class="col-md-6">
                                                     <div class="form-group ">
                                                         <label for="usuario">Usuario</label><br>
                                                         <select id="usuario" class="form-select usuario" multiple name="usuario" required style="width: 100%;">
-
                                                         </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="cantidad">Stock</label>
+                                                        <input id="cantidad" class="form-control" min="1" type="number" name="stock" min="1" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -141,13 +146,13 @@ require_once 'permisos.php';
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="fecha_prestamo">Fecha de Prestamo</label>
-                                                        <input id="fecha_prestamo" class="form-control" type="date" name="fecha_prestamo" value="<?php echo date(" Y-m-d"); ?>" required>
+                                                        <input id="fecha_prestamo" class="form-control" type="date" name="fecha_prestamo" value="<?php echo date(" Y-m-d"); ?>" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="fecha_devolucion">Fecha de Devolución</label>
-                                                        <input id="fecha_devolucion" class="form-control" type="date" name="fecha_devolucion" value="<?php echo date(" Y-m-d"); ?>" required>
+                                                        <input id="fecha_devolucion" class="form-control" type="date" name="fecha_devolucion" value="<?php echo date(" Y-m-d"); ?>" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" readonly required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +235,7 @@ require_once 'permisos.php';
                             tabla.destroy();
                             $("#tabla-prestamos tbody").html("");
                             registros.forEach(registro => {
-                                observacion = (registro['observation'] == null) ? 'No cuenta con observación' : registro['observation'];
+                                observacion = (registro['observation'] == null || registro['observation'] == '') ? 'No cuenta con observación' : registro['observation'];
                                 let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
                                 let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
                                 let disabled = (accesslevel === 'D' || accesslevel === 'E') ? 'disabled' : '';
@@ -324,24 +329,43 @@ require_once 'permisos.php';
                     });
                 }
 
+                // Obtener los elementos de entrada de fecha
+                var fechaRecojo = $("#fecha_prestamo");
+                var fechaDevolucion = $("#fecha_devolucion");
 
+                // Establecer un controlador de eventos para el cambio de fecha en el campo de fecha de recojo
+                fechaRecojo.on("change", function() {
+                    // Obtener la fecha seleccionada en el campo de fecha de recojo
+                    var fechaRecojoValue = new Date($(this).val());
+
+                    // Obtener la fecha mínima permitida para el campo de fecha de devolución
+                    var minFechaDevolucion = new Date(fechaRecojoValue);
+
+                    fechaDevolucion.prop('readonly', false);
+
+                    minFechaDevolucion.setDate(minFechaDevolucion.getDate()); // Incrementar la fecha en 1 día
+
+                    // Establecer la fecha mínima para el campo de fecha de devolución
+                    fechaDevolucion.attr("min", minFechaDevolucion.toISOString().split("T")[0]);
+                });
 
                 listarLibros();
                 listarPrestamos();
                 listarUsuarioLoans();
                 $("#cancelar-modal").click(reiniciarFormulario);
+
+
+                $('.libro').select2({
+                    maximumSelectionLength: 1,
+                    placeholder: 'Seleccione: '
+                });
+                
+                $('.usuario').select2({
+                    maximumSelectionLength: 1,
+                    placeholder: 'Seleccione: '
+                });
             });
 
-            //$("#libro").select2();
-            $('.libro').select2({
-                maximumSelectionLength: 1,
-                placeholder: 'Seleccione: '
-            });
-            
-            $('.usuario').select2({
-                maximumSelectionLength: 1,
-                placeholder: 'Seleccione: '
-            });
         </script>
 
         </body>

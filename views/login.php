@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 
 if(isset($_SESSION['login'])){
@@ -28,6 +27,8 @@ if(isset($_SESSION['login'])){
 </head>
 
 <body>
+	<!-- navbar -->
+	<?php include './navbar.php'; ?>
 	<div class="opacity-overlay"></div>
 	<section class="ftco-section">
 		<div class="container">

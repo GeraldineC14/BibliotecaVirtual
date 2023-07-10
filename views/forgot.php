@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 
 /*if(isset($_SESSION['login']) && $_SESSION['login'] == true){
   header("location:views/admin/admin.view.php");
@@ -31,6 +29,8 @@ session_start();
 </head>
 
 <body>
+  <!-- navbar -->
+  <?php include './navbar.php'; ?>
   <section class="ftco-section">
     <div class="container">
       <div class="row justify-content-center">
