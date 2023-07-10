@@ -75,9 +75,33 @@ class Prestamo extends Conexion
         }
     }
 
+    // Reporte Préstamo
+    public function listarLoans()
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_get_prestados()");
+            $consulta->execute();
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function reportePrestamos($bookId, $loanMonth)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_obtener_libros_meses(?, ?)");
+            $consulta->execute(array($bookId, $loanMonth));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
-// Grafico de Prestamos
+    // Grafico de Prestamos
 
     public function graficoPrestamos($selectedMonth, $selectedYear)
     {

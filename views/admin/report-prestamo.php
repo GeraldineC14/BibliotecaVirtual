@@ -1,6 +1,5 @@
-<?php
-require_once 'permisos.php';
-?>
+<?php require_once 'permisos.php'; ?>
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <!-- INICIO PERFIL -->
@@ -38,11 +37,11 @@ require_once 'permisos.php';
                                     <div class="col-md-12">
                                         <div class="row tex-center">
                                             <div class="col">
-                                                <select id="libro" class="form-select libro" multiple name="libro" required style="width: 100%;">
+                                                <select id="listarLoans" class="form-select listarLoans" multiple name="listarLoans" required style="width: 100%;">
                                                 </select>
                                             </div>
                                             <div class="col">
-                                                <input type="month" id="month-year-input" name="month-year"/>
+                                                <input type="month" id="month-year-input" name="month-year" />
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +49,7 @@ require_once 'permisos.php';
                             </div>
                             <!-- Fin body -->
                             <div class="card-footer text-muted text-center">
-                                <button type="button" class="btn btn-success mt-2" id="obtener">Mostrar</button>
+                                <button type="button" class="btn btn-success mt-2" id="obtener_libros_meses">Mostrar</button>
                                 <button type="button" class="btn btn-danger mt-2" id="generar">Generar PDF</button>
                             </div>
                         </div>
@@ -74,10 +73,10 @@ require_once 'permisos.php';
                                     <tr>
                                         <th>ID</th>
                                         <th>Titulo</th>
-                                        <th>Categoria</th>
-                                        <th>Subcategoria</th>
-                                        <th>Autor</th>
+                                        <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,9 +90,39 @@ require_once 'permisos.php';
         </div>
     </div>
 </div>
+
 <script>
-    //Select2
-    $('.libro').select2({
+    $(document).ready(function() {
+    // Obtener libros prestados y llenar el select
+    $.ajax({
+        url: '../../controllers/prestamo.controller.php',
+        type: 'GET',
+        data: {
+            operacion: 'listarLoans'
+        },
+        success: function(response) {
+            var libros = JSON.parse(response);
+            var selectLibros = $('.listarLoans');
+
+            // Limpiar opciones anteriores
+            selectLibros.empty();
+
+            // Agregar las opciones de los libros prestados al select
+            $.each(libros, function(index, libro) {
+                var option = new Option(libro.descriptions, libro.idbook);
+                selectLibros.append(option);
+            });
+
+            // Actualizar el select después de agregar las opciones
+            selectLibros.trigger('change');
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+});
+    // Select2
+    $('.listarLoans').select2({
         maximumSelectionLength: 1,
         placeholder: 'Seleccione: '
     });

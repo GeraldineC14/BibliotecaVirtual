@@ -36,6 +36,16 @@ if (isset($_GET['operacion'])) {
         $prestamo->devolverPrestamo($_GET['idloan']);
     }
 
+    // Reporte Préstamo
+    if ($_GET['operacion'] == 'listarLoans') {
+        $dataprestamo = $prestamo->listarLoans();
+        echo json_encode($dataprestamo);
+    }
+
+    if ($_GET['operacion'] == 'reportePrestamos') {
+        echo json_encode($prestamo->reportePrestamos($_GET['bookId'], $_GET['loanMonth']));
+    }
+
     // Grafico Prestamos
     if ($_GET['operacion'] == 'graficoPrestamos') {
         echo json_encode($prestamo->graficoPrestamos($_GET['selectedMonth'], $_GET['selectedYear']));
