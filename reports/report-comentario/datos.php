@@ -45,9 +45,9 @@
                 <table class='table table-border mb-3'>
                     <colgroup>
                         <col width='5%'>
-                        <col style='width: 16%;'>
+                        <col style='width: 21%;'>
                         <col style='width: 12%;'>
-                        <col  style='width: 67%;'>
+                        <col  style='width: 62%;'>
                     </colgroup>
                     <thead>
                         <tr class='bg-danger'>
