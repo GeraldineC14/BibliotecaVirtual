@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.20-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -327,7 +327,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -341,7 +341,7 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -374,7 +374,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -395,7 +395,11 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (14,1,1,'Genial',5,'2023-06-30',NULL,'1'),
 (15,5,1,'giuyhiuh',3,'2023-07-03',NULL,'1'),
 (16,5,3,'El capitulo 3 a sido interesante.',4,'2023-07-05',NULL,'1'),
-(17,2,25,'bonito',1,'2023-07-07',NULL,'1');
+(17,2,25,'bonito',1,'2023-07-07',NULL,'1'),
+(18,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',0,'2023-07-09',NULL,'1'),
+(19,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',3,'2023-07-09',NULL,'1'),
+(20,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',0,'2023-07-09',NULL,'1'),
+(21,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',5,'2023-07-09',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -416,7 +420,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -429,7 +433,57 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_da
 (6,5,3,'2','2023-07-06','2023-07-05','Lo recogere a la hora del almuerzo','0','2023-07-05 17:37:51'),
 (7,5,3,'1','2023-07-06','2023-07-05','','0','2023-07-05 17:38:46'),
 (8,1,1,'1','2023-07-08','2023-07-12','123','1','2023-07-06 00:06:48'),
-(9,6,1,'1','2023-07-07','2023-07-14','','1','2023-07-06 00:28:11');
+(9,6,1,'1','2023-07-07','2023-07-14','','1','2023-07-06 00:28:11'),
+(34,1,1,'50','2023-03-01','2023-03-15','','1','2023-07-09 19:20:03'),
+(35,2,3,'4','2023-03-02','2023-03-16','','1','2023-07-09 19:20:03'),
+(36,49,3,'4','2023-12-09','2023-12-23','','1','2023-07-09 19:20:03'),
+(37,50,1,'50','2023-12-10','2023-12-24','','1','2023-07-09 19:20:03'),
+(38,1,1,'50','2023-03-01','2023-03-15','Observation 1','1','2023-07-09 19:27:11'),
+(39,2,3,'40','2023-03-02','2023-03-16','Observation 2','1','2023-07-09 19:27:11'),
+(40,3,44,'30','2023-03-03','2023-03-17','Observation 3','1','2023-07-09 19:27:11'),
+(41,4,44,'20','2023-03-04','2023-03-18','Observation 4','1','2023-07-09 19:27:11'),
+(42,5,50,'10','2023-03-05','2023-03-19','Observation 5','1','2023-07-09 19:27:11'),
+(43,6,50,'15','2023-03-06','2023-03-20','Observation 6','1','2023-07-09 19:27:11'),
+(44,7,44,'25','2023-03-07','2023-03-21','Observation 7','1','2023-07-09 19:27:11'),
+(45,8,44,'35','2023-03-08','2023-03-22','Observation 8','1','2023-07-09 19:27:11'),
+(46,9,44,'45','2023-03-09','2023-03-23','Observation 9','1','2023-07-09 19:27:11'),
+(47,10,44,'55','2023-03-10','2023-03-24','Observation 10','1','2023-07-09 19:27:11'),
+(48,11,44,'60','2023-03-11','2023-03-25','Observation 11','1','2023-07-09 19:27:11'),
+(49,12,44,'70','2023-03-12','2023-03-26','Observation 12','1','2023-07-09 19:27:11'),
+(50,13,44,'80','2023-03-13','2023-03-27','Observation 13','1','2023-07-09 19:27:11'),
+(51,14,44,'90','2023-03-14','2023-03-28','Observation 14','1','2023-07-09 19:27:11'),
+(52,6,50,'10','2023-03-15','2023-03-29','Observation 15','1','2023-07-09 19:27:11'),
+(53,16,50,'11','2023-03-16','2023-03-30','Observation 16','1','2023-07-09 19:27:11'),
+(54,17,50,'12','2023-03-17','2023-03-31','Observation 17','1','2023-07-09 19:27:11'),
+(55,18,44,'13','2023-03-18','2023-04-01','Observation 18','1','2023-07-09 19:27:11'),
+(56,6,44,'14','2023-03-19','2023-04-02','Observation 19','1','2023-07-09 19:27:11'),
+(57,20,44,'15','2023-03-20','2023-04-03','Observation 20','1','2023-07-09 19:27:11'),
+(58,6,44,'16','2023-03-21','2023-04-04','Observation 21','1','2023-07-09 19:27:11'),
+(59,6,44,'17','2023-03-22','2023-04-05','Observation 22','1','2023-07-09 19:27:11'),
+(60,23,44,'18','2023-03-23','2023-04-06','Observation 23','1','2023-07-09 19:27:11'),
+(61,24,44,'19','2023-03-24','2023-04-07','Observation 24','1','2023-07-09 19:27:11'),
+(62,25,45,'20','2023-03-25','2023-04-08','Observation 25','1','2023-07-09 19:27:11'),
+(63,26,46,'21','2023-03-26','2023-04-09','Observation 26','1','2023-07-09 19:27:11'),
+(64,27,48,'22','2023-03-27','2023-04-10','Observation 27','1','2023-07-09 19:27:11'),
+(65,28,48,'23','2023-03-28','2023-04-11','Observation 28','1','2023-07-09 19:27:11'),
+(66,29,48,'2','2023-03-29','2023-04-12','Observation 29','1','2023-07-09 19:27:11'),
+(67,30,48,'25','2023-03-30','2023-04-13','Observation 30','1','2023-07-09 19:27:11'),
+(68,31,1,'26','2023-03-31','2023-04-14','Observation 31','1','2023-07-09 19:27:11'),
+(69,32,48,'27','2023-04-01','2023-04-15','Observation 32','1','2023-07-09 19:27:11'),
+(70,33,3,'28','2023-04-02','2023-04-16','Observation 33','1','2023-07-09 19:27:11'),
+(71,34,48,'29','2023-04-03','2023-04-17','Observation 34','1','2023-07-09 19:27:11'),
+(72,35,48,'3','2023-04-04','2023-04-18','Observation 35','1','2023-07-09 19:27:11'),
+(73,36,48,'3','2023-04-05','2023-04-19','Observation 36','1','2023-07-09 19:27:11'),
+(74,37,48,'3','2023-04-06','2023-04-20','Observation 37','1','2023-07-09 19:27:11'),
+(75,2,48,'33','2023-04-07','2023-04-21','Observation 38','1','2023-07-09 19:27:11'),
+(76,39,48,'3','2023-04-08','2023-04-22','Observation 39','1','2023-07-09 19:27:11'),
+(77,2,50,'35','2023-04-09','2023-04-23','Observation 40','1','2023-07-09 19:27:11'),
+(78,41,50,'36','2023-04-10','2023-04-24','Observation 41','1','2023-07-09 19:27:11'),
+(79,2,50,'37','2023-04-11','2023-04-25','Observation 42','1','2023-07-09 19:27:11'),
+(80,43,50,'38','2023-04-12','2023-04-26','Observation 43','1','2023-07-09 19:27:11'),
+(81,2,50,'39','2023-04-13','2023-04-27','Observation 44','1','2023-07-09 19:27:11'),
+(82,45,50,'40','2023-04-14','2023-04-28','Observation 45','1','2023-07-09 19:27:11'),
+(83,2,50,'41','2023-04-15','2023-04-29','ObservApologies','1','2023-07-09 19:27:11');
 
 /*Table structure for table `recuperarclave` */
 
@@ -445,7 +499,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -471,7 +525,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -509,7 +563,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -536,7 +590,7 @@ CREATE TABLE `validacioncorreo` (
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idvalidacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `validacioncorreo` */
 
@@ -971,20 +1025,22 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_prestamos`(
-		IN selectedMonth INT, 
-		IN selectedYear INT
+	    IN selectedMonth INT,
+	    IN selectedYear INT
 	)
 BEGIN
-	  SELECT l.idloan, 
-		 b.descriptions AS Titulo, 
-		 u.username AS Usuario,
-		 l.amount AS Cantidad, 
-		 l.loan_date AS Fecha
-	  FROM loans l
-	  INNER JOIN books b ON l.idbook = b.idbook
-	  INNER JOIN users u ON l.idusers = u.idusers
-	  WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = selectedMonth
-	  ORDER BY l.loan_date DESC;
+	    DECLARE adjustedMonth INT;
+	    SET adjustedMonth = selectedMonth - 1; -- Ajustar el valor del mes
+
+	    SELECT l.idloan,
+		   b.descriptions AS Titulo,
+		   SUM(l.amount) AS Cantidad,
+		   l.loan_date AS Fecha
+	    FROM loans l
+	    INNER JOIN books b ON l.idbook = b.idbook
+	    WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = adjustedMonth
+	    GROUP BY b.descriptions
+	    ORDER BY l.loan_date DESC;
 	END */$$
 DELIMITER ;
 

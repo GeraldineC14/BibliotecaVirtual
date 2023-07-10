@@ -1298,26 +1298,30 @@ SELECT * FROM users
 	
 -- GRAFICOS
 	-- N1. Grafico de Prestamos
+	DROP PROCEDURE spu_grafico_prestamos
+
 	DELIMITER $$
 	CREATE PROCEDURE spu_grafico_prestamos
 	(
-		IN selectedMonth INT, 
-		IN selectedYear INT
+	    IN selectedMonth INT,
+	    IN selectedYear INT
 	)
 	BEGIN
-	  SELECT l.idloan, 
-		 b.descriptions AS Titulo, 
-		 u.username AS Usuario,
-		 l.amount AS Cantidad, 
-		 l.loan_date AS Fecha
-	  FROM loans l
-	  INNER JOIN books b ON l.idbook = b.idbook
-	  INNER JOIN users u ON l.idusers = u.idusers
-	  WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = selectedMonth
-	  ORDER BY l.loan_date DESC;
+	    DECLARE adjustedMonth INT;
+	    SET adjustedMonth = selectedMonth - 1; -- Ajustar el valor del mes
+
+	    SELECT l.idloan,
+		   b.descriptions AS Titulo,
+		   SUM(l.amount) AS Cantidad,
+		   l.loan_date AS Fecha
+	    FROM loans l
+	    INNER JOIN books b ON l.idbook = b.idbook
+	    WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = adjustedMonth
+	    GROUP BY b.descriptions
+	    ORDER BY l.loan_date DESC;
 	END $$
 
-CALL spu_grafico_prestamos(7, 2023); 
+CALL spu_grafico_prestamos(8, 2023); 
 
 
 -- DATA:	
