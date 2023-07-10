@@ -48,52 +48,52 @@
                     $accesslevel = 'Docente';
                 }
                 $nuevaTabla = "
-                                        <h4 class='mb-2 mt-5'>{$accesslevel}</h4>
-                                        <table class='table table-border mb-3 custom-table'>
-                                            <colgroup>
-                                                <col class='col-id'>
-                                                <col class='col-nombres'>
-                                                <col class='col-apellidos'>
-                                                <col class='col-nombre-usuario'>
-                                                <col class='col-email'>
-                                                <col class='col-nivel-acceso'>
-                                            </colgroup>
-                                            <thead>
-                                                <tr class='bg-danger center'>
-                                                    <th class='center'>ID</th>
-                                                    <th>Nombres</th>
-                                                    <th>Apellidos</th>
-                                                    <th>Usuario</th>
-                                                    <th>Email</th>
-                                                    <th>Nivel Acceso</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                        ";
+                    <h4 class='mb-2 mt-5'>{$accesslevel}</h4>
+                    <table class='table table-border mb-3 custom-table'>
+                        <colgroup>
+                            <col class='col-id'>
+                            <col class='col-nombres'>
+                            <col class='col-apellidos'>
+                            <col class='col-nombre-usuario'>
+                            <col class='col-email'>
+                            <col class='col-nivel-acceso'>
+                        </colgroup>
+                        <thead>
+                            <tr class='bg-danger center'>
+                                <th class='center'>ID</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Nivel Acceso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    ";
                 echo $nuevaTabla;
             }
 
             function cerrarTabla()
             {
                 $cerrarTabla = "
-                                            </tbody>
-                                        </table>
-                                        ";
+                </tbody>
+                </table>
+                ";
                 echo $cerrarTabla;
             }
 
             function agregarFila($arreglo = [])
             {
                 echo "
-                                            <tr>
-                                                <b><td class='center'>{$arreglo['idusers']}</td></b>
-                                                <td>{$arreglo['namess']}</td>
-                                                <td>{$arreglo['surnames']}</td>
-                                                <td >{$arreglo['username']}</td>
-                                                <td>{$arreglo['email']}</td>
-                                                <td class='center'>{$arreglo['accesslevel']}</td>
-                                            </tr>
-                                        ";
+                    <tr>
+                        <b><td class='center'>{$arreglo['idusers']}</td></b>
+                        <td>{$arreglo['namess']}</td>
+                        <td>{$arreglo['surnames']}</td>
+                        <td >{$arreglo['username']}</td>
+                        <td>{$arreglo['email']}</td>
+                        <td class='center'>{$arreglo['accesslevel']}</td>
+                    </tr>
+                ";
             }
 
             function reportUser($registrosAccesslevel)
