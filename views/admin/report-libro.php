@@ -53,8 +53,7 @@ require_once 'permisos.php';
                             </div>
                             <!-- Fin body -->
                             <div class="card-footer text-muted text-center">
-                                <button type="button" class="btn btn-success mt-2" id="obtener">Mostrar</button>
-                                <button type="button" class="btn btn-danger mt-2" id="generar">Generar PDF</button>
+                                <button type="button" class="btn btn-danger mt-2" id="btnGenerarPDF">Generar PDF</button>
                             </div>
                         </div>
                         <!-- Fin Card -->
@@ -100,7 +99,6 @@ require_once 'permisos.php';
     const selectCategoria = document.querySelector("#categoria");
     const selectSubcategoria = document.querySelector("#subcategoria");
     const tablaLibro = document.querySelector("#libros tbody");
-
     let filtroPDF = -1;
 
     function listarCategoria(){
@@ -115,21 +113,21 @@ require_once 'permisos.php';
                 });
                 // Agregar evento onchange al selectCategoria
                 selectCategoria.onchange = function() {
-                    const selectedValue = this.value; // Obtener el valor seleccionado
+                    const idcategorie = this.value; // Obtener el valor seleccionado
                     //otraFuncion(selectedValue); // Llamar a la otra función y pasar el valor seleccionado
-                    listarSubcategoria(selectedValue);
-                    listarLibro(selectedValue);
+                    listarSubcategoria(idcategorie);
+                    console.log(idcategorie);
                 };
             });
     }
 
 
-    function listarSubcategoria(selectedValue) {
+    function listarSubcategoria(idcategorie) {
         // Limpiar opciones existentes en el selectSubcategoria
         selectSubcategoria.innerHTML = "";
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listarSubcategoria");
-        parametros.append("idcategorie", selectedValue);
+        parametros.append("idcategorie", idcategorie);
         fetch(`../../controllers/subcategoria.controller.php?${parametros}`)
             .then(respuesta => respuesta.json())
             .then(datos => {
@@ -138,26 +136,27 @@ require_once 'permisos.php';
                     optionTag.value = element.idsubcategorie
                     optionTag.text = element.subcategoryname;
                     selectSubcategoria.appendChild(optionTag);
+
                 });
-                selectSubcategoria.onchange = function() {
-                    const idsubcategorie = this.value; // Obtener el valor seleccionado
-                    //otraFuncion(selectedValue); // Llamar a la otra función y pasar el valor seleccionado
-                    listarLibro(idsubcategorie); 
-                };
             });
     }
 
-    function listarLibro(selectedValue,idsubcategorie) {
+    function listarLibro() {
+        const indiceCategoria = parseInt(selectCategoria.value);
+        const indiceCategoriaSeleccionado = indiceCategoria >= 1 ? indiceCategoria : "0";
+        const indiceSubCategoria = parseInt(selectSubcategoria.value);
+        const indiceSubcategoriaSeleccionado = indiceSubCategoria >= 1 ? indiceSubCategoria : "0";
+
         const parametros = new URLSearchParams();
         parametros.append("operacion","reporteLibro");
-        parametros.append("idcategorie", selectedValue);
-        parametros.append("idsubcategorie",idsubcategorie);
+        parametros.append("idcategorie", indiceCategoriaSeleccionado);
+        parametros.append("idsubcategorie",indiceSubcategoriaSeleccionado);
         console.log(parametros.toString());
         fetch(`../../controllers/biblioteca.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
             .then(datos => {
                 if(!datos || datos.length === 0){
-                    tablaLibro.innerHTML = '<tr><td colspan="5">No ha seleccionado ningún Categoría</td></tr>';
+                    tablaLibro.innerHTML = '<tr><td colspan="7">No ha seleccionado ningún Categoría</td></tr>';
                     filtroPDF = -1;
                 }else{
                     registro = JSON.parse(datos);
@@ -183,6 +182,23 @@ require_once 'permisos.php';
             });
     }
 
+    function generarPDF() {
+        if (selectCategoria.value == 0) {
+          alerta("Debes elegir una categoria para poder crear el PDF");
+        } else if (filtroPDF > 0) {
+          const parametros = new URLSearchParams();
+            parametros.append("idcategorie", selectCategoria.value);
+            parametros.append("idsubcategorie", selectSubcategoria.value);
+            parametros.append("titulo_Categoria", selectCategoria.options[selectCategoria.selectedIndex].text);
+            parametros.append("titulo_Subcategoria", selectSubcategoria.options[selectSubcategoria.selectedIndex].text);
+
+          window.open(`../../reports/report-libro/reporte.php?${parametros}`, '_blank');
+        } else {
+          alert("No existen datos disponibles para generar el PDF");
+        }
+    }
+
+
 
 
     //Select2
@@ -196,9 +212,15 @@ require_once 'permisos.php';
         placeholder: 'Seleccione: '
     });
 
+    $(selectCategoria).on('change', listarLibro);
+    $(selectSubcategoria).on('change', listarLibro);
+
     //funciones
     listarCategoria();
     listarSubcategoria();
+
+    //Reporte
+    btnGenerarPDF.addEventListener("click", generarPDF);
 
 
 </script>

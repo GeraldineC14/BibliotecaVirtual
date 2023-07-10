@@ -194,7 +194,7 @@ require_once 'permisos.php';
           alert("No existen datos disponibles para generar el PDF");
         }
 
-      }
+    }
 
 
     $(selectLibro).on('change', listarComentario);

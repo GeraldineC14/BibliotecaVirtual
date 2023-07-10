@@ -955,7 +955,30 @@ END $$
 				WHERE idusers = _idusers;
 			END $$
 
-			CALL spu_listloans_user(1);	
+			CALL spu_listloans_user(1);
+			
+		-- N°5 Reporte Préstamo
+		DELIMITER $$
+			CREATE PROCEDURE spu_obtener_libros_meses
+			(
+				 IN bookId INT,
+				 IN loanMonth INT
+			)
+			BEGIN
+				 SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, loans.amount, loans.loan_date,
+					  CASE loans.state
+							WHEN 1 THEN 'PRESTADO'
+							WHEN 0 THEN 'DEVUELTO'
+					  END AS estado
+				 FROM loans
+				 INNER JOIN books ON loans.idbook = books.idbook
+				 INNER JOIN users ON loans.idusers = users.idusers
+				 WHERE loans.idbook = bookId
+				 AND MONTH(loans.loan_date) = loanMonth;
+		END $$
+
+		-- idlibro / mes
+		CALL spu_obtener_libros_meses(1, 7);
 				
 -- ZONA SOCIAL:
 	-- tb. social
