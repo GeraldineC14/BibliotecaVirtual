@@ -76,30 +76,23 @@ class Prestamo extends Conexion
     }
 
     // Reporte Préstamo
-    public function listarLoans()
+    public function reportePrestamo($data=[])
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_get_prestados()");
-            $consulta->execute();
+            $consulta = $this->acceso->prepare("CALL spu_reporte_prestamos(?,?,?)");
+            $consulta->execute(
+                array(
+                    $data['idbook'],
+                    $data['anio'],
+                    $data['mes']
+                  )
+            );
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-
-    public function reportePrestamos($bookId, $loanMonth)
-    {
-        try {
-            $consulta = $this->acceso->prepare("CALL spu_obtener_libros_meses(?, ?)");
-            $consulta->execute(array($bookId, $loanMonth));
-            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            return $datos;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
 
     // Grafico de Prestamos
 

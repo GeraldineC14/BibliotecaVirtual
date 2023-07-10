@@ -1,5 +1,6 @@
 <?php
 require_once '../models/Prestamo.php';
+require_once '../tools/helpers.php';
 $prestamo = new Prestamo();
 
 if (isset($_GET['operacion'])) {
@@ -37,13 +38,14 @@ if (isset($_GET['operacion'])) {
     }
 
     // Reporte Préstamo
-    if ($_GET['operacion'] == 'listarLoans') {
-        $dataprestamo = $prestamo->listarLoans();
-        echo json_encode($dataprestamo);
-    }
-
-    if ($_GET['operacion'] == 'reportePrestamos') {
-        echo json_encode($prestamo->reportePrestamos($_GET['bookId'], $_GET['loanMonth']));
+    if ($_GET['operacion'] == 'reportePrestamo') {
+        renderJSON($prestamo->reportePrestamo(
+            [
+                'idbook' => $_GET['idbook'],
+                'anio' => $_GET['anio'],
+                'mes' => $_GET['mes']
+            ]
+        ));
     }
 
     // Grafico Prestamos

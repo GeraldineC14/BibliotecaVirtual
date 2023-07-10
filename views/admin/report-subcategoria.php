@@ -57,16 +57,14 @@ require_once 'permisos.php';
                         <div class="table-responsive">
                             <table id="table-subcategoria" class="table table-sm table-striped">
                                 <colgroup>
-                                    <col width="5%">
-                                    <col width="25%">
-                                    <col width="20%">
-                                    <col width="20%">
-                                    <col width="15%">
-                                    <col width="15%">
+                                    <col width="10%">
+                                    <col width="30%">
+                                    <col width="30%">
+                                    <col width="30%">
                                 </colgroup>
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
+                                    <tr class="text-center">
+                                        <th>ID</th>
                                         <th>Categoría</th>
                                         <th>Sub Categoria</th>
                                         <th>Fecha de Registro</th>
@@ -115,7 +113,7 @@ require_once 'permisos.php';
                     filtroPDF = 1;
                     const tableRow = `
                         <tr>
-                            <td>${element.idsubcategorie}</td>
+                            <td class='text-center'>${element.idsubcategorie}</td>
                             <td>${element.categoryname}</td>
                             <td>${element.subcategoryname}</td>
                             <td>${element.registrationdate}</td>

@@ -854,6 +854,7 @@ require_once './permisos.php';
                         console.log("Frontpage actualizado correctamente");
                         // Cierra el modal después de la actualización
                         $('#editarportada').modal('hide');
+                        mostrarLibros();
                     },
                     error: function(xhr, status, error) {
                         // Manejar errores
@@ -924,6 +925,7 @@ require_once './permisos.php';
                         console.log("PDF actualizado correctamente");
                         // Cierra el modal después de la actualización
                         $('#editarpdf').modal('hide');
+                        mostrarLibros();
                     },
                     error: function(xhr, status, error) {
                         // Manejar errores

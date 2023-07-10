@@ -40,13 +40,13 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','1','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
-(2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
+(1,1,1,'C001','2','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(2,1,1,'C002','4','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','2','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
 (5,1,1,'C005','2','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
@@ -311,9 +311,10 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (340,2,4,'C264','2','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL),
 (351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
 (352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
-(353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','1',NULL),
-(354,2,3,'C268','2','editar completo2','dsad','s','asdsa','90614788a754c8c9db1bee5970dba6ba20f1cfc7.pdf','0b5ce98ac0fc74ebb05d8a5377fd1d95ae9dbf32.jpg','2023-06-29 22:40:01','1',NULL),
-(355,4,13,'C269','1','preuba','preuba','B','l',NULL,NULL,'2023-07-10 00:47:34','1',NULL);
+(353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','0',NULL),
+(354,2,3,'C268','2','editar completo2','dsad','s','asdsa','90614788a754c8c9db1bee5970dba6ba20f1cfc7.pdf','0b5ce98ac0fc74ebb05d8a5377fd1d95ae9dbf32.jpg','2023-06-29 22:40:01','0',NULL),
+(355,1,1,'C269','1','eidtado','preuba','B','l','59f8f4449022d5b04aa91e84a1d0b0a954ed6d0e.pdf','cad140305096d8bff2a645e5597d4ec6a635c9be.jpg','2023-07-10 00:47:34','1',NULL),
+(356,1,1,'C270','1','PRUEBA FINAL BETA FINAL','BEYA','1','LI','a727a366c684e50c82c8ac2b39b16e7dc4c6cc0c.pdf',NULL,'2023-07-10 14:22:12','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -342,7 +343,7 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
@@ -355,7 +356,8 @@ insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`,`state
 (6,'PRUEBA CON si','2023-05-27 11:05:59','0'),
 (7,'PRUEBA08','2023-07-08 11:53:07','0'),
 (8,'preubs','2023-07-08 11:57:29','0'),
-(9,'DIEGOfelipa','2023-07-09 12:26:02','0');
+(9,'DIEGOfelipa','2023-07-09 12:26:02','0'),
+(10,'CARACHA DIEGO','2023-07-10 14:37:12','0');
 
 /*Table structure for table `commentaries` */
 
@@ -390,7 +392,7 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (8,3,1,'dgfd',4,'2023-06-30',NULL,'1'),
 (9,3,1,'a',3,'2023-06-30',NULL,'1'),
 (10,3,1,'a',1,'2023-06-30',NULL,'1'),
-(11,3,1,'a',2,'2023-06-30',NULL,'1'),
+(11,3,1,'a',2,'2023-06-30',NULL,'0'),
 (12,3,1,'Este libro esta espectacular',4,'2023-06-30',NULL,'1'),
 (13,3,1,'¿Qué es Lorem Ipsum?\nLorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la i',4,'2023-06-30',NULL,'1'),
 (14,1,1,'Genial',5,'2023-06-30',NULL,'1'),
@@ -426,14 +428,14 @@ CREATE TABLE `loans` (
 /*Data for the table `loans` */
 
 insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,2,1,'1','2023-07-04','2023-07-03','hola esto es una prueba','0','2023-07-03 15:39:37'),
+(1,2,1,'1','2023-07-04','2023-07-10','hola esto es una prueba','0','2023-07-03 15:39:37'),
 (2,2,1,'1','2023-07-04','2023-07-03','Prueba 2','0','2023-07-03 15:40:00'),
 (3,2,1,'2','2023-07-05','2023-07-03','aaaaa','0','2023-07-03 15:41:07'),
 (4,2,1,'1','2023-07-03','2023-07-03','ppppp','0','2023-07-03 15:42:19'),
 (5,1,1,'2','2023-07-06','2023-07-04','Prueba\n','0','2023-07-03 22:11:05'),
 (6,5,3,'2','2023-07-06','2023-07-05','Lo recogere a la hora del almuerzo','0','2023-07-05 17:37:51'),
 (7,5,3,'1','2023-07-06','2023-07-05','','0','2023-07-05 17:38:46'),
-(8,1,1,'1','2023-07-08','2023-07-12','123','1','2023-07-06 00:06:48'),
+(8,1,1,'1','2023-07-08','2023-07-10','123','0','2023-07-06 00:06:48'),
 (9,6,1,'1','2023-07-07','2023-07-14','','1','2023-07-06 00:28:11'),
 (34,1,1,'50','2023-03-01','2023-03-15','','1','2023-07-09 19:20:03'),
 (35,2,3,'4','2023-03-02','2023-03-16','','1','2023-07-09 19:20:03'),
@@ -478,13 +480,13 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_da
 (74,37,48,'3','2023-04-06','2023-04-20','Observation 37','1','2023-07-09 19:27:11'),
 (75,2,48,'33','2023-04-07','2023-04-21','Observation 38','1','2023-07-09 19:27:11'),
 (76,39,48,'3','2023-04-08','2023-04-22','Observation 39','1','2023-07-09 19:27:11'),
-(77,2,50,'35','2023-04-09','2023-04-23','Observation 40','1','2023-07-09 19:27:11'),
+(77,2,50,'35','2023-04-09','2023-04-23','Observation 40','1','2023-06-09 19:27:11'),
 (78,41,50,'36','2023-04-10','2023-04-24','Observation 41','1','2023-07-09 19:27:11'),
 (79,2,50,'37','2023-04-11','2023-04-25','Observation 42','1','2023-07-09 19:27:11'),
 (80,43,50,'38','2023-04-12','2023-04-26','Observation 43','1','2023-07-09 19:27:11'),
 (81,2,50,'39','2023-04-13','2023-04-27','Observation 44','1','2023-07-09 19:27:11'),
 (82,45,50,'40','2023-04-14','2023-04-28','Observation 45','1','2023-07-09 19:27:11'),
-(83,2,50,'41','2023-04-15','2023-04-29','ObservApologies','1','2023-07-09 19:27:11');
+(83,2,50,'41','2023-04-15','2023-04-29','ObservApologies','1','2023-06-09 19:27:11');
 
 /*Table structure for table `recuperarclave` */
 
@@ -526,7 +528,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
@@ -543,7 +545,8 @@ insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`r
 (10,3,'prueba eliminar','2023-07-08 13:43:25','0'),
 (11,4,'CATEGORIEA','2023-07-08 14:13:16','0'),
 (12,4,'LDFN','2023-07-08 14:13:31','0'),
-(13,4,'prueba finaaaa|','2023-07-08 14:17:48','1');
+(13,4,'prueba finaaaa|','2023-07-08 14:17:48','1'),
+(14,4,'ds','2023-07-10 14:38:55','0');
 
 /*Table structure for table `users` */
 
@@ -569,7 +572,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey`,`accesslevel`,`creationdate`,`dischargedate`,`state`) values 
-(1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$H0wjgr.Vsx0n8UvGX/Ui3OF.FkdNllKmvWor/.mqnZY5y9RC2XrIm','A','2023-04-25 12:19:02',NULL,'1'),
+(1,'Geral','Castilla Felix','Geraldine','geral@midominio.com','$2y$10$KdvN8jydMeJQxtcE2FXxzuj2hgibe5vq6Xp77AgJN4fhWxkAHKukK','A','2023-04-25 12:19:02',NULL,'1'),
 (3,'Diego10','Felipa Avalos','Diego','diegofelipa11@gmail.com','$2y$10$fuJ642I9ajOyQakiHwSWDuikFAnYtwpLfOPRHE.LWP9/Rb7EtZPim','E','2023-04-25 23:48:47',NULL,'1'),
 (25,'Piero1994','Arias Tasayco','Piero','piero@midominio.com','$2y$10$6w85ifDjRrlV7n6pn8e3guI1d5PkHVvHcr1bPwm8pcXyYpI/Afx0m','D','2023-05-26 14:18:28',NULL,'1'),
 (44,'Piero94','Arias Tasayco','Piero','alexander171194@gmail.com','$2y$10$2Cmxm7KjxMtK4lhJ7GgbxO0xTYmpSY0XT5AkGqDKfXyP47glLKAAa','E','2023-06-26 11:09:40',NULL,'1'),
@@ -577,8 +580,8 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
 (47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
 (48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1'),
-(49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'1'),
-(50,'Piero123','Arias Tasayco','Piero ','piero123@midominio.com','$2y$10$9KJ/s9YXXXVF676FLNJWEe/E.AN.pbRsczw4/YmdLI8rHDOhWyZaC','D','2023-07-05 17:06:15',NULL,'1');
+(49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'0'),
+(50,'Piero123','Arias Tasayco','CARACHA','piero123@midominio.com','$2y$10$VmQsJXAeoF9wdkRegQklVOP1Ig5qCX.NdfgthuDSKbwih9AwGkGmK','D','2023-07-05 17:06:15',NULL,'1');
 
 /*Table structure for table `validacioncorreo` */
 
@@ -1275,28 +1278,30 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_obtener_libros_meses` */
+/* Procedure structure for procedure `spu_obtener_stock` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtener_libros_meses` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtener_stock` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_libros_meses`(
-    IN bookId INT,
-    IN loanMonth INT
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_stock`(IN _idbook INT)
 BEGIN
-    SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, loans.amount, loans.loan_date,
-        CASE loans.state
-            WHEN 1 THEN 'PRESTADO'
-            WHEN 0 THEN 'DEVUELTO'
-        END AS estado
-    FROM loans
-    INNER JOIN books ON loans.idbook = books.idbook
-    INNER JOIN users ON loans.idusers = users.idusers
-    WHERE loans.idbook = bookId
-    AND MONTH(loans.loan_date) = loanMonth;
-END */$$
+					SELECT * FROM books
+					WHERE _idbook = idbook;
+			END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_obtener_stocklibro` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtener_stocklibro` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtener_stocklibro`(IN _idbook INT)
+BEGIN
+					SELECT * FROM books
+					WHERE _idbook = idbook;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_order_user` */
@@ -1506,6 +1511,40 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_reporte_prestamos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reporte_prestamos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reporte_prestamos`(
+				 IN _idbook INT,
+				 IN _anio CHAR(4),
+				 IN _mes CHAR(2)
+			)
+BEGIN
+			IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
+					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
+					 FROM loans
+					 INNER JOIN books ON loans.idbook = books.idbook
+					 INNER JOIN users ON loans.idusers = users.idusers
+					 WHERE loans.idbook = _idbook
+						AND YEAR(loans.registrationdate) = _anio
+						AND MONTH(loans.registrationdate) = _mes;
+				
+			else
+			
+				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
+					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
+						 FROM loans
+						 INNER JOIN books ON loans.idbook = books.idbook
+						 INNER JOIN users ON loans.idusers = users.idusers
+						 WHERE loans.idbook = _idbook;
+			end if;
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_report_subcategoria` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_report_subcategoria` */;
@@ -1585,6 +1624,19 @@ BEGIN
 		FROM users
 		WHERE username = _username AND state = '1';
 	 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_stock_libro` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_stock_libro` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_stock_libro`(IN _idbook INT)
+BEGIN
+					SELECT * FROM books
+					WHERE _idbook = idbook;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_subcategories2_list` */

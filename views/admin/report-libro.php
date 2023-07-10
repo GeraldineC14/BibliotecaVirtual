@@ -101,6 +101,17 @@ require_once 'permisos.php';
     const tablaLibro = document.querySelector("#libros tbody");
     let filtroPDF = -1;
 
+    function alerta(textoMensaje = "") {
+        Swal.fire({
+            title: 'Comentarios',
+            text: textoMensaje,
+            icon: 'info',
+            footer: 'Horacio Zeballos Gámez',
+            timer: 2500,
+            confirmButtonText: 'Aceptar'
+        });
+    }
+
     function listarCategoria(){
         fetch(`../../controllers/categoria.controller.php?operacion=listarCategoria`)
             .then(respuesta => respuesta.json())
@@ -136,7 +147,7 @@ require_once 'permisos.php';
                     optionTag.value = element.idsubcategorie
                     optionTag.text = element.subcategoryname;
                     selectSubcategoria.appendChild(optionTag);
-
+                    console.log(element.idsubcategorie);
                 });
             });
     }
@@ -191,14 +202,15 @@ require_once 'permisos.php';
             parametros.append("idcategorie", selectCategoria.value);
             parametros.append("idsubcategorie", selectSubcategoria.value);
             parametros.append("titulo_Categoria", selectCategoria.options[selectCategoria.selectedIndex].text);
-            if (selectSubcategoria >0){
+            console.log(parametros.toString());
+            if (selectSubcategoria.value >=1){
                 parametros.append("titulo_Subcategoria", selectSubcategoria.options[selectSubcategoria.selectedIndex].text);
             }else{
                 parametros.append("titulo_Subcategoria", 'No ha seleccionado una Sub Categoría');
             }
           window.open(`../../reports/report-libro/reporte.php?${parametros}`, '_blank');
         } else {
-          alert("No existen datos disponibles para generar el PDF");
+          alerta("No existen datos disponibles para generar el PDF");
         }
     }
 

@@ -416,7 +416,7 @@
 				END $$
 
 				CALL spu_list_dashboard_users();
-		-- N° Reporte libro
+		-- N°15 Reporte libro
 			DELIMITER $$
 			CREATE PROCEDURE spu_reporte_libro(
 			    IN _idcategorie INT,
@@ -445,6 +445,17 @@
 			DROP PROCEDURE spu_reporte_libro
 			SELECT * FROM books;
 			CALL spu_reporte_libro(1,1);
+			
+		-- N° 16 Obtener la stock disponible
+			DELIMITER $$
+				DROP PROCEDURE spu_stocklibro_libro(IN _idbook INT)
+				BEGIN
+					SELECT * FROM books
+					WHERE _idbook = idbook;
+			END $$
+			
+			CALL spu_stocklibro_libro(2);
+		
 
 	-- VISTA PRINCIPAL:
 		-- N°1 list book
@@ -768,6 +779,7 @@
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
+
 -- Procedimiento para registrar prestamo y actualizar las tablas
 	DELIMITER $$
 	CREATE PROCEDURE spu_loan_registration
@@ -853,7 +865,6 @@ BEGIN
     COMMIT;
 END $$
 
-	
 		
 		-- Procedimiento para cambiar estado de prestamo
 		DELIMITER $$
@@ -959,23 +970,43 @@ END $$
 			
 		-- N°5 Reporte Préstamo
 		DELIMITER $$
-			CREATE PROCEDURE spu_obtener_libros_meses
+			CREATE PROCEDURE spu_reporte_prestamos
 			(
-				 IN bookId INT,
-				 IN loanMonth INT
+				 IN _idbook INT,
+				 IN _anio CHAR(4),
+				 IN _mes CHAR(2)
 			)
 			BEGIN
-				 SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, loans.amount, loans.loan_date,
-					  CASE loans.state
-							WHEN 1 THEN 'PRESTADO'
-							WHEN 0 THEN 'DEVUELTO'
-					  END AS estado
-				 FROM loans
-				 INNER JOIN books ON loans.idbook = books.idbook
-				 INNER JOIN users ON loans.idusers = users.idusers
-				 WHERE loans.idbook = bookId
-				 AND MONTH(loans.loan_date) = loanMonth;
+			IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
+					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
+					 FROM loans
+					 INNER JOIN books ON loans.idbook = books.idbook
+					 INNER JOIN users ON loans.idusers = users.idusers
+					 WHERE loans.idbook = _idbook
+						AND YEAR(loans.registrationdate) = _anio
+						AND MONTH(loans.registrationdate) = _mes;
+				
+			ELSE
+			
+				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
+					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
+						 FROM loans
+						 INNER JOIN books ON loans.idbook = books.idbook
+						 INNER JOIN users ON loans.idusers = users.idusers
+						 WHERE loans.idbook = _idbook;
+			END IF;
 		END $$
+		
+		SELECT * FROM loans
+		
+			DROP PROCEDURE spu_reporte_prestamos
+			
+		CALL spu_reporte_prestamos(2,2023,06);
+		
+		SELECT * FROM loans
+		
+		
 
 		-- idlibro / mes
 		CALL spu_obtener_libros_meses(1, 7);
