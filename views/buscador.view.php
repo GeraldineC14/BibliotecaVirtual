@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">         
+    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">
         <div class="row">
             <div class="col-md-6 col-xl-3 offset-xl-0">
                 <div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
@@ -68,13 +68,12 @@
                             <ul id="fruits-nav" class="nav flex-column categorias"></ul>
                         </div>
                     </div>
-                </div>   
-            </div>     
+                </div>
+            </div>
             <!-- VISTA DE LIBROS PRINCIPALES -->
-            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos"></div>    
+            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos"></div>
         </div>
     </div>
-    
     <!-- Enlace de apoyos -->
     <h2 class="text-center" style="font-family: 'Archivo Black', sans-serif;margin-bottom: 25px;">Enlaces de apoyo</h2>
     <div class="container" style="margin-bottom: 39px;">
@@ -150,8 +149,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                          
-                    </div>                              
+                        </div>
+                    </div>
                     `;
                     $(".datos").append(nuevaFila);
                 });
@@ -172,14 +171,13 @@
                             <a href="subcategoria.view.php?sub1=${registro['idsubcategorie']}" class="nav-link">
                                 <i class="fa fa-book" aria-hidden="true"></i>${registro['subcategoryname']}
                             </a>
-                        </li>                             
+                        </li>
                         `
                         $(".categorias").append(nuevaFila2);
                     });
                 }
             });
         }
-
         //Funciones de carga automatica
         LibrosBuscador();
         VistaprincipalCategoria();

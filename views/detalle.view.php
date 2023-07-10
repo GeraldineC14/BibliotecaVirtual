@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="text-center m">
-        
+
     </div>
     <div class="container">
         <div class="row">
@@ -188,16 +188,16 @@
 
 
             function VistaResumen() {
-    $.ajax({
-        url: '../controllers/biblioteca.controller.php',
-        type: 'GET',
-        data: {
-            'operacion': 'VistaResumen',
-            'idbook': idbook2
-        },
-        success: function(result) {
-            let registros = JSON.parse(result);
-            let nuevaFila = `
+                $.ajax({
+                    url: '../controllers/biblioteca.controller.php',
+                    type: 'GET',
+                    data: {
+                        'operacion': 'VistaResumen',
+                        'idbook': idbook2
+                    },
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        let nuevaFila = `
             <div class="row">
                 <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
                     <h5 class="text-center">${registros['descriptions']}</h5>
@@ -223,29 +223,29 @@
             </div>
             `;
 
-            $(".resumen").append(nuevaFila);
+                        $(".resumen").append(nuevaFila);
 
-            // Verificar si el idusuario es igual a -1
-            if (idusuario === -1) {
-                $(".prestamos").attr("href", "login.php");
+                        // Verificar si el idusuario es igual a -1
+                        if (idusuario === -1) {
+                            $(".prestamos").attr("href", "login.php");
+                        }
+
+                        // Controlador de eventos para el enlace de Prestamo
+                        $(".prestamos").on("click", function(e) {
+                            if (registros['amount'] == 0) {
+                                e.preventDefault(); // Prevenir la acción predeterminada del enlace
+                                Swal.fire({
+                                    title: 'No hay libros disponibles',
+                                    text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
+                                    icon: 'info',
+                                    footer: '<strong>Horacio Zeballos Gámez</strong>',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        });
+                    }
+                });
             }
-
-            // Controlador de eventos para el enlace de Prestamo
-            $(".prestamos").on("click", function(e) {
-                if (registros['amount'] == 0) {
-                    e.preventDefault(); // Prevenir la acción predeterminada del enlace
-                    Swal.fire({
-                        title: 'No hay libros disponibles',
-                        text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
-                        icon: 'info',
-                        footer: '<strong>Horacio Zeballos Gámez</strong>',
-                        confirmButtonText: 'Aceptar'
-                    });
-                }
-            });
-        }
-    });
-}
 
 
             function listarComentarios() {

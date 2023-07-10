@@ -197,7 +197,6 @@ require_once './permisos.php';
                         $("#subcategorias").text(json[0]['total_subcategorias']);
                         $("#autores").text(json[0]['total_autores']);
                     }
-                    
                 });
             }
 
@@ -213,13 +212,9 @@ require_once './permisos.php';
                         $("#docentes").text(json[0]['total_docentes']);
                         $("#prestamos").text(json[0]['total_prestamos']);
                     }
-                    
                 });
             }
-
             contadorBooks();
             contadorUsers();
-
         });
-        
     </script>

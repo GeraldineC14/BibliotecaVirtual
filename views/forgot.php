@@ -1,8 +1,5 @@
 <?php
 
-/*if(isset($_SESSION['login']) && $_SESSION['login'] == true){
-  header("location:views/admin/admin.view.php");
-}*/
 
 ?>
 <!doctype html>

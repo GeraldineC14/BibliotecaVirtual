@@ -112,8 +112,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                          
-                    </div>                              
+                        </div>
+                    </div>
                     `;
                     $(".datos").append(nuevaFila);
                 });
@@ -129,13 +129,13 @@
                 success: function(result){
                     let registros = JSON.parse(result);
                     let nuevaFila2 = ``;
-                    registros.forEach(registro => {  
-                        nuevaFila2 = ` 
+                    registros.forEach(registro => {
+                        nuevaFila2 = `
                         <li class="nav-item">
                             <a href="subcategoria.view.php?sub1=${registro['idsubcategorie']}" class="nav-link">
                                 <i class="fa fa-book" aria-hidden="true"></i>${registro['subcategoryname']}
                             </a>
-                        </li>                             
+                        </li>
                         `
                         $(".categorias").append(nuevaFila2);
                     });

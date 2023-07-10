@@ -30,18 +30,13 @@ require_once 'permisos.php';
                                 </div>
 
                                 <div class="btn-group" role="group">
-                                    <!-- Botón para mostrar el modal de registrar préstamos -->
-                                    <button class="btn btn-success btn-sm d-none d-md-inline-block" role="button" data-toggle="modal" data-target="#modal-prestamo">
-                                        <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
-                                        &nbsp;Registrar
-                                    </button>
                                     <!-- Enlace para redirigir a la vista de reporte -->
-                                    <a href="index.php?view=report-prestamo.php" class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-left: 50px;">
+                                    <a href="index.php?view=report-prestamo.php" class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-right: 10px;">
                                         <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
                                         &nbsp;Reporte
                                     </a>
                                     <!-- Enlace para redirigir a la vista de gráficos -->
-                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info btn-sm d-none d-md-inline-block" style="margin-left: 50px;">
+                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info btn-sm d-none d-md-inline-block">
                                         <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
                                         &nbsp;Gráfico
                                     </a>
@@ -51,11 +46,6 @@ require_once 'permisos.php';
                                 <div class="d-flex mx-auto d-md-none">
                                     <div class="btn-group w-100" role="group">
                                         <div class="btn-group w-100" role="group">
-                                            <!-- Botón para mostrar el modal de registrar libro (versión móvil) -->
-                                            <a class="btn btn-outline-success btn-sm d-inline-block mr-2" role="button" data-toggle="modal" data-target="#modal-prestamo">
-                                                <i class="fas fa-truck-ramp-box fa-sm text-black fa-xl"></i>
-                                                &nbsp;Registrar
-                                            </a>
                                             <!-- Botón para mostrar la vista de generar de reporte (versión móvil) -->
                                             <a class="btn btn-outline-danger btn-sm d-inline-block mr-2" id="reportButton" href="index.php?view=report-prestamo.php">
                                                 <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
@@ -104,70 +94,6 @@ require_once 'permisos.php';
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Zona Modales registro -->
-                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-prestamo" tabindex="-1" aria-labelledby="titulo-modal-libros" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-success text-black">
-                                        <h5 class="modal-title text-black" id="titulo-modal-libros" style="font-weight:bold;">Registrar Prestamo</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span class="text-light" aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formulario-prestamos">
-                                            <div class="form-group">
-                                                <label for="libro">Libro</label><br>
-                                                <select id="libro" class="form-select libro" multiple name="libro" required style="width: 100%;">
-                                                </select>
-                                            </div>
-
-                                            <div class="row mt-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-group ">
-                                                        <label for="usuario">Usuario</label><br>
-                                                        <select id="usuario" class="form-select usuario" multiple name="usuario" required style="width: 100%;">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="cantidad">Stock</label>
-                                                        <input id="cantidad" class="form-control" min="1" type="number" name="stock" min="1" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="cantidad">Cant</label>
-                                                        <input id="cantidad" class="form-control" min="1" type="number" name="cantidad" min="1">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="fecha_prestamo">Fecha de Prestamo</label>
-                                                        <input id="fecha_prestamo" class="form-control" type="date" name="fecha_prestamo" value="<?php echo date(" Y-m-d"); ?>" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="fecha_devolucion">Fecha de Devolución</label>
-                                                        <input id="fecha_devolucion" class="form-control" type="date" name="fecha_devolucion" value="<?php echo date(" Y-m-d"); ?>" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" readonly required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="observacion">Observación</label>
-                                                <textarea id="observacion" class="form-control" placeholder="Ingrese alguna observacion..." name="observacion" rows="3"></textarea>
-                                            </div>
-                                            <button class="btn btn-primary" type="button" id="prestar">Prestar</button>
-                                            <button class="btn btn-danger" type="button" data-dismiss="modal" id="cancelar-modal">Cancelar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -281,111 +207,8 @@ require_once 'permisos.php';
                     });
                 }
 
-
-                function reiniciarFormulario() {
-                    $("#formulario-prestamos")[0].reset();
-                }
-
-                function listarUsuarioLoans() {
-                    $.ajax({
-                        url: '../../controllers/prestamo.controller.php',
-                        type: 'GET',
-                        data: 'operacion=listarUsuarioLoans',
-                        success: function(result) {
-                            let registros = JSON.parse(result);
-                            let elementosLista = ``;
-
-                            if (registros.length > 0) {
-                                registros.forEach(registro => {
-                                    elementosLista += `<option value=${registro['idusers']}>${registro['Users']}</option>`;
-
-                                });
-                            } else {
-                                elementosLista = `<option>No hay datos asignados</option>`;
-                            }
-                            $("#usuario").html(elementosLista);
-                        }
-                    });
-                }
-
-                function listarLibros() {
-                    $.ajax({
-                        url: '../../controllers/biblioteca.controller.php',
-                        type: 'GET',
-                        data: 'operacion=listarLibros',
-                        success: function(result) {
-                            let registros = JSON.parse(result);
-                            let elementosLista = '';
-
-                            if (registros.length > 0) {
-                                registros.forEach(registro => {
-                                    elementosLista += `<option value=${registro['idbook']}>${registro['descriptions']}</option>`;
-                                });
-                            } else {
-                                elementosLista = '<option>No hay libros disponibles</option>';
-                            }
-
-                            $('#libro').html(elementosLista);
-                        }
-                    });
-                }
-
-                function obtenerStock (){
-                    const indiceLibro = parseInt(selectLibro.value);
-                    const indiceLibroSeleccionado = indiceLibro >= 1 ? indiceLibro : "0";
-                    console.log(indiceLibroSeleccionado);
-                    $.ajax({
-                        url: '../../controllers/biblioteca.controller.php',
-                        type: 'GET',
-                        dataType: 'JSON',
-                        data: {
-                            'operacion': 'getLibro',
-                            'idbook': indiceLibroSeleccionado
-                        },
-                        success: function(result) {
-                            $("#cantidad").val(result['amount']);
-                            console.log(result);
-                        }
-                    });
-                }
-
-
-                // Obtener los elementos de entrada de fecha
-                var fechaRecojo = $("#fecha_prestamo");
-                var fechaDevolucion = $("#fecha_devolucion");
-
-                // Establecer un controlador de eventos para el cambio de fecha en el campo de fecha de recojo
-                fechaRecojo.on("change", function() {
-                    // Obtener la fecha seleccionada en el campo de fecha de recojo
-                    var fechaRecojoValue = new Date($(this).val());
-
-                    // Obtener la fecha mínima permitida para el campo de fecha de devolución
-                    var minFechaDevolucion = new Date(fechaRecojoValue);
-
-                    fechaDevolucion.prop('readonly', false);
-
-                    minFechaDevolucion.setDate(minFechaDevolucion.getDate()); // Incrementar la fecha en 1 día
-
-                    // Establecer la fecha mínima para el campo de fecha de devolución
-                    fechaDevolucion.attr("min", minFechaDevolucion.toISOString().split("T")[0]);
-                });
-
-                listarLibros();
                 listarPrestamos();
-                listarUsuarioLoans();
-                $("#cancelar-modal").click(reiniciarFormulario);
-                $(selectLibro).on('change', obtenerStock);
-
-
-                $('.libro').select2({
-                    maximumSelectionLength: 1,
-                    placeholder: 'Seleccione: '
-                });
                 
-                $('.usuario').select2({
-                    maximumSelectionLength: 1,
-                    placeholder: 'Seleccione: '
-                });
             });
 
         </script>
