@@ -97,7 +97,7 @@
 
     <!-- Mis funciones y eventos javascript -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() {  
 
             idusuario = <?php echo $idusers ?>;
             idbook2 = <?php echo $_GET["resumen"]; ?>;
@@ -213,11 +213,10 @@
                     </p>
                     <div class="text-center">
                         <div class="btn-group" role="group">
-                            <a href="PDF/${registros['url'] || 'sin-pdf.png'}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;"    type="button">Descargar <i class="fa-solid fa-download"></i></a>
+                            ${registros['url'] ? `<a href="PDF/${registros['url']}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;" type="button">Descargar <i class="fa-solid fa-download"></i></a>` : ''}
                             <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
                         </div>
                         <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
-
                     </div>
                 </div>
             </div>
