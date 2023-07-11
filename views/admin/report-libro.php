@@ -167,6 +167,7 @@ require_once 'permisos.php';
         fetch(`../../controllers/biblioteca.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
             .then(datos => {
+                let i = 1;
                 if(!datos || datos.length === 0){
                     tablaLibro.innerHTML = '<tr><td colspan="7">No ha seleccionado ningún Categoría</td></tr>';
                     filtroPDF = -1;
@@ -178,7 +179,7 @@ require_once 'permisos.php';
                     registro.forEach(element => {
                     const tableRow = `
                     <tr>
-                        <td>${element.idbook}</td>
+                        <td>${i++}</td>
                         <td>${element.categoryname}</td>
                         <td>${element.subcategoryname}</td>
                         <td>${element.codes}</td>

@@ -79,11 +79,11 @@
                 echo $cerrarTabla;
             }
 
-            function agregarFila($arreglo = [])
+            function agregarFila($arreglo = [],$i)
             {
                 echo "
                     <tr>
-                        <td>{$arreglo['idbook']}</td>
+                        <td>$i</td>
                         <td class='center'>{$arreglo['codes']}</td>
                         <td class='center'>{$arreglo['amount']}</td>
                         <td>{$arreglo['descriptions']}</td>
@@ -104,19 +104,23 @@
             }
 
             if (count($datos) > 0) {
+                $i = 1;
                 $libro = $datos[0]["categoryname"];
                 $registrosLibros = array($libro => 0);
                 crearTabla($libro);
                 foreach ($datos as $registro) {
                     if ($libro == $registro["categoryname"]) {
-                        agregarFila($registro);
+                        agregarFila($registro,$i);
                         $registrosLibros[$libro]++;
+                        $i++;
                     } else {
+                        $i=1;
                         $libro = $registro["categoryname"];
                         cerrarTabla();
                         crearTabla($libro);
-                        agregarFila($registro);
+                        agregarFila($registro,$i);
                         $registrosLibros[$libro] = 1;
+                        $i++;
                     }
                 }
                 cerrarTabla();

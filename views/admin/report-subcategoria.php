@@ -108,12 +108,13 @@ require_once 'permisos.php';
         fetch(`../../controllers/subcategoria.controller.php?${parametros}`)
             .then(respuesta => respuesta.json())
             .then(datos => {
+                let i = 1;
                 tableSubcategoria.innerHTML = ``;
                 datos.forEach(element => {
                     filtroPDF = 1;
                     const tableRow = `
                         <tr>
-                            <td class='text-center'>${element.idsubcategorie}</td>
+                            <td class='text-center'>${i++}</td>
                             <td>${element.categoryname}</td>
                             <td>${element.subcategoryname}</td>
                             <td>${element.registrationdate}</td>

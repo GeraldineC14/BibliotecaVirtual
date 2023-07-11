@@ -82,11 +82,11 @@
                 echo $cerrarTabla;
             }
 
-            function agregarFila($arreglo = [])
+            function agregarFila($arreglo = [],$i)
             {
                 echo "
                     <tr>
-                        <b><td class='center'>{$arreglo['idusers']}</td></b>
+                        <b><td class='center'>$i</td></b>
                         <td>{$arreglo['namess']}</td>
                         <td>{$arreglo['surnames']}</td>
                         <td >{$arreglo['username']}</td>
@@ -120,20 +120,23 @@
 
 
             if (count($datos) > 0) {
-
+                $i = 1;
                 $rolActual = $datos[0]["accesslevel"];
                 $registrosAccesslevel = array($rolActual => 0);
                 crearTabla($rolActual);
                 foreach ($datos as $registro) {
                     if ($rolActual == $registro["accesslevel"]) {
-                        agregarFila($registro);
+                        agregarFila($registro,$i);
                         $registrosAccesslevel[$rolActual]++;
+                        $i++;
                     } else {
+                        $i=1;
                         $rolActual = $registro["accesslevel"];
                         cerrarTabla();
                         crearTabla($rolActual);
-                        agregarFila($registro);
+                        agregarFila($registro,$i);
                         $registrosAccesslevel[$rolActual] = 1;
+                        $i++;
                     }
                 }
                 cerrarTabla();
