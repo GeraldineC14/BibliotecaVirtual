@@ -21,7 +21,6 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/prueba.css">
   <link rel="stylesheet" href="../assets/css/login-responsive.css">
 
 </head>
@@ -29,6 +28,19 @@
 <body>
   <!-- navbar -->
   <?php include './navbar.php'; ?>
+  <style>
+    .inputc {
+      height: 50px;
+      width: 40px;
+      text-align: center;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-color: rgba(0, 0, 255, 0.49);
+    }
+  </style>
   <div class="opacity-overlay"></div>
   <section class="ftco-section">
     <div class="container">

@@ -37,23 +37,29 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #415a76;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #dc3545;">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="./index.php?view=admin.view.php" style="font-weight: bold; font-size:20px; font-family:'Courier New', Courier, monospace;">
-            <span style="background-color: #415a76; color: #000000; padding:5px; border-radius:5px">Horacio Zeballos</span>
+        <a class="navbar-brand ps-3 d-none d-lg-block" href="./index.php?view=admin.view.php" style="font-weight: bold; font-size:20px; font-family:'Courier New', Courier, monospace;">
+            <span style="background-color: #dc3545; color: #FFF; padding:5px; border-radius:5px">Horacio Zeballos</span>
         </a>
+
+        <a class="navbar-brand ps-3 d-lg-none" href="./index.php?view=admin.view.php" style="font-weight: bold; font-size:20px; font-family:'Courier New', Courier, monospace;">
+            <span style="background-color: #dc3545; color: #FFF; padding:5px; border-radius:5px">HZG</span>
+        </a>
+
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fa fa-bars fa-lg" style="color: #000000;"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
         <!-- Navbar-->
+        <a class="btn btn-primary" href="../../index.php" style="background-color: #39a2db; border-color: #39a2db;">Biblioteca</a>
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user fa-lg" style="color: #000000;"></i>
+                <i class="fa fa-user fa-lg" style="color: #FFF;"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="../../index.php">Biblioteca</a>
+                
                 <a class="dropdown-item" href="./index.php?view=perfil.view.php">Perfil</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../../controllers/usuario.controller.php?operacion=cerrar-sesion">Salir</a>

@@ -17,12 +17,24 @@
 
 	<link rel="stylesheet" href="../assets/css/style.css">
 	<link rel="stylesheet" href="../assets/css/login-responsive.css">
-	<link rel="stylesheet" href="../assets/css/prueba.css">
 	<link rel="shortcut icon" href="../assets/img/favicon.ico"/>
 
 </head>
 
 <body>
+	<style>
+    .inputc {
+      height: 50px;
+      width: 40px;
+      text-align: center;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+      border-color: rgba(0, 0, 255, 0.49);
+    }
+  </style>
 	<!-- navbar -->
 	<?php include './navbar.php'; ?>
 	<div class="opacity-overlay"></div>
@@ -62,7 +74,7 @@
 										<select class="form-control" name="accesslevel" id="accesslevel">
 											<option value="#" selected>Seleccione:</option>
 											<option value="E">Estudiante</option>
-											<option value="D">Docente</option>
+											<option value="I">Invitado</option>
 										</select>
 									</div>
 								</div>

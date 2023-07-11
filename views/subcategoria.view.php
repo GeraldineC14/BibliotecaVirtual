@@ -20,6 +20,7 @@ if (!isset($_GET['sub1'])) {
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/prueba.css">
 </head>
 <body>
     <!-- navbar -->
@@ -27,9 +28,9 @@ if (!isset($_GET['sub1'])) {
     <div class="container">
         <div class="carousel slide carousel-fade" data-ride="carousel" id="carousel-1" style="margin-right: 0px;padding-bottom: 0px;">
             <div class="carousel-inner">
-                <div class="carousel-item active"><img class="w-100 d-block" src="../assets/img/Portada1.png?h=25952ce41ff7a5938893d74d3b0467c5" alt="Slide Image" style="padding-left: 0px;"></div>
-                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada2.png?h=ff9f180286ddfdab6e1e6790b80a6b23" alt="Slide Image"></div>
-                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada3.png?h=bdde253e641516f6b6ad168637af87d5" alt="Slide Image"></div>
+                <div class="carousel-item active"><img class="w-100 d-block" src="../assets/img/Portada1.png" alt="Slide Image" style="padding-left: 0px;"></div>
+                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada2.png" alt="Slide Image"></div>
+                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada3.png" alt="Slide Image"></div>
             </div>
             <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
             <ol class="carousel-indicators" style="padding-top: 0px;padding-bottom: 0px;margin-bottom: 1px;">
@@ -38,27 +39,33 @@ if (!isset($_GET['sub1'])) {
                 <li data-target="#carousel-1" data-slide-to="2"></li>
             </ol>
         </div>
-        <!-- FORMULARIO DE BUSQUEDA -->
     </div>
-    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">
+    <div class="container" style="margin-top: 20px; margin-bottom: 39px;">
         <div class="row">
-            <div class="col-md-6 col-xl-3 offset-xl-0"><div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
-    <div class="sidebar-category sidebar-default">
-        <div class="category-title">
-            <span>CATEGORIAS</span>
-        </div>
-        <div class="category-content">
-            <ul id="fruits-nav" class="nav flex-column categorias">
-            </ul>
-        </div>
-    </div>
-</div></div>
-            <br>
-            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos">
+            <div class="col-md-2">
+                <div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
+                    <div class="sidebar-category sidebar-default">
+                        <div class="category-title">
+                            <span>CONTENIDOS</span>
+                        </div>
+                        <!-- LISTA DE SUBCATEGORIAS -->
+                        <div class="category-content">
+                            <ul id="fruits-nav" class="nav flex-column categorias"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- VISTA DE LIBROS PRINCIPALES -->
+            <div class="col-md-10">
+                <div class="container mt-2" style="background-color: #FFF;">
+                    <div class="catalogo datos">
 
+                    </div><!-- ./Fin catálogo -->
+                </div>
             </div>
         </div>
     </div>
+    <!-- Footer -->
     <h2 class="text-center" style="font-family: 'Archivo Black', sans-serif;margin-bottom: 25px;">Enlaces de apoyo</h2>
     <div class="container" style="margin-bottom: 39px;">
         <div class="row">
@@ -111,22 +118,30 @@ if (!isset($_GET['sub1'])) {
                 let nuevaFila = ``;
                 if (registros.length > 0) {
                     registros.forEach(registro => {  
+
+                        let commentPreview = registro['descriptions'].split(' ').slice(0, 3).join(' ');
+                        commentPreview += '...'
                         portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                         nuevaFila = ` 
-                            <div>
-                                <div class="card-group">   
-                                    <div class="card col-md-12"> 
-                                        <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="../views/frontpage/${portada}">
-                                        <div class="card-body">
-                                            <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
-                                            <p class="card-text">${registro['author']}</p>
-                                            <div>
-                                                <a href='../views/detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
-                                            </div>
+                                <ul class='list-group contenedor'>
+                                    <li class='list-group-item bg-danger' style='color: #ffffff; font-weight: bold; font-size: 12px;'>
+                                        <div class='row'>
+                                            <div class='col-md-12 titulo'>${commentPreview}</div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </li>
+                                    <li class='list-group-item'>
+                                        <div class='text-center'>
+                                            <img class='img' src='./frontpage/${portada}'>
+                                        </div>
+                                        <div class='descripcion mt-2 text-center'>
+                                            ${registro["descriptions"]}
+                                            <p class='mt-3' style='font-size: 12px;'>${registro["author"]}</p>
+                                        </div>
+                                    </li>
+                                    <li class='list-group-item'>
+                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
+                                    </li>
+                                </ul>   
                             `;
                         $(".datos").append(nuevaFila);
                     });

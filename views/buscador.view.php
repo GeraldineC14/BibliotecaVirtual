@@ -21,6 +21,7 @@ if (!isset($_POST['look']) || !isset($_POST['type'])) {
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/popups.css">
+    <link rel="stylesheet" href="../assets/css/prueba.css">
 </head>
 <body>
     <!-- navbar -->
@@ -28,9 +29,9 @@ if (!isset($_POST['look']) || !isset($_POST['type'])) {
     <div class="container">
         <div class="carousel slide carousel-fade" data-ride="carousel" id="carousel-1" style="margin-right: 0px;padding-bottom: 0px;">
             <div class="carousel-inner">
-                <div class="carousel-item active"><img class="w-100 d-block" src="../assets/img/Portada1.png?h=25952ce41ff7a5938893d74d3b0467c5" alt="Slide Image" style="padding-left: 0px;"></div>
-                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada2.png?h=ff9f180286ddfdab6e1e6790b80a6b23" alt="Slide Image"></div>
-                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada3.png?h=bdde253e641516f6b6ad168637af87d5" alt="Slide Image"></div>
+                <div class="carousel-item active"><img class="w-100 d-block" src="../assets/img/Portada1.png" alt="Slide Image" style="padding-left: 0px;"></div>
+                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada2.png" alt="Slide Image"></div>
+                <div class="carousel-item"><img class="w-100 d-block" src="../assets/img/Portada3.png" alt="Slide Image"></div>
             </div>
             <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
             <ol class="carousel-indicators" style="padding-top: 0px;padding-bottom: 0px;margin-bottom: 1px;">
@@ -41,38 +42,31 @@ if (!isset($_POST['look']) || !isset($_POST['type'])) {
         </div>
         <!-- FORMULARIO DE BUSQUEDA -->
         <div class="container mt-3">
-            <div class="d-flex justify-content-center">
-                <form action="./buscador.view.php" class="text-center">
-                    <div class="row align-items-center">
-                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
-                            <input class="form-control w-100" id="inlineFormInputGroup" type="text" placeholder="Buscar libro" name="look">
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-auto mb-3 mb-sm-0">
-                            <select class="form-control w-100" id="inlineFormInputGroup" name="type" required>
-                                <option value="">Seleccione:</option>
-                                <option value="n">Nombre de libro</option>
-                                <option value="a">Autor</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-auto">
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary" id="inlineFormInputGroup" type="submit" style="max-width: 150px; background-color: #39a2db; border-color: #39a2db;"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
-                            </div>
-                        </div>
+            <form action="./buscador.view.php" class="text-center" method="post">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Buscar libro" name="look" required>
+                    <select class="form-control" name="type" required>
+                        <option value="n">Nombre de libro</option>
+                        <option value="a">Autor</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn" type="submit" style="background-color: #39a2db; border-color: #39a2db;">
+                            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+                        </button>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
+            </form>
+        </div>  
     </div>
-    <div class="container" style="margin-top: 20px;margin-bottom: 39px;">
+    <div class="container" style="margin-top: 20px; margin-bottom: 39px;">
         <div class="row">
-            <div class="col-md-6 col-xl-3 offset-xl-0">
+            <div class="col-md-2">
                 <div id="sidebar-main" class="sidebar sidebar-default sidebar-separate">
                     <div class="sidebar-category sidebar-default">
                         <div class="category-title">
                             <span>CONTENIDOS</span>
                         </div>
-                            <!-- LISTA DE SUBCATEGORIAS -->
+                        <!-- LISTA DE SUBCATEGORIAS -->
                         <div class="category-content">
                             <ul id="fruits-nav" class="nav flex-column categorias"></ul>
                         </div>
@@ -80,7 +74,13 @@ if (!isset($_POST['look']) || !isset($_POST['type'])) {
                 </div>
             </div>
             <!-- VISTA DE LIBROS PRINCIPALES -->
-            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2 col-md-8 row-cols-md-3 datos"></div>
+            <div class="col-md-10">
+                <div class="container mt-2" style="background-color: #FFF;">
+                    <div class="catalogo datos">
+
+                    </div><!-- ./Fin catálogo -->
+                </div>
+            </div>
         </div>
     </div>
     <!-- Enlace de apoyos -->
@@ -143,22 +143,29 @@ if (!isset($_POST['look']) || !isset($_POST['type'])) {
                 let nuevaFila = ``;
 
                 registros.forEach(registro => {  
+                    let commentPreview = registro['descriptions'].split(' ').slice(0, 3).join(' ');
+                    commentPreview += '...'
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
                     nuevaFila = ` 
-                    <div>
-                        <div class="card-group">   
-                            <div class="card col-md-12"> 
-                                <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="frontpage/${portada}">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
-                                    <p class="card-text">${registro['author']}</p>
-                                    <div>
-                                        <a href='detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
-                                    </div>
+                        <ul class='list-group contenedor'>
+                            <li class='list-group-item bg-danger' style='color: #ffffff; font-weight: bold; font-size: 12px;'>
+                                <div class='row'>
+                                    <div class='col-md-12 titulo'>${commentPreview}</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <div class='text-center'>
+                                    <img class='img' src='./frontpage/${portada}'>
+                                </div>
+                                <div class='descripcion mt-2 text-center'>
+                                    ${registro["descriptions"]}
+                                    <p class='mt-3' style='font-size: 12px;'>${registro["author"]}</p>
+                                </div>
+                            </li>
+                            <li class='list-group-item'>
+                                <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
+                            </li>
+                        </ul> 
                     `;
                     $(".datos").append(nuevaFila);
                 });

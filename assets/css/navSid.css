@@ -11037,7 +11037,7 @@ body {
   color: #000000; /* Menú Lateral Desplegable*/
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #415a76; /* Menú Lateral cuando se sobrepone el puntero */
+  color: #dc3545; /* Menú Lateral cuando se sobrepone el puntero */
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
   color: #fff;
@@ -11046,7 +11046,7 @@ body {
   color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
-  background-color: #415a76;/* Fondo Footer */
+  background-color: #dc3545;/* Fondo Footer */
 }
 
 .sb-sidenav-light {
