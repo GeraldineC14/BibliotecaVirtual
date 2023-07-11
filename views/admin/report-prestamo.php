@@ -144,6 +144,7 @@
         fetch(`../../controllers/prestamo.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
             .then(datos => {
+                let i = 1;
                 if(!datos || datos.length === 0){
                     tablaPrestamo.innerHTML = '<tr><td colspan="7">No ha seleccionado ningún libro</td></tr>';
                     filtroPDF = -1;
@@ -155,7 +156,7 @@
                     registro.forEach(element => {
                     const tableRow = `
                     <tr>
-                        <td class='text-center'>${element.idloan}</td>
+                        <td class='text-center'>${i++}</td>
                         <td>${element.descriptions}</td>
                         <td>${element.nombre_completo}</td>
                         <td class='text-center'>${element.amount}</td>
@@ -170,6 +171,7 @@
                 }
             });
     }
+
     function generarPDF() {
         var valorFecha = inputFecha.value;
         var anio = '';

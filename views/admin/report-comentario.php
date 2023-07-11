@@ -144,6 +144,7 @@ require_once 'permisos.php';
         fetch(`../../controllers/comentario.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
             .then(datos => {
+                let i =1;
                 if(!datos || datos.length === 0){
                     tablaComentario.innerHTML = '<tr><td colspan="5">No ha seleccionado ningún libro</td></tr>';
                     filtroPDF = -1;
@@ -155,7 +156,7 @@ require_once 'permisos.php';
                     registro.forEach(element => {
                     const tableRow = `
                     <tr>
-                        <td>${element.idcomentario}</td>
+                        <td>${i++}</td>
                         <td>${element.datos}</td>
                         <td>${element.descriptions}</td>
                         <td>${element.commentary_date}</td>

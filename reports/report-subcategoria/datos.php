@@ -38,87 +38,91 @@
 
         <div>
             <?php
-                                function crearTabla($categoria = "")
-                                {
-                                    $nuevaTabla = "
-                                        <h4 class='mb-2 mt-3'>{$categoria}</h4>
-                                        <table class='table table-border mb-3 custom-table'>
-                                            <colgroup>
-                                                  <col width='5%'>
-                                                  <col class='col-subcategoria'>
-                                                  <col class='col-fecha'>
-                                              </colgroup>
-                                              <thead>
-                                                  <tr class='bg-danger'>
-                                                      <th>#</th>
-                                                      <th>Sub Categoría</th>
-                                                      <th class='center'>Fecha de Registro</th>
-                                                  </tr>
-                                              </thead>
-                                            <tbody>
-                                        ";
-                                    echo  $nuevaTabla;
-                                }
+                function crearTabla($categoria = "")
+                {
+                    $nuevaTabla = "
+                        <h4 class='mb-2 mt-3'>{$categoria}</h4>
+                        <table class='table table-border mb-3 custom-table'>
+                            <colgroup>
+                                    <col width='5%'>
+                                    <col class='col-subcategoria'>
+                                    <col class='col-fecha'>
+                                </colgroup>
+                                <thead>
+                                    <tr class='bg-danger'>
+                                        <th>#</th>
+                                        <th>Sub Categoría</th>
+                                        <th class='center'>Fecha de Registro</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                        ";
+                    echo  $nuevaTabla;
+                }
 
-                                function cerrarTabla()
-                                {
-                                    $cerrarTabla = "
-                                        </tbody>
-                                        </table>
-                                        ";
-                                    echo $cerrarTabla;
-                                }
+                function cerrarTabla()
+                {
+                    $cerrarTabla = "
+                        </tbody>
+                        </table>
+                        ";
+                    echo $cerrarTabla;
+                }
 
-                                function agregarFila($arreglo = [])
-                                {
-                                    echo "
-                                          <tr>
-                                            <b><td>{$arreglo['idsubcategorie']}</td></b>
-                                              <td>{$arreglo['subcategoryname']}</td>
-                                              <td class='center'>{$arreglo['registrationdate']}</td>
-                                          </tr>
-                                      ";
-                                }
+                function agregarFila($arreglo = [],$i)
+                {
+                    echo "
+                            <tr>
+                            <b><td>{$i}</td></b>
+                                <td>{$arreglo['subcategoryname']}</td>
+                                <td class='center'>{$arreglo['registrationdate']}</td>
+                            </tr>
+                        ";
+                }
 
-                                function reporteSubcategoria($registrosCategoria)
-                                {
-                                    echo "<h3 class='mt-4 mb-2'>RESUMEN DE INFORME</h3>";
-                                    echo "<table class='table'>";
-                                    echo "<thead><tr><th>Categoría</th><th>Número de Registros</th></tr></thead>";
-                                    echo "<tbody>";
+                function reporteSubcategoria($registrosCategoria)
+                {
+                    echo "<h3 class='mt-4 mb-2'>RESUMEN DE INFORME</h3>";
+                    echo "<table class='table'>";
+                    echo "<thead><tr><th>Categoría</th><th>Número de Registros</th></tr></thead>";
+                    echo "<tbody>";
 
-                                    foreach ($registrosCategoria as $id => $numRegistros) {
-                                        echo "<tr><td>{$id}</td><td class='center'>{$numRegistros}</td></tr>";
-                                    }
+                    foreach ($registrosCategoria as $id => $numRegistros) {
+                        echo "<tr><td>{$id}</td><td class='center'>{$numRegistros}</td></tr>";
+                    }
 
-                                    echo "</tbody>";
-                                    echo "</table>";
-                                }
+                    echo "</tbody>";
+                    echo "</table>";
+                }
 
 
-                                if (count($datos) > 0) {
-                                    $categoria = $datos[0]["categoryname"];
-                                    $registrosCategoria = array($categoria => 0);
-                                    crearTabla($categoria);
-                                    foreach ($datos as $registro) {
-                                        if ($categoria == $registro["categoryname"]) {
-                                            agregarFila($registro);
-                                            $registrosCategoria[$categoria]++;
-                                        } else {
-                                            $categoria = $registro["categoryname"];
-                                            cerrarTabla();
-                                            crearTabla($categoria);
-                                            agregarFila($registro);
-                                            $registrosCategoria[$categoria] = 1;
-                                        }
-                                    }
-                                    cerrarTabla();
-                                    // Llamamos las funciones
-                                    reporteSubcategoria($registrosCategoria);
-                                } else {
-                                    echo "<h3 class='mt-3'>No encontramos registros</h3>";
-                                }
-                                ?>
+                if (count($datos) > 0) {
+                    $i = 1;
+                    $categoria = $datos[0]["categoryname"];
+                    $registrosCategoria = array($categoria => 0);
+                    crearTabla($categoria);
+                    foreach ($datos as $registro) {
+                        if ($categoria == $registro["categoryname"]) {
+                            agregarFila($registro,$i);
+                            $registrosCategoria[$categoria]++;
+                            $i++;
+                        } else {
+                            $i=1;
+                            $categoria = $registro["categoryname"];
+                            cerrarTabla();
+                            crearTabla($categoria);
+                            agregarFila($registro,$i);
+                            $registrosCategoria[$categoria] = 1;
+                            $i++;
+                        }
+                    }
+                    cerrarTabla();
+                    // Llamamos las funciones
+                    reporteSubcategoria($registrosCategoria);
+                } else {
+                    echo "<h3 class='mt-3'>No encontramos registros</h3>";
+                }
+                ?>
         </div>
     </div>
 </page>

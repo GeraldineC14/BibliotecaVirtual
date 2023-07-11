@@ -106,12 +106,13 @@ require_once 'permisos.php';
         fetch(`../../controllers/usuario.controller.php?operacion=getUsersReport&iduser=${usuariosSeleccionados}`)
             .then(respuesta => respuesta.json())
             .then(datos => {
+                let i = 1;
                 datos.forEach(usuario => {
                     // Crear una nueva fila en la tabla con los datos del usuario
                     const fila = document.createElement('tr');
                     filtroPDF = 1;
                     fila.innerHTML = `
-                            <td>${usuario.idusers}</td>
+                            <td>${i++}</td>
                             <td>${usuario.namess}</td>
                             <td>${usuario.surnames}</td>
                             <td>${usuario.username}</td>
