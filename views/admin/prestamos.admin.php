@@ -30,13 +30,26 @@ require_once 'permisos.php';
                                 </div>
 
                                 <div class="btn-group" role="group">
+                                    <!-- Example single danger button -->
+                                    <div class="btn-group d-sm-none  d-none d-md-inline-block" style="margin-right: 10px;">
+                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-filter fa-lg" style="color: #000000;"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">PRÉSTADOS</a>
+                                            <a class="dropdown-item" href="#">PENDIENTES</a>
+                                            <a class="dropdown-item" href="#">DEVUELTOS</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">CANCELADOS</a>
+                                        </div>
+                                    </div>
                                     <!-- Enlace para redirigir a la vista de reporte -->
-                                    <a href="index.php?view=report-prestamo.php" class="btn btn-danger btn-sm d-none d-md-inline-block" style="margin-right: 10px;">
+                                    <a href="index.php?view=report-prestamo.php" class="btn btn-danger  d-none d-md-inline-block" style="margin-right: 10px;">
                                         <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
                                         &nbsp;Reporte
                                     </a>
                                     <!-- Enlace para redirigir a la vista de gráficos -->
-                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info btn-sm d-none d-md-inline-block">
+                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info d-none d-md-inline-block">
                                         <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
                                         &nbsp;Gráfico
                                     </a>
@@ -46,6 +59,19 @@ require_once 'permisos.php';
                                 <div class="d-flex mx-auto d-md-none">
                                     <div class="btn-group w-100" role="group">
                                         <div class="btn-group w-100" role="group">
+                                            <!-- Estados -->
+                                            <div class="btn-group d-md-none" style="margin-right: 10px;">
+                                                <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-filter text-black fa-xl" style="color: #000000;"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
                                             <!-- Botón para mostrar la vista de generar de reporte (versión móvil) -->
                                             <a class="btn btn-outline-danger btn-sm d-inline-block mr-2" id="reportButton" href="index.php?view=report-prestamo.php">
                                                 <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
@@ -162,26 +188,100 @@ require_once 'permisos.php';
                             tabla.destroy();
                             $("#tabla-prestamos tbody").html("");
                             registros.forEach(registro => {
-                                observacion = (registro['observation'] == null || registro['observation'] == '') ? 'No cuenta con observación' : registro['observation'];
-                                let estado = (registro['state'] == 1) ? '<strong>Prestado</strong>' : '<strong>Devuelto</strong>';
-                                let colorCampo = (registro['state'] == 1) ? 'red' : 'green';
-                                let disabled = (accesslevel === 'D' || accesslevel === 'E' || registro['state'] == 0) ? 'disabled' : '';
-                                let btnClass = (registro['state'] == 0) ? 'btn btn-success cambiar-estado-btn' : 'btn btn-danger cambiar-estado-btn';
-                                let btnText = (registro['state'] == 0) ? '<a><i class="fa-solid fa-check fa-lg" style="color: #000000;"></i></a>' : '<a><i class="fa-solid fa-rotate-left fa-lg" style="color: #000000;"></i></a>';
+                                let observacion = (registro['observation'] == null || registro['observation'] == '') ? '<em>No cuenta con observación</em>' : registro['observation'];
+                                let estado = '';
+                                let colorCampo = '';
+                                let disabled = '';
 
-                                nuevaFila = `
-                                    <tr>
-                                        <td>${registro['idloan']}</td>
-                                        <td>${registro['descriptions']}</td>
-                                        <td>${registro['Usuario']}</td>
-                                        <td>${observacion}</td>
-                                        <td>${registro['loan_date']}</td>
-                                        <td>${registro['return_date']}</td>
-                                        <td>${registro['amount']}</td>
-                                        <td style="color: ${colorCampo}">${estado}</td>
-                                        <td><button id='devolver' class='${btnClass}' data-id="${registro['idloan']}" ${disabled}><a style='color: black; font-weight:bold;'>${btnText}</a></button></td>
-                                    </tr>
-                                `;
+                                if (registro['state'] == 0) {
+                                    estado = '<strong>Pendiente</strong>';
+                                    colorCampo = 'gold';
+                                    // Mostrar solo botones "Entregar" y "Cancelar"
+                                    nuevaFila = `
+                        <tr>
+                            <td>${registro['idloan']}</td>
+                            <td>${registro['descriptions']}</td>
+                            <td>${registro['Usuario']}</td>
+                            <td>${observacion}</td>
+                            <td>${registro['loan_date']}</td>
+                            <td>${registro['return_date']}</td>
+                            <td>${registro['amount']}</td>
+                            <td style="color: ${colorCampo}">${estado}</td>
+                            <td>
+                                <button id='entregar' class='btn btn-success' data-id="" title='Entregar'>
+                                    <a style='color: black; font-weight:bold;'>
+                                    <i class="fa-solid fa-hand-holding-hand" style="color: #000000;"></i>
+                                    </a>
+                                </button>
+                                <button id='cancelar' class='btn btn-danger' data-id="" title='Cancelar'>
+                                    <a style='color: black; font-weight:bold;'>
+                                        <i class="fa-solid fa-ban" style="color: #000000;"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                                } else if (registro['state'] == 1) {
+                                    estado = '<strong>Entregado</strong>';
+                                    colorCampo = 'blue';
+                                    // Mostrar botones "Devolver", "Cancelar" y "Observado"
+                                    nuevaFila = `
+                        <tr>
+                            <td>${registro['idloan']}</td>
+                            <td>${registro['descriptions']}</td>
+                            <td>${registro['Usuario']}</td>
+                            <td>${observacion}</td>
+                            <td>${registro['loan_date']}</td>
+                            <td>${registro['return_date']}</td>
+                            <td>${registro['amount']}</td>
+                            <td style="color: ${colorCampo}">${estado}</td>
+                            <td>
+                                <button id='devolver' class='btn btn-warning' data-id="" title='Devolver'>
+                                    <a style='color: black; font-weight:bold;'>
+                                        <i class="fa-solid fa-rotate-left" style="color: #000000;"></i>
+                                    </a>
+                                </button>
+                                <button id='observado' class='btn' style='background:#154360;' data-id="" title='Observado'>
+                                    <a style='color: black; font-weight:bold;'>
+                                    <i class="fa-solid fa-triangle-exclamation" style="color: #ffffff;"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                                } else if (registro['state'] == 2 || registro['state'] == 3 || registro['state'] == 4) {
+                                    if (registro['state'] == 2) {
+                                        estado = '<strong>Devuelto</strong>';
+                                        colorCampo = 'green';
+                                    } else if (registro['state'] == 3) {
+                                        estado = '<strong>Cancelado</strong>';
+                                        colorCampo = 'red';
+                                    } else if (registro['state'] == 4) {
+                                        estado = '<strong>Observado</strong>';
+                                        colorCampo = 'orange';
+                                    }
+                                    // Mostrar solo botón "Alerta"
+                                    nuevaFila = `
+                        <tr>
+                            <td>${registro['idloan']}</td>
+                            <td>${registro['descriptions']}</td>
+                            <td>${registro['Usuario']}</td>
+                            <td>${observacion}</td>
+                            <td>${registro['loan_date']}</td>
+                            <td>${registro['return_date']}</td>
+                            <td>${registro['amount']}</td>
+                            <td style="color: ${colorCampo}">${estado}</td>
+                            <td>
+                                <button id='alerta' class='btn btn-info' data-id="" title='Alerta'>
+                                    <a style='color: black; font-weight:bold;'>
+                                    <i class="fa-solid fa-eye" style="color: #000000;"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                                }
+
                                 $("#tabla-prestamos tbody").append(nuevaFila);
                             });
 
@@ -196,7 +296,7 @@ require_once 'permisos.php';
                                 $('.cambiar-estado-btn').hide();
                                 tabla.column(8).visible(false);
                             } else {
-                                // Agregar evento de clic a los botones
+                                // Agregar evento de clic a los botones "Devolver"
                                 $(".cambiar-estado-btn").click(function() {
                                     let idPrestamo = $(this).data("id");
                                     cambiarEstado(idPrestamo, 'Devuelto');

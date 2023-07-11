@@ -773,12 +773,14 @@
 			loan_date	DATE 	NOT NULL,
 			return_date	DATE 	NOT NULL,
 			observation	VARCHAR(200)	NULL,
-			state		CHAR(1) 	DEFAULT '1',
+			reporte VARCHAR(200) NULL,
+			state		CHAR(1) 	DEFAULT '0',
 			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
+-- ***************************************************************************************************************	
 
 -- Procedimiento para registrar prestamo y actualizar las tablas
 	DELIMITER $$
@@ -967,7 +969,7 @@ END $$
 			END $$
 
 			CALL spu_listloans_user(1);
-			
+		-- ***************************************************************************************************************	
 		-- N°5 Reporte Préstamo
 		DELIMITER $$
 			CREATE PROCEDURE spu_reporte_prestamos
