@@ -9,3 +9,31 @@
     -o-border-radius: 5px;
     border-color: rgba(0, 0, 255, 0.49);
 }
+
+.contenedor{
+    width: 15rem;
+  }
+
+.list-group{
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+.catalogo{
+    text-align: center ;
+}
+
+.descripcion{
+    max-height: 11rem;
+    min-height: 8rem;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.titulo{
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25em;
+}
+
+.img{
+    max-height: 13rem;
+}
