@@ -33,7 +33,7 @@
         </div>
         <!-- FORMULARIO DE BUSQUEDA -->
         <div class="container mt-3">
-            <form action="./buscador.view.php" class="text-center">
+            <form action="./buscador.view.php" class="text-center" method="post">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Buscar libro" name="look" required>
                     <select class="form-control" name="type" required>

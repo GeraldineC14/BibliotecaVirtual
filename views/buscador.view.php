@@ -1,3 +1,12 @@
+<?php
+// Verificar si los parámetros requeridos están presentes
+if (!isset($_POST['look']) || !isset($_POST['type'])) {
+    // Redirigir al usuario a una página de error
+    header("Location: ./404.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -104,9 +113,8 @@
 
 <script>
     $(document).ready(function(){
-
-        look = "<?php echo $_GET["look"];?>";
-        type = "<?php echo $_GET["type"];?>";
+        look = "<?php echo $_POST["look"];?>";
+        type = "<?php echo $_POST["type"];?>";
 
         $(window).scroll(function() {
             if ($(this).scrollTop() > 200) {

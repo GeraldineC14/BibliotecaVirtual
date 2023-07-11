@@ -1,3 +1,12 @@
+<?php
+// Verificar si los parámetros requeridos están presentes
+if (!isset($_GET['sub1'])) {
+    // Redirigir al usuario a una página de error
+    header("Location: ./404.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -73,8 +82,7 @@
     <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
-        idsubcategorie = <?php echo $_GET["sub1"];?>
-
+        var idsubcategorie = '<?php echo $_GET["sub1"];?>';
         $(window).scroll(function() {
             if ($(this).scrollTop() > 200) {
             $('#scroll-top').addClass('active');
@@ -89,34 +97,42 @@
         });
 
         function VistaSubcategoria(){
-            $.ajax({
+            // Verificar si idsubcategorie contiene letras y números combinados o solo letras
+            if (/^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/.test(idsubcategorie)) {
+                window.location.href = './404.php';
+                return;
+            }
+                $.ajax({
                 url:'../controllers/biblioteca.controller.php',
                 type:'GET',
                 data: {'operacion':'VistaSubcategoria','idsubcategorie':idsubcategorie},
                 success: function(result){
                 let registros = JSON.parse(result);
                 let nuevaFila = ``;
-
-                registros.forEach(registro => {  
-                    portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
-                    nuevaFila = ` 
-                    <div>
-                        <div class="card-group">   
-                            <div class="card col-md-12"> 
-                                <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="../views/frontpage/${portada}">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
-                                    <p class="card-text">${registro['author']}</p>
-                                    <div>
-                                        <a href='../views/detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                if (registros.length > 0) {
+                    registros.forEach(registro => {  
+                        portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
+                        nuevaFila = ` 
+                            <div>
+                                <div class="card-group">   
+                                    <div class="card col-md-12"> 
+                                        <img class="card-img-top w-100 d-block" style="padding-top: 10px;margin: 0px;" src="../views/frontpage/${portada}">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="text-align: center;" id="titulo">${registro['descriptions']}</h5>
+                                            <p class="card-text">${registro['author']}</p>
+                                            <div>
+                                                <a href='../views/detalle.view.php?resumen=${registro['idbook']}' class='btn btn-primary view' type='button' style='margin-left: 51px;'>VER</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    `;
-                    $(".datos").append(nuevaFila);
-                });
+                            `;
+                        $(".datos").append(nuevaFila);
+                    });
+                }else{
+                    window.location.href = './404.php';
+                }
                 }
             });
         }

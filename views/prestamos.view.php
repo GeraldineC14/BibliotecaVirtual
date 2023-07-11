@@ -1,3 +1,12 @@
+<?php
+// Verificar si los parámetros requeridos están presentes
+if (!isset($_GET['prestamo'])) {
+    // Redirigir al usuario a una página de error
+    header("Location: ./404.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -95,7 +104,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-            idbook3 = <?php echo $_GET["prestamo"]; ?>
+            idbook3 = '<?php echo $_GET["prestamo"]; ?>';
 
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 200) {
@@ -151,6 +160,10 @@
             }
 
             function DatosLibros() {
+                if (/^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/.test(idbook3)) {
+                    window.location.href = './404.php';
+                    return;
+                }
                 $.ajax({
                     url: '../controllers/biblioteca.controller.php',
                     type: 'GET',
@@ -160,10 +173,14 @@
                         'idbook': idbook3
                     },
                     success: function (result) {
-                        $("#titulo").val(result['descriptions']);
-                        $("#autor").val(result['author']);
-                        $("#disponibles").val(result['amount']);
-                        $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess']; ?> <?php echo $_SESSION['login']['surnames']; ?>');
+                        if(result){
+                            $("#titulo").val(result['descriptions']);
+                            $("#autor").val(result['author']);
+                            $("#disponibles").val(result['amount']);
+                            $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess']; ?> <?php echo $_SESSION['login']['surnames']; ?>');
+                        }else{
+                            window.location.href = './404.php';
+                        }
                     }
                 });
             }
@@ -186,7 +203,7 @@
 
             function RegistrarPrestamos() {
                 var datos = {};
-                datos['idbook'] = <?php echo $_GET["prestamo"]; ?>;
+                datos['idbook'] = '<?php echo $_GET["prestamo"]; ?>';
                 datos['idusers'] = <?php echo $_SESSION['login']["idusers"]; ?>;
                 datos['observation'] = $("#observacion").val();
                 datos['loan_date'] = $("#fecha1").val();
