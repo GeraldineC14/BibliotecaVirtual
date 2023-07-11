@@ -5,7 +5,7 @@
 <html lang="es">
 
 <head>
-	<title>Inicio de Sesión</title>
+	<title>Registrar Usuario</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -16,21 +16,25 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" href="../assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/login-responsive.css">
 	<link rel="stylesheet" href="../assets/css/prueba.css">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico"/>
 
 </head>
 
 <body>
 	<!-- navbar -->
 	<?php include './navbar.php'; ?>
+	<div class="opacity-overlay"></div>
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex">
-						<div class="img" style="background-image: url(../assets/img/bg-2.png);">
+					<div class="wrap d-md-flex glassmorphism">
+						<div class="img"
+							style="background-image: url(../assets/img/bg-2.png); background-size: contain; background-repeat: no-repeat; background-position: center;">
 						</div>
-						<div class="login-wrap p-4 p-md-5">
+						<div class="login-wrap p-4 p-md-5 glassmorphism">
 							<div class="d-flex">
 								<div class="w-100">
 									<h3 class="mb-4">Registrar Usuario</h3>
@@ -68,7 +72,8 @@
 										<input type="email" class="form-control" id="email"
 											placeholder="correo@dominio.com" required>
 										<div class="input-group-append">
-											<button class="btn btn-success" id="verificar" type="button">Verificar Correo</button>
+											<button class="btn btn-success" id="verificar"
+												type="button">Verificar</button>
 										</div>
 									</div>
 								</div>
@@ -79,7 +84,7 @@
 											placeholder="**********" required>
 									</div>
 									<div class="col">
-										<label class="label" for="repetir">Repetir contraseña</label>
+										<label class="label" for="repetir">Confirmar</label>
 										<input type="password" class="form-control" id="repetir"
 											placeholder="**********" required>
 									</div>
@@ -102,42 +107,46 @@
 				</div>
 			</div>
 		</div>
+	</section>
 
-		<!-- modal -->
-		<div class="modal fade" id="modal-validacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+	<!-- modal -->
+	<div class="modal fade" id="modal-validacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog        ">
-		  <div class="modal-content">
-			<div class="modal-header bg-success text-light">
-			  <i class="fa-solid fa-key fa-sm" style="color: #ffffff;"></i>
-			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			  </button>
-			</div>
-			<div class="modal-body">
-			  <form class="form-group text-center" action="" autocomplete="off" id="form-clave">
-				<h4>INGRESAR CODIGO</h4>
-				<label for="clave" class="form-label text-justify">
-				  Te enviamos un código para que puedas validar tu correo.
-				  Si no lo encuentras revisa el Correo No Deseado.
-				</label>
-				<div class="form-group mt-3" id="keys">
-				  <input class="inputc" type="tel" id="key1" maxlength="1" oninput="moveToNextInput(this, 'key2')" />
-				  <input class="inputc" type="tel" id="key2" maxlength="1" oninput="moveToNextInput(this, 'key3')" />
-				  <input class="inputc" type="tel" id="key3" maxlength="1" oninput="moveToNextInput(this, 'key4')" />
-				  <input class="inputc" type="tel" id="key4" maxlength="1" oninput="moveToNextInput(this, 'comprobar')"/>
+			<div class="modal-content">
+				<div class="modal-header bg-success text-light">
+					<i class="fa-solid fa-key fa-sm" style="color: #ffffff;"></i>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			  </form>
+				<div class="modal-body">
+					<form class="form-group text-center" action="" autocomplete="off" id="form-clave">
+						<h4>INGRESAR CODIGO</h4>
+						<label for="clave" class="form-label text-justify">
+							Te enviamos un código para que puedas validar tu correo.
+							Si no lo encuentras revisa el Correo No Deseado.
+						</label>
+						<div class="form-group mt-3" id="keys">
+							<input class="inputc" type="tel" id="key1" maxlength="1"
+								oninput="moveToNextInput(this, 'key2')" />
+							<input class="inputc" type="tel" id="key2" maxlength="1"
+								oninput="moveToNextInput(this, 'key3')" />
+							<input class="inputc" type="tel" id="key3" maxlength="1"
+								oninput="moveToNextInput(this, 'key4')" />
+							<input class="inputc" type="tel" id="key4" maxlength="1"
+								oninput="moveToNextInput(this, 'comprobar')" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer justify-content-lg-center">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-success" id="comprobar">Validar</button>
+
+				</div>
 			</div>
-			<div class="modal-footer justify-content-lg-center">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-			  	<button type="button" class="btn btn-success" id="comprobar">Validar</button>
-			  
-			</div>
-		  </div>
 		</div>
-	  	</div>
-	</section>
+	</div>
 
 	<!-- JQUERY -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -221,9 +230,9 @@
 							return;
 						}
 
-						if (accesslevel === "D") {
+						if (datos['accesslevel'] === "D") {
 							const esvalido = document.getElementById('email');
-							const exprecion = /[a-zA-Z0-9._-]+\@midominio\.com/;
+							const exprecion = /[a-zA-Z0-9._-]+\@senati\.pe/;
 							if (exprecion.test(esvalido.value)) {
 								const email = $("#email").val();
 								$.ajax({
@@ -236,7 +245,6 @@
 									success: function (result) {
 										if (result !== '[]') {
 											alertar("El correo de docente ya existe en el sistema");
-											console.log(result);
 											return;
 										}
 										registrar();
@@ -278,7 +286,6 @@
 									success: function (result) {
 										if (result !== '[]') {
 											alertar("El correo de estudiante ya existe en el sistema");
-											console.log(result);
 											return;
 										}
 										registrar();
@@ -290,8 +297,8 @@
 				});
 			}
 
-			function validarCampos(){
-				
+			function validarCampos() {
+
 				datos['username'] = $("#username").val();
 				datos['surnames'] = $("#surnames").val();
 				datos['namess'] = $("#namess").val();
@@ -303,35 +310,42 @@
 				if (datos['username'] == "" || datos['surnames'] == "" || datos['namess'] == "" || datos['email'] == "" || datos['accesskey'] == "" || datos['accesslevel'] == "" || datos['repetir'] == "") {
 					alertar("Complete el formulario por favor");
 					return;
-				}else{
+				} else {
 					validacionCorreo();
 				}
 			}
 
-			function validacionCorreo(){
+			function validacionCorreo() {
 				modal.toggle();
-				
+
 				var nombres = $("#namess").val();
 				var apellidos = $("#surnames").val();
 				var usuario = nombres + " " + apellidos;
 				var envio = [];
 
 				const parametros = new URLSearchParams()
-				parametros.append("operacion","correoValidaremail");
+				parametros.append("operacion", "correoValidaremail");
 				parametros.append("email", document.querySelector("#email").value);
 				parametros.append("usuario", usuario);
 
 
 				fetch('../controllers/usuario.controller.php', {
-				method: 'POST',
-				body: parametros
+					method: 'POST',
+					body: parametros
 				})
 					.then(respuesta => respuesta.json())
 					.then(datos => {
-					console.log(datos);
-					alert(datos.mensaje);
-				});
-				
+						console.log(datos);
+						Swal.fire({
+							icon: 'info',
+							title: 'Mensaje',
+							text: datos.mensaje,
+							timer: 2000,
+							showConfirmButton: false
+						});
+
+					});
+
 			}
 
 			function validarClave() {
@@ -346,25 +360,32 @@
 				parametros.append("clavegenerada", enterCode);
 
 				fetch(`../controllers/Usuario.controller.php`, {
-				method: 'POST',
-				body: parametros
+					method: 'POST',
+					body: parametros
 
 				})
-				.then(respuesta => respuesta.json())
-				.then(datos => {
-					console.log(datos);
-					//Analizando los datos
-					if (datos.status == "PERMITIDO") {
-						modal.toggle();
-      					$('#email').prop('disabled', true); // Deshabilitar el campo de entrada de correo electrónico
-						$('#verificar').prop('disabled', true); // Deshabilitar el botón "Verificar Correo"
-      					correoValidado = 1; // Cambiar el valor de la variable correoValidado a 1		
-						clavegenerada = enterCode;
-						validarClavecorreo()
-					} else {
-					alert("Clave incorrecta, revise su correo por favor");
-					}
-				});
+					.then(respuesta => respuesta.json())
+					.then(datos => {
+						console.log(datos);
+						//Analizando los datos
+						if (datos.status == "PERMITIDO") {
+							modal.toggle();
+							$('#email').prop('disabled', true); // Deshabilitar el campo de entrada de correo electrónico
+							$('#verificar').prop('disabled', true); // Deshabilitar el botón "Verificar Correo"
+							correoValidado = 1; // Cambiar el valor de la variable correoValidado a 1		
+							clavegenerada = enterCode;
+							validarClavecorreo()
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'Clave incorrecta, revise su correo por favor',
+								timer: 2000,
+								showConfirmButton: false
+							});
+
+						}
+					});
 			}
 
 			function validarClavecorreo() {
@@ -372,13 +393,19 @@
 				parametros.append("operacion", "validacionCompleta");
 				parametros.append("email", document.querySelector("#email").value);
 				fetch(`../controllers/Usuario.controller.php`, {
-				method: 'POST',
-				body: parametros
+					method: 'POST',
+					body: parametros
 				})
-				.then(respuesta => respuesta.json())
-				.then(datos => {
-					alert("Registro compl");
-				});
+					.then(respuesta => respuesta.json())
+					.then(datos => {
+						Swal.fire({
+							icon: 'success',
+							title: 'Validación completada',
+							timer: 2000,
+							showConfirmButton: false
+						});
+
+					});
 
 			}
 			function registrar() {
@@ -437,15 +464,15 @@
 				}
 			});
 
-			$("#modal-validacion .btn-close, #modal-validacion .btn-secondary").click(function() {
+			$("#modal-validacion .btn-close, #modal-validacion .btn-secondary").click(function () {
 				$("#modal-validacion").modal('hide');
 			});
 
 
 			document.querySelector("#verificar").addEventListener("click", () => {
-				if (correoValidado != 1){
+				if (correoValidado != 1) {
 					validarCampos();
-				}else{
+				} else {
 
 				}
 			})
@@ -454,7 +481,7 @@
 				document.querySelector("#key1").focus();
 			});
 
-			window.moveToNextInput = function(currentInput, nextInputId) {
+			window.moveToNextInput = function (currentInput, nextInputId) {
 				if (currentInput.value.length === currentInput.maxLength) {
 					document.getElementById(nextInputId).focus();
 				}

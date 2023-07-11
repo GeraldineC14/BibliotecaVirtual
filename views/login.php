@@ -23,6 +23,7 @@ if(isset($_SESSION['login'])){
 
 	<link rel="stylesheet" href="../assets/css/style.css">
 	<link rel="stylesheet" href="../assets/css/login-responsive.css">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico"/>
 
 </head>
 
@@ -31,50 +32,53 @@ if(isset($_SESSION['login'])){
 	<?php include './navbar.php'; ?>
 	<div class="opacity-overlay"></div>
 	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex glassmorphism">
-						<div class="img" style="background-image: url(../assets/img/bg-2.png); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
-						<div class="login-wrap p-4 p-md-5 glassmorphism">
-							<div class="d-flex">
-								<div class="w-100">
-									<h3 class="mb-4 text-center" style="font-family: 'Courier New', Courier, monospace; font-weight:bold">Iniciar Sesión</h3>
-								</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-12 col-lg-10">
+				<div class="wrap d-md-flex glassmorphism">
+					<div class="img" style="background-image: url(../assets/img/bg-2.png); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+					<div class="login-wrap p-4 p-md-5 glassmorphism">
+						<div class="d-flex justify-content-center">
+							<div class="w-100 text-center">
+								<h3 class="mb-2" style="font-family: 'Courier New', Courier, monospace; font-weight:bold">Iniciar Sesión</h3>
+							</div>
 							</div>
 							<form action="#" class="signin-form" autocomplete="off">
-								<div class="form-group mb-3">
-									<label class="label" for="name">Correo:</label>
-									<input type="text" class="form-control" id="email" placeholder="correo@dominio.com" required>
-								</div>
-								<div class="form-group mb-3">
-									<label class="label" for="password">Contraseña:</label>
-									<input type="password" class="form-control" id="accesskey" placeholder="**********" required>
-								</div>
-								<div class="form-group form-check mb-3">
-									<input type="checkbox" class="form-check-input" id="showPass">
-									<label class="form-check-label" for="showPass">Mostrar contraseña</label>
-								</div>
-								<div class="text-center mb-3">
-									<button class="btn btn-success rounded submit px-3 mr-2" id="acceder" type="button" data-user="">Acceder</button>
-									<a href="../index.php" class="btn btn-danger rounded submit px-3 ml-2">Cancelar</a>
-								</div>
-								<div class="form-group mb-3 text-center">
+							<div class="form-group">
+								<label class="label" for="email">Correo:</label>
+								<input type="text" class="form-control" id="email" placeholder="correo@dominio.com" required>
+							</div>
+							<div class="form-group">
+								<label class="label" for="accesskey">Contraseña:</label>
+								<input type="password" class="form-control" id="accesskey" placeholder="**********" required>
+							</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" id="showPass">
+								<label class="form-check-label" for="showPass">Mostrar contraseña</label>
+							</div>
+							<div class="text-center">
+								<button class="btn btn-success rounded submit mr-2" id="acceder" type="button" data-user="">Acceder</button>
+								<a href="../index.php" class="btn btn-danger rounded submit ml-2">Cancelar</a>
+							</div>
+							<div class="form-group text-center mt-3">
+								<div class="d-flex flex-column">
 									<div class="form-link">
-										<a href="./forgot.php" class="form-link">Olvidó su contraseña?</a>
+									<a href="./forgot.php" class="form-link">Olvidó su contraseña?</a>
 									</div>
-									<div class="form-link">
-										<a href="./register.php" class="form-link">No tienes una cuenta?</a>
+									<div class="form-link mb-4">
+										<a href="./register.php" class="form-link ">No tienes una cuenta?</a>
 									</div>
 								</div>
-
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</section>
+
+
 
 
 	<!-- JQUERY -->
@@ -91,6 +95,10 @@ if(isset($_SESSION['login'])){
 		$(document).ready(function() {
 
 			ruta = document.referrer.split("/")[5];
+
+			//hostinger
+			// ruta = document.referrer.split("/")[3];
+			
 
 			function login() {
 				let email = $("#email").val();

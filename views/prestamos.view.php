@@ -44,27 +44,33 @@
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="cantidad">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm" placeholder="No exceder al stock">
+                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm"
+                                placeholder="No exceder al stock">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="fecha1">Fecha Recojo:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha1" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" />
+                            <input type="date" class="form-control form-control-sm" id="fecha1"
+                                min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>"
+                                max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly />
+                            <input type="date" class="form-control form-control-sm" id="fecha2" min=""
+                                max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="observacion">Observaciones:</label>
-                        <textarea class="form-control" id="observacion" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
+                        <textarea class="form-control" id="observacion" rows="4"
+                            placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
                     </div>
                 </form>
             </div>
             <div class="card-footer text-center">
-                <button type="button" id="cancelar" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="cancelar" class="btn btn-sm btn-secondary"
+                    data-dismiss="modal">Cancelar</button>
                 <button type="button" id="solicitar-prestamo" class="btn btn-sm btn-primary">Solicitar</button>
             </div>
         </div>
@@ -88,10 +94,10 @@
     <!-- SweetAlert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             idbook3 = <?php echo $_GET["prestamo"]; ?>
 
-            $(window).scroll(function() {
+            $(window).scroll(function () {
                 if ($(this).scrollTop() > 200) {
                     $('#scroll-top').addClass('active');
                 } else {
@@ -99,7 +105,7 @@
                 }
             });
 
-            $('#scroll-top').click(function(event) {
+            $('#scroll-top').click(function (event) {
                 event.preventDefault();
                 $('html, body').animate({
                     scrollTop: 0
@@ -153,7 +159,7 @@
                         'operacion': 'getLibro',
                         'idbook': idbook3
                     },
-                    success: function(result) {
+                    success: function (result) {
                         $("#titulo").val(result['descriptions']);
                         $("#autor").val(result['author']);
                         $("#disponibles").val(result['amount']);
@@ -163,7 +169,7 @@
             }
 
             // Establecer un controlador de eventos para el cambio de fecha en el campo de fecha de recojo
-            fechaRecojo.on("change", function() {
+            fechaRecojo.on("change", function () {
                 // Obtener la fecha seleccionada en el campo de fecha de recojo
                 var fechaRecojoValue = new Date($(this).val());
 
@@ -190,7 +196,7 @@
                 datos['operacion'] = "registrarPrestamos";
 
                 if (datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == "") {
-                    alertar("Completa el formulario por favor");
+                    alertarToast("Error", "Completa el formulario por favor", "error");
                 } else {
                     Swal.fire({
                         title: "Registro de préstamo",
@@ -208,7 +214,7 @@
                                 url: '../controllers/prestamo.controller.php',
                                 type: 'GET',
                                 data: datos,
-                                success: function(result) {
+                                success: function (result) {
                                     alertarToast("Proceso completado", "Su préstamo ha sido solicitado", "success");
                                     // Actualizar el stock en la interfaz
                                     var cantidadSolicitada = parseInt(datos['amount']);
@@ -217,7 +223,7 @@
                                     $("#stock").text(stockActualizado);
 
                                     solicitudPrestamo();
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         $("#formulario-prestamos")[0].reset();
                                         window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';
                                     }, 1500);
@@ -228,13 +234,13 @@
                 }
             }
 
-            function solicitudPrestamo(){
+            function solicitudPrestamo() {
                 var datos = {};
 
-                datos['usuario']    = $("#nombrecompleto").val();
-                datos['cantidad']   = $("#cantidad").val();
-                datos['libro']      = $('#titulo').val();
-                datos['fechaRecojo']  = $("#fecha1").val();
+                datos['usuario'] = $("#nombrecompleto").val();
+                datos['cantidad'] = $("#cantidad").val();
+                datos['libro'] = $('#titulo').val();
+                datos['fechaRecojo'] = $("#fecha1").val();
                 datos['fechaEntrega'] = $("#fecha2").val();
                 datos['observaciones'] = $("#observacion").val();
 
@@ -244,11 +250,12 @@
                     url: '../controllers/usuario.controller.php',
                     type: 'POST',
                     data: datos,
-                    success: function(result) {
-                        alertarToast("Proceso completado", "Se envio un correo de su prestamo", "success");
+                    success: function (result) {
+                        alertarToast("Proceso completado", "Se envió un correo de su préstamo", "success");
                     }
                 });
             }
+
 
 
 

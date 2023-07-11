@@ -22,22 +22,24 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/prueba.css">
+  <link rel="stylesheet" href="../assets/css/login-responsive.css">
 
 </head>
 
 <body>
   <!-- navbar -->
   <?php include './navbar.php'; ?>
+  <div class="opacity-overlay"></div>
   <section class="ftco-section">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12 col-lg-10">
-          <div class="wrap d-md-flex">
-            <div class="img" style="background-image: url(../assets/img/bg-2.png);"></div>
-            <div class="login-wrap p-4 p-md-5">
+          <div class="wrap d-md-flex glassmorphism">
+            <div class="img" style="background-image: url(../assets/img/bg-2.png); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+            <div class="login-wrap p-4 p-md-5 glassmorphism">
               <div class="d-flex">
                 <div class="w-100 text-center">
-                  <h3 class="mb-4">Recuperar Contraseña</h3>
+                  <h3 class="mb-2">Recuperar Contraseña</h3>
                 </div>
               </div>
               <form action="#" class="signin-form" autocomplete="off">
@@ -61,8 +63,8 @@
                     <label for="email" class="form-label">Correo electrónico:</label>
                   </div>
                 </div>
-                <div class="">
-                  <button class="btn btn-outline-danger text-start" type="button" id="">Volver</button>
+                <div class="mb-4">
+                  <a href="./login.php" class="btn btn-outline-danger text-start" type="button" id="">Volver</a>
                   <button class="btn btn-outline-success text-end" type="button" id="enviar">Enviar mensaje</button>
                 </div>
               </form>
@@ -156,7 +158,23 @@
               document.querySelector("#datosuser").value = `${registro.surnames} ${registro.namess}`;
               document.querySelector("#email").value = registro.email;
             } else {
-              alert("Usuario no encontrado");
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Usuario no encontrado',
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                customClass: {
+                  container: 'swal-mobile',
+                  popup: 'swal-mobile-popup',
+                  title: 'swal-mobile-title',
+                  text: 'swal-mobile-text'
+                }
+              });
+
+
               iduser = -1;
               document.querySelector("#datosuser").value = '';
               document.querySelector("#email").value = '';
@@ -178,7 +196,15 @@
           .then(respuesta => respuesta.json())
           .then(datos => {
             console.log(datos);
-            alert(datos.mensaje);
+            Swal.fire({
+              icon: 'info',
+              title: 'Información',
+              text: datos.mensaje,
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
           });
       }
 
@@ -208,7 +234,16 @@
               document.querySelector("#actualizar").classList.remove("d-none");
               document.querySelector("#comprobar").classList.add("d-none");
             } else {
-              alert("Clave incorrecta, revise su correo por favor");
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Clave incorrecta, revise su correo por favor',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+              });
+
             }
           });
       }

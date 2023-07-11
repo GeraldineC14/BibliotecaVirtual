@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
-    <link rel="shortcut icon" href="../assets/img/favicon.ico" />
+    <link rel="shortcut icon" href="../assets/img/favicon.ico"/>
     
 </head>
 <body>   
