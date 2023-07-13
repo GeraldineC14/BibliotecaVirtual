@@ -273,7 +273,7 @@ require_once '../models/MailValidar.php';
     
         
               //Enviando correo
-              enviarCorreoPrestamo('1342318@senati.pe','Nuevo Prestamo',$mensaje);
+              enviarCorreoPrestamo('1337304@senati.pe','Nuevo Prestamo',$mensaje);
         }
 
         if($_POST['operacion'] == 'correoValidaremail'){

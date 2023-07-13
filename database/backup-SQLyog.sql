@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.24-MariaDB : Database - library
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.24-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,17 +40,17 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
 (1,1,1,'C001','2','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
-(2,1,1,'C002','4','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
+(2,1,1,'C002','1','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','2','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
 (5,1,1,'C005','2','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
-(6,1,1,'C006','1','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
+(6,1,1,'C006','2','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
 (7,1,1,'C007','08','Atlas del cuerpo humano','Editorial Ars Medica','B','Biblioteca escolar',NULL,'165242ba779c04ccc8751dcb3e7506df0e320e2d.jpg','2023-03-21 12:04:58','1','Esta guía aporta una información resumida pero muy completa del cuerpo humano. Analiza desde los más pequeños elementos estructurales hasta la constitución de sus órganos y sistemas más complejos tanto del hombre como de la mujer. Ilustrada con numerosos dibujos de gran calidad con diversos planos de los órganos, se explica además la terminología específica que distingue cada parte para un profundo conocimiento de la anatomía humana.'),
 (8,1,1,'C008','08','Atlas del cielo,un viaje entre las estrellas y planeta para conocer el universo','Ediciones V, D-SAC','B','Biblioteca escolar',NULL,'ab0962b41c6f2c6aae310850b92e382141b1c5db.jpg','2023-03-21 12:04:58','1',NULL),
 (9,1,1,'C009','02','Matemáticas para el c´álculo, pre cálculo N°06','James, Stewart/Lother Redlin','B','Biblioteca escolar',NULL,'cafeaa4b152a3f0649512798d2d7a006ce633ca6.jpg','2023-03-21 12:04:58','1',NULL),
@@ -329,7 +329,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -343,7 +343,7 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -377,7 +377,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -413,80 +413,24 @@ CREATE TABLE `loans` (
   `idbook` int(11) NOT NULL,
   `idusers` int(11) NOT NULL,
   `amount` varchar(30) NOT NULL,
-  `loan_date` date NOT NULL,
-  `return_date` date NOT NULL,
+  `registration_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `pickup_date` datetime NOT NULL,
+  `return_date` datetime NOT NULL,
+  `cancellation_date` datetime DEFAULT NULL,
   `observation` varchar(200) DEFAULT NULL,
-  `state` char(1) NOT NULL DEFAULT '1',
-  `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
+  `acotacion` varchar(200) DEFAULT NULL,
+  `state` char(1) DEFAULT '0',
   PRIMARY KEY (`idloan`),
   KEY `fk_idbook_idbook` (`idbook`),
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
-insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`loan_date`,`return_date`,`observation`,`state`,`registrationdate`) values 
-(1,2,1,'1','2023-07-04','2023-07-10','hola esto es una prueba','0','2023-07-03 15:39:37'),
-(2,2,1,'1','2023-07-04','2023-07-03','Prueba 2','0','2023-07-03 15:40:00'),
-(3,2,1,'2','2023-07-05','2023-07-03','aaaaa','0','2023-07-03 15:41:07'),
-(4,2,1,'1','2023-07-03','2023-07-03','ppppp','0','2023-07-03 15:42:19'),
-(5,1,1,'2','2023-07-06','2023-07-04','Prueba\n','0','2023-07-03 22:11:05'),
-(6,5,3,'2','2023-07-06','2023-07-05','Lo recogere a la hora del almuerzo','0','2023-07-05 17:37:51'),
-(7,5,3,'1','2023-07-06','2023-07-05','','0','2023-07-05 17:38:46'),
-(8,1,1,'1','2023-07-08','2023-07-10','123','0','2023-07-06 00:06:48'),
-(9,6,1,'1','2023-07-07','2023-07-14','','1','2023-07-06 00:28:11'),
-(34,1,1,'50','2023-03-01','2023-03-15','','1','2023-07-09 19:20:03'),
-(35,2,3,'4','2023-03-02','2023-03-16','','1','2023-07-09 19:20:03'),
-(36,49,3,'4','2023-12-09','2023-12-23','','1','2023-07-09 19:20:03'),
-(37,50,1,'50','2023-12-10','2023-12-24','','1','2023-07-09 19:20:03'),
-(38,1,1,'50','2023-03-01','2023-03-15','Observation 1','1','2023-07-09 19:27:11'),
-(39,2,3,'40','2023-03-02','2023-03-16','Observation 2','1','2023-07-09 19:27:11'),
-(40,3,44,'30','2023-03-03','2023-03-17','Observation 3','1','2023-07-09 19:27:11'),
-(41,4,44,'20','2023-03-04','2023-03-18','Observation 4','1','2023-07-09 19:27:11'),
-(42,5,50,'10','2023-03-05','2023-03-19','Observation 5','1','2023-07-09 19:27:11'),
-(43,6,50,'15','2023-03-06','2023-03-20','Observation 6','1','2023-07-09 19:27:11'),
-(44,7,44,'25','2023-03-07','2023-03-21','Observation 7','1','2023-07-09 19:27:11'),
-(45,8,44,'35','2023-03-08','2023-03-22','Observation 8','1','2023-07-09 19:27:11'),
-(46,9,44,'45','2023-03-09','2023-03-23','Observation 9','1','2023-07-09 19:27:11'),
-(47,10,44,'55','2023-03-10','2023-03-24','Observation 10','1','2023-07-09 19:27:11'),
-(48,11,44,'60','2023-03-11','2023-03-25','Observation 11','1','2023-07-09 19:27:11'),
-(49,12,44,'70','2023-03-12','2023-03-26','Observation 12','1','2023-07-09 19:27:11'),
-(50,13,44,'80','2023-03-13','2023-03-27','Observation 13','1','2023-07-09 19:27:11'),
-(51,14,44,'90','2023-03-14','2023-03-28','Observation 14','1','2023-07-09 19:27:11'),
-(52,6,50,'10','2023-03-15','2023-03-29','Observation 15','1','2023-07-09 19:27:11'),
-(53,16,50,'11','2023-03-16','2023-03-30','Observation 16','1','2023-07-09 19:27:11'),
-(54,17,50,'12','2023-03-17','2023-03-31','Observation 17','1','2023-07-09 19:27:11'),
-(55,18,44,'13','2023-03-18','2023-04-01','Observation 18','1','2023-07-09 19:27:11'),
-(56,6,44,'14','2023-03-19','2023-04-02','Observation 19','1','2023-07-09 19:27:11'),
-(57,20,44,'15','2023-03-20','2023-04-03','Observation 20','1','2023-07-09 19:27:11'),
-(58,6,44,'16','2023-03-21','2023-04-04','Observation 21','1','2023-07-09 19:27:11'),
-(59,6,44,'17','2023-03-22','2023-04-05','Observation 22','1','2023-07-09 19:27:11'),
-(60,23,44,'18','2023-03-23','2023-04-06','Observation 23','1','2023-07-09 19:27:11'),
-(61,24,44,'19','2023-03-24','2023-04-07','Observation 24','1','2023-07-09 19:27:11'),
-(62,25,45,'20','2023-03-25','2023-04-08','Observation 25','1','2023-07-09 19:27:11'),
-(63,26,46,'21','2023-03-26','2023-04-09','Observation 26','1','2023-07-09 19:27:11'),
-(64,27,48,'22','2023-03-27','2023-04-10','Observation 27','1','2023-07-09 19:27:11'),
-(65,28,48,'23','2023-03-28','2023-04-11','Observation 28','1','2023-07-09 19:27:11'),
-(66,29,48,'2','2023-03-29','2023-04-12','Observation 29','1','2023-07-09 19:27:11'),
-(67,30,48,'25','2023-03-30','2023-04-13','Observation 30','1','2023-07-09 19:27:11'),
-(68,31,1,'26','2023-03-31','2023-04-14','Observation 31','1','2023-07-09 19:27:11'),
-(69,32,48,'27','2023-04-01','2023-04-15','Observation 32','1','2023-07-09 19:27:11'),
-(70,33,3,'28','2023-04-02','2023-04-16','Observation 33','1','2023-07-09 19:27:11'),
-(71,34,48,'29','2023-04-03','2023-04-17','Observation 34','1','2023-07-09 19:27:11'),
-(72,35,48,'3','2023-04-04','2023-04-18','Observation 35','1','2023-07-09 19:27:11'),
-(73,36,48,'3','2023-04-05','2023-04-19','Observation 36','1','2023-07-09 19:27:11'),
-(74,37,48,'3','2023-04-06','2023-04-20','Observation 37','1','2023-07-09 19:27:11'),
-(75,2,48,'33','2023-04-07','2023-04-21','Observation 38','1','2023-07-09 19:27:11'),
-(76,39,48,'3','2023-04-08','2023-04-22','Observation 39','1','2023-07-09 19:27:11'),
-(77,2,50,'35','2023-04-09','2023-04-23','Observation 40','1','2023-06-09 19:27:11'),
-(78,41,50,'36','2023-04-10','2023-04-24','Observation 41','1','2023-07-09 19:27:11'),
-(79,2,50,'37','2023-04-11','2023-04-25','Observation 42','1','2023-07-09 19:27:11'),
-(80,43,50,'38','2023-04-12','2023-04-26','Observation 43','1','2023-07-09 19:27:11'),
-(81,2,50,'39','2023-04-13','2023-04-27','Observation 44','1','2023-07-09 19:27:11'),
-(82,45,50,'40','2023-04-14','2023-04-28','Observation 45','1','2023-07-09 19:27:11'),
-(83,2,50,'41','2023-04-15','2023-04-29','ObservApologies','1','2023-06-09 19:27:11');
+insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`registration_date`,`pickup_date`,`return_date`,`cancellation_date`,`observation`,`acotacion`,`state`) values 
+(1,2,1,'1','2023-07-12 22:49:07','2023-07-13 00:00:00','2023-07-14 00:00:00',NULL,'123',NULL,'1');
 
 /*Table structure for table `recuperarclave` */
 
@@ -502,7 +446,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -528,7 +472,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -567,7 +511,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -594,7 +538,7 @@ CREATE TABLE `validacioncorreo` (
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idvalidacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `validacioncorreo` */
 
@@ -1022,6 +966,30 @@ BEGIN
 				END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_entregar_libro` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_entregar_libro` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_entregar_libro`(
+	IN p_loan_id INT
+)
+BEGIN
+    DECLARE v_pickup_date DATETIME;
+    
+    -- Obtener la fecha y hora actual
+    SET v_pickup_date = NOW();
+    
+    -- Actualizar el estado y la fecha de recojo del préstamo
+    UPDATE loans
+    SET state = '1', pickup_date = v_pickup_date
+    WHERE idloan = p_loan_id;
+    
+    SELECT 'Libro entregado exitosamente.' AS message;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_grafico_prestamos` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_prestamos` */;
@@ -1044,6 +1012,31 @@ BEGIN
 	    WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = adjustedMonth
 	    GROUP BY b.descriptions
 	    ORDER BY l.loan_date DESC;
+	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_prestamo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_prestamo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_prestamo`()
+BEGIN
+	    SELECT loans.idloan,
+		   books.descriptions AS Titulo,
+		   users.username AS Usuario,
+		   loans.amount AS Cantidad,
+		   loans.registration_date AS `F. Registro`,
+		   loans.pickup_date AS `F. Recojo`,
+		   loans.return_date AS `F. Retorno`,
+		   loans.cancellation_date AS `F. Cancelacion`,
+		   loans.observation AS Observacion,
+		   loans.acotacion AS Perdida,
+		   loans.state AS Estado
+	    FROM loans
+	    JOIN books ON loans.idbook = books.idbook
+	    JOIN users ON loans.idusers = users.idusers;
 	END */$$
 DELIMITER ;
 
@@ -1186,37 +1179,44 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loan_registration`(IN `_idbook` INT, IN `_idusers` INT, IN `_observation` VARCHAR(100) CHARSET utf8mb4, IN `_loan_date` DATETIME, IN `_return_date` DATETIME, IN `_amount` VARCHAR(30) CHARSET utf8mb4)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_loan_registration`(
+	    IN _idbook INT,
+	    IN _idusers INT,
+	    IN _amount VARCHAR(30),
+	    IN _pickup_date DATETIME,
+	    IN _return_date DATETIME,
+	    IN _cancellation_date DATETIME,
+	    IN _observation VARCHAR(200)
+	)
 BEGIN
-    DECLARE v_book_amount INT;
-    
-    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
-    SELECT amount INTO v_book_amount
-    FROM books
-    WHERE idbook = _idbook;
-    
-    IF v_book_amount IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El libro no existe.';
-    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
-    ELSE
-        -- Realizar el préstamo y actualizar las tablas
-        START TRANSACTION;
-        
-        -- Restar la cantidad prestada al campo "amount" de la tabla "books"
-        UPDATE books
-        SET amount = amount - CAST(_amount AS INT)
-        WHERE idbook = _idbook;
-        
-        -- Insertar el préstamo en la tabla "loans" con return_date como NULL
-        INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
-        VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
-        
-        COMMIT;
-    END IF;
-END */$$
+	    DECLARE v_book_amount INT;
+	    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
+	    SELECT amount INTO v_book_amount
+	    FROM books
+	    WHERE idbook = _idbook;
+	    
+	    IF v_book_amount IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		    SET MESSAGE_TEXT = 'El libro no existe.';
+	    ELSEIF v_book_amount < CAST(_amount AS INT) THEN
+		SIGNAL SQLSTATE '45000'
+		    SET MESSAGE_TEXT = 'No hay suficientes copias disponibles del libro.';
+	    ELSE
+		-- Realizar el préstamo y actualizar las tablas
+		START TRANSACTION;
+		
+		-- Restar la cantidad prestada al campo "amount" de la tabla "books"
+		UPDATE books
+		SET amount = amount - CAST(_amount AS INT)
+		WHERE idbook = _idbook;
+		
+		-- Insertar el préstamo en la tabla "loans"
+		INSERT INTO loans (idbook, idusers, amount, registration_date, pickup_date, return_date, cancellation_date, observation, acotacion, state)
+		VALUES (_idbook, _idusers, CAST(_amount AS INT), NOW(), _pickup_date, _return_date, _cancellation_date, _observation, NULL, '1');
+		
+		COMMIT;
+	    END IF;
+	END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_mainviewcategories_list` */

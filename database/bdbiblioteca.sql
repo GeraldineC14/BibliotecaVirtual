@@ -766,36 +766,37 @@
 	-- Tb. Loans
 		CREATE TABLE loans
 		(
-			idloan		INT AUTO_INCREMENT PRIMARY KEY,
-			idbook 		INT 		NOT NULL,
-			idusers		INT 		NOT NULL,
-			amount		VARCHAR(30)	NOT NULL,
-			loan_date	DATE 	NOT NULL,
-			return_date	DATE 	NOT NULL,
-			observation	VARCHAR(200)	NULL,
-			reporte VARCHAR(200) NULL,
+			idloan			INT AUTO_INCREMENT PRIMARY KEY,
+			idbook 			INT 		NOT NULL,
+			idusers			INT 		NOT NULL,
+			amount			VARCHAR(30)	NOT NULL,
+			registration_date	DATETIME 	NOT NULL DEFAULT NOW(),  -- Fecha de registro del prestamo
+			pickup_date		DATETIME	NOT NULL,		 -- Posible fecha de recojo del libro
+			return_date		DATETIME 	NOT NULL,		 	 -- Posible fecha de retorno
+			cancellation_date 	DATETIME	NULL,			 -- Fecha de cancelacion
+			observation		VARCHAR(200)	NULL,			 -- Comentario del usuario	
+			acotacion 		VARCHAR(200)    NULL,			 -- Comentario del administrador	
 			state		CHAR(1) 	DEFAULT '0',
-			registrationdate DATETIME NOT NULL DEFAULT NOW(),
 			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
 		
 -- ***************************************************************************************************************	
 
--- Procedimiento para registrar prestamo y actualizar las tablas
+-- NUEVO 12/07 Procedimiento para registrar prestamo y actualizar las tablas 
 	DELIMITER $$
 	CREATE PROCEDURE spu_loan_registration
 	(
 	    IN _idbook INT,
 	    IN _idusers INT,
-	    IN _observation VARCHAR(100),
-	    IN _loan_date DATETIME,
+	    IN _amount VARCHAR(30),
+	    IN _pickup_date DATETIME,
 	    IN _return_date DATETIME,
-	    IN _amount VARCHAR(30)
+	    IN _cancellation_date DATETIME,
+	    IN _observation VARCHAR(200)
 	)
 	BEGIN
 	    DECLARE v_book_amount INT;
-	    
 	    -- Verificar si el libro existe y tiene una cantidad disponible mayor a 0
 	    SELECT amount INTO v_book_amount
 	    FROM books
@@ -816,14 +817,35 @@
 		SET amount = amount - CAST(_amount AS INT)
 		WHERE idbook = _idbook;
 		
-		-- Insertar el préstamo en la tabla "loans" con return_date como NULL
-		INSERT INTO loans (idbook, idusers, observation, loan_date, return_date, amount)
-		VALUES (_idbook, _idusers, _observation, _loan_date, _return_date, CAST(_amount AS INT));
+		-- Insertar el préstamo en la tabla "loans"
+		INSERT INTO loans (idbook, idusers, amount, registration_date, pickup_date, return_date, cancellation_date, observation, acotacion, state)
+		VALUES (_idbook, _idusers, CAST(_amount AS INT), NOW(), _pickup_date, _return_date, _cancellation_date, _observation, NULL, '1');
 		
 		COMMIT;
 	    END IF;
 	END $$
-
+	
+-- NUEVO 12/07 Procedimiento para listar los prestamos
+CALL spu_listar_prestamo();
+	DELIMITER $$
+	CREATE PROCEDURE spu_listar_prestamo()
+	BEGIN
+	    SELECT loans.idloan,
+		   books.descriptions AS Titulo,
+		   users.username AS Usuario,
+		   loans.amount AS Cantidad,
+		   loans.registration_date AS `F. Registro`,
+		   loans.pickup_date AS `F. Recojo`,
+		   loans.return_date AS `F. Retorno`,
+		   loans.cancellation_date AS `F. Cancelacion`,
+		   loans.observation AS Observacion,
+		   loans.acotacion AS Perdida,
+		   loans.state AS Estado
+	    FROM loans
+	    JOIN books ON loans.idbook = books.idbook
+	    JOIN users ON loans.idusers = users.idusers;
+	END $$
+	SELECT * FROM books;
 
 -- Procedimiento almacenado para devolver un libro
 DELIMITER $$

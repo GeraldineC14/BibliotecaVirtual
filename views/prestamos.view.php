@@ -5,7 +5,6 @@ if (!isset($_GET['prestamo'])) {
     header("Location: ./404.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,33 +52,27 @@ if (!isset($_GET['prestamo'])) {
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="cantidad">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm"
-                                placeholder="No exceder al stock">
+                            <input type="number" name="cantidad" id="cantidad" class="form-control form-control-sm" placeholder="No exceder al stock">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="fecha1">Fecha Recojo:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha1"
-                                min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>"
-                                max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" />
+                            <input type="date" class="form-control form-control-sm" id="fecha1" min="<?php echo date("Y-m-d", strtotime(date("Y-m-d"))); ?>" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 10 days")); ?>" />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha2">Fecha Devolución:</label>
-                            <input type="date" class="form-control form-control-sm" id="fecha2" min=""
-                                max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly />
+                            <input type="date" class="form-control form-control-sm" id="fecha2" min="" max="<?php echo date("Y-m-d", strtotime(date("Y-m-d") . "+ 15 days")); ?>" readonly />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="observacion">Observaciones:</label>
-                        <textarea class="form-control" id="observacion" rows="4"
-                            placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
+                        <textarea class="form-control" id="observacion" rows="4" placeholder="Ejemplo: Grado: 2do, Seccion: 'B'"></textarea>
                     </div>
                 </form>
             </div>
             <div class="card-footer text-center">
-                <button type="button" id="cancelar" class="btn btn-sm btn-secondary"
-                    data-dismiss="modal">Cancelar</button>
+                <button type="button" id="cancelar" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="button" id="solicitar-prestamo" class="btn btn-sm btn-primary">Solicitar</button>
             </div>
         </div>
@@ -103,10 +96,10 @@ if (!isset($_GET['prestamo'])) {
     <!-- SweetAlert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             idbook3 = '<?php echo $_GET["prestamo"]; ?>';
 
-            $(window).scroll(function () {
+            $(window).scroll(function() {
                 if ($(this).scrollTop() > 200) {
                     $('#scroll-top').addClass('active');
                 } else {
@@ -114,7 +107,7 @@ if (!isset($_GET['prestamo'])) {
                 }
             });
 
-            $('#scroll-top').click(function (event) {
+            $('#scroll-top').click(function(event) {
                 event.preventDefault();
                 $('html, body').animate({
                     scrollTop: 0
@@ -172,13 +165,13 @@ if (!isset($_GET['prestamo'])) {
                         'operacion': 'getLibro',
                         'idbook': idbook3
                     },
-                    success: function (result) {
-                        if(result){
+                    success: function(result) {
+                        if (result) {
                             $("#titulo").val(result['descriptions']);
                             $("#autor").val(result['author']);
                             $("#disponibles").val(result['amount']);
                             $("#nombrecompleto").val('<?php echo $_SESSION['login']['namess']; ?> <?php echo $_SESSION['login']['surnames']; ?>');
-                        }else{
+                        } else {
                             window.location.href = './404.php';
                         }
                     }
@@ -186,7 +179,7 @@ if (!isset($_GET['prestamo'])) {
             }
 
             // Establecer un controlador de eventos para el cambio de fecha en el campo de fecha de recojo
-            fechaRecojo.on("change", function () {
+            fechaRecojo.on("change", function() {
                 // Obtener la fecha seleccionada en el campo de fecha de recojo
                 var fechaRecojoValue = new Date($(this).val());
 
@@ -206,11 +199,12 @@ if (!isset($_GET['prestamo'])) {
                 datos['idbook'] = '<?php echo $_GET["prestamo"]; ?>';
                 datos['idusers'] = <?php echo $_SESSION['login']["idusers"]; ?>;
                 datos['observation'] = $("#observacion").val();
-                datos['loan_date'] = $("#fecha1").val();
+                datos['pickup_date'] = $("#fecha1").val();
                 datos['return_date'] = $("#fecha2").val();
                 datos['amount'] = $("#cantidad").val();
-
-                datos['operacion'] = "registrarPrestamos";
+                datos['registration_date'] = new Date().toLocaleString();
+                datos['operacion'] = "registrarPrestamo";
+                console.log(datos);
 
                 if (datos['loan_date'] == "" || datos['return_date'] == "" || datos['amount'] == "") {
                     alertarToast("Error", "Completa el formulario por favor", "error");
@@ -231,7 +225,7 @@ if (!isset($_GET['prestamo'])) {
                                 url: '../controllers/prestamo.controller.php',
                                 type: 'GET',
                                 data: datos,
-                                success: function (result) {
+                                success: function(result) {
                                     alertarToast("Proceso completado", "Su préstamo ha sido solicitado", "success");
                                     // Actualizar el stock en la interfaz
                                     var cantidadSolicitada = parseInt(datos['amount']);
@@ -239,8 +233,8 @@ if (!isset($_GET['prestamo'])) {
                                     var stockActualizado = stockActual - cantidadSolicitada;
                                     $("#stock").text(stockActualizado);
 
-                                    solicitudPrestamo();
-                                    setTimeout(function () {
+                                    solicitudPrestamo(datos);
+                                    setTimeout(function() {
                                         $("#formulario-prestamos")[0].reset();
                                         window.location.href = 'detalle.view.php?resumen=<?php echo $_GET["prestamo"]; ?>';
                                     }, 1500);
@@ -250,6 +244,7 @@ if (!isset($_GET['prestamo'])) {
                     });
                 }
             }
+
 
             function solicitudPrestamo() {
                 var datos = {};
@@ -267,11 +262,12 @@ if (!isset($_GET['prestamo'])) {
                     url: '../controllers/usuario.controller.php',
                     type: 'POST',
                     data: datos,
-                    success: function (result) {
+                    success: function(result) {
                         alertarToast("Proceso completado", "Se envió un correo de su préstamo", "success");
                     }
                 });
             }
+
 
 
 

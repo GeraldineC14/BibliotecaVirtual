@@ -11,72 +11,43 @@ class Prestamo extends Conexion
         $this->acceso = parent::getConexion();
     }
 
-    public function listarPrestamos($idusers, $accesslevel)
-    {
-        try {
-            $consulta = $this->acceso->prepare("CALL spu_loans_list(?, ?)");
-            $consulta->execute(array($idusers, $accesslevel));
-            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            return $datos;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
+     // Listar Préstamo
+     public function listarPrestamo()
+     {
+         try {
+             $consulta = $this->acceso->prepare("CALL spu_listar_prestamo()");
+             $consulta->execute();
+             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+             return $datos;
+         } catch (Exception $e) {
+             die($e->getMessage());
+         }
+     }
+     
 
-    public function listarUsuarioLoans()
+    // Registrar Préstamos vista principal
+    public function registrarPrestamo($data)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_usersloans_list()");
-            $consulta->execute();
-            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            return $datos;
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function registrarPrestamos($datosGuardar)
-    {
-        try {
-            $consulta = $this->acceso->prepare("CALL spu_loan_registration(?, ?, ?, ?, ?, ?)");
-            $consulta->execute(array(
-                $datosGuardar['idbook'],
-                $datosGuardar['idusers'],
-                $datosGuardar['observation'],
-                $datosGuardar['loan_date'],
-                $datosGuardar['return_date'],
-                $datosGuardar['amount']
-            ));
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function cambiarEstadoPrestamo($datosGuardar)
-    {
-        try {
-            $consulta = $this->acceso->prepare("CALL spu_change_state_loans(?, ?)");
-            $consulta->execute(array(
-                $datosGuardar['idloan'],
-                $datosGuardar['state']
-            ));
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function devolverPrestamo($idloan)
-    {
-        try {
-            $consulta = $this->acceso->prepare("CALL spu_return_book(?)");
-            $consulta->execute(array($idloan));
-        } catch (Exception $e) {
+            $consulta = $this->acceso->prepare("CALL spu_loan_registration(?, ?, ?, ?, ?, ?, ?)");
+            $consulta->execute(
+                array(
+                    $data['idbook'],
+                    $data['idusers'],
+                    $data['amount'],
+                    $data['pickup_date'],
+                    $data['return_date'],
+                    $data['cancellation_date'],
+                    $data['observation']
+                )
+            );
+        } catch (PDOException $e) {
             die($e->getMessage());
         }
     }
 
     // Reporte Préstamo
-    public function reportePrestamo($data=[])
+    public function reportePrestamo($data = [])
     {
         try {
             $consulta = $this->acceso->prepare("CALL spu_reporte_prestamos(?,?,?)");
@@ -85,7 +56,7 @@ class Prestamo extends Conexion
                     $data['idbook'],
                     $data['anio'],
                     $data['mes']
-                  )
+                )
             );
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
@@ -94,8 +65,7 @@ class Prestamo extends Conexion
         }
     }
 
-    // Grafico de Prestamos
-
+    // Grafico de Préstamo
     public function graficoPrestamos($selectedMonth, $selectedYear)
     {
         try {

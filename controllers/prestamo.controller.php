@@ -4,37 +4,27 @@ require_once '../tools/helpers.php';
 $prestamo = new Prestamo();
 
 if (isset($_GET['operacion'])) {
-    if ($_GET['operacion'] == 'listarPrestamos') {
-        echo json_encode($prestamo->listarPrestamos($_GET['idusers'], $_GET['accesslevel']));
+
+    // Listar Préstamo
+    if ($_GET['operacion'] == 'listarPrestamo') {
+        $datos = $prestamo->listarPrestamo();
+        echo json_encode($datos);
     }
 
-    if ($_GET['operacion'] == 'listarUsuarioLoans') {
-        $dataprestamo = $prestamo->listarUsuarioLoans();
-        echo json_encode($dataprestamo);
-    }
+    // Registrar Préstamo Vista Principal
+    if ($_GET['operacion'] == 'registrarPrestamo') {
+        $data = array(
+            'idbook' => $_GET['idbook'],
+            'idusers' => $_GET['idusers'],
+            'amount' => $_GET['amount'],
+            'pickup_date' => $_GET['pickup_date'],
+            'return_date' => $_GET['return_date'],
+            'cancellation_date' => $_GET['cancellation_date'],
+            'observation' => $_GET['observation']
+        );
 
-    if ($_GET['operacion'] == 'registrarPrestamos') {
-        $datosSolicitados = [
-            "idbook"         => $_GET['idbook'],
-            "idusers"        => $_GET['idusers'],
-            "observation"    => $_GET['observation'],
-            "loan_date"      => $_GET['loan_date'],
-            "return_date"    => $_GET['return_date'],
-            "amount"         => $_GET['amount']
-        ];
-        $prestamo->registrarPrestamos($datosSolicitados);
-    }
-
-    if ($_GET['operacion'] == 'cambiarEstadoPrestamo') {
-        $datosSolicitados = [
-            "idloan"         => $_GET['idloan'],
-            "state"        => $_GET['state']
-        ];
-        $prestamo->cambiarEstadoPrestamo($datosSolicitados);
-    }
-
-    if ($_GET['operacion'] == 'devolverPrestamo') {
-        $prestamo->devolverPrestamo($_GET['idloan']);
+        $prestamo->registrarPrestamo($data);
+        echo json_encode(array('message' => 'Préstamo registrado exitosamente.'));
     }
 
     // Reporte Préstamo
@@ -48,7 +38,7 @@ if (isset($_GET['operacion'])) {
         ));
     }
 
-    // Grafico Prestamos
+    // Grafico Préstamo
     if ($_GET['operacion'] == 'graficoPrestamos') {
         echo json_encode($prestamo->graficoPrestamos($_GET['selectedMonth'], $_GET['selectedYear']));
     }
