@@ -132,7 +132,7 @@
                 let nuevaFila = ``;
 
                 registros.forEach(registro => {  
-
+                    let estrellasHTML = generarEstrellasHTML(registro['total']);
                     let commentPreview = registro['descriptions'].split(' ').slice(0, 3).join(' ');
                     commentPreview += '...'
                     portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
@@ -154,7 +154,8 @@
                                 </div>
                             </li>
                             <li class='list-group-item'>
-                                <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
+                                <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm mb-2' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
+                                <div class="estrellas">${estrellasHTML}</div>
                             </li>
                         </ul>               
                     `;
@@ -162,6 +163,23 @@
                 });
                 }
             });
+        }
+
+        function generarEstrellasHTML(score) {
+            // Inicializamos la variable
+            // La variable estrellasHTML es una cadena que contiene codigo HTML para la clasificacion
+            let estrellasHTML = '';
+            // Recorre en bucle los numero 1a5
+            for (let i = 1; i <= 5; i++) {
+                // Si el numero actual es menor o igual a la puntuacion cambia a amarillo
+                if (i <= score) {
+                    estrellasHTML += '<i class="fas fa-star" style="color: #ffc800;"></i>';
+                    // Caso contrario se cambia a otro color
+                } else {
+                    estrellasHTML += '<i class="fas fa-star" style="color: #a29e90;"></i>';
+                }
+            }
+            return estrellasHTML;
         }
 
         function VistaprincipalCategoria(){
@@ -185,6 +203,14 @@
                 }
             });
         }
+
+        $('#stars i').click(function() {
+                var rating = $(this).data('rating');
+                $('#rating').val(rating);
+                $('#stars i').removeClass('fas').addClass('far');
+                $(this).prevAll().addBack().removeClass('far').addClass('fas');
+                $('#rating-text').text(rating + ' estrella(s).');
+            });
         //Funciones de carga automatica
         mostrarVistaLibros();
         VistaprincipalCategoria();

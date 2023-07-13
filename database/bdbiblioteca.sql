@@ -461,12 +461,14 @@
 		-- N°1 list book
 
 			DELIMITER $$
-				CREATE PROCEDURE spu_booksmainview_list(
-				)
-				BEGIN
-					SELECT  idbook,descriptions,author,frontpage
-						FROM books
-					WHERE state2 = 1 AND idbook <=6;
+			CREATE PROCEDURE spu_booksmainview_list(
+			)
+			BEGIN
+				SELECT  bs.idbook,bs.descriptions,bs.author,bs.frontpage, ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books bs
+				LEFT JOIN commentaries cm ON cm.idbook = bs.idbook
+				WHERE bs.state2 = 1 AND bs.idbook <= 6
+				GROUP BY bs.idbook;
 			END $$
 
 			CALL spu_booksmainview_list();
@@ -487,10 +489,12 @@
 				IN _idsubcategorie INT
 			)
 			BEGIN
-				SELECT  b.idbook,b.descriptions, b.author,b.frontpage
+				SELECT  b.idbook,b.descriptions, b.author,b.frontpage,ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
 					FROM books b
 				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
-				WHERE _idsubcategorie = b.idsubcategorie;
+				LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+				WHERE _idsubcategorie = b.idsubcategorie
+				GROUP BY b.idbook;
 			END $$
 
 			CALL spu_bookssubcategory_list(1);
@@ -512,21 +516,25 @@
 			
 		-- N°5 seeker
 			DELIMITER $$
-			 CREATE PROCEDURE spu_books_lookfor(
+			CREATE PROCEDURE spu_books_lookfor(
 				IN _type CHAR(1),
 				IN _look VARCHAR(150)
 			)
 			BEGIN
 				IF _type = "n" THEN
-					SELECT idbook,frontpage, descriptions, author
-					FROM books
-					WHERE descriptions LIKE CONCAT('%',_look,'%');
+					SELECT b.idbook,b.frontpage, b.descriptions, b.author, ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books b
+					LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+					WHERE descriptions LIKE CONCAT('%',_look,'%')
+					GROUP BY b.idbook;
 				END IF;
 				
 				IF _type = "a" THEN 
-					SELECT idbook,frontpage, descriptions, author
-					FROM books
-					WHERE author LIKE CONCAT('%',_look,'%');
+					SELECT b.idbook,b.frontpage,b.descriptions, b.author, ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books b
+					LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+					WHERE author LIKE CONCAT('%',_look,'%')
+					GROUP BY b.idbook;
 				END IF;
 			END $$
 

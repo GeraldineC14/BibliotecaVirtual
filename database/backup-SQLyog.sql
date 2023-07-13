@@ -377,7 +377,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -402,7 +402,9 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (18,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',0,'2023-07-09',NULL,'1'),
 (19,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',3,'2023-07-09',NULL,'1'),
 (20,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',0,'2023-07-09',NULL,'1'),
-(21,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',5,'2023-07-09',NULL,'1');
+(21,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',5,'2023-07-09',NULL,'1'),
+(22,4,1,'Prueba',3,'2023-07-13',NULL,'1'),
+(23,4,1,'prueba 2',1,'2023-07-13',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -596,12 +598,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksmainview_list`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksmainview_list`(
+			)
 BEGIN
-				SELECT  idbook,descriptions,author,frontpage
-					FROM books
-				WHERE state2 = 1 AND idbook <=6;
-		END */$$
+				SELECT  bs.idbook,bs.descriptions,bs.author,bs.frontpage, round(SUM(cm.score) / count(cm.idcommentary))  as total
+					FROM books bs
+				left join commentaries cm on cm.idbook = bs.idbook
+				WHERE bs.state2 = 1 and bs.idbook <= 6
+				group by bs.idbook;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_bookssubcategory_list` */
@@ -610,13 +615,17 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_bookssubcategory_list`(IN `_idsubcategorie` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_bookssubcategory_list`(
+				IN _idsubcategorie INT
+			)
 BEGIN
-			SELECT  b.idbook,b.descriptions, b.author,b.frontpage
-				FROM books b
-			INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
-			WHERE _idsubcategorie = b.idsubcategorie;
-		END */$$
+				SELECT  b.idbook,b.descriptions, b.author,b.frontpage,ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books b
+				INNER JOIN subcategories c ON c.idsubcategorie = b.idsubcategorie
+				LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+				WHERE _idsubcategorie = b.idsubcategorie
+				GROUP BY b.idbook;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_booksummaries_list` */
@@ -668,20 +677,27 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_lookfor`(IN `_type` CHAR(1) CHARSET utf8mb4, IN `_look` VARCHAR(150) CHARSET utf8mb4)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_books_lookfor`(
+				IN _type CHAR(1),
+				IN _look VARCHAR(150)
+			)
 BEGIN
-			if _type = "n" then
-				SELECT idbook,frontpage, descriptions, author
-				FROM books
-				WHERE descriptions LIKE CONCAT('%',_look,'%');
-			END IF;
-			
-			IF _type = "a" then 
-				SELECT idbook,frontpage, descriptions, author
-				FROM books
-				WHERE author LIKE CONCAT('%',_look,'%');
-			END IF;
-		END */$$
+				IF _type = "n" THEN
+					SELECT b.idbook,b.frontpage, b.descriptions, b.author, ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books b
+					LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+					WHERE descriptions LIKE CONCAT('%',_look,'%')
+					GROUP BY b.idbook;
+				END IF;
+				
+				IF _type = "a" THEN 
+					SELECT b.idbook,b.frontpage,b.descriptions, b.author, ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+					FROM books b
+					LEFT JOIN commentaries cm ON cm.idbook = b.idbook
+					WHERE author LIKE CONCAT('%',_look,'%')
+					GROUP BY b.idbook;
+				END IF;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_books_obtain` */
