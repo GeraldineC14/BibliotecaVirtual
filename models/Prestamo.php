@@ -24,6 +24,18 @@ class Prestamo extends Conexion
          }
      }
      
+    public FUNCTION searchUsersloans($iduser)
+    {
+        try {
+            $consulta = $this->acceso->PREPARE("CALL spu_search_users_loans(?)");
+            $consulta->bindParam(1, $iduser, PDO::PARAM_INT);
+            $consulta->EXECUTE();
+    
+            RETURN $consulta->FETCH(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     // Registrar Préstamos vista principal
     public function registrarPrestamo($data)

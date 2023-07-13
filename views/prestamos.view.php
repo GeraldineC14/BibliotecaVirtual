@@ -268,9 +268,17 @@ if (!isset($_GET['prestamo'])) {
                 });
             }
 
-
-
-
+            function validarCantidad() {
+                var accesslevel = '<?php echo $_SESSION['login']['accesslevel'];?>';
+                var cantidadInput = $('#cantidad');
+                
+                if (accesslevel === 'A' || accesslevel === 'D') {
+                    // NO se realiza ninguna acción adicional
+                } else if (accesslevel === 'E') {
+                    // Establecer el valor en 1 Y deshabilitar el input
+                    cantidadInput.val(1).prop('disabled', true);
+                }
+            }
 
             // Obtener elementos del DOM
             const stockInput = document.getElementById("disponibles");
@@ -299,7 +307,7 @@ if (!isset($_GET['prestamo'])) {
             $("#solicitar-prestamo").click(RegistrarPrestamos);
             $("#cancelar").click(Cancelar);
             DatosLibros();
-
+            validarCantidad();
         });
     </script>
 </body>

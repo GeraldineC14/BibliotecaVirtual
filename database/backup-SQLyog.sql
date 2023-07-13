@@ -1626,6 +1626,28 @@ BEGIN
 	 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_search_users_loans` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_search_users_loans` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_search_users_loans`(IN _idusers INT)
+BEGIN
+  DECLARE record_count INT;
+
+  SELECT COUNT(*) INTO record_count
+  FROM loans
+  WHERE idusers = _idusers AND state IN (1, 2);
+
+  IF record_count > 0 THEN
+    SELECT 'DENEGADO' AS result;
+  ELSE
+    SELECT 'PERMITIDO' AS result;
+  END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_stock_libro` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_stock_libro` */;

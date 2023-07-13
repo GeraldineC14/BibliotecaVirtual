@@ -194,74 +194,95 @@ if (!isset($_GET['resumen'])) {
 
             $("#enviar").click(enviarComenatrio);
 
-
             function VistaResumen() {
                 // Verificar si idbook2 contiene letras y números combinados o solo letras
                 if (/^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/.test(idbook2)) {
                     window.location.href = './404.php';
                     return;
                 }
-                    $.ajax({
+
+                $.ajax({
                     url: '../controllers/biblioteca.controller.php',
                     type: 'GET',
                     data: {
                         'operacion': 'VistaResumen',
                         'idbook': idbook2
                     },
-                    success: function(result) {
+                    success: function (result) {
                         let registros = JSON.parse(result);
-                        if(registros){
+                        if (registros) {
                             let nuevaFila = `
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
-                                        <h5 class="text-center">${registros['descriptions']}</h5>
-                                        <div class="text-center">
-                                            <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
-                                        <p style="margin-top: 40px;margin-bottom: 0px;"> <label style="font-weight: bold;">AUTOR:</label> ${registros['author']}</p>
-                                        <p><label style="font-weight: bold;">STOCK: </label> ${registros['amount']}</p>
-                                        <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                                            <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
-                                        </p>
-                                        <div class="text-center">
-                                            <div class="btn-group" role="group">
-                                                ${registros['url'] ? `<a href="PDF/${registros['url']}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;" type="button">Descargar <i class="fa-solid fa-download"></i></a>` : ''}
-                                                <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
-                                            </div>
-                                            <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                `;
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
+                        <h5 class="text-center">${registros['descriptions']}</h5>
+                        <div class="text-center">
+                            <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                        </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
+                        <p style="margin-top: 40px;margin-bottom: 0px;"> <label style="font-weight: bold;">AUTOR:</label> ${registros['author']}</p>
+                        <p><label style="font-weight: bold;">STOCK: </label> ${registros['amount']}</p>
+                        <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
+                            <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+                        </p>
+                        <div class="text-center">
+                            <div class="btn-group" role="group">
+                            ${registros['url'] ? `<a href="PDF/${registros['url']}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;" type="button">Descargar <i class="fa-solid fa-download"></i></a>` : ''}
+                            <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                            </div>
+                            <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
+                        </div>
+                        </div>
+                    </div>
+                    `;
 
-                                $(".resumen").append(nuevaFila);
-                        }else{
-                            window.location.href = './404.php';
-                        }
-                        
+                            $(".resumen").append(nuevaFila);
 
-                        // Verificar si el idusuario es igual a -1
-                        if (idusuario === -1) {
-                            $(".prestamos").attr("href", "login.php");
-                        }
+                            // Verificar si el idusuario es igual a -1
+                            if (idusuario === -1) {
+                                $(".prestamos").attr("href", "login.php");
+                            } else {
+                                // Controlador de eventos para el enlace de Prestamo
+                                $(".prestamos").on("click", function (e) {
+                                    e.preventDefault(); // Prevenir la acción predeterminada del enlace
 
-                        // Controlador de eventos para el enlace de Prestamo
-                        $(".prestamos").on("click", function(e) {
-                            if (registros['amount'] == 0) {
-                                e.preventDefault(); // Prevenir la acción predeterminada del enlace
-                                Swal.fire({
-                                    title: 'No hay libros disponibles',
-                                    text: 'Lo sentimos, actualmente no hay libros disponibles de este título.',
-                                    icon: 'info',
-                                    footer: '<strong>Horacio Zeballos Gámez</strong>',
-                                    confirmButtonText: 'Aceptar'
+                                    // Realizar la validación adicional
+                                    searchUsersloans(registros['idbook']);
                                 });
                             }
-                        });
+                        } else {
+                            window.location.href = './404.php';
+                        }
                     }
                 });
+            }
+
+            function searchUsersloans(idbook) {
+                const parametros = new URLSearchParams();
+                parametros.append("operacion", "searchUsersloans");
+                parametros.append("iduser", idusuario);
+
+                fetch(`../controllers/prestamo.controller.php?${parametros}`, {
+                    method: 'GET'
+                })
+                    .then(respuesta => respuesta.json())
+                    .then(datos => {
+                        console.log(datos);
+                        // Analizando los datos
+                        if (datos.result == "PERMITIDO") {
+                            // Redireccionar a la vista de préstamos
+                            window.location.href = `./prestamos.view.php?prestamo=${idbook}`;
+                        } else {
+                            // Mostrar un alert indicando que no está permitido
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'No permitido',
+                            text: 'No puedes solicitar más de un préstamo a la vez',
+                            timer: 2000,
+                            showConfirmButton: false
+                            });
+                        }
+                    });
             }
 
 

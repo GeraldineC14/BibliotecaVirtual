@@ -11,6 +11,12 @@ if (isset($_GET['operacion'])) {
         echo json_encode($datos);
     }
 
+    if ($_GET['operacion'] == 'searchUsersloans') {
+        $iduser = $_GET['iduser'];
+        $resultado = $prestamo->searchUsersloans($iduser);
+        echo json_encode($resultado);
+    }
+
     // Registrar Préstamo Vista Principal
     if ($_GET['operacion'] == 'registrarPrestamo') {
         $data = array(
