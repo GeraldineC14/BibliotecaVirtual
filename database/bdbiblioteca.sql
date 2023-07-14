@@ -923,21 +923,48 @@ END $$
 		
 		-- Procedimiento para verificar si ya se tiene un prestamo
 		DELIMITER $$
-
 		CREATE PROCEDURE spu_search_users_loans(IN _idusers INT)
 		BEGIN
 		  DECLARE record_count INT;
+		  DECLARE user_accesslevel CHAR(1);
 
-		  SELECT COUNT(*) INTO record_count
-		  FROM loans
-		  WHERE idusers = _idusers AND state IN (1, 2);
+		  -- Obtener el accesslevel del usuario
+		  SELECT accesslevel INTO user_accesslevel
+		  FROM users
+		  WHERE idusers = _idusers;
 
-		  IF record_count > 0 THEN
-		    SELECT 'DENEGADO' AS result;
+		  IF user_accesslevel IN ('D', 'A') THEN
+		    SELECT COUNT(*) INTO record_count
+		    FROM loans
+		    WHERE idusers = _idusers AND state IN (1, 2);
+
+		    IF record_count < 6 THEN
+		      SELECT 'PERMITIDO' AS result;
+		    ELSE
+		      SELECT 'DENEGADO' AS result;
+		    END IF;
+
+		  ELSEIF user_accesslevel = 'E' THEN
+		    SELECT COUNT(*) INTO record_count
+		    FROM loans
+		    WHERE idusers = _idusers AND state IN (1, 2);
+
+		    IF record_count < 1 THEN
+		      SELECT 'PERMITIDO' AS result;
+		    ELSE
+		      SELECT 'NEGADO' AS result;
+		    END IF;
+
 		  ELSE
-		    SELECT 'PERMITIDO' AS result;
+		    SELECT 'RECHAZADO' AS result; -- Si el accesslevel no es ni 'D', 'A' ni 'E', se deniega el acceso
 		  END IF;
 		END $$
+		DELIMITER ;
+
+		
+		CALL spu_search_users_loans(3)
+		
+		SELECT * FROM loans
 		
 	-- PROCEDIMIENTOS ALMACENADOS
 	-- VISTA ADMIN:

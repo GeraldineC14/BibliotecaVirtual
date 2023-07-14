@@ -270,24 +270,42 @@ if (!isset($_GET['resumen'])) {
                 fetch(`../controllers/prestamo.controller.php?${parametros}`, {
                     method: 'GET'
                 })
-                    .then(respuesta => respuesta.json())
-                    .then(datos => {
-                        console.log(datos);
-                        // Analizando los datos
-                        if (datos.result == "PERMITIDO") {
-                            // Redireccionar a la vista de préstamos
-                            window.location.href = `./prestamos.view.php?prestamo=${idbook}`;
-                        } else {
-                            // Mostrar un alert indicando que no está permitido
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'No permitido',
-                            text: 'No puedes solicitar más de un préstamo a la vez',
-                            timer: 2000,
-                            showConfirmButton: false
-                            });
-                        }
-                    });
+                .then(respuesta => respuesta.json())
+                .then(datos => {
+                    console.log(datos);
+                    // Analizando los datos
+                    if (datos.result == "PERMITIDO") {
+                        // Redireccionar a la vista de préstamos
+                        window.location.href = `./prestamos.view.php?prestamo=${idbook}`;
+                    } else if (datos.result == "DENEGADO") {
+                        // Mostrar un alert indicando que no está permitido
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'No permitido',
+                        text: 'Límite máximo de solicitudes alcanzada.',
+                        timer: 2000,
+                        showConfirmButton: false
+                        });
+                    }else if (datos.result == "NEGADO") {
+                        // Mostrar un alert indicando que no está permitido
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'No permitido',
+                        text: 'No puedes solicitar más de un préstamo a la vez.',
+                        timer: 2000,
+                        showConfirmButton: false
+                        });
+                    }else {
+                        // Mostrar un alert indicando que no está permitido
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'No permitido',
+                        text: 'No puedes solicitar libros.',
+                        timer: 2000,
+                        showConfirmButton: false
+                        });
+                    }
+                });
             }
 
 
