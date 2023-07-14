@@ -477,11 +477,15 @@
 			DELIMITER $$
 				CREATE PROCEDURE spu_booksummaries_list(IN _idbook INT)
 				BEGIN
-					SELECT  idbook,summary, author, frontpage,descriptions, url, amount
-						FROM books 
-					WHERE idbook = _idbook;			
+					SELECT  bs.idbook,bs.summary, bs.author, bs.frontpage,bs.descriptions, bs.url, bs.amount,
+						ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+						FROM books bs
+					LEFT JOIN commentaries cm ON cm.idbook = bs.idbook 
+					WHERE bs.idbook = _idbook
+					GROUP BY bs.idbook;		
 			END $$
 			CALL spu_booksummaries_list(2);
+			SELECT * FROM users;
 		
 		-- N°3 List books subcategory
 			DELIMITER $$

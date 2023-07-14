@@ -26,7 +26,7 @@ if ($idusers > 0) {
         <li class="nav-item mb-2 mr-2">
             <a class="nav-link active text-dark btn d-flex justify-content-center align-items-center mx-auto" href="../views/admin/index.php?view=admin.view.php" style="max-width: 130px; background-color: #39a2db; border-color: #39a2db;">
                 <i class="fa-solid fa-book-open-reader fa-xl" style="color: #ededed;"></i>
-                <span class="ml-2" style="color: white;">Prestamo</span>
+                <span class="ml-2" style="color: white;">Préstamo</span>
             </a>
         </li>
         <li class="nav-item mb-2 mr-2">

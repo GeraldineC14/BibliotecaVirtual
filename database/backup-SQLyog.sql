@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - library
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.20-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `books` */
 
@@ -329,7 +329,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bookschinchanos` */
 
@@ -343,7 +343,7 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categories` */
 
@@ -377,7 +377,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `commentaries` */
 
@@ -404,7 +404,20 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (20,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',0,'2023-07-09',NULL,'1'),
 (21,3,47,'En términos generales, un texto persuasivo consiste en un contenido escrito del tipo argumentativo cuyo propósito principal es convencer, influir o in En términos generales, un texto persuasivo consiste en un contenido escrito del ti',5,'2023-07-09',NULL,'1'),
 (22,4,1,'Prueba',3,'2023-07-13',NULL,'1'),
-(23,4,1,'prueba 2',1,'2023-07-13',NULL,'1');
+(23,4,1,'prueba 2',1,'2023-07-13',NULL,'1'),
+(24,6,1,'muy bonito',2,'2023-07-13',NULL,'1'),
+(25,6,1,'muy feo',1,'2023-07-13',NULL,'1'),
+(26,6,1,'muy hermoso',5,'2023-07-13',NULL,'1'),
+(27,6,1,'feo',1,'2023-07-13',NULL,'1'),
+(28,19,1,'bonito',2,'2023-07-13',NULL,'1'),
+(29,19,1,'muy hermoso',5,'2023-07-13',NULL,'1'),
+(30,19,1,'seguiré leyendo el libro',1,'2023-07-13',NULL,'1'),
+(31,157,1,'bonito',1,'2023-07-13',NULL,'1'),
+(32,157,1,'hermoso',1,'2023-07-13',NULL,'1'),
+(33,157,1,'bueno',4,'2023-07-13',NULL,'1'),
+(34,21,1,'bonito',2,'2023-07-13',NULL,'1'),
+(35,21,1,'bonito',4,'2023-07-13',NULL,'1'),
+(36,4,46,'muy bueno',1,'2023-07-13',NULL,'1');
 
 /*Table structure for table `loans` */
 
@@ -427,7 +440,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
 
@@ -448,7 +461,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recuperarclave` */
 
@@ -474,7 +487,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategories` */
 
@@ -513,7 +526,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
@@ -540,7 +553,7 @@ CREATE TABLE `validacioncorreo` (
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idvalidacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `validacioncorreo` */
 
@@ -634,12 +647,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksummaries_list`(IN `_idbook` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_booksummaries_list`(IN _idbook INT)
 BEGIN
-				SELECT  idbook,summary, author, frontpage,descriptions, url, amount
-					FROM books 
-				WHERE idbook = _idbook;			
-		END */$$
+					SELECT  bs.idbook,bs.summary, bs.author, bs.frontpage,bs.descriptions, bs.url, bs.amount,
+						ROUND(SUM(cm.score) / COUNT(cm.idcommentary))  AS total
+						FROM books bs
+					LEFT JOIN commentaries cm ON cm.idbook = bs.idbook 
+					WHERE bs.idbook = _idbook
+					GROUP BY bs.idbook;		
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_books_delete` */
@@ -1651,11 +1667,9 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_search_users_loans`(IN _idusers INT)
 BEGIN
   DECLARE record_count INT;
-
   SELECT COUNT(*) INTO record_count
   FROM loans
   WHERE idusers = _idusers AND state IN (1, 2);
-
   IF record_count > 0 THEN
     SELECT 'DENEGADO' AS result;
   ELSE

@@ -2,7 +2,7 @@
     <table cellspacing="0" style="width: 100%;">
         <tr>
             <td style="width: 100%; font-weight: bold;">
-                <div class="center" style="font-size: 20pt;">
+                <div class="center" style="font-size: 18pt;">
                     REPORTE DE SUBCATEGORIAS
                 </div>
             </td>

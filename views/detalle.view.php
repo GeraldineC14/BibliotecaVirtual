@@ -186,7 +186,10 @@ if (!isset($_GET['resumen'])) {
                             stars.forEach(star => star.classList.add('far'));
                             $("#rating-text").text("");
                             estrellas = 0
-                            listarComentarios()
+                            listarComentarios();
+                            setTimeout(function() {
+                                window.location = window.location;
+                            }, 1900)
                         }
                     })
                 }
@@ -210,6 +213,7 @@ if (!isset($_GET['resumen'])) {
                     },
                     success: function (result) {
                         let registros = JSON.parse(result);
+                        let estrellasHTML = generarEstrellasHTML(registros['total']);
                         if (registros) {
                             let nuevaFila = `
                     <div class="row">
@@ -217,6 +221,7 @@ if (!isset($_GET['resumen'])) {
                         <h5 class="text-center">${registros['descriptions']}</h5>
                         <div class="text-center">
                             <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                            <div class="estrellas">${estrellasHTML}</div>
                         </div>
                         </div>
                         <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">

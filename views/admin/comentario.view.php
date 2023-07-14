@@ -173,7 +173,6 @@ require_once './permisos.php';
 
                         registros.forEach(registro => {
                             let commentPreview = registro['commentary'].split(' ').slice(0, 5).join(' ');
-                            let disabled = (accesslevel === 'D' || accesslevel === 'E') ? 'disabled' : '';
                             nuevaFila = `
                     <tr>
                         <td>${registro['idcomentario']}</td>
@@ -185,12 +184,19 @@ require_once './permisos.php';
                             <button class='btn btn-info ver-comentario' data-id='${registro['idcomentario']}' data-toggle='modal' data-target='#modal-comentario'>
                                 <a style='color: black; font-weight:bold;'><i class="fa-solid fa-comment-dots fa-lg"></i></a>
                             </button>
-                            <button id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}"${disabled}>
-                                <a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a>
-                            </button>
-                        </td>
-                    </tr>
-                `;
+                        `;
+                        if ('<?php echo $_SESSION['login']['accesslevel']; ?>' == 'A'){
+                            nuevaFila += `
+                                <button id='borrar' class='btn btn-danger' data-id="${registro['idcomentario']}">
+                                    <a style='color: black; font-weight:bold;'><i class="fa-solid fa-trash-can fa-lg"></i></a>
+                                </button>
+                            `;
+                        }
+                        nuevaFila+=`
+                                </td>
+                            </tr>
+                        `;
+                        
 
                             $("#tabla-comentario tbody").append(nuevaFila);
                         });
