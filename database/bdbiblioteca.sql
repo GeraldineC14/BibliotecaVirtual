@@ -771,7 +771,8 @@
 				UPDATE validacioncorreo SET estado = '0' WHERE email = _email;
 			END $$
 
-			
+			SELECT * FROM loans;
+
 		
 		
 -- BOOK LOANS:
@@ -797,7 +798,7 @@
 
 -- NUEVO 12/07 Procedimiento para registrar prestamo y actualizar las tablas 
 	DELIMITER $$
-	CREATE PROCEDURE spu_loan_registration
+	CREATE PROCEDURE spu_registration_date
 	(
 	    IN _idbook INT,
 	    IN _idusers INT,
@@ -838,7 +839,6 @@
 	END $$
 	
 -- NUEVO 12/07 Procedimiento para listar los prestamos
-CALL spu_listar_prestamo();
 	DELIMITER $$
 	CREATE PROCEDURE spu_listar_prestamo()
 	BEGIN
@@ -857,69 +857,91 @@ CALL spu_listar_prestamo();
 	    JOIN books ON loans.idbook = books.idbook
 	    JOIN users ON loans.idusers = users.idusers;
 	END $$
-	SELECT * FROM books;
-
--- Procedimiento almacenado para devolver un libro
+	
+-- NUEVO 13/07 Procedimiento para hacer entrega del libro al usuario
 DELIMITER $$
-CREATE PROCEDURE spu_return_book
+CREATE PROCEDURE spu_pickup_date
 (
-    IN p_idloan INT
+	IN p_idloan INT,
+	IN p_pickup_date DATETIME
 )
 BEGIN
-    DECLARE v_loan_amount INT;
-    DECLARE v_book_amount INT;
-    
-    -- Verificar si el préstamo existe
-    SELECT amount INTO v_loan_amount
-    FROM loans
-    WHERE idloan = p_idloan;
-    
-    IF v_loan_amount IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El préstamo no existe.';
-    END IF;
-    
-    -- Obtener la cantidad prestada y el ID del libro del préstamo
-    SELECT amount, idbook INTO v_loan_amount, v_book_amount
-    FROM loans
-    WHERE idloan = p_idloan;
-    
-    -- Realizar la devolución y actualizar las tablas
-    START TRANSACTION;
-    
-    -- Actualizar la cantidad prestada en el campo "amount" de la tabla "books"
-    UPDATE books
-    SET amount = amount + v_loan_amount
-    WHERE idbook = v_book_amount;
-    
-    -- Actualizar la cantidad prestada, la fecha de devolución y el estado en la tabla "loans"
     UPDATE loans
-    SET state = 0,
-        return_date = CURDATE()
+    SET pickup_date = p_pickup_date,
+        state = '2'
     WHERE idloan = p_idloan;
-    
-    COMMIT;
+END $$ 
+
+-- NUEVO 14/07 Procedimiento almacenado para Cancelar un prestamo
+DELIMITER $$
+CREATE PROCEDURE spu_cancellation_date
+(
+    IN loan_id INT
+)
+BEGIN
+    -- Variables para almacenar los valores del préstamo
+    DECLARE loan_amount VARCHAR(30);
+    DECLARE book_id INT;
+
+    -- Obtener el monto y el ID del libro del préstamo
+    SELECT amount, idbook INTO loan_amount, book_id
+    FROM loans
+    WHERE idloan = loan_id;
+
+    -- Actualizar la fecha de cancelación y el estado en el préstamo
+    UPDATE loans
+    SET cancellation_date = NOW(),
+        state = 3
+    WHERE idloan = loan_id;
+
+    -- Sumar el monto del préstamo al campo amount de la tabla books
+    UPDATE books
+    SET amount = amount + loan_amount
+    WHERE idbook = book_id;
 END $$
 
-		
-		-- Procedimiento para cambiar estado de prestamo
-		DELIMITER $$
-			CREATE PROCEDURE spu_change_state_loans
-			(
-				 IN p_idLoan INT,
-				 IN p_newState CHAR(1)
-			)
-			BEGIN
-				 UPDATE loans
-				 SET state = p_newState
-				 WHERE idloan = p_idLoan;
-		END $$
-		
-										-- (id, 'state') 
-		CALL spu_change_state_loans(1,'1');
-		CALL spu_loans_list();
+-- NUEVO 14/07 Procedimiento almacenado para devolver un libro
+DELIMITER $$
+CREATE PROCEDURE spu_return_date
+(
+	IN p_idloan INT, 
+	IN p_acotacion VARCHAR(200)
+)
+BEGIN
+    -- Actualizar la fecha de retorno y el estado del préstamo
+    UPDATE loans
+    SET return_date = NOW(),
+        state = '4',
+        acotacion = p_acotacion
+    WHERE idloan = p_idloan;
 
-		SELECT * FROM loans;
+    -- Sumar el amount del préstamo al amount de la tabla books
+    UPDATE books
+    SET amount = amount + (SELECT amount FROM loans WHERE idloan = p_idloan)
+    WHERE idbook = (SELECT idbook FROM loans WHERE idloan = p_idloan);
+END $$
+
+
+-- NUEVO 14/07 Procedimiento para filtrar por estados
+DELIMITER $$
+CREATE PROCEDURE spu_filtrar_prestamo
+(
+	IN p_state CHAR(1)
+)
+BEGIN
+    IF p_state = '0' THEN
+        SELECT *
+        FROM loans;
+    ELSE
+        SELECT *
+        FROM loans
+        WHERE state = p_state;
+    END IF;
+END $$
+
+
+
+		
 		
 		-- Procedimiento para verificar si ya se tiene un prestamo
 		DELIMITER $$
@@ -1486,6 +1508,16 @@ SELECT * FROM users
 	END $$
 
 CALL spu_grafico_prestamos(8, 2023); 
+
+
+-- SCRIPT CONTINUIDAD DE ID EN TABLAS -> agregar las tablas necesarias
+SET @nuevo_autoincremento = (SELECT MAX(idloan) FROM loans) + 1;
+SET @sql = CONCAT('ALTER TABLE loans AUTO_INCREMENT = ', @nuevo_autoincremento);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SELECT * FROM books;
 
 
 -- DATA:	

@@ -11,37 +11,70 @@ class Prestamo extends Conexion
         $this->acceso = parent::getConexion();
     }
 
-     // Listar Préstamo
-     public function listarPrestamo()
-     {
-         try {
-             $consulta = $this->acceso->prepare("CALL spu_listar_prestamo()");
-             $consulta->execute();
-             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-             return $datos;
-         } catch (Exception $e) {
-             die($e->getMessage());
-         }
-     }
-     
-    public FUNCTION searchUsersloans($iduser)
+    // Listar Préstamo
+    public function listarPrestamo()
     {
         try {
-            $consulta = $this->acceso->PREPARE("CALL spu_search_users_loans(?)");
-            $consulta->bindParam(1, $iduser, PDO::PARAM_INT);
-            $consulta->EXECUTE();
-    
-            RETURN $consulta->FETCH(PDO::FETCH_ASSOC);
+            $consulta = $this->acceso->prepare("CALL spu_listar_prestamo()");
+            $consulta->execute();
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
 
-    // Registrar Préstamos vista principal
+    public function searchUsersloans($iduser)
+    {
+        try {
+            $consulta = $this->acceso->PREPARE("CALL spu_search_users_loans(?)");
+            $consulta->bindParam(1, $iduser, PDO::PARAM_INT);
+            $consulta->EXECUTE();
+
+            return $consulta->FETCH(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    // Entregar libro al usuario VISTA ADMIN
+    public function entregarLibro($idloan, $pickup_date)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_pickup_date(?, ?)");
+            $consulta->execute([$idloan, $pickup_date]);
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    // Cancelar entrega del libro VISTA ADMIN
+    public function cancelarPrestamo($idloan)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_cancellation_date(?)");
+            $consulta->execute([$idloan]);
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    // Retornar libro a la Biblioteca VISTA ADMIN
+    public function retornarLibro($idloan, $acotacion)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_return_date(?, ?)");
+            $consulta->execute([$idloan, $acotacion]);
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    // Registrar Préstamos VISTA PRINCIPAL
     public function registrarPrestamo($data)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_loan_registration(?, ?, ?, ?, ?, ?, ?)");
+            $consulta = $this->acceso->prepare("CALL spu_registration_date(?, ?, ?, ?, ?, ?, ?)");
             $consulta->execute(
                 array(
                     $data['idbook'],
@@ -83,6 +116,19 @@ class Prestamo extends Conexion
         try {
             $consulta = $this->acceso->prepare("CALL spu_grafico_prestamos(?, ?)");
             $consulta->execute(array($selectedMonth, $selectedYear));
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    // Filtrar Préstamo
+    public function filtrarPrestamo($state)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_filtrar_prestamo(?)");
+            $consulta->execute([$state]);
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {
