@@ -12,11 +12,11 @@ class Prestamo extends Conexion
     }
 
     // Listar Préstamo
-    public function listarPrestamo()
+    public function listarPrestamo($iduser)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_listar_prestamo()");
-            $consulta->execute();
+            $consulta = $this->acceso->prepare("CALL spu_listar_prestamo(?)");
+            $consulta->execute(array($iduser,));
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {

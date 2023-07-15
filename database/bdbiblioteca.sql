@@ -840,7 +840,7 @@
 	
 -- NUEVO 12/07 Procedimiento para listar los prestamos
 	DELIMITER $$
-	CREATE PROCEDURE spu_listar_prestamo()
+	CREATE PROCEDURE spu_listar_prestamo(IN _idusers INT)
 	BEGIN
 	    SELECT loans.idloan,
 		   books.descriptions AS Titulo,
@@ -855,8 +855,13 @@
 		   loans.state AS Estado
 	    FROM loans
 	    JOIN books ON loans.idbook = books.idbook
-	    JOIN users ON loans.idusers = users.idusers;
+	    JOIN users ON loans.idusers = users.idusers
+	    WHERE loans.idusers = _idusers;
 	END $$
+	
+	SELECT * FROM loans;
+	SELECT * FROM users;
+	CALL spu_listar_prestamo(25);
 	
 -- NUEVO 13/07 Procedimiento para hacer entrega del libro al usuario
 DELIMITER $$
