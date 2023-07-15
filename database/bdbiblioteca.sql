@@ -838,31 +838,6 @@
 	    END IF;
 	END $$
 	
--- NUEVO 12/07 Procedimiento para listar los prestamos
-	DELIMITER $$
-	CREATE PROCEDURE spu_listar_prestamo(IN _idusers INT)
-	BEGIN
-	    SELECT loans.idloan,
-		   books.descriptions AS Titulo,
-		   users.username AS Usuario,
-		   loans.amount AS Cantidad,
-		   loans.registration_date AS `F. Registro`,
-		   loans.pickup_date AS `F. Recojo`,
-		   loans.return_date AS `F. Retorno`,
-		   loans.cancellation_date AS `F. Cancelacion`,
-		   loans.observation AS Observacion,
-		   loans.acotacion AS Perdida,
-		   loans.state AS Estado
-	    FROM loans
-	    JOIN books ON loans.idbook = books.idbook
-	    JOIN users ON loans.idusers = users.idusers
-	    WHERE loans.idusers = _idusers;
-	END $$
-	
-	SELECT * FROM loans;
-	SELECT * FROM users;
-	CALL spu_listar_prestamo(25);
-	
 -- NUEVO 13/07 Procedimiento para hacer entrega del libro al usuario
 DELIMITER $$
 CREATE PROCEDURE spu_pickup_date
@@ -996,43 +971,69 @@ END $$
 	-- PROCEDIMIENTOS ALMACENADOS
 	-- VISTA ADMIN:
 		-- N°1 list loans
-			DELIMITER $$
-				CREATE PROCEDURE spu_loans_list( 
-					IN _idusers 	INT,
-					IN _accesslevel	CHAR(1)
-				)
-				BEGIN
-					IF _accesslevel = 'D' THEN 
-						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-							s.observation, s.loan_date, s.return_date, s.amount, s.state
-						FROM loans s
-							INNER JOIN books b ON b.idbook = s.idbook
-							INNER JOIN users u ON u.idusers = s.idusers
-						WHERE u.idusers = _idusers;
-					END IF;
-					
-					IF _accesslevel = 'E' THEN 
-						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-							s.observation, s.loan_date, s.return_date, s.amount, s.state
-						FROM loans s
-							INNER JOIN books b ON b.idbook = s.idbook
-							INNER JOIN users u ON u.idusers = s.idusers
-						WHERE u.idusers = _idusers;
-					END IF;
-					
-					IF _accesslevel = 'A' THEN 
-						SELECT  s.idloan, b.descriptions, CONCAT(u.namess, ' ' , u.surnames) AS Usuario,
-							s.observation, s.loan_date, s.return_date, s.amount, s.state
-						FROM loans s
-							INNER JOIN books b ON b.idbook = s.idbook
-							INNER JOIN users u ON u.idusers = s.idusers;
-					END IF;
-			END $$
-				
-			CALL spu_loans_list(3,'E'); 
-			SELECT * FROM loans;
-			SELECT * FROM users;
-			
+		DELIMITER $$
+		CREATE PROCEDURE spu_listar_prestamo(
+			IN _idusers INT,
+			IN _accesslevel CHAR(1)
+		)
+		BEGIN
+		IF _accesslevel = 'D' THEN 
+		    SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F. Registro`,
+			   loans.pickup_date AS `F. Recojo`,
+			   loans.return_date AS `F. Retorno`,
+			   loans.cancellation_date AS `F. Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+		    FROM loans
+		    JOIN books ON loans.idbook = books.idbook
+		    JOIN users ON loans.idusers = users.idusers
+		    WHERE loans.idusers = _idusers;
+		 END IF;
+		 
+		 IF _accesslevel = 'E' THEN 
+		 SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F. Registro`,
+			   loans.pickup_date AS `F. Recojo`,
+			   loans.return_date AS `F. Retorno`,
+			   loans.cancellation_date AS `F. Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+		    FROM loans
+		    JOIN books ON loans.idbook = books.idbook
+		    JOIN users ON loans.idusers = users.idusers
+		    WHERE loans.idusers = _idusers;
+		    END IF;
+		    
+		    IF _accesslevel = 'A' THEN 
+		    SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F. Registro`,
+			   loans.pickup_date AS `F. Recojo`,
+			   loans.return_date AS `F. Retorno`,
+			   loans.cancellation_date AS `F. Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+		    FROM loans
+		    JOIN books ON loans.idbook = books.idbook
+		    JOIN users ON loans.idusers = users.idusers;
+		    END IF;
+		END $$
+		
+		SELECT * FROM loans;
+		SELECT * FROM users;
+		CALL spu_listar_prestamo(25);
 
 		-- N°2 List users loans
 			DELIMITER $$

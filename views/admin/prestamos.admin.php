@@ -157,7 +157,7 @@ require_once 'permisos.php';
                         data: {
                             'operacion': 'listarPrestamo',
                             'idusers': idusers,
-                            'accesslevel': accesslevel  //Observación
+                            'accesslevel': accesslevel
                         },
                         success: function(result) {
                             let registros = JSON.parse(result);
