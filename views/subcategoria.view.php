@@ -21,6 +21,9 @@ if (!isset($_GET['sub1'])) {
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/prueba.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.7.0/csshake.min.css" integrity="sha512-Kd+SEhBK155eAi26GMJymGkvztAnpEGA/PsJc9OKxRwkhJGblvtVv5Fv1R8zYvPq7dbsy+3o4QJco6hzBdxVjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body>
     <!-- navbar -->
@@ -130,17 +133,17 @@ if (!isset($_GET['sub1'])) {
                                         </div>
                                     </li>
                                     <li class='list-group-item'>
-                                        <div class='text-center'>
+                                        <div class='text-center hvr-grow'>
                                             <img class='img' src='./frontpage/${portada}'>
                                         </div>
                                         <div class='descripcion mt-2 text-center'>
-                                            ${registro["descriptions"]}
+                                            <b>${registro["descriptions"]}</b>
                                             <p class='mt-3' style='font-size: 12px;'>${registro["author"]}</p>
                                         </div>
+                                        <div class="estrellas hvr-bounce-in">${estrellasHTML}</div>
                                     </li>
                                     <li class='list-group-item'>
-                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
-                                        <div class="estrellas">${estrellasHTML}</div>
+                                        <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm hvr-float-shadow' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
                                     </li>
                                 </ul>   
                             `;

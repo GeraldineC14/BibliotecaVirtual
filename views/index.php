@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -10,11 +11,14 @@
     <link rel="stylesheet" href="../assets/css/Navbar-Right-Links-Dark-icons.css?h=6374f842801eca4c964d319ee1808973">
     <link rel="stylesheet" href="../assets/css/Sidebar-navbar.css?h=dbde5f7cd08c3af294ce34870a0e649f">
     <link rel="stylesheet" href="../assets/css/Sidebar.css?h=221a6cfc6c7eea8872b679d3e5f73dc4">
-    <link rel="shortcut icon" href="../assets/img/favicon.ico"/>
+    <link rel="shortcut icon" href="../assets/img/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/prueba.css">
-    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.7.0/csshake.min.css" integrity="sha512-Kd+SEhBK155eAi26GMJymGkvztAnpEGA/PsJc9OKxRwkhJGblvtVv5Fv1R8zYvPq7dbsy+3o4QJco6hzBdxVjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
-<body>   
+
+<body>
     <!-- navbar -->
     <?php include './navbar.php'; ?>
     <div class="container">
@@ -105,39 +109,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
     <!-- Script de Fontawesome -->
     <script src="https://kit.fontawesome.com/1380163bda.js" crossorigin="anonymous"></script>
-    
-<script>
-    $(document).ready(function(){
 
-        $(window).scroll(function() {
-            if ($(this).scrollTop() > 200) {
-            $('#scroll-top').addClass('active');
-            } else {
-            $('#scroll-top').removeClass('active');
-            }
-        });
+    <script>
+        $(document).ready(function() {
 
-        $('#scroll-top').click(function(event) {
-            event.preventDefault();
-            $('html, body').animate({ scrollTop: 0 }, 300);
-        });
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 200) {
+                    $('#scroll-top').addClass('active');
+                } else {
+                    $('#scroll-top').removeClass('active');
+                }
+            });
 
-        function mostrarVistaLibros(){
-            $.ajax({
-                url:'../controllers/biblioteca.controller.php',
-                type:'GET',
-                data:'operacion=listarVistaLibros',
-                success: function(result){
-                let registros = JSON.parse(result);
-                let nuevaFila = ``;
+            $('#scroll-top').click(function(event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 300);
+            });
 
-                registros.forEach(registro => {  
-                    let estrellasHTML = generarEstrellasHTML(registro['total']);
-                    let commentPreview = registro['descriptions'].split(' ').slice(0, 3).join(' ');
-                    commentPreview += '...'
-                    portada = (registro['frontpage']== null) ? 'noimagen.png' :registro['frontpage'];
-                    
-                    nuevaFila = ` 
+            function mostrarVistaLibros() {
+                $.ajax({
+                    url: '../controllers/biblioteca.controller.php',
+                    type: 'GET',
+                    data: 'operacion=listarVistaLibros',
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        let nuevaFila = ``;
+
+                        registros.forEach(registro => {
+                            let estrellasHTML = generarEstrellasHTML(registro['total']);
+                            let commentPreview = registro['descriptions'].split(' ').slice(0, 3).join(' ');
+                            commentPreview += '...'
+                            portada = (registro['frontpage'] == null) ? 'noimagen.png' : registro['frontpage'];
+
+                            nuevaFila = ` 
                         <ul class='list-group contenedor'>
                             <li class='list-group-item bg-danger' style='color: #ffffff; font-weight: bold; font-size: 12px;'>
                                 <div class='row'>
@@ -145,76 +151,77 @@
                                 </div>
                             </li>
                             <li class='list-group-item'>
-                                <div class='text-center'>
+                                <div class='text-center hvr-grow'>
                                     <img class='img' src='./frontpage/${portada}'>
                                 </div>
                                 <div class='descripcion mt-2 text-center'>
-                                    ${registro["descriptions"]}
+                                    <b>${registro["descriptions"]}</b>
                                     <p class='mt-3' style='font-size: 12px;'>${registro["author"]}</p>
                                 </div>
+                                <div class="estrellas hvr-bounce-in">${estrellasHTML}</div>
                             </li>
                             <li class='list-group-item'>
-                                <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm mb-2' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
-                                <div class="estrellas">${estrellasHTML}</div>
+                                <a href='./detalle.view.php?resumen=${registro['idbook']}' class='btn btn-block btn-sm mb-2 hvr-float-shadow' style='background-color: #39a2db; border-color: #39a2db; color: #ffffff;'>¡Vamos a aprender!</a>
                             </li>
                         </ul>               
                     `;
-                    $(".datos").append(nuevaFila);
+                            $(".datos").append(nuevaFila);
+                        });
+                    }
                 });
-                }
-            });
-        }
-
-        function generarEstrellasHTML(score) {
-            // Inicializamos la variable
-            // La variable estrellasHTML es una cadena que contiene codigo HTML para la clasificacion
-            let estrellasHTML = '';
-            // Recorre en bucle los numero 1a5
-            for (let i = 1; i <= 5; i++) {
-                // Si el numero actual es menor o igual a la puntuacion cambia a amarillo
-                if (i <= score) {
-                    estrellasHTML += '<i class="fas fa-star" style="color: #ffc800;"></i>';
-                    // Caso contrario se cambia a otro color
-                } else {
-                    estrellasHTML += '<i class="fas fa-star" style="color: #a29e90;"></i>';
-                }
             }
-            return estrellasHTML;
-        }
 
-        function VistaprincipalCategoria(){
-            $.ajax({
-                url:'../controllers/categoria.controller.php',
-                type:'GET',
-                data: 'operacion=VistaprincipalCategoria',
-                success: function(result){
-                    let registros = JSON.parse(result);
-                    let nuevaFila2 = ``;
-                    registros.forEach(registro => {  
-                        nuevaFila2 = ` 
-                        <li class="nav-item">
+            function generarEstrellasHTML(score) {
+                // Inicializamos la variable
+                // La variable estrellasHTML es una cadena que contiene codigo HTML para la clasificacion
+                let estrellasHTML = '';
+                // Recorre en bucle los numero 1a5
+                for (let i = 1; i <= 5; i++) {
+                    // Si el numero actual es menor o igual a la puntuacion cambia a amarillo
+                    if (i <= score) {
+                        estrellasHTML += '<i class="fas fa-star" style="color: #ffc800;"></i>';
+                        // Caso contrario se cambia a otro color
+                    } else {
+                        estrellasHTML += '<i class="fas fa-star" style="color: #a29e90;"></i>';
+                    }
+                }
+                return estrellasHTML;
+            }
+
+            function VistaprincipalCategoria() {
+                $.ajax({
+                    url: '../controllers/categoria.controller.php',
+                    type: 'GET',
+                    data: 'operacion=VistaprincipalCategoria',
+                    success: function(result) {
+                        let registros = JSON.parse(result);
+                        let nuevaFila2 = ``;
+                        registros.forEach(registro => {
+                            nuevaFila2 = ` 
+                        <li class="nav-item animate__backInLeft">
                             <a href="./subcategoria.view.php?sub1=${registro['idsubcategorie']}" class="nav-link">
                                 <i class="fa fa-book" aria-hidden="true"></i>${registro['subcategoryname']}
                             </a>
                         </li>                             
                         `
-                        $(".categorias").append(nuevaFila2);
-                    });
-                }
-            });
-        }
+                            $(".categorias").append(nuevaFila2);
+                        });
+                    }
+                });
+            }
 
-        $('#stars i').click(function() {
+            $('#stars i').click(function() {
                 var rating = $(this).data('rating');
                 $('#rating').val(rating);
                 $('#stars i').removeClass('fas').addClass('far');
                 $(this).prevAll().addBack().removeClass('far').addClass('fas');
                 $('#rating-text').text(rating + ' estrella(s).');
             });
-        //Funciones de carga automatica
-        mostrarVistaLibros();
-        VistaprincipalCategoria();
-    });
-</script>
+            //Funciones de carga automatica
+            mostrarVistaLibros();
+            VistaprincipalCategoria();
+        });
+    </script>
 </body>
+
 </html>

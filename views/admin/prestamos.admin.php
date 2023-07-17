@@ -62,7 +62,7 @@ require_once 'permisos.php';
                                 </div>
                             </div>
 
-                            
+
 
 
                             <!-- Datatable -->
@@ -174,6 +174,25 @@ require_once 'permisos.php';
                                     estadoColor = 'text-secondary';
                                     estadoTexto = '<b>PENDIENTE</b>';
 
+                                    // Ocultar botones Cancelar y Devolver para D y E
+                                    let comandosHtml = '';
+                                    if (accesslevel !== 'D' && accesslevel !== 'E') {
+                                        comandosHtml = `
+                                            <td>
+                                            <button class='btn btn-success entregar' data-id="${registro['idloan']}" title='Entregar'>
+                                            <a style='color: black; font-weight:bold;'>
+                                                <i class="fa-solid fa-hand-holding-hand" style="color: #000000;"></i>
+                                            </a>
+                                        </button>
+                                        <button class='btn btn-danger cancelar' data-id="${registro['idloan']}" title='Cancelar'>
+                                            <a style='color: black; font-weight:bold;'>
+                                                <i class="fa-solid fa-ban" style="color: #000000;"></i>
+                                            </a>
+                                        </button>
+                                            </td>
+                                        `;
+                                    }
+
                                     // Ocultar botones Devolver y Observado
                                     nuevaFila += `
                                 <tr>
@@ -188,39 +207,19 @@ require_once 'permisos.php';
                                     <td>${registro['Cantidad']}</td>
                                     <td>${registro['Perdida']}</td>
                                     <td class="${estadoColor}">${estadoTexto}</td>
-                                    <td>
-                                        <button class='btn btn-success entregar' data-id="${registro['idloan']}" title='Entregar'>
-                                            <a style='color: black; font-weight:bold;'>
-                                                <i class="fa-solid fa-hand-holding-hand" style="color: #000000;"></i>
-                                            </a>
-                                        </button>
-                                        <button class='btn btn-danger cancelar' data-id="${registro['idloan']}" title='Cancelar'>
-                                            <a style='color: black; font-weight:bold;'>
-                                                <i class="fa-solid fa-ban" style="color: #000000;"></i>
-                                            </a>
-                                        </button>
-                                    </td>
+                                    ${comandosHtml}
                                 </tr>
                             `;
                                 } else if (registro['Estado'] === '2') {
                                     estadoColor = 'text-primary';
                                     estadoTexto = '<b>ENTREGADO</b>';
 
-                                    nuevaFila += `
-                                <tr>
-                                    <td>${registro['idloan']}</td>
-                                    <td>${registro['Titulo']}</td>
-                                    <td>${registro['Usuario']}</td>
-                                    <td>${registro['Observacion']}</td>
-                                    <td>${registro['F. Registro']}</td>
-                                    <td>${registro['F. Recojo']}</td>
-                                    <td>${registro['F. Retorno']}</td>
-                                    <td>${registro['F. Cancelacion']}</td>
-                                    <td>${registro['Cantidad']}</td>
-                                    <td>${registro['Perdida']}</td>
-                                    <td class="${estadoColor}">${estadoTexto}</td>
-                                    <td>
-                                        <button class='btn btn-danger cancelar' data-id="${registro['idloan']}" title='Cancelar'>
+                                     // Ocultar botones Cancelar y Devolver para D y E
+                                     let comandosHtml = '';
+                                    if (accesslevel !== 'D' && accesslevel !== 'E') {
+                                        comandosHtml = `
+                                            <td>
+                                            <button class='btn btn-danger cancelar' data-id="${registro['idloan']}" title='Cancelar'>
                                             <a style='color: black; font-weight:bold;'>
                                                 <i class="fa-solid fa-ban" style="color: #000000;"></i>
                                             </a>
@@ -230,7 +229,23 @@ require_once 'permisos.php';
                                                 <i class="fa-solid fa-rotate-left" style="color: #000000;"></i>
                                             </a>
                                         </button>
-                                    </td>
+                                            </td>
+                                        `;
+                                    }
+
+                                    nuevaFila += `
+                                <tr>
+                                    <td>${registro['idloan']}</td>
+                                    <td>${registro['Titulo']}</td>
+                                    <td>${registro['Usuario']}</td>
+                                    <td>${registro['Observacion']}</td>
+                                    <td>${registro['F. Registro']}</td>
+                                    <td class="${estadoColor}" style="${registro['Estado'] === '2' ? 'color: blue; font-weight: bold;' : ''}">${registro['F. Recojo']}</td>                                    <td>${registro['F. Retorno']}</td>
+                                    <td>${registro['F. Cancelacion']}</td>
+                                    <td>${registro['Cantidad']}</td>
+                                    <td>${registro['Perdida']}</td>
+                                    <td class="${estadoColor}">${estadoTexto}</td>
+                                    ${comandosHtml}
                                 </tr>
                             `;
                                 } else if (registro['Estado'] === '3') {
@@ -246,7 +261,7 @@ require_once 'permisos.php';
                                     <td>${registro['F. Registro']}</td>
                                     <td>${registro['F. Recojo']}</td>
                                     <td>${registro['F. Retorno']}</td>
-                                    <td>${registro['F. Cancelacion']}</td>
+                                    <td class="${estadoColor}" style="${registro['Estado'] === '3' ? 'color: red; font-weight: bold;' : ''}">${registro['F. Cancelacion']}</td>
                                     <td>${registro['Cantidad']}</td>
                                     <td>${registro['Perdida']}</td>
                                     <td class="${estadoColor}">${estadoTexto}</td>
@@ -265,8 +280,7 @@ require_once 'permisos.php';
                                     <td>${registro['Observacion']}</td>
                                     <td>${registro['F. Registro']}</td>
                                     <td>${registro['F. Recojo']}</td>
-                                    <td>${registro['F. Retorno']}</td>
-                                    <td>${registro['F. Cancelacion']}</td>
+                                    <td class="${estadoColor}" style="${registro['Estado'] === '4' ? 'color: green; font-weight: bold;' : ''}">${registro['F. Retorno']}</td>                                    <td>${registro['F. Cancelacion']}</td>
                                     <td>${registro['Cantidad']}</td>
                                     <td>${registro['Perdida']}</td>
                                     <td class="${estadoColor}">${estadoTexto}</td>
