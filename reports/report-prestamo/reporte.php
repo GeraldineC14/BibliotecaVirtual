@@ -14,7 +14,9 @@ try {
     $datos = $prestamo->reportePrestamo(
         ['idbook'        => $_GET['idbook'],
         'anio'          => $_GET['anio'],
-        'mes'           => $_GET['mes']]
+        'mes'           => $_GET['mes'],
+        'estado'        => $_GET['estado']
+        ]
     );
 
     $titulo = $_GET['titulo'];

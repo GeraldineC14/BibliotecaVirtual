@@ -95,14 +95,28 @@ class Prestamo extends Conexion
     public function reportePrestamo($data = [])
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_reporte_prestamos(?,?,?)");
+            $consulta = $this->acceso->prepare("CALL spu_reporte_prestamos(?,?,?,?)");
             $consulta->execute(
                 array(
                     $data['idbook'],
                     $data['anio'],
-                    $data['mes']
+                    $data['mes'],
+                    $data['estado']
                 )
             );
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    //estado-reporte
+    public function listarEstados()
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_list_estado()");
+            $consulta->execute();
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {

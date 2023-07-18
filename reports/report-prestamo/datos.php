@@ -44,23 +44,29 @@
                 <p class='mb-2 mt-5'><b>LIBRO:</b> {$libro}</p>
                 <table class='table table-border mb-3'>
                     <colgroup>
-                        <col width='5%'>
-                        <col style='width: 25%;'>
-                        <col style='width: 20%;'>
-                        <col  style='width: 8%;'>
-                        <col style='width: 10%;'>
-                        <col style='width: 10%;'>
-                        <col  style='width: 20%;'>
+                        <col style= 'width: 1%;'>
+                        <col style= 'width: 8%;'>
+                        <col style= 'width: 8%;'>
+                        <col style= 'width: 12%;'>
+                        <col style= 'width: 12%;'>
+                        <col style= 'width: 12%;'>
+                        <col style= 'width: 12%;'>
+                        <col style= 'width: 10%;'>
+                        <col style= 'width: 10%;'>
+                        <col style= 'width: 12%;'>
                     </colgroup>
                     <thead>
                         <tr class='bg-danger'>
                             <th>#</th>
-                            <th class='center'>Libro</th>
                             <th class='center'>Usuario</th>
                             <th class='center'>Cantidad</th>
-                            <th class='center'>Solicitud</th>
-                            <th class='center'>Recojo</th>
                             <th class='center'>Registro</th>
+                            <th class='center'>Recojo</th>
+                            <th class='center'>Retorno</th>
+                            <th class='center'>Cancelado</th>
+                            <th class='center'>Observación</th>
+                            <th class='center'>Reporte</th>
+                            <th class='center'>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,15 +85,34 @@
 
             function agregarFila($arreglo = [],$i)
             {
+                $estadoColor = '';
+                $estadoTexto = '';
+                if($arreglo['Estado'] === '1'){
+                    $estadoColor = 'color: #6c757d;';
+                    $estadoTexto = '<b>PENDIENTE</b>';
+                }else if($arreglo['Estado'] === '2'){
+                    $estadoColor = 'color: #007bff;';
+                    $estadoTexto = '<b>ENTREGADO</b>';
+                }else if($arreglo['Estado'] === '3'){
+                    $estadoColor = 'color: #dc3545;';
+                    $estadoTexto = '<b>CANCELADO</b>';
+                }else{
+                    $estadoColor = 'color: #28a745;';
+                    $estadoTexto = '<b>DEVUELTO</b>';
+                }
+
                 echo "
                     <tr>
                         <td>$i</td>
-                        <td>{$arreglo['descriptions']}</td>
-                        <td>{$arreglo['nombre_completo']}</td>
-                        <td class='center'>{$arreglo['amount']}</td>
-                        <td class='center'>{$arreglo['loan_date']}</td>
-                        <td class='center'>{$arreglo['return_date']}</td>
-                        <td class='center'>{$arreglo['registrationdate']}</td>
+                        <td class='center'>{$arreglo['Usuario']}</td>
+                        <td class='center'>{$arreglo['Cantidad']}</td>
+                        <td class='center'>{$arreglo['F_Registro']}</td>
+                        <td class='center'>{$arreglo['F_Recojo']}</td>
+                        <td class='center'>{$arreglo['F_Retorno']}</td>
+                        <td class='center'>{$arreglo['F_Cancelacion']}</td>
+                        <td>{$arreglo['Observacion']}</td>
+                        <td>{$arreglo['Perdida']}</td>
+                        <td class='center' style= '{$estadoColor}'>{$estadoTexto}</td>
                     </tr>
                 ";
             }
@@ -105,17 +130,17 @@
 
             if (count($datos) > 0) {
                 $i = 1;
-                $libro = $datos[0]["descriptions"];
+                $libro = $datos[0]["Titulo"];
                 $registrosLibros = array($libro => 0);
                 crearTabla($libro);
                 foreach ($datos as $registro) {
-                    if ($libro == $registro["descriptions"]) {
+                    if ($libro == $registro["Titulo"]) {
                         agregarFila($registro,$i);
                         $registrosLibros[$libro]++;
                         $i++;
                     } else {
                         $i=1;
-                        $libro = $registro["descriptions"];
+                        $libro = $registro["Titulo"];
                         cerrarTabla();
                         crearTabla($libro);
                         agregarFila($registro,$i);

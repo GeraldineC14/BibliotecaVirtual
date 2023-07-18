@@ -65,11 +65,17 @@ if (isset($_GET['operacion'])) {
     if ($_GET['operacion'] == 'reportePrestamo') {
         renderJSON($prestamo->reportePrestamo(
             [
-                'idbook' => $_GET['idbook'],
-                'anio' => $_GET['anio'],
-                'mes' => $_GET['mes']
+                'idbook'    => $_GET['idbook'],
+                'anio'      => $_GET['anio'],
+                'mes'       => $_GET['mes'],
+                'estado'    => $_GET['estado']
             ]
         ));
+    }
+
+    // estado-reporte
+    if($_GET['operacion']=='listarEstados'){
+        echo json_encode($prestamo->listarEstados());
     }
 
     // Grafico Préstamo

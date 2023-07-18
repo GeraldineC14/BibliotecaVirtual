@@ -785,11 +785,11 @@
 			amount			VARCHAR(30)	NOT NULL,
 			registration_date	DATETIME 	NOT NULL DEFAULT NOW(),  -- Fecha de registro del prestamo
 			pickup_date		DATETIME	NOT NULL,		 -- Posible fecha de recojo del libro
-			return_date		DATETIME 	NOT NULL,		 	 -- Posible fecha de retorno
+			return_date		DATETIME 	NOT NULL,		 -- Posible fecha de retorno
 			cancellation_date 	DATETIME	NULL,			 -- Fecha de cancelacion
 			observation		VARCHAR(200)	NULL,			 -- Comentario del usuario	
 			acotacion 		VARCHAR(200)    NULL,			 -- Comentario del administrador	
-			state		CHAR(1) 	DEFAULT '0',
+			state			CHAR(1) 	DEFAULT '0',
 			CONSTRAINT fk_idbook_idbook FOREIGN KEY (idbook) REFERENCES books (idbook),
 			CONSTRAINT fk_idusers_idusers FOREIGN KEY (idusers) REFERENCES users (idusers)
 		)ENGINE = INNODB;
@@ -1079,39 +1079,105 @@ END $$
 		-- ***************************************************************************************************************	
 		-- N°5 Reporte Préstamo
 		DELIMITER $$
-			CREATE PROCEDURE spu_reporte_prestamos
-			(
-				 IN _idbook INT,
-				 IN _anio CHAR(4),
-				 IN _mes CHAR(2)
-			)
-			BEGIN
-			IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
-				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
-					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
-					 FROM loans
-					 INNER JOIN books ON loans.idbook = books.idbook
-					 INNER JOIN users ON loans.idusers = users.idusers
-					 WHERE loans.idbook = _idbook
-						AND YEAR(loans.registrationdate) = _anio
-						AND MONTH(loans.registrationdate) = _mes;
-				
-			ELSE
+		CREATE PROCEDURE spu_reporte_prestamos
+		(
+		    IN _idbook INT,
+		    IN _anio CHAR(4),
+		    IN _mes CHAR(2),
+		    IN _estado CHAR(1)
+		)
+		BEGIN
+		    IF _anio IS NOT NULL AND _mes IS NOT NULL AND _estado IS NOT NULL AND _anio != '' AND _mes != '' AND _estado != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND YEAR(loans.registration_date) = _anio
+			AND MONTH(loans.registration_date) = _mes
+			AND loans.state = _estado;
 			
-				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
-					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
-						 FROM loans
-						 INNER JOIN books ON loans.idbook = books.idbook
-						 INNER JOIN users ON loans.idusers = users.idusers
-						 WHERE loans.idbook = _idbook;
-			END IF;
+		    ELSEIF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND YEAR(loans.registration_date) = _anio
+			AND MONTH(loans.registration_date) = _mes;
+			
+		   ELSEIF _estado IS NOT NULL AND _estado != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND loans.state = _estado;
+			
+		    ELSE
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook;
+		    END IF;
 		END $$
 		
-		SELECT * FROM loans
+		-- lista estados
+		DELIMITER $$
+			CREATE PROCEDURE spu_list_estado()
+			BEGIN
+			SELECT state FROM loans
+			GROUP BY state;
+		END $$
+		
+
+		
+		SELECT * FROM loans WHERE state = 1
 		
 			DROP PROCEDURE spu_reporte_prestamos
 			
-		CALL spu_reporte_prestamos(2,2023,06);
+		CALL spu_reporte_prestamos(16,'2023','07','1');
 		
 		SELECT * FROM loans
 		

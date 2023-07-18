@@ -43,6 +43,10 @@
                                             <div class="col">
                                                 <input type="month" name="fecha" id="fecha" class="form-control" value=" ">
                                             </div>
+                                            <div class="col">
+                                                <select id="estado" class="form-select estado" multiple name="estado" required style="width: 100%;">
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,22 +66,29 @@
                             <table id="prestamo" class="table table-sm table-striped">
                                 <colgroup>
                                     <col width="5%">
-                                    <col width="20%">
-                                    <col width="20%">
-                                    <col width="5%">
+                                    <col width="25%">
                                     <col width="10%">
+                                    <col width="15%">
+                                    <col width="15%">
                                     <col width="20%">
-                                    <col width="20%">
+                                    <col width="25%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
                                 </colgroup>
                                 <thead>
                                     <tr class="text-center">
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Libro</th>
                                         <th>Usuario</th>
                                         <th>Cantidad</th>
-                                        <th>Solicitud</th>
-                                        <th>Recojo</th>
                                         <th>Registro</th>
+                                        <th>Recojo</th>
+                                        <th>Retorno</th>
+                                        <th>Cancelado</th>
+                                        <th>Observación</th>
+                                        <th>Reporte</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,6 +106,7 @@
 <script>
     const inputFecha = document.querySelector('#fecha');
     const selectLibro = document.querySelector('#libro');
+    const selectEstados = document.querySelector('#estado');
     const tablaPrestamo = document.querySelector("#prestamo tbody");
     let filtroPDF = -1;
 
@@ -122,10 +134,36 @@
             });
     }
 
+    function listarEstados(){
+        fetch(`../../controllers/prestamo.controller.php?operacion=listarEstados`)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                let estadoTexto = '';
+                datos.forEach(element=> {
+                    if(element['state'] === '1'){
+                            estadoTexto = 'PENDIENTE';
+                        }else if(element['state'] === '2'){
+                            estadoTexto = 'ENTREGADO';
+                        }else if(element['state'] === '3'){
+                            estadoTexto = 'CANCELADO';
+                        }else{
+                            estadoTexto = 'DEVUELTO';
+                        }
+
+                    const optionTag = document.createElement("option");
+                    optionTag.value = element.state
+                    optionTag.text = estadoTexto;
+                    selectEstados.appendChild(optionTag);
+                });
+            });
+    }
+
     function listarPrestamos() {
         const indiceLibro = parseInt(selectLibro.value);
         const indiceLibroSeleccionado = indiceLibro >= 1 ? indiceLibro : "0";
-    
+        const indiceEstado = parseInt(selectEstados.value);
+        const indiceEstadosSeleccionado = indiceEstado >= 1 ? indiceEstado : "";
+
         // Obtener el valor del año y del mes
         var valorFecha = inputFecha.value;
         var anio = '';
@@ -140,13 +178,16 @@
         parametros.append("idbook", indiceLibroSeleccionado);
         parametros.append("anio",anio);
         parametros.append("mes",mes);
+        parametros.append("estado",indiceEstadosSeleccionado);
         console.log(parametros.toString());
         fetch(`../../controllers/prestamo.controller.php?${parametros}`)
         .then(respuesta => respuesta.text())
             .then(datos => {
                 let i = 1;
+                let estadoColor = '';
+                let estadoTexto = '';
                 if(!datos || datos.length === 0){
-                    tablaPrestamo.innerHTML = '<tr><td colspan="7">No ha seleccionado ningún libro</td></tr>';
+                    tablaPrestamo.innerHTML = '<tr><td colspan="12">No ha seleccionado ningún libro</td></tr>';
                     filtroPDF = -1;
                 }else{
                     registro = JSON.parse(datos);
@@ -154,15 +195,32 @@
                     filtroPDF = 1;
 
                     registro.forEach(element => {
+                        if(element['Estado'] === '1'){
+                            estadoColor = 'text-secondary';
+                            estadoTexto = '<b>PENDIENTE</b>';
+                        }else if(element['Estado'] === '2'){
+                            estadoColor = 'text-primary';
+                            estadoTexto = '<b>ENTREGADO</b>';
+                        }else if(element['Estado'] === '3'){
+                            estadoColor = 'text-danger';
+                            estadoTexto = '<b>CANCELADO</b>';
+                        }else{
+                            estadoColor = 'text-success';
+                            estadoTexto = '<b>DEVUELTO</b>';
+                        }
                     const tableRow = `
                     <tr>
                         <td class='text-center'>${i++}</td>
-                        <td>${element.descriptions}</td>
-                        <td>${element.nombre_completo}</td>
-                        <td class='text-center'>${element.amount}</td>
-                        <td class='text-center'>${element.loan_date}</td>
-                        <td class='text-center'>${element.return_date}</td>
-                        <td class='text-center'>${element.registrationdate}</td>
+                        <td>${element.Titulo}</td>
+                        <td>${element.Usuario}</td>
+                        <td class='text-center'>${element.Cantidad}</td>
+                        <td class='text-center'>${element.F_Registro}</td>
+                        <td class='text-center'>${element.F_Recojo}</td>
+                        <td class='text-center'>${element.F_Retorno}</td>
+                        <td class='text-center'>${element.F_Cancelacion}</td>
+                        <td class='text-center'>${element.Observacion}</td>
+                        <td class='text-center'>${element.Perdida}</td>
+                        <td class='${estadoColor}'>${estadoTexto}</td>
                     </tr>
                     `;
                     tablaPrestamo.innerHTML += tableRow;
@@ -189,6 +247,7 @@
             parametros.append("idbook", selectLibro.value);
             parametros.append("anio",anio);
             parametros.append("mes",mes);
+            parametros.append("estado",selectEstados.value);
             parametros.append("titulo", selectLibro.options[selectLibro.selectedIndex].text);
 
           window.open(`../../reports/report-prestamo/reporte.php?${parametros}`, '_blank');
@@ -199,12 +258,19 @@
     }
 
     $(selectLibro).on('change', listarPrestamos);
+    $(selectEstados).on('change', listarPrestamos);
     inputFecha.addEventListener("change", listarPrestamos);
     btnGenerarPDF.addEventListener("click", generarPDF);
     listarLibros();
     listarPrestamos();
+    listarEstados();
     // Select2
     $('.libro').select2({
+        maximumSelectionLength: 1,
+        placeholder: 'Seleccione: '
+    });
+
+    $('.estado').select2({
         maximumSelectionLength: 1,
         placeholder: 'Seleccione: '
     });
