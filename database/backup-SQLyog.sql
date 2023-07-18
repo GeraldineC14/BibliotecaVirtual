@@ -46,9 +46,9 @@ CREATE TABLE `books` (
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
 (1,1,1,'C001','0','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
-(2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
+(2,1,1,'C002','0','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','0','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
-(4,1,1,'C004','1','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
+(4,1,1,'C004','2','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
 (5,1,1,'C005','2','La crisis planetaria del calendario global y cómo afrontarlo','Editorial Gedisa','B','Biblioteca escolar',NULL,'cab1b8c28696d18594a2c3de198825a48241e453.jpg','2023-03-21 12:04:58','1','Este libro muestra lo que está pasando, cuáles son las consecuencias, múltiples y sobrecogedoras, de la emisión indiscriminada de gases de efecto invernadero a la atmósfera, de la destrucción de las masas forestales, de la contaminación insostenible de las aguas continentales y oceánicas. Nos pone delante de los ojos, de una forma incontestable, el cambio climático. Es además una crónica de la vida, personal y pública, de Al Gore, una exposición de las razones que justifican su implicación en la lucha por la concienciación de la gente y la concreción de medidas para contener el cambio climático.'),
 (6,1,1,'C006','2','Enciclopedia didáctica de las ciencias naturales','Editorial océano','B','Biblioteca escolar',NULL,'0c20b44ffc9b01df412e872610fe6edd9873c765.jpg','2023-03-21 12:04:58','1','La enciclopedia didáctica de ciencias naturales ofrece al lector la mejor ayuda para superar con éxito todas las dificultades en el aprendizaje y la compresión de las ciencias naturales. la obra, de diseño claro y agradable, combina a la perfección el texto con numerosas ilustraciones (fotografías, dibujos, tablas y gráficos) y utilísimos recuadros temáticos. Los contenidos de las ciencias naturales (geología, biología, botánica, zoología, etc.) se exponen de manera muy pedagógica, gracias a un método didáctico que asegura la asimilación gradual de los conceptos y el aprendizaje activo y progresivo de cada uno de los temas.'),
 (7,1,1,'C007','08','Atlas del cuerpo humano','Editorial Ars Medica','B','Biblioteca escolar',NULL,'165242ba779c04ccc8751dcb3e7506df0e320e2d.jpg','2023-03-21 12:04:58','1','Esta guía aporta una información resumida pero muy completa del cuerpo humano. Analiza desde los más pequeños elementos estructurales hasta la constitución de sus órganos y sistemas más complejos tanto del hombre como de la mujer. Ilustrada con numerosos dibujos de gran calidad con diversos planos de los órganos, se explica además la terminología específica que distingue cada parte para un profundo conocimiento de la anatomía humana.'),
@@ -60,7 +60,7 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (13,1,1,'C013','08','Cuentos de matemáticas','J,C Hervás/A.M Benavente','B','Biblioteca escolar',NULL,'bfb8fa620d1cec56227a8a289398c54864fe4979.jpg','2023-03-21 12:04:58','1','CONTENIDO: Cuestión de grados - ¿Cerca o lejos? - Deriva y pasarás - Todo depende del ángulo con se mire - Evolución numérica - ¿No somos iguales? - Preguntar, descartar, plantear…solucionar - Orientando mi futuro - Probablemente fallará - Llevar la vida al límite - Relación forzada'),
 (14,1,1,'C014','02','Ciencia/la guía visual definitica','Adam hart - davis','B','Biblioteca escolar',NULL,'f89a1b40aed57a1360373ad588da043208e44c57.jpg','2023-03-21 12:04:58','1',NULL),
 (15,1,1,'C015','08','Mentor de las matemáticas con ejercicios resueltos','Editorial Oceano','B','Biblioteca escolar',NULL,'0f9a4c651b9a2115c87f35389c4294dd41314e08.jpg','2023-03-21 12:04:58','1',NULL),
-(16,1,1,'C016','14','Economía para principiantes','Alejandro Gorvie/Sanyo','B','Biblioteca escolar','c387c982a132d05cbd5f88840aef2c8157740049.pdf','9077b7a6987f9551eba85c8fc0572dc980316224.jpg','2023-03-21 12:04:58','1','Economía para Principiantes es una breve historia de la humanidad en clave económica. Ofrece una mirada comprensiva sobre el pensamiento económico de los antiguos griegos, la importancia del Derecho Romano, el pensamiento económico de Santo Tomás y de la Iglesia Católica, el orden feudal, el nacimiento del capitalismo, la economía soviética, el inicio y la crisis de la globalización, las teorías económicas y cosmovisiones de Adam Smith, David Ricardo, Thomas Malthus, Alfred Marshall, Carlos Marx, John Maynard Keynes, Milton Friedmann..., las diferentes escuelas económicas y las consecuencias de las políticas que se han aplicado desde la crisis del \'29 hasta el actual problema de la deuda externa de los países periféricos.'),
+(16,1,1,'C016','13','Economía para principiantes','Alejandro Gorvie/Sanyo','B','Biblioteca escolar','c387c982a132d05cbd5f88840aef2c8157740049.pdf','9077b7a6987f9551eba85c8fc0572dc980316224.jpg','2023-03-21 12:04:58','1','Economía para Principiantes es una breve historia de la humanidad en clave económica. Ofrece una mirada comprensiva sobre el pensamiento económico de los antiguos griegos, la importancia del Derecho Romano, el pensamiento económico de Santo Tomás y de la Iglesia Católica, el orden feudal, el nacimiento del capitalismo, la economía soviética, el inicio y la crisis de la globalización, las teorías económicas y cosmovisiones de Adam Smith, David Ricardo, Thomas Malthus, Alfred Marshall, Carlos Marx, John Maynard Keynes, Milton Friedmann..., las diferentes escuelas económicas y las consecuencias de las políticas que se han aplicado desde la crisis del \'29 hasta el actual problema de la deuda externa de los países periféricos.'),
 (17,1,1,'C017','08','La biblia de las ciencias anturales','Editoral Lexus','B','Biblioteca escolar',NULL,'b0d83f55e5ad192688aa3c15082c22e322b31f9b.jpg','2023-03-21 12:04:58','1','La Biblia de las Ciencias Naturales es un compendio elaborado para tratar las cinco ramas más importantes de la ciencia las mismas que han sido tratadas de forma detallada y un tanto extensa pero de fácil acceso y comprensión para el lector.'),
 (18,1,1,'C018','02','Atlas National Geographic la tierra y el Universo','National Geographic','B','Biblioteca escolar',NULL,'ece8f46bf734ca267a2b6e0f7c3b471a5c964428.jpg','2023-03-21 12:04:58','1','Un recorrido exhaustivo por el sistema solar, la Vía Láctea, Marte, las galaxias, los agujeros negros…Una ventana abierta al gran espectáculo del Cosmos..\r\n\r\nHasta hace pocos años, la Tierra y el sistema solar se creían únicos, los agujeros negros eran pura especulación y Plutón era el noveno planeta. Pero todo esto ha cambiado gracias a los observatorios de última generación, a misiones como la Cassini-Huygens o a las expediciones a Marte, que nos han ofrecido una mirada nueva sobre el gran espectáculo del Cosmos. Ahora sabemos que el universo está lleno, se han detectado agujeros negros gracias a las ondas gravitacionales y Plutón ha sido degradado a planeta enano.'),
 (19,1,2,'C019','01','Las Matemáticas en la vida cotidiana','Universal Autónoma de Madrid','B','C.R.E',NULL,'d2654e644fb582fba2e1019620a5c467d1fd49db.jpg','2023-03-21 12:15:37','1',NULL),
@@ -440,7 +440,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `loans` */
 
@@ -452,11 +452,14 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`registration_date`,`p
 (5,16,1,'2','2023-07-14 02:54:12','2023-07-14 02:59:35','2023-07-14 02:59:41',NULL,'21','CONFORME','4'),
 (6,16,1,'1','2023-07-14 03:10:21','2023-07-14 04:18:33','2023-07-25 00:00:00','2023-07-14 04:18:44','111',NULL,'3'),
 (7,16,1,'1','2023-07-14 03:10:34','2023-07-14 03:10:42','2023-07-25 00:00:00',NULL,'1',NULL,'2'),
-(8,16,1,'1','2023-07-14 03:55:31','2023-07-19 00:00:00','2023-07-27 00:00:00',NULL,'1',NULL,'1'),
-(9,3,1,'2','2023-07-14 19:16:34','2023-07-16 00:00:00','2023-07-17 00:00:00',NULL,'',NULL,'1'),
+(8,16,1,'1','2023-07-14 03:55:31','2023-07-18 07:25:08','2023-07-27 00:00:00',NULL,'1',NULL,'2'),
+(9,3,1,'2','2023-07-14 19:16:34','2023-07-18 07:25:14','2023-07-17 00:00:00',NULL,'',NULL,'2'),
 (10,1,25,'1','2023-07-14 19:19:11','2023-07-16 00:00:00','2023-07-18 00:00:00',NULL,'',NULL,'1'),
 (11,1,25,'1','2023-07-14 19:21:05','2023-07-16 00:00:00','2023-07-17 00:00:00',NULL,'',NULL,'1'),
-(12,4,3,'1','2023-07-14 19:35:41','2023-07-15 00:00:00','2023-07-28 00:00:00',NULL,'',NULL,'1');
+(12,4,3,'1','2023-07-14 19:35:41','2023-07-15 00:00:00','2023-07-28 00:00:00','2023-07-18 00:40:48','',NULL,'3'),
+(13,2,1,'1','2023-06-01 15:07:02','2023-06-17 00:00:00','2023-06-18 00:00:00',NULL,'',NULL,'1'),
+(14,2,1,'1','2023-07-17 15:10:48','2023-07-18 00:00:00','2023-07-19 00:00:00',NULL,'',NULL,'2'),
+(15,16,3,'1','2023-07-18 00:42:44','2023-07-19 00:00:00','2023-07-20 00:00:00',NULL,'',NULL,'1');
 
 /*Table structure for table `recuperarclave` */
 
@@ -1244,6 +1247,19 @@ SELECT  COUNT(idusers) AS total_users,
 	END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_list_estado` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_list_estado` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_estado`()
+begin
+			SELECT state FROM loans
+			group by state;
+		END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_loans_list` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_loans_list` */;
@@ -1702,30 +1718,86 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reporte_prestamos`(
-				 IN _idbook INT,
-				 IN _anio CHAR(4),
-				 IN _mes CHAR(2)
-			)
+		    IN _idbook INT,
+		    IN _anio CHAR(4),
+		    IN _mes CHAR(2),
+		    IN _estado CHAR(1)
+		)
 BEGIN
-			IF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
-				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
-					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
-					 FROM loans
-					 INNER JOIN books ON loans.idbook = books.idbook
-					 INNER JOIN users ON loans.idusers = users.idusers
-					 WHERE loans.idbook = _idbook
-						AND YEAR(loans.registrationdate) = _anio
-						AND MONTH(loans.registrationdate) = _mes;
-				
-			else
+		    IF _anio IS NOT NULL AND _mes IS NOT NULL AND _estado IS NOT NULL AND _anio != '' AND _mes != '' AND _estado != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND YEAR(loans.registration_date) = _anio
+			AND MONTH(loans.registration_date) = _mes
+			AND loans.state = _estado;
 			
-				SELECT loans.idloan, books.descriptions, CONCAT(users.namess, ' ', users.surnames) AS nombre_completo, 
-					loans.amount, loans.loan_date, loans.return_date, loans.registrationdate
-						 FROM loans
-						 INNER JOIN books ON loans.idbook = books.idbook
-						 INNER JOIN users ON loans.idusers = users.idusers
-						 WHERE loans.idbook = _idbook;
-			end if;
+		    ELSEIF _anio IS NOT NULL AND _mes IS NOT NULL AND _anio != '' AND _mes != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND YEAR(loans.registration_date) = _anio
+			AND MONTH(loans.registration_date) = _mes;
+			
+		   ELSEIF _estado IS NOT NULL AND _estado != '' THEN
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook
+			AND loans.state = _estado;
+			
+		    ELSE
+			SELECT loans.idloan,
+			   books.descriptions AS Titulo,
+			   users.username AS Usuario,
+			   loans.amount AS Cantidad,
+			   loans.registration_date AS `F_Registro`,
+			   loans.pickup_date AS `F_Recojo`,
+			   loans.return_date AS `F_Retorno`,
+			   loans.cancellation_date AS `F_Cancelacion`,
+			   loans.observation AS Observacion,
+			   loans.acotacion AS Perdida,
+			   loans.state AS Estado
+			FROM loans
+			JOIN books ON loans.idbook = books.idbook
+			JOIN users ON loans.idusers = users.idusers
+			WHERE loans.idbook = _idbook;
+		    END IF;
 		END */$$
 DELIMITER ;
 
