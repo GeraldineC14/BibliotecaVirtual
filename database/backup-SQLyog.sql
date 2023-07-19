@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.20-MariaDB : Database - library
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.28-MariaDB : Database - library
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.20-MariaDB : Database - library
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `library`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -329,7 +329,7 @@ CREATE TABLE `bookschinchanos` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) DEFAULT '1',
   PRIMARY KEY (`idbookchinchano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bookschinchanos` */
 
@@ -343,7 +343,7 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
@@ -377,7 +377,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -419,6 +419,24 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (35,21,1,'bonito',4,'2023-07-13',NULL,'1'),
 (36,4,46,'muy bueno',1,'2023-07-13',NULL,'1');
 
+/*Table structure for table `hzgstudentcodes` */
+
+DROP TABLE IF EXISTS `hzgstudentcodes`;
+
+CREATE TABLE `hzgstudentcodes` (
+  `idcodes` int(11) NOT NULL AUTO_INCREMENT,
+  `codes` char(8) NOT NULL,
+  `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
+  `state` char(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idcodes`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `hzgstudentcodes` */
+
+insert  into `hzgstudentcodes`(`idcodes`,`codes`,`registrationdate`,`state`) values 
+(1,'HZG-1372','2023-07-19 17:51:44','0'),
+(2,'HZG-2011','2023-07-19 17:51:50','1');
+
 /*Table structure for table `loans` */
 
 DROP TABLE IF EXISTS `loans`;
@@ -440,7 +458,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -475,7 +493,7 @@ CREATE TABLE `recuperarclave` (
   PRIMARY KEY (`idrecuperar`),
   KEY `fk_idusuario_rcl` (`idusers`),
   CONSTRAINT `fk_idusuario_rcl` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recuperarclave` */
 
@@ -501,7 +519,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -540,7 +558,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `ul_email_usu` (`email`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `uk_user_names` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
@@ -567,7 +585,7 @@ CREATE TABLE `validacioncorreo` (
   `clavegenerada` char(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idvalidacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `validacioncorreo` */
 
@@ -1095,6 +1113,33 @@ BEGIN
 	    GROUP BY b.descriptions
 	    ORDER BY l.loan_date DESC;
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_insertorupdatecode` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_insertorupdatecode` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_insertorupdatecode`()
+BEGIN
+			    DECLARE codeexists INT;
+			    DECLARE newcode CHAR(8);
+			    
+			    SET newcode = CONCAT('HZG-', FLOOR(RAND() * 9000) + 1000);
+			    
+			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+			    
+			    IF codeexists > 0 THEN
+				-- Si el código ya existe, actualiza su estado a 0
+				UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+			    ELSE
+				-- Si el código no existe, inserta un nuevo registro
+				INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
+				-- Actualiza el estado de los códigos anteriores a 0
+				UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+			    END IF;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_listar_prestamo` */
@@ -2215,6 +2260,26 @@ BEGIN
 					END IF;
 				END IF;
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_validatecode` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_validatecode` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_validatecode`(IN _code CHAR(8))
+BEGIN
+			    DECLARE codeexists INT;
+			    
+			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = _code AND state = 1;
+			    
+			    IF codeexists > 0 THEN
+				SELECT 'PERMITIDO' AS result; -- El código existe
+			    ELSE
+				SELECT 'DENEGADO' AS result; -- El código no existe
+			    END IF;
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_validate_email` */

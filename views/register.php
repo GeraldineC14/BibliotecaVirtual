@@ -55,31 +55,31 @@
 							<form action="#" class="signup-form" id="formulario-usuario" autocomplete="off">
 								<div class="row form-group mb-3">
 									<div class="col">
-										<label class="label">Nombres</label>
-										<input type="text" id="namess" class="form-control">
+										<label for="namess" class="label">Nombres</label>
+										<input type="text" id="namess" class="form-control" autofocus>
 									</div>
 									<div class="col">
-										<label class="label">Apellidos</label>
+										<label for="surnames"class="label">Apellidos</label>
 										<input type="text" id="surnames" class="form-control">
 									</div>
 								</div>
 								<div class="row form-group mb-3">
 									<div class="col">
-										<label class="label">Usuario</label>
+										<label for="username" class="label">Usuario</label>
 										<input type="text" class="form-control" id="username" placeholder="Miusuario"
 											required>
 									</div>
 									<div class="col">
-										<label class="label">Tipo de Acceso</label>
+										<label for="accesslevel" class="label">Tipo de Acceso</label>
 										<select class="form-control" name="accesslevel" id="accesslevel">
-											<option value="#" selected>Seleccione:</option>
+											<option value="#">Seleccione:</option>
 											<option value="E">Estudiante</option>
 											<option value="I">Invitado</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="label">Correo</label>
+									<label for="email" class="label">Correo</label>
 									<div class="input-group">
 										<input type="email" class="form-control" id="email"
 											placeholder="correo@dominio.com" required>
@@ -122,9 +122,8 @@
 	</section>
 
 	<!-- modal -->
-	<div class="modal fade" id="modal-validacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog        ">
+	<div class="modal fade" id="modal-validacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header bg-success text-light">
 					<i class="fa-solid fa-key fa-sm" style="color: #ffffff;"></i>
@@ -135,11 +134,11 @@
 				<div class="modal-body">
 					<form class="form-group text-center" action="" autocomplete="off" id="form-clave">
 						<h4>INGRESAR CODIGO</h4>
-						<label for="clave" class="form-label text-justify">
+						<label for="key1" class="form-label text-justify">
 							Te enviamos un código para que puedas validar tu correo.
 							Si no lo encuentras revisa el Correo No Deseado.
 						</label>
-						<div class="form-group mt-3" id="keys">
+						<div  class="form-group mt-3" id="keys">
 							<input class="inputc" type="tel" id="key1" maxlength="1"
 								oninput="moveToNextInput(this, 'key2')" />
 							<input class="inputc" type="tel" id="key2" maxlength="1"
@@ -149,12 +148,19 @@
 							<input class="inputc" type="tel" id="key4" maxlength="1"
 								oninput="moveToNextInput(this, 'comprobar')" />
 						</div>
+
+						<div id="inputs-clave" class="d-none">
+							<div class="md-3">
+								<label for="codigo" class="form-label">Escribe el codigo HZG-####:</label>
+								<input type="text" class="form-control" id="codigo">
+							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer justify-content-lg-center">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="button" class="btn btn-success" id="comprobar">Validar</button>
-
+					<button type="button" class="btn btn-primary d-none" id="validarcodigos">Validar</button>
 				</div>
 			</div>
 		</div>
@@ -242,10 +248,21 @@
 							return;
 						}
 
-						if (datos['accesslevel'] === "D") {
-							const esvalido = document.getElementById('email');
-							const exprecion = /[a-zA-Z0-9._-]+\@senati\.pe/;
-							if (exprecion.test(esvalido.value)) {
+						if (datos['accesslevel'] == "I") {
+							const email = document.getElementById('email');
+							const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
+							const value = email.value.split('@');
+
+							if (!dominios.includes(value[1])) {
+								Swal.fire({
+									title: "Error",
+									text: `Correos autorizados: ${dominios}`,
+									icon: "error",
+									footer: "Horacio Zeballos Gámez",
+									confirmButtonText: "Aceptar",
+									confirmButtonColor: "#38AD4D"
+								});
+							} else {
 								const email = $("#email").val();
 								$.ajax({
 									url: '../controllers/usuario.controller.php',
@@ -256,20 +273,11 @@
 									},
 									success: function (result) {
 										if (result !== '[]') {
-											alertar("El correo de docente ya existe en el sistema");
+											alertar("El correo de INVITADO ya existe en el sistema");
 											return;
 										}
 										registrar();
 									}
-								});
-							} else {
-								Swal.fire({
-									title: "Error",
-									text: "Correo no autorizado",
-									icon: "error",
-									footer: "Horacio Zeballos Gámez",
-									confirmButtonText: "Aceptar",
-									confirmButtonColor: "#38AD4D"
 								});
 							}
 						} else {
@@ -297,7 +305,7 @@
 									},
 									success: function (result) {
 										if (result !== '[]') {
-											alertar("El correo de estudiante ya existe en el sistema");
+											alertar("El correo de ESTUDIANTE ya existe en el sistema");
 											return;
 										}
 										registrar();
@@ -420,6 +428,7 @@
 					});
 
 			}
+			
 			function registrar() {
 				if (datos['accesskey'] !== datos['repetir']) {
 					Swal.fire({
@@ -467,6 +476,18 @@
 				}
 			}
 
+			$('#accesslevel').change(function() {
+				if ($(this).val() == 'E') {
+				$('#inputs-clave').removeClass('d-none');
+				$('#validarcodigos').removeClass('d-none');
+				$('#comprobar').addClass('d-none');
+				} else {
+					$('#inputs-clave').addClass('d-none');
+					$('#validarcodigos').addClass('d-none');
+					$('#comprobar').removeClass('d-none');
+				}
+			});
+
 			$('#showPass').on('click', function () {
 				var passInput = $("#accesskey,#repetir");
 				if (passInput.attr('type') === 'password') {
@@ -482,10 +503,20 @@
 
 
 			document.querySelector("#verificar").addEventListener("click", () => {
-				if (correoValidado != 1) {
+				const email = document.getElementById('email');
+				const dominios = ['gmail.com', 'hotmail.com', 'outlook.es'];
+				const value = email.value.split('@');
+				if (!dominios.includes(value[1])) {
+					Swal.fire({
+						title: "Error",
+						text: `Correos autorizados: ${dominios}`,
+						icon: "error",
+						footer: "Horacio Zeballos Gámez",
+						confirmButtonText: "Aceptar",
+						confirmButtonColor: "#38AD4D"
+					});
+				} else if(correoValidado != 1){
 					validarCampos();
-				} else {
-
 				}
 			})
 

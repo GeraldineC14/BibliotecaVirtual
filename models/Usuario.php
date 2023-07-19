@@ -241,6 +241,20 @@ class Usuario extends Conexion {
         }
     }
 
+    public function validarCodigoestudiante($codigoEstudiante)
+    {
+        try {
+            $consulta = $this->acceso->prepare("CALL spu_validatecode(?)");
+            $consulta->bindParam(1, $codigoEstudiante, PDO::PARAM_STR); // Enlaza el parámetro correctamente
+            $consulta->execute();
+    
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+
     public function validacionCompleta($data = ''){
         $resultado = ["status" => false];
         try{

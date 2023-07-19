@@ -772,6 +772,60 @@
 			END $$
 
 			SELECT * FROM loans;
+			
+			
+			CREATE TABLE hzgstudentcodes(
+				idcodes 	 INT AUTO_INCREMENT PRIMARY KEY,
+				codes	 	 CHAR(8) NOT NULL,
+				registrationdate DATETIME NOT NULL DEFAULT NOW(),
+				state 		 CHAR(1) NOT NULL DEFAULT '1'
+			)ENGINE=INNODB;
+
+
+			DELIMITER $$
+			CREATE PROCEDURE spu_insertorupdatecode()
+			BEGIN
+			    DECLARE codeexists INT;
+			    DECLARE newcode CHAR(8);
+			    
+			    SET newcode = CONCAT('HZG-', FLOOR(RAND() * 9000) + 1000);
+			    
+			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+			    
+			    IF codeexists > 0 THEN
+				-- Si el código ya existe, actualiza su estado a 0
+				UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+			    ELSE
+				-- Si el código no existe, inserta un nuevo registro
+				INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
+				-- Actualiza el estado de los códigos anteriores a 0
+				UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+			    END IF;
+			END $$
+
+
+			CALL spu_insertorupdatecode()
+
+			TRUNCATE TABLE hzgstudentcodes
+
+			SELECT * FROM hzgstudentcodes
+
+
+			DELIMITER $$
+			CREATE PROCEDURE spu_validatecode(IN _code CHAR(8))
+			BEGIN
+			    DECLARE codeexists INT;
+			    
+			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = _code AND state = 1;
+			    
+			    IF codeexists > 0 THEN
+				SELECT 'PERMITIDO' AS result; -- El código existe
+			    ELSE
+				SELECT 'DENEGADO' AS result; -- El código no existe
+			    END IF;
+			END $$
+
+			CALL spu_validatecode('HZG-2011');
 
 		
 		
