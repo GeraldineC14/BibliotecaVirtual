@@ -28,6 +28,12 @@ require_once 'permisos.php';
                                         Módulo de Préstamos
                                     </h3>
                                 </div>
+                                <div class="col-md-6 form-group">
+                                        <label for="estado">Filtros por estados:</label>
+                                        <select name="estado" id="estado" class="form-control form-control-sm">
+
+                                        </select>
+                                </div>
 
                                 <div class="btn-group" role="group">
                                     <!-- Enlace para redirigir a la vista de reporte -->
@@ -41,7 +47,6 @@ require_once 'permisos.php';
                                         &nbsp;Gráfico
                                     </a>
                                 </div>
-
                                 <!-- INICIO Versión Móvil -->
                                 <div class="d-flex mx-auto d-md-none">
                                     <div class="btn-group w-100" role="group">
@@ -61,9 +66,6 @@ require_once 'permisos.php';
                                     <!-- FIN Versión Móvil -->
                                 </div>
                             </div>
-
-
-
 
                             <!-- Datatable -->
                             <div style="width: 90%; margin:auto" class="mt-2">
@@ -150,14 +152,68 @@ require_once 'permisos.php';
                 accesslevel = "<?php echo $_SESSION['login']['accesslevel']; ?>";
                 const selectLibro = document.querySelector("#libro");
 
-                function listarPrestamos() {
+                function listarEstados(){
+                    $.ajax({
+                        url: '../../controllers/prestamo.controller.php',
+                        type: 'GET',
+                        data: 'operacion=listarEstados',
+                        success: function(result) {
+                            let registros = JSON.parse(result);
+                            let elementosLista = ``;
+                            if (registros.length > 0) {
+                                //Asignamos un primer elemento, que será el que se muestre por defecto
+                                //elementosLista = `<option value="" selected>Seleccione:</option>`;
+                                let estadoTexto = '';
+                                //Recorremos toda la colección
+                                registros.forEach(registro => {
+                                    if(registro['state'] === '1'){
+                                        estadoTexto = 'PENDIENTE';
+                                    }else if(registro['state'] === '2'){
+                                        estadoTexto = 'ENTREGADO';
+                                    }else if(registro['state'] === '3'){
+                                        estadoTexto = 'CANCELADO';
+                                    }else{
+                                        estadoTexto = 'DEVUELTO';
+                                    }
+                                    //Creamos la etiqueta <option> con el valor requerido
+                                    elementosLista += `<option value=${registro['state']}>${estadoTexto}</option>`;
+
+                                });
+                            } else {
+                                //En caso no tengamos datos
+                                elementosLista = `<option>No hay datos asignados</option>`;
+                            }
+                            //Agregando los elementos al <select>
+                            $("#estado").html(elementosLista);
+                        }
+                    });
+                }
+
+
+                // Llamar a la función listarPrestamos con el valor seleccionado como parámetro
+                listarPrestamos('');
+
+                // Agregar un escuchador de eventos al elemento select "estado"
+                $("#estado").on("change", function() {
+                    // Obtener el valor seleccionado
+                    let estadoSeleccionado = $(this).val();
+
+                    // Llamar a la función listarPrestamos con el valor seleccionado como parámetro
+                    listarPrestamos(estadoSeleccionado);
+
+                    // Mostrar en la consola el estado seleccionado
+                    console.log("Estado seleccionado:", estadoSeleccionado);
+                });
+
+                function listarPrestamos(estadoSeleccionado) {
                     $.ajax({
                         url: '../../controllers/prestamo.controller.php',
                         type: 'GET',
                         data: {
-                            'operacion': 'listarPrestamo',
-                            'idusers': idusers,
-                            'accesslevel': accesslevel
+                            'operacion'     : 'listarPrestamo',
+                            'idusers'       : idusers,
+                            'accesslevel'   : accesslevel,
+                            'estado'        : estadoSeleccionado
                         },
                         success: function(result) {
                             let registros = JSON.parse(result);
@@ -166,9 +222,11 @@ require_once 'permisos.php';
                             let tabla = $("#tabla-prestamos").DataTable();
                             tabla.destroy();
                             $("#tabla-prestamos tbody").html("");
+                            let i = 1;
                             registros.forEach(registro => {
                                 let estadoColor = '';
                                 let estadoTexto = '';
+
 
                                 if (registro['Estado'] === '1') {
                                     estadoColor = 'text-secondary';
@@ -196,7 +254,7 @@ require_once 'permisos.php';
                                     // Ocultar botones Devolver y Observado
                                     nuevaFila += `
                                 <tr>
-                                    <td>${registro['idloan']}</td>
+                                    <td>${i++}</td>
                                     <td>${registro['Titulo']}</td>
                                     <td>${registro['Usuario']}</td>
                                     <td>${registro['Observacion']}</td>
@@ -235,7 +293,7 @@ require_once 'permisos.php';
 
                                     nuevaFila += `
                                 <tr>
-                                    <td>${registro['idloan']}</td>
+                                    <td>${i++}</td>
                                     <td>${registro['Titulo']}</td>
                                     <td>${registro['Usuario']}</td>
                                     <td>${registro['Observacion']}</td>
@@ -254,7 +312,7 @@ require_once 'permisos.php';
 
                                     nuevaFila += `
                                 <tr>
-                                <td>${registro['idloan']}</td>
+                                <td>${i++}</td>
                                     <td>${registro['Titulo']}</td>
                                     <td>${registro['Usuario']}</td>
                                     <td>${registro['Observacion']}</td>
@@ -274,7 +332,7 @@ require_once 'permisos.php';
 
                                     nuevaFila += `
                                 <tr>
-                                <td>${registro['idloan']}</td>
+                                <td>${i++}</td>
                                     <td>${registro['Titulo']}</td>
                                     <td>${registro['Usuario']}</td>
                                     <td>${registro['Observacion']}</td>
@@ -424,11 +482,8 @@ require_once 'permisos.php';
                     });
                 });
 
-                listarPrestamos();
+                listarEstados();
             });
         </script>
-
-
         </body>
-
         </html>

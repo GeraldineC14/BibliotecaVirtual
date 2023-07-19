@@ -1105,61 +1105,72 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_prestamo`(
 			IN _idusers INT,
-			IN _accesslevel CHAR(1)
+			IN _accesslevel CHAR(1),
+			IN _estado CHAR(1)
 		)
 BEGIN
 		IF _accesslevel = 'D' THEN 
-		    SELECT loans.idloan,
-			   books.descriptions AS Titulo,
-			   users.username AS Usuario,
-			   loans.amount AS Cantidad,
-			   loans.registration_date AS `F. Registro`,
-			   loans.pickup_date AS `F. Recojo`,
-			   loans.return_date AS `F. Retorno`,
-			   loans.cancellation_date AS `F. Cancelacion`,
-			   loans.observation AS Observacion,
-			   loans.acotacion AS Perdida,
-			   loans.state AS Estado
-		    FROM loans
-		    JOIN books ON loans.idbook = books.idbook
-		    JOIN users ON loans.idusers = users.idusers
-		    WHERE loans.idusers = _idusers;
+			IF _estado = '' THEN
+				SET _estado = '1'; -- Si _estado está vacío, establece el valor predeterminado a '1'
+			END IF;
+			    SELECT loans.idloan,
+				   books.descriptions AS Titulo,
+				   users.username AS Usuario,
+				   loans.amount AS Cantidad,
+				   loans.registration_date AS `F. Registro`,
+				   loans.pickup_date AS `F. Recojo`,
+				   loans.return_date AS `F. Retorno`,
+				   loans.cancellation_date AS `F. Cancelacion`,
+				   loans.observation AS Observacion,
+				   loans.acotacion AS Perdida,
+				   loans.state AS Estado
+			    FROM loans
+			    JOIN books ON loans.idbook = books.idbook
+			    JOIN users ON loans.idusers = users.idusers
+			    WHERE loans.idusers = _idusers and loans.state = _estado;
 		 END IF;
 		 
-		 IF _accesslevel = 'E' THEN 
-		 SELECT loans.idloan,
-			   books.descriptions AS Titulo,
-			   users.username AS Usuario,
-			   loans.amount AS Cantidad,
-			   loans.registration_date AS `F. Registro`,
-			   loans.pickup_date AS `F. Recojo`,
-			   loans.return_date AS `F. Retorno`,
-			   loans.cancellation_date AS `F. Cancelacion`,
-			   loans.observation AS Observacion,
-			   loans.acotacion AS Perdida,
-			   loans.state AS Estado
-		    FROM loans
-		    JOIN books ON loans.idbook = books.idbook
-		    JOIN users ON loans.idusers = users.idusers
-		    WHERE loans.idusers = _idusers;
-		    END IF;
+		 IF _accesslevel = 'E' THEN
+			IF _estado = '' THEN
+				SET _estado = '1'; -- Si _estado está vacío, establece el valor predeterminado a '1'
+			END IF;
+				SELECT loans.idloan,
+				   books.descriptions AS Titulo,
+				   users.username AS Usuario,
+				   loans.amount AS Cantidad,
+				   loans.registration_date AS `F. Registro`,
+				   loans.pickup_date AS `F. Recojo`,
+				   loans.return_date AS `F. Retorno`,
+				   loans.cancellation_date AS `F. Cancelacion`,
+				   loans.observation AS Observacion,
+				   loans.acotacion AS Perdida,
+				   loans.state AS Estado
+				FROM loans
+				JOIN books ON loans.idbook = books.idbook
+				JOIN users ON loans.idusers = users.idusers
+				WHERE loans.idusers = _idusers AND loans.state = _estado;
+		   END IF;
 		    
 		    IF _accesslevel = 'A' THEN 
-		    SELECT loans.idloan,
-			   books.descriptions AS Titulo,
-			   users.username AS Usuario,
-			   loans.amount AS Cantidad,
-			   loans.registration_date AS `F. Registro`,
-			   loans.pickup_date AS `F. Recojo`,
-			   loans.return_date AS `F. Retorno`,
-			   loans.cancellation_date AS `F. Cancelacion`,
-			   loans.observation AS Observacion,
-			   loans.acotacion AS Perdida,
-			   loans.state AS Estado
-		    FROM loans
-		    JOIN books ON loans.idbook = books.idbook
-		    JOIN users ON loans.idusers = users.idusers;
-		    END IF;
+			IF _estado = '' THEN
+				SET _estado = '1'; -- Si _estado está vacío, establece el valor predeterminado a '1'
+			END IF;
+			    SELECT loans.idloan,
+				   books.descriptions AS Titulo,
+				   users.username AS Usuario,
+				   loans.amount AS Cantidad,
+				   loans.registration_date AS `F. Registro`,
+				   loans.pickup_date AS `F. Recojo`,
+				   loans.return_date AS `F. Retorno`,
+				   loans.cancellation_date AS `F. Cancelacion`,
+				   loans.observation AS Observacion,
+				   loans.acotacion AS Perdida,
+				   loans.state AS Estado
+			    FROM loans
+			    JOIN books ON loans.idbook = books.idbook
+			    JOIN users ON loans.idusers = users.idusers 
+			    where loans.state = _estado;
+			    END IF;    
 		END */$$
 DELIMITER ;
 

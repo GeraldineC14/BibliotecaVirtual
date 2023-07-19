@@ -7,7 +7,7 @@ if (isset($_GET['operacion'])) {
 
     // Listar Préstamo
     if ($_GET['operacion'] == 'listarPrestamo') {
-        $datos = $prestamo->listarPrestamo($_GET['idusers'],$_GET['accesslevel']);
+        $datos = $prestamo->listarPrestamo($_GET['idusers'],$_GET['accesslevel'], $_GET['estado']);
         echo json_encode($datos);
     }
 
