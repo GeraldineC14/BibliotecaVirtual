@@ -65,7 +65,7 @@ require_once 'permisos.php';
                     $('#mostrar').click(function() {
                         var monthYearInput = $('#month-year-input');
                         var selectedDate = new Date(monthYearInput.val() + '-01'); // Obtener la fecha seleccionada (primero del mes)
-                        var selectedMonth = selectedDate.getMonth() + 3; // Obtener el mes y ajustar en 1
+                        var selectedMonth = selectedDate.getMonth() + 2; // Obtener el mes y ajustar en 1
                         var selectedYear = selectedDate.getFullYear(); // Obtener el año
 
                         $.ajax({
@@ -73,8 +73,8 @@ require_once 'permisos.php';
                             type: 'GET',
                             data: {
                                 operacion: 'graficoPrestamos',
-                                selectedMonth: selectedMonth,
-                                selectedYear: selectedYear
+                                mes: selectedMonth,
+                                anio: selectedYear
                             },
                             dataType: 'json',
                             success: function(data) {
@@ -134,8 +134,6 @@ require_once 'permisos.php';
                                             '#AFEEEE',
                                             '#66CDAA',
                                             '#BA55D3'
-
-                                            // Agrega más colores si es necesario
                                         ]
                                     }]
                                 };

@@ -33,7 +33,7 @@ require_once 'permisos.php';
                                     &nbsp;Estados
                                 </a>
                                 <div class="dropdown-menu estado" aria-labelledby="dropdownMenuButton">
-                        
+
                                 </div>
                             </div>
                             <!-- Enlace para redirigir a la vista de reporte -->
@@ -58,7 +58,7 @@ require_once 'permisos.php';
                                     </a>
                                     <div class="dropdown-menu estado" aria-labelledby="dropdownMenuButton">
                                         <!-- En lugar del select, utilizamos elementos <a> -->
-                            
+
                                     </div>
                                 </div>
                                 <!-- Botón para mostrar la vista de generar de reporte (versión móvil) -->
@@ -187,7 +187,7 @@ require_once 'permisos.php';
                 });
             }
 
-           listarPrestamos('');
+            listarPrestamos('');
 
             // Agregar un escuchador de eventos a los elementos <a> dentro de la clase "dropdown-menu"
             $(document).on("click", ".dropdown-menu a", function() {
@@ -393,7 +393,7 @@ require_once 'permisos.php';
                                 }).then(() => {
                                     // Actualizar la lista de préstamos
                                     listarEstados();
-                                    window.location = window.location;
+                                    window.location.reload();
                                 });
                             }
                         });
@@ -436,13 +436,15 @@ require_once 'permisos.php';
                                 }).then(() => {
                                     // Actualizar la lista de préstamos
                                     listarEstados();
-                                    window.location = window.location;
+                                    // Refresh the page
+                                    window.location.reload();
                                 });
                             }
                         });
                     }
                 });
             });
+
 
             $(document).on('click', '.devolver', function() {
                 let idloan = $(this).data('id');
@@ -475,8 +477,9 @@ require_once 'permisos.php';
                             }).then(() => {
                                 // Actualizar la lista de préstamos
                                 listarEstados();
+                                window.location.reload();
                             });
-                            
+
                             $('#modalDevolverLibro').modal('hide');
                         }
                     });

@@ -125,11 +125,11 @@ class Prestamo extends Conexion
     }
 
     // Grafico de Préstamo
-    public function graficoPrestamos($selectedMonth, $selectedYear)
+    public function graficoPrestamos($mes, $anio)
     {
         try {
-            $consulta = $this->acceso->prepare("CALL spu_grafico_prestamos(?, ?)");
-            $consulta->execute(array($selectedMonth, $selectedYear));
+            $consulta = $this->acceso->prepare("CALL sp_grafico_reporte(?, ?)");
+            $consulta->execute([$mes, $anio]);
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         } catch (Exception $e) {

@@ -1642,30 +1642,24 @@ SELECT * FROM users
 	
 -- GRAFICOS
 	-- N1. Grafico de Prestamos
-	DROP PROCEDURE spu_grafico_prestamos
-
 	DELIMITER $$
-	CREATE PROCEDURE spu_grafico_prestamos
+	CREATE PROCEDURE sp_grafico_reporte
 	(
-	    IN selectedMonth INT,
-	    IN selectedYear INT
+	    IN _mes INT,
+	    IN _anio INT
 	)
 	BEGIN
-	    DECLARE adjustedMonth INT;
-	    SET adjustedMonth = selectedMonth - 1; -- Ajustar el valor del mes
-
-	    SELECT l.idloan,
-		   b.descriptions AS Titulo,
-		   SUM(l.amount) AS Cantidad,
-		   l.loan_date AS Fecha
+	    SELECT b.descriptions AS Titulo, COUNT(*) AS Cantidad
 	    FROM loans l
 	    INNER JOIN books b ON l.idbook = b.idbook
-	    WHERE YEAR(l.loan_date) = selectedYear AND MONTH(l.loan_date) = adjustedMonth
-	    GROUP BY b.descriptions
-	    ORDER BY l.loan_date DESC;
+	    WHERE l.state = '4'
+	    AND MONTH(l.return_date) = _mes
+	    AND YEAR(l.return_date) = _anio
+	    GROUP BY b.descriptions;
 	END $$
 
-CALL spu_grafico_prestamos(8, 2023); 
+	CALL sp_grafico_reporte(7, 2023);
+	
 
 
 -- SCRIPT CONTINUIDAD DE ID EN TABLAS -> agregar las tablas necesarias

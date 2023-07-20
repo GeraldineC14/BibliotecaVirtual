@@ -1,5 +1,9 @@
 <?php require_once 'permisos.php'; ?>
 
+<style>
+
+</style>
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <!-- INICIO PERFIL -->
@@ -9,7 +13,7 @@
             <div class="container">
                 <!-- Cabecera -->
                 <!-- Botón de retroceso -->
-                <div class="text-left">
+                <div class="text-left mb-3">
                     <a href="javascript:history.back()" class="btn btn-primary btn-sm d-inline-block" role="button">
                         <i class="fas fa-chevron-left"></i>
                         &nbsp;Volver
@@ -37,14 +41,16 @@
                                     <div class="col-md-12">
                                         <div class="row tex-center">
                                             <div class="col">
-                                                <select id="libro" class="form-select libro" multiple name="libro" required style="width: 100%;">
+                                                <select id="libro" class="form-select libro" multiple name="libro" required>
+                                                    <!-- Agregar más opciones aquí -->
                                                 </select>
                                             </div>
                                             <div class="col">
                                                 <input type="month" name="fecha" id="fecha" class="form-control" value=" ">
                                             </div>
                                             <div class="col">
-                                                <select id="estado" class="form-select estado" multiple name="estado" required style="width: 100%;">
+                                                <select id="estado" class="form-select estado" multiple name="estado" required>
+                                                    <!-- Agregar más opciones aquí -->
                                                 </select>
                                             </div>
                                         </div>
@@ -63,17 +69,11 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table id="prestamo" class="table table-sm table-striped">
+                            <table id="prestamo" class="table table-sm table-striped" >
                                 <colgroup>
                                     <col width="5%">
                                     <col width="25%">
                                     <col width="10%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="20%">
-                                    <col width="25%">
-                                    <col width="15%">
-                                    <col width="15%">
                                     <col width="15%">
                                 </colgroup>
                                 <thead>
@@ -82,12 +82,6 @@
                                         <th>Libro</th>
                                         <th>Usuario</th>
                                         <th>Cantidad</th>
-                                        <th>Registro</th>
-                                        <th>Recojo</th>
-                                        <th>Retorno</th>
-                                        <th>Cancelado</th>
-                                        <th>Observación</th>
-                                        <th>Reporte</th>
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
@@ -121,11 +115,11 @@
         });
     }
 
-    function listarLibros(){
+    function listarLibros() {
         fetch(`../../controllers/biblioteca.controller.php?operacion=listarLibros`)
             .then(respuesta => respuesta.json())
             .then(datos => {
-                datos.forEach(element=> {
+                datos.forEach(element => {
                     const optionTag = document.createElement("option");
                     optionTag.value = element.idbook
                     optionTag.text = element.descriptions;
@@ -134,21 +128,21 @@
             });
     }
 
-    function listarEstados(){
+    function listarEstados() {
         fetch(`../../controllers/prestamo.controller.php?operacion=listarEstados`)
             .then(respuesta => respuesta.json())
             .then(datos => {
                 let estadoTexto = '';
-                datos.forEach(element=> {
-                    if(element['state'] === '1'){
-                            estadoTexto = 'PENDIENTE';
-                        }else if(element['state'] === '2'){
-                            estadoTexto = 'ENTREGADO';
-                        }else if(element['state'] === '3'){
-                            estadoTexto = 'CANCELADO';
-                        }else{
-                            estadoTexto = 'DEVUELTO';
-                        }
+                datos.forEach(element => {
+                    if (element['state'] === '1') {
+                        estadoTexto = 'PENDIENTE';
+                    } else if (element['state'] === '2') {
+                        estadoTexto = 'ENTREGADO';
+                    } else if (element['state'] === '3') {
+                        estadoTexto = 'CANCELADO';
+                    } else {
+                        estadoTexto = 'DEVUELTO';
+                    }
 
                     const optionTag = document.createElement("option");
                     optionTag.value = element.state
@@ -174,56 +168,50 @@
             mes = valorFecha.split("-")[1];
         }
         const parametros = new URLSearchParams();
-        parametros.append("operacion","reportePrestamo");
+        parametros.append("operacion", "reportePrestamo");
         parametros.append("idbook", indiceLibroSeleccionado);
-        parametros.append("anio",anio);
-        parametros.append("mes",mes);
-        parametros.append("estado",indiceEstadosSeleccionado);
+        parametros.append("anio", anio);
+        parametros.append("mes", mes);
+        parametros.append("estado", indiceEstadosSeleccionado);
         console.log(parametros.toString());
         fetch(`../../controllers/prestamo.controller.php?${parametros}`)
-        .then(respuesta => respuesta.text())
+            .then(respuesta => respuesta.text())
             .then(datos => {
                 let i = 1;
                 let estadoColor = '';
                 let estadoTexto = '';
-                if(!datos || datos.length === 0){
+                if (!datos || datos.length === 0) {
                     tablaPrestamo.innerHTML = '<tr><td colspan="12">No ha seleccionado ningún libro</td></tr>';
                     filtroPDF = -1;
-                }else{
+                } else {
                     registro = JSON.parse(datos);
-                    tablaPrestamo.innerHTML=``;
+                    tablaPrestamo.innerHTML = ``;
                     filtroPDF = 1;
 
                     registro.forEach(element => {
-                        if(element['Estado'] === '1'){
+                        if (element['Estado'] === '1') {
                             estadoColor = 'text-secondary';
                             estadoTexto = '<b>PENDIENTE</b>';
-                        }else if(element['Estado'] === '2'){
+                        } else if (element['Estado'] === '2') {
                             estadoColor = 'text-primary';
                             estadoTexto = '<b>ENTREGADO</b>';
-                        }else if(element['Estado'] === '3'){
+                        } else if (element['Estado'] === '3') {
                             estadoColor = 'text-danger';
                             estadoTexto = '<b>CANCELADO</b>';
-                        }else{
+                        } else {
                             estadoColor = 'text-success';
                             estadoTexto = '<b>DEVUELTO</b>';
                         }
-                    const tableRow = `
+                        const tableRow = `
                     <tr>
                         <td class='text-center'>${i++}</td>
                         <td>${element.Titulo}</td>
                         <td>${element.Usuario}</td>
                         <td class='text-center'>${element.Cantidad}</td>
-                        <td class='text-center'>${element.F_Registro}</td>
-                        <td class='text-center'>${element.F_Recojo}</td>
-                        <td class='text-center'>${element.F_Retorno}</td>
-                        <td class='text-center'>${element.F_Cancelacion}</td>
-                        <td class='text-center'>${element.Observacion}</td>
-                        <td class='text-center'>${element.Perdida}</td>
-                        <td class='${estadoColor}'>${estadoTexto}</td>
+                        <td class='${estadoColor} text-center'>${estadoTexto}</td>
                     </tr>
                     `;
-                    tablaPrestamo.innerHTML += tableRow;
+                        tablaPrestamo.innerHTML += tableRow;
 
                     });
                 }
@@ -241,18 +229,18 @@
         }
 
         if (selectLibro.value == 0) {
-          alerta("Debes elegir un libro para poder crear el PDF");
+            alerta("Debes elegir un libro para poder crear el PDF");
         } else if (filtroPDF > 0) {
-          const parametros = new URLSearchParams();
+            const parametros = new URLSearchParams();
             parametros.append("idbook", selectLibro.value);
-            parametros.append("anio",anio);
-            parametros.append("mes",mes);
-            parametros.append("estado",selectEstados.value);
+            parametros.append("anio", anio);
+            parametros.append("mes", mes);
+            parametros.append("estado", selectEstados.value);
             parametros.append("titulo", selectLibro.options[selectLibro.selectedIndex].text);
 
-          window.open(`../../reports/report-prestamo/reporte.php?${parametros}`, '_blank');
+            window.open(`../../reports/report-prestamo/reporte.php?${parametros}`, '_blank');
         } else {
-          alerta("No existen datos disponibles para generar el PDF");
+            alerta("No existen datos disponibles para generar el PDF");
         }
 
     }

@@ -80,7 +80,10 @@ if (isset($_GET['operacion'])) {
 
     // Grafico Préstamo
     if ($_GET['operacion'] == 'graficoPrestamos') {
-        echo json_encode($prestamo->graficoPrestamos($_GET['selectedMonth'], $_GET['selectedYear']));
+        $mes = $_GET['mes'];
+        $anio = $_GET['anio'];
+        $resultados = $prestamo->graficoPrestamos($mes, $anio);
+        echo json_encode($resultados);
     }
 
     // Filtrar Préstamo
