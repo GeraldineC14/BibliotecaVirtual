@@ -211,35 +211,36 @@ if (!isset($_GET['resumen'])) {
                         'operacion': 'VistaResumen',
                         'idbook': idbook2
                     },
-                    success: function (result) {
+                    success: function(result) {
                         let registros = JSON.parse(result);
                         let estrellasHTML = generarEstrellasHTML(registros['total']);
                         if (registros) {
                             let nuevaFila = `
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
-                        <h5 class="text-center">${registros['descriptions']}</h5>
-                        <div class="text-center">
-                            <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
-                            <div class="estrellas">${estrellasHTML}</div>
-                        </div>
-                        </div>
-                        <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
-                        <p style="margin-top: 40px;margin-bottom: 0px;"> <label style="font-weight: bold;">AUTOR:</label> ${registros['author']}</p>
-                        <p><label style="font-weight: bold;">STOCK: </label> ${registros['amount']}</p>
-                        <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
-                            <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
-                        </p>
-                        <div class="text-center">
-                            <div class="btn-group" role="group">
-                            ${registros['url'] ? `<a href="PDF/${registros['url']}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;" type="button">Descargar <i class="fa-solid fa-download"></i></a>` : ''}
-                            <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
-                            </div>
-                            <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
-                        </div>
-                        </div>
-                    </div>
-                    `;
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 p-1" style="margin-right: 10px; margin-bottom: 10px;">
+                                            <h5 class="text-center">${registros['descriptions']}</h5>
+                                            <div class="text-center">
+                                                <img class="mt-2" src="frontpage/${registros['frontpage'] || 'noimagen.png'}" width="293" height="452">
+                                                <div class="estrellas">${estrellasHTML}</div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-5 col-sm-12 p-1" style="margin-left: 10px; margin-bottom: 10px;">
+                                            <p style="margin-top: 40px;margin-bottom: 0px;"> <label style="font-weight: bold;">AUTOR:</label> ${registros['author']}</p>
+                                            <p><label style="font-weight: bold;">STOCK: </label> ${registros['amount']}</p>
+                                            <p class="text-justify" style="margin-bottom: 61px;margin-top: 30px;">
+                                                <span style="color: rgb(34, 34, 34);">${registros['summary'] || 'Resumen no disponible'}</span>
+                                            </p>
+                                            <div class="text-center">
+                                                <div class="btn-group" role="group">
+                                                ${registros['url'] ? `<a href="PDF/${registros['url']}" download="${registros['descriptions']}.pdf" class="btn btn-warning mr-3" style="border-radius: 20px;" type="button">Descargar <i class="fa-solid fa-download"></i></a>` : ''}
+                                                <a href='./prestamos.view.php?prestamo=${registros['idbook']}' class="btn btn-primary prestamos" style="border-radius: 20px;" type="button">Prestamo <i class="fa-solid fa-book-open"></i></a>
+                                                </div>
+                                                <button class="btn btn-outline-danger mt-3" style="border-radius: 30px;" disabled="disabled">El presente material puede ser usado únicamente con fines educativos.</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        `;
+
 
                             $(".resumen").append(nuevaFila);
 
@@ -248,12 +249,17 @@ if (!isset($_GET['resumen'])) {
                                 $(".prestamos").attr("href", "login.php");
                             } else {
                                 // Controlador de eventos para el enlace de Prestamo
-                                $(".prestamos").on("click", function (e) {
+                                $(".prestamos").on("click", function(e) {
                                     e.preventDefault(); // Prevenir la acción predeterminada del enlace
 
                                     // Realizar la validación adicional
                                     searchUsersloans(registros['idbook']);
                                 });
+                            }
+                            if (registros['amount'] == 0) {
+                                $(".prestamos").hide();
+                            } else {
+                                $(".prestamos").show(); // Asegurémonos de que el botón esté visible si amount no es 0
                             }
                         } else {
                             window.location.href = './404.php';
@@ -268,44 +274,44 @@ if (!isset($_GET['resumen'])) {
                 parametros.append("iduser", idusuario);
 
                 fetch(`../controllers/prestamo.controller.php?${parametros}`, {
-                    method: 'GET'
-                })
-                .then(respuesta => respuesta.json())
-                .then(datos => {
-                    console.log(datos);
-                    // Analizando los datos
-                    if (datos.result == "PERMITIDO") {
-                        // Redireccionar a la vista de préstamos
-                        window.location.href = `./prestamos.view.php?prestamo=${idbook}`;
-                    } else if (datos.result == "DENEGADO") {
-                        // Mostrar un alert indicando que no está permitido
-                        Swal.fire({
-                        icon: 'error',
-                        title: 'No permitido',
-                        text: 'Límite máximo de solicitudes alcanzada.',
-                        timer: 2000,
-                        showConfirmButton: false
-                        });
-                    }else if (datos.result == "NEGADO") {
-                        // Mostrar un alert indicando que no está permitido
-                        Swal.fire({
-                        icon: 'error',
-                        title: 'No permitido',
-                        text: 'No puedes solicitar más de un préstamo a la vez.',
-                        timer: 2000,
-                        showConfirmButton: false
-                        });
-                    }else {
-                        // Mostrar un alert indicando que no está permitido
-                        Swal.fire({
-                        icon: 'error',
-                        title: 'No permitido',
-                        text: 'No puedes solicitar libros.',
-                        timer: 2000,
-                        showConfirmButton: false
-                        });
-                    }
-                });
+                        method: 'GET'
+                    })
+                    .then(respuesta => respuesta.json())
+                    .then(datos => {
+                        console.log(datos);
+                        // Analizando los datos
+                        if (datos.result == "PERMITIDO") {
+                            // Redireccionar a la vista de préstamos
+                            window.location.href = `./prestamos.view.php?prestamo=${idbook}`;
+                        } else if (datos.result == "DENEGADO") {
+                            // Mostrar un alert indicando que no está permitido
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No permitido',
+                                text: 'Límite máximo de solicitudes alcanzada.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        } else if (datos.result == "NEGADO") {
+                            // Mostrar un alert indicando que no está permitido
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No permitido',
+                                text: 'No puedes solicitar más de un préstamo a la vez.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            // Mostrar un alert indicando que no está permitido
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No permitido',
+                                text: 'No puedes solicitar libros.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
             }
 
 
