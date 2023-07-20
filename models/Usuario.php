@@ -254,6 +254,29 @@ class Usuario extends Conexion {
         }
     }
     
+    public function generarCodigoestudiante(){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_insertorupdatecode()");
+            $consulta->execute();
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function listarCodigoestudiante(){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_listcode()");
+            $consulta->execute();
+            $datos = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
 
     public function validacionCompleta($data = ''){
         $resultado = ["status" => false];

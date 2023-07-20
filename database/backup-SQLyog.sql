@@ -429,13 +429,16 @@ CREATE TABLE `hzgstudentcodes` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcodes`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `hzgstudentcodes` */
 
 insert  into `hzgstudentcodes`(`idcodes`,`codes`,`registrationdate`,`state`) values 
-(1,'HZG-1372','2023-07-19 17:51:44','0'),
-(2,'HZG-2011','2023-07-19 17:51:50','1');
+(1,'HZG-5043','2023-07-20 11:27:36','0'),
+(2,'HZG-8242','2023-07-20 11:30:20','0'),
+(3,'HZG-9193','2023-07-20 11:33:41','0'),
+(4,'HZG-8807','2023-07-19 11:36:02','0'),
+(5,'HZG-8583','2023-07-20 11:37:59','1');
 
 /*Table structure for table `loans` */
 
@@ -472,12 +475,12 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`registration_date`,`p
 (7,16,1,'1','2023-07-14 03:10:34','2023-07-14 03:10:42','2023-07-25 00:00:00',NULL,'1',NULL,'2'),
 (8,16,1,'1','2023-07-14 03:55:31','2023-07-18 07:25:08','2023-07-27 00:00:00',NULL,'1',NULL,'2'),
 (9,3,1,'2','2023-07-14 19:16:34','2023-07-18 07:25:14','2023-07-17 00:00:00',NULL,'',NULL,'2'),
-(10,1,25,'1','2023-07-14 19:19:11','2023-07-16 00:00:00','2023-07-18 00:00:00',NULL,'',NULL,'1'),
-(11,1,25,'1','2023-07-14 19:21:05','2023-07-16 00:00:00','2023-07-17 00:00:00',NULL,'',NULL,'1'),
+(10,1,25,'1','2023-07-14 19:19:11','2023-07-20 18:38:38','2023-07-18 00:00:00',NULL,'',NULL,'2'),
+(11,1,25,'1','2023-07-14 19:21:05','2023-07-20 18:47:05','2023-07-17 00:00:00',NULL,'',NULL,'2'),
 (12,4,3,'1','2023-07-14 19:35:41','2023-07-15 00:00:00','2023-07-28 00:00:00','2023-07-18 00:40:48','',NULL,'3'),
-(13,2,1,'1','2023-06-01 15:07:02','2023-06-17 00:00:00','2023-06-18 00:00:00',NULL,'',NULL,'1'),
-(14,2,1,'1','2023-07-17 15:10:48','2023-07-18 00:00:00','2023-07-19 00:00:00',NULL,'',NULL,'2'),
-(15,16,3,'1','2023-07-18 00:42:44','2023-07-19 00:00:00','2023-07-20 00:00:00',NULL,'',NULL,'1');
+(13,2,1,'1','2023-06-01 15:07:02','2023-07-20 18:47:28','2023-06-18 00:00:00',NULL,'',NULL,'1'),
+(14,2,1,'1','2023-07-17 15:10:48','2023-07-20 18:53:16','2023-07-19 00:00:00',NULL,'',NULL,'2'),
+(15,16,3,'1','2023-07-18 00:42:44','2023-07-20 18:52:22','2023-07-20 00:00:00',NULL,'',NULL,'2');
 
 /*Table structure for table `recuperarclave` */
 
@@ -1125,19 +1128,32 @@ DELIMITER $$
 BEGIN
 			    DECLARE codeexists INT;
 			    DECLARE newcode CHAR(8);
-			    
+			    DECLARE lastregistration DATETIME;
+
 			    SET newcode = CONCAT('HZG-', FLOOR(RAND() * 9000) + 1000);
 			    
-			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+			    -- Obtenemos el último registro en la tabla hzgstudentcodes
+			    SELECT MAX(registrationdate) INTO lastregistration FROM hzgstudentcodes;
 			    
-			    IF codeexists > 0 THEN
-				-- Si el código ya existe, actualiza su estado a 0
-				UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+			    IF lastregistration >= NOW() - INTERVAL 2 MINUTE THEN
+				-- Si ha pasado menos de 2 minutos desde el último registro, devolvemos "DENEGADO" y no generamos un nuevo código.
+				SELECT '' AS result;
 			    ELSE
-				-- Si el código no existe, inserta un nuevo registro
-				INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
-				-- Actualiza el estado de los códigos anteriores a 0
-				UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+				-- Si ha pasado al menos 2 minutos, procedemos a generar el nuevo código y actualizar la tabla.
+				SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+				
+				IF codeexists > 0 THEN
+				    -- Si el código ya existe, actualiza su estado a 0
+				    UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+				ELSE
+				    -- Si el código no existe, inserta un nuevo registro
+				    INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
+				    -- Actualiza el estado de los códigos anteriores a 0
+				    UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+				END IF;
+
+				-- Devuelve los registros activos
+				SELECT 'PERMITIDO' AS result;
 			    END IF;
 			END */$$
 DELIMITER ;
@@ -1217,6 +1233,18 @@ BEGIN
 			    where loans.state = _estado;
 			    END IF;    
 		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listcode` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listcode` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listcode`()
+begin
+				SELECT * FROM hzgstudentcodes WHERE state = 1;
+			end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_listloans_user` */

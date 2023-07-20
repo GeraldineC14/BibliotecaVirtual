@@ -787,22 +787,42 @@
 			BEGIN
 			    DECLARE codeexists INT;
 			    DECLARE newcode CHAR(8);
-			    
+			    DECLARE lastregistration DATETIME;
+
 			    SET newcode = CONCAT('HZG-', FLOOR(RAND() * 9000) + 1000);
 			    
-			    SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+			    -- Obtenemos el último registro en la tabla hzgstudentcodes
+			    SELECT MAX(registrationdate) INTO lastregistration FROM hzgstudentcodes;
 			    
-			    IF codeexists > 0 THEN
-				-- Si el código ya existe, actualiza su estado a 0
-				UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+			    IF lastregistration >= NOW() - INTERVAL 12 HOUR THEN
+				-- Si ha pasado menos de 2 minutos desde el último registro, devolvemos "DENEGADO" y no generamos un nuevo código.
+				SELECT '' AS result;
 			    ELSE
-				-- Si el código no existe, inserta un nuevo registro
-				INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
-				-- Actualiza el estado de los códigos anteriores a 0
-				UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+				-- Si ha pasado al menos 2 minutos, procedemos a generar el nuevo código y actualizar la tabla.
+				SELECT COUNT(*) INTO codeexists FROM hzgstudentcodes WHERE codes = newcode;
+				
+				IF codeexists > 0 THEN
+				    -- Si el código ya existe, actualiza su estado a 0
+				    UPDATE hzgstudentcodes SET state = '0' WHERE codes = newcode;
+				ELSE
+				    -- Si el código no existe, inserta un nuevo registro
+				    INSERT INTO hzgstudentcodes (codes) VALUES (newcode);
+				    -- Actualiza el estado de los códigos anteriores a 0
+				    UPDATE hzgstudentcodes SET state = '0' WHERE codes <> newcode;
+				END IF;
+
+				-- Devuelve los registros activos
+				SELECT 'PERMITIDO' AS result;
 			    END IF;
 			END $$
-
+			
+			DELIMITER $$
+			CREATE PROCEDURE spu_listcode()
+			BEGIN
+				SELECT * FROM hzgstudentcodes WHERE state = 1;
+			END $$
+			
+			CALL spu_listcode()
 
 			CALL spu_insertorupdatecode()
 

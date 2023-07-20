@@ -179,6 +179,13 @@ require_once '../models/MailValidar.php';
             ));
         }
 
+        if($_GET['operacion'] == 'generarCodigoestudiante'){
+            echo json_encode($usuario->generarCodigoestudiante());
+        }
+
+        if($_GET['operacion'] == 'listarCodigoestudiante'){
+            echo json_encode($usuario->listarCodigoestudiante());
+        }
 
     }
 

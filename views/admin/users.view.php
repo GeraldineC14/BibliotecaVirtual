@@ -60,6 +60,13 @@ require_once './permisos.php';
                                     </div>
                                 </div>
                                 <!-- FIN Versión Móvil -->
+
+                                <div class="input-group mt-2 mb-3">
+                                    <input type="text" class="form-control" id="codigohzg" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="generar">Generar nuevo codigo</button>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
 
@@ -379,6 +386,35 @@ require_once './permisos.php';
             $("#titulo-modal-usuarios").html("Registrar Usuario");
 
             reiniciarFormulario();
+        }
+
+        function mostrarCodigo() {
+            $.ajax({
+                url: '../../controllers/usuario.controller.php',
+                type: 'GET',
+                dataType: 'JSON',
+                data: 'operacion=listarCodigoestudiante',
+                success: function (result) {
+                    $("#codigohzg").val(result['codes']);
+                }
+            })
+        }
+
+        function generarCodigo() {
+            $.ajax({
+                url: '../../controllers/usuario.controller.php',
+                type: 'GET',
+                data: 'operacion=generarCodigoestudiante',
+                success: function (result) {
+                    var codigoInput = $('#codigohzg');
+                    if (result !== '[{"result":""}]') {
+                        // Actualizar el valor del input con el nuevo código generado
+                        mostrarCodigo();
+                    } else {
+                        alertar('No se puede generar');
+                    }
+                }
+            });
         }
 
         function validar() {
@@ -721,18 +757,20 @@ require_once './permisos.php';
 
 
         //Funciones de carga automatica
+        mostrarCodigo();
         listarUsuarios();
         //Registro
         $("#mostrar-modal-usuario").click(abrirModalRegistro);
         $("#guardar-usuario").click(validar);
         $("#cancelar-modal").click(reiniciarFormulario);
-
+        
         //Editar
         $("#guardar-usuario2").click(validarEdit);
         $("#cancelar-modal2").click(reiniciarFormulario);
         $("#editar-contraseña").click(activarContraseña);
-
-
+        
+        //Codigo HZG
+        $("#generar").click(generarCodigo);
     });
 </script>
 </body>
