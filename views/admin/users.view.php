@@ -240,6 +240,8 @@ require_once './permisos.php';
                                             data-dismiss="modal">Cancelar</button>
                                         <button type="button" id="guardar-usuario2"
                                             class="btn btn-sm btn-primary">Guardar</button>
+                                        <button type="button" id="guardar-contraseña"
+                                            class="btn btn-sm btn-primary">Guardar2</button>  
                                         <button type="button" id="editar-contraseña"
                                             class="btn btn-sm btn-primary">Editar Contraseña</button>
                                     </div>
@@ -611,14 +613,56 @@ require_once './permisos.php';
             datos['username'] = $("#username2").val();
             datos['email'] = $("#email2").val();
             datos['accesslevel'] = $("#accesslevel2").val();
-            datos['accesskey'] = $("#accesskey2").val();
-            datos['repetir'] = $("#repetir2").val();
 
             datos['operacion'] = "actualizarUsuario";
             datos['idusers'] = idusers;
 
 
             if (datos['surnames'] == "" || datos['namess'] == "" || datos['username'] == "" || datos['email'] == "" || datos['accesslevel'] == "") {
+                alertar("Complete el formulario por favor")
+            } else {
+                Swal.fire({
+                    title: "Actualizar",
+                    text: "¿Los datos ingresados son correctos?",
+                    icon: "question",
+                    footer: "Horacio Zeballos Gámez",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "#38AD4D",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    cancelButtonColor: "#D3280A"
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '../../controllers/usuario.controller.php',
+                            type: 'GET',
+                            data: datos,
+                            success: function (result) {
+                                alertarToast("Proceso completado", "Los datos del usuario ha sido actualizado", "success")
+                                document.getElementById('accesskey2').disabled = true;
+                                document.getElementById('repetir2').disabled = true;
+                                $("#editar-contraseña").prop('disabled', false);
+                                setTimeout(function () {
+                                    reiniciarFormulario();
+                                    $('#modal-usuarios2').modal('hide');
+                                    listarUsuarios();
+                                }, 1800)
+                            }
+                        });
+                    }
+                });   
+            }
+        }
+
+        function editarContraseña() {
+            datos['accesskey'] = $("#accesskey2").val();
+            datos['repetir'] = $("#repetir2").val();
+
+            datos['operacion'] = "actualizarContraseña";
+            datos['idusers'] = idusers;
+
+
+            if (datos['accesskey'] == "" || datos['repetir'] == "") {
                 alertar("Complete el formulario por favor")
             } else {
                 if (datos['accesskey'] !== datos['repetir']) {
@@ -641,20 +685,27 @@ require_once './permisos.php';
                                 type: 'GET',
                                 data: datos,
                                 success: function (result) {
-                                    alertarToast("Proceso completado", "Los datos del usuario ha sido actualizado", "success")
+                                    alertarToast("Proceso completado", "La contraseña del usuario ha sido actualizado", "success")
                                     document.getElementById('accesskey2').disabled = true;
                                     document.getElementById('repetir2').disabled = true;
+                                    document.getElementById('namess2').disabled = false;
+                                    document.getElementById('surnames2').disabled = false;
+                                    document.getElementById('email2').disabled = false;
+                                    document.getElementById('accesslevel2').disabled = false;
+                                    document.getElementById('username2').disabled = false;
                                     $("#editar-contraseña").prop('disabled', false);
                                     setTimeout(function () {
                                         reiniciarFormulario();
                                         $('#modal-usuarios2').modal('hide');
                                         listarUsuarios();
+                                        $("#guardar-contraseña").hide();
+                                        $("#guardar-usuario2").show();
                                     }, 1800)
                                 }
                             });
                         }
                     });
-                }
+                }   
             }
         }
 
@@ -679,8 +730,15 @@ require_once './permisos.php';
                 cancelButtonColor: "#D3280A"
             }).then(result => {
                 if (result.isConfirmed) {
+                    document.getElementById('namess2').disabled = true;
+                    document.getElementById('surnames2').disabled = true;
+                    document.getElementById('email2').disabled = true;
+                    document.getElementById('accesslevel2').disabled = true;
+                    document.getElementById('username2').disabled = true;
                     document.getElementById('accesskey2').disabled = false;
                     document.getElementById('repetir2').disabled = false;
+                    $("#guardar-usuario2").hide();
+                    $("#guardar-contraseña").show();
                     $("#accesskey2").val("");
                     $("#repetir2").val("");
                     $("#editar-contraseña").prop('disabled', true);
@@ -771,6 +829,10 @@ require_once './permisos.php';
         
         //Codigo HZG
         $("#generar").click(generarCodigo);
+
+        //contraseña/ocultar
+        $("#guardar-contraseña").hide();
+        $("#guardar-contraseña").click(editarContraseña);
     });
 </script>
 </body>

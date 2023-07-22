@@ -112,11 +112,18 @@ require_once '../models/MailValidar.php';
                 "surnames"      => $_GET['surnames'],
                 "username"      => $_GET['username'],
                 "email"         => $_GET['email'],
-                "accesslevel"   => $_GET['accesslevel'],
-                "accesskey"     => password_hash($_GET['accesskey'], PASSWORD_BCRYPT)
+                "accesslevel"   => $_GET['accesslevel']
             ];
             
             $usuario->actualizarUsuario($datosSolicitados);
+        }
+
+        if($_GET['operacion'] == 'actualizarContraseña'){
+            $datosSolicitados = [
+                "idusers"       => $_GET['idusers'],
+                "accesskey"   => password_hash($_GET['accesskey'], PASSWORD_BCRYPT)
+            ];  
+            $usuario->actualizarContraseña($datosSolicitados);
         }
 
         if($_GET['operacion'] == 'validacionUsuario'){

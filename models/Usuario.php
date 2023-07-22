@@ -74,7 +74,7 @@ class Usuario extends Conexion {
 
     public function actualizarUsuario($datosGuardar){
         try{
-            $consulta = $this->acceso->prepare("CALL spu_users_update(?,?,?,?,?,?,?)");
+            $consulta = $this->acceso->prepare("CALL spu_users_update(?,?,?,?,?,?)");
 
             $consulta->execute([
                 $datosGuardar['idusers'],
@@ -82,7 +82,20 @@ class Usuario extends Conexion {
                 $datosGuardar['surnames'],
                 $datosGuardar['username'],
                 $datosGuardar['email'],
-                $datosGuardar['accesslevel'],
+                $datosGuardar['accesslevel']
+            ]);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarContraseña($datosGuardar){
+        try{
+            $consulta = $this->acceso->prepare("CALL spu_users_password(?,?)");
+
+            $consulta->execute([
+                $datosGuardar['idusers'],
                 $datosGuardar['accesskey']
             ]);
         }

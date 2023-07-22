@@ -635,8 +635,7 @@
 				IN _surnames	VARCHAR(100),
 				IN _username	VARCHAR(50),
 				IN _email	VARCHAR(100),
-				IN _accesslevel	VARCHAR(100),
-				IN _accesskey	VARCHAR(100)
+				IN _accesslevel	VARCHAR(100)
 			)
 			BEGIN
 
@@ -645,13 +644,24 @@
 					surnames 	= _surnames,
 					username	= _username,
 					email 		= _email,
-					accesslevel 	= _accesslevel,
-					accesskey 	= _accesskey
+					accesslevel 	= _accesslevel
 					
 				WHERE idusers = _idusers;
 			END $$
 			
-			CALL spu_users_update('17','4','4','4@','D','P');
+			-- N°5.1 Edit password 
+				DELIMITER $$
+				CREATE PROCEDURE spu_users_password
+				(
+					IN _idusers	INT,
+					IN _accesskey	VARCHAR(100)
+				)
+				BEGIN
+
+					UPDATE users SET
+						accesskey = _accesskey	
+					WHERE idusers = _idusers;
+				END $$
 			
 		-- N°6 obtain users
 			DELIMITER $$

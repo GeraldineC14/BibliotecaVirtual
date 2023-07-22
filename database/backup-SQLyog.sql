@@ -573,7 +573,7 @@ insert  into `users`(`idusers`,`username`,`surnames`,`namess`,`email`,`accesskey
 (45,'milagros730','levano','Milagros','milagros73@midominio.com','$2y$10$9JvejDF7aj1Di2N.fWNU9e24v/XaLHqHkiDyu1XXDivdXPVVkAApO','D','2023-06-27 08:11:34',NULL,'1'),
 (46,'geral2','castilla','geral','geral2@gmail.com','$2y$10$3jkw7ToCw1DUjt.SmujC1.tag1IkGT/2orFYt1NdxqUlnbt2eo8S6','E','2023-06-27 10:24:07',NULL,'1'),
 (47,'pArias','Arias Tasayco','Piero Alexander','cveteranas@gmail.com','$2y$10$l69HqEblsAAEW5uoGYoHtexMzJZURgTYG0pex6IT1LmFRHp5GKfvG','E','2023-06-27 10:44:07',NULL,'1'),
-(48,'prueba','PREUAB','PRUEBA','prueba@gmail.com','$2y$10$XPTO2Vag8J7tWOXQF3EYhufvqGB1e2ORCHZeXxUrpawx/mDLAaAUu','E','2023-06-29 16:15:58',NULL,'1'),
+(48,'prueb','33','prueba final de edit con','edit@gmail.com','$2y$10$x2Y7JV/KirLCN3etLpi1WOA6CFwFVBAfQm4rp.DGXZn0QdqecTYwW','E','2023-06-29 16:15:58',NULL,'1'),
 (49,'Kanijo','Arias','kano','kanolover@midominio.com','$2y$10$cXQofGlVw1/1Tsp8scsMpOE6TwsPPx/ywEO8vPuFosspTgoqjIxW2','D','2023-06-30 11:54:26',NULL,'0'),
 (50,'Piero123','Arias Tasayco','CARACHA','piero123@midominio.com','$2y$10$VmQsJXAeoF9wdkRegQklVOP1Ig5qCX.NdfgthuDSKbwih9AwGkGmK','D','2023-07-05 17:06:15',NULL,'1');
 
@@ -2150,6 +2150,24 @@ BEGIN
 			END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_users_password` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_users_password` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_password`(
+				IN _idusers	INT,
+				IN _accesskey	VARCHAR(100)
+			)
+BEGIN
+
+				UPDATE users SET
+					accesskey = _accesskey	
+				WHERE idusers = _idusers;
+			END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_users_register` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_users_register` */;
@@ -2169,15 +2187,22 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(IN `_idusers` INT, IN `_namess` VARCHAR(30) CHARSET utf8mb4, IN `_surnames` VARCHAR(100) CHARSET utf8mb4, IN `_username` VARCHAR(50) CHARSET utf8mb4, IN `_email` VARCHAR(100) CHARSET utf8mb4, IN `_accesslevel` VARCHAR(100) CHARSET utf8mb4, IN `_accesskey` VARCHAR(100) CHARSET utf8mb4)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_users_update`(
+				IN _idusers	INT,
+				IN _namess	VARCHAR(30),
+				IN _surnames	VARCHAR(100),
+				IN _username	VARCHAR(50),
+				IN _email	VARCHAR(100),
+				IN _accesslevel	VARCHAR(100)
+			)
 BEGIN
+
 				UPDATE users SET
 					namess 		= _namess,
 					surnames 	= _surnames,
 					username	= _username,
 					email 		= _email,
-					accesslevel 	= _accesslevel,
-					accesskey 	= _accesskey
+					accesslevel 	= _accesslevel
 					
 				WHERE idusers = _idusers;
 			END */$$
