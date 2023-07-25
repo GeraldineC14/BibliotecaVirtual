@@ -341,7 +341,7 @@ require_once '../models/MailValidar.php';
 
         if($_POST['operacion'] == 'validarCodigoestudiante'){
 
-            $codigoEstudiante = $_POST['codigoestudiante']; //modal
+            $codigoEstudiante = $_POST['codigoEstudiante']; //modal
             $resultado = $usuario->validarCodigoestudiante($codigoEstudiante);
             echo json_encode($resultado);
         }

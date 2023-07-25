@@ -9,32 +9,36 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="../assets/css/style.css">
-	<link rel="stylesheet" href="../assets/css/login-responsive.css">
-	<link rel="shortcut icon" href="../assets/img/favicon.ico"/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/login-responsive.css">
+
 
 </head>
 
 <body>
 	<style>
-    .inputc {
-      height: 50px;
-      width: 40px;
-      text-align: center;
-      border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      -o-border-radius: 5px;
-      border-color: rgba(0, 0, 255, 0.49);
-    }
-  </style>
+		.inputc {
+			height: 50px;
+			width: 40px;
+			text-align: center;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			-ms-border-radius: 5px;
+			-o-border-radius: 5px;
+			border-color: rgba(0, 0, 255, 0.49);
+		}
+	</style>
 	<!-- navbar -->
 	<?php include './navbar.php'; ?>
 	<div class="opacity-overlay"></div>
@@ -59,7 +63,7 @@
 										<input type="text" id="namess" class="form-control" autofocus>
 									</div>
 									<div class="col">
-										<label for="surnames"class="label">Apellidos</label>
+										<label for="surnames" class="label">Apellidos</label>
 										<input type="text" id="surnames" class="form-control">
 									</div>
 								</div>
@@ -121,8 +125,9 @@
 		</div>
 	</section>
 
-	<!-- modal -->
-	<div class="modal fade" id="modal-validacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- modal invitados-->
+	<div class="modal fade" id="modal-validacion-invitados" tabindex="-1" data-bs-backdrop="static"
+		data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header bg-success text-light">
@@ -132,35 +137,73 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form-group text-center" action="" autocomplete="off" id="form-clave">
+					<form class="form-group text-center" action="" autocomplete="off" id="form-clave-I ">
 						<h4>INGRESAR CODIGO</h4>
 						<label for="key1" class="form-label text-justify">
 							Te enviamos un código para que puedas validar tu correo.
 							Si no lo encuentras revisa el Correo No Deseado.
 						</label>
-						<div  class="form-group mt-3" id="keys">
-							<input class="inputc" type="tel" id="key1" maxlength="1"
-								oninput="moveToNextInput(this, 'key2')" />
-							<input class="inputc" type="tel" id="key2" maxlength="1"
-								oninput="moveToNextInput(this, 'key3')" />
-							<input class="inputc" type="tel" id="key3" maxlength="1"
-								oninput="moveToNextInput(this, 'key4')" />
-							<input class="inputc" type="tel" id="key4" maxlength="1"
-								oninput="moveToNextInput(this, 'comprobar')" />
+						<div class="form-group mt-3" id="keys">
+							<input class="inputc" type="tel" id="key1I" maxlength="1"
+								oninput="moveToNextInput(this, 'key2I')" />
+							<input class="inputc" type="tel" id="key2I" maxlength="1"
+								oninput="moveToNextInput(this, 'key3I')" />
+							<input class="inputc" type="tel" id="key3I" maxlength="1"
+								oninput="moveToNextInput(this, 'key4I')" />
+							<input class="inputc" type="tel" id="key4I" maxlength="1"
+								oninput="moveToNextInput(this, 'comprobar-i')" />
 						</div>
+					</form>
+				</div>
+				<div class="modal-footer justify-content-lg-center">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" id="comprobar-i">Validar</button>
 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- modal estudiantes-->
+	<div class="modal fade" id="modal-validacion-estudiantes" tabindex="-1" data-bs-backdrop="static"
+		data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-success text-light">
+					<i class="fa-solid fa-key fa-sm" style="color: #ffffff;"></i>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="form-group text-center" action="" autocomplete="off" id="form-clave-E">
+						<h4>INGRESAR CODIGO</h4>
+						<label for="key1" class="form-label text-justify">
+							Te enviamos un código para que puedas validar tu correo.
+							Si no lo encuentras revisa el Correo No Deseado.
+						</label>
+						<div class="form-group mt-3" id="keys">
+							<input class="inputc" type="tel" id="key1E" maxlength="1"
+								oninput="moveToNextInput(this, 'key2E')" />
+							<input class="inputc" type="tel" id="key2E" maxlength="1"
+								oninput="moveToNextInput(this, 'key3E')" />
+							<input class="inputc" type="tel" id="key3E" maxlength="1"
+								oninput="moveToNextInput(this, 'key4E')" />
+							<input class="inputc" type="tel" id="key4E" maxlength="1"
+								oninput="moveToNextInput(this, 'comprobar-e')" />
+						</div>
 						<div id="inputs-clave" class="d-none">
 							<div class="md-3">
 								<label for="codigo" class="form-label">Escribe el codigo HZG-####:</label>
-								<input type="text" class="form-control" id="codigo">
+								<input type="text" class="form-control text-center" id="codigoEstudiante" maxLength="8">
 							</div>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer justify-content-lg-center">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-success" id="comprobar">Validar</button>
-					<button type="button" class="btn btn-primary d-none" id="validarcodigos">Validar</button>
+					<button type="button" class="btn btn-primary" id="comprobar-e">Comprobar</button>
+					<button type="button" class="btn btn-primary d-none" id="validar-e">Validar</button>
 				</div>
 			</div>
 		</div>
@@ -179,8 +222,6 @@
 	<script>
 		$(document).ready(function () {
 
-			const modal = new bootstrap.Modal(document.querySelector("#modal-validacion"));
-
 			var datos = {
 				'operacion': "",
 				'username': "",
@@ -194,6 +235,9 @@
 
 			var correoValidado = 0;
 			var clavegenerada = 0;
+			const comprobarI = document.getElementById('comprobar-i');
+			const comprobarE = document.getElementById('comprobar-e');
+			const validarE = document.getElementById('validar-e');
 
 			function alertar(textoMensaje = "") {
 				Swal.fire({
@@ -318,7 +362,6 @@
 			}
 
 			function validarCampos() {
-
 				datos['username'] = $("#username").val();
 				datos['surnames'] = $("#surnames").val();
 				datos['namess'] = $("#namess").val();
@@ -331,13 +374,20 @@
 					alertar("Complete el formulario por favor");
 					return;
 				} else {
-					validacionCorreo();
+					const selectedAccessLevel = validacionCorreo();
+					if (selectedAccessLevel === "I") {
+						// Abrir el modal de invitados
+						$('#modal-validacion-invitados').modal('show');
+					} else if (selectedAccessLevel === "E") {
+						// Abrir el modal de estudiantes
+						$('#modal-validacion-estudiantes').modal('show');
+					}
 				}
 			}
 
-			function validacionCorreo() {
-				modal.toggle();
 
+			function validacionCorreo() {
+				const selectedAccessLevel = $("#accesslevel").val();
 				var nombres = $("#namess").val();
 				var apellidos = $("#surnames").val();
 				var usuario = nombres + " " + apellidos;
@@ -347,7 +397,6 @@
 				parametros.append("operacion", "correoValidaremail");
 				parametros.append("email", document.querySelector("#email").value);
 				parametros.append("usuario", usuario);
-
 
 				fetch('../controllers/usuario.controller.php', {
 					method: 'POST',
@@ -363,50 +412,108 @@
 							timer: 2000,
 							showConfirmButton: false
 						});
-
 					});
 
+				return selectedAccessLevel;
 			}
 
 			function validarClave() {
-				const parametros = new URLSearchParams();
-				const key1 = document.getElementById("key1").value;
-				const key2 = document.getElementById("key2").value;
-				const key3 = document.getElementById("key3").value;
-				const key4 = document.getElementById("key4").value;
-				const enterCode = `${key1}${key2}${key3}${key4}`;
-				parametros.append("operacion", "validarClavecorreo");
-				parametros.append("email", document.querySelector("#email").value);
-				parametros.append("clavegenerada", enterCode);
+				const selectedAccessLevel = document.querySelector("#accesslevel").value;
 
-				fetch(`../controllers/Usuario.controller.php`, {
-					method: 'POST',
-					body: parametros
+				if (selectedAccessLevel === "I") {
+					// Acción para Invitado
+					const key1 = document.getElementById('key1I').value;
+					const key2 = document.getElementById('key2I').value;
+					const key3 = document.getElementById('key3I').value;
+					const key4 = document.getElementById('key4I').value;
+					const enterCode = `${key1}${key2}${key3}${key4}`;
+					const parametros = new URLSearchParams();
+					parametros.append("operacion", "validarClavecorreo");
+					parametros.append("email", document.querySelector("#email").value);
+					parametros.append("clavegenerada", enterCode);
 
-				})
-					.then(respuesta => respuesta.json())
-					.then(datos => {
-						console.log(datos);
-						//Analizando los datos
-						if (datos.status == "PERMITIDO") {
-							modal.toggle();
-							$('#email').prop('disabled', true); // Deshabilitar el campo de entrada de correo electrónico
-							$('#verificar').prop('disabled', true); // Deshabilitar el botón "Verificar Correo"
-							correoValidado = 1; // Cambiar el valor de la variable correoValidado a 1		
-							clavegenerada = enterCode;
-							validarClavecorreo()
-						} else {
-							Swal.fire({
-								icon: 'error',
-								title: 'Error',
-								text: 'Clave incorrecta, revise su correo por favor',
-								timer: 2000,
-								showConfirmButton: false
-							});
+					fetch(`../controllers/Usuario.controller.php`, {
+						method: 'POST',
+						body: parametros
+					})
+						.then(respuesta => respuesta.json())
+						.then(datos => {
+							console.log(datos);
+							// Analizando los datos
+							if (datos.status === "PERMITIDO") {
+								// Acción para Invitado
+								$('#email').prop('disabled', true); // Deshabilitar el campo de entrada de correo electrónico
+								$('#verificar').prop('disabled', true); // Deshabilitar el botón "Verificar Correo"
+								$('#accesslevel').prop('disabled', true); //Deshabilitar el select "Tipo de Acceso"
+								correoValidado = 1; // Cambiar el valor de la variable correoValidado a 1		
+								clavegenerada = enterCode;
+								validarClavecorreo()
+								$('#modal-validacion-invitados').modal('toggle');
 
-						}
-					});
+								Swal.fire({
+									icon: 'success',
+									title: 'Validación completada',
+									text: 'Validación completada para Invitado',
+									timer: 2000,
+									showConfirmButton: false
+								});
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error',
+									text: 'Clave incorrecta, revise su correo por favor',
+									timer: 2000,
+									showConfirmButton: false
+								});
+							}
+						});
+				} else if (selectedAccessLevel === "E") {
+					// Acción para Estudiante
+					const key1 = document.getElementById('key1E').value;
+					const key2 = document.getElementById('key2E').value;
+					const key3 = document.getElementById('key3E').value;
+					const key4 = document.getElementById('key4E').value;
+					const enterCode = `${key1}${key2}${key3}${key4}`;
+					const parametros = new URLSearchParams();
+					parametros.append("operacion", "validarClavecorreo");
+					parametros.append("email", document.querySelector("#email").value);
+					parametros.append("clavegenerada", enterCode);
+
+					fetch(`../controllers/Usuario.controller.php`, {
+						method: 'POST',
+						body: parametros
+					})
+						.then(respuesta => respuesta.json())
+						.then(datos => {
+							console.log(datos);
+							// Analizando los datos
+							if (datos.status === "PERMITIDO") {
+								// Acción para Estudiante
+								document.querySelector("#inputs-clave").classList.remove("d-none");
+								document.querySelector("#comprobar-e").classList.add("d-none");
+              					document.querySelector("#validar-e").classList.remove("d-none");
+								Swal.fire({
+									icon: 'success',
+									title: 'Validación completada',
+									text: 'Validación completada para Estudiante',
+									timer: 2000,
+									showConfirmButton: false
+								});
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error',
+									text: 'Clave incorrecta, revise su correo por favor',
+									timer: 2000,
+									showConfirmButton: false
+								});
+							}
+						});
+				}
 			}
+
+
+
 
 			function validarClavecorreo() {
 				const parametros = new URLSearchParams();
@@ -428,7 +535,46 @@
 					});
 
 			}
-			
+
+			function validarCodigoestudiante() {
+			const codigoEstudiante = document.querySelector("#codigoEstudiante").value;
+			const parametros = new URLSearchParams();
+			parametros.append("operacion", "validarCodigoestudiante");
+			parametros.append("codigoEstudiante", codigoEstudiante);
+			fetch(`../controllers/usuario.controller.php`, {
+				method: 'POST',
+				body: parametros
+			})
+				.then(respuesta => respuesta.json())
+				.then(datos => {
+					if (datos.result === 'DENEGADO') {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'Codigo incorrecto, revise el codigo HZG por favor',
+							timer: 2000,
+							showConfirmButton: false
+						});
+					} else {
+						$('#modal-validacion-estudiantes').modal('toggle');
+
+						$('#email').prop('disabled', true);
+						$('#verificar').prop('disabled', true);
+						$('#accesslevel').prop('disabled', true);
+						correoValidado = 1; // Cambiar el valor de la variable correoValidado a 1
+						validarClavecorreo()
+						Swal.fire({
+							icon: 'success',
+							title: 'Validacion Correcta',
+							text: 'Codigos validados',
+							timer: 2000,
+							showConfirmButton: false
+						});
+					}
+					// Aquí deberías colocar el código para deshabilitar los campos o hacer otras acciones necesarias.
+				})
+		}
+
 			function registrar() {
 				if (datos['accesskey'] !== datos['repetir']) {
 					Swal.fire({
@@ -476,18 +622,6 @@
 				}
 			}
 
-			$('#accesslevel').change(function() {
-				if ($(this).val() == 'E') {
-				$('#inputs-clave').removeClass('d-none');
-				$('#validarcodigos').removeClass('d-none');
-				$('#comprobar').addClass('d-none');
-				} else {
-					$('#inputs-clave').addClass('d-none');
-					$('#validarcodigos').addClass('d-none');
-					$('#comprobar').removeClass('d-none');
-				}
-			});
-
 			$('#showPass').on('click', function () {
 				var passInput = $("#accesskey,#repetir");
 				if (passInput.attr('type') === 'password') {
@@ -497,9 +631,6 @@
 				}
 			});
 
-			$("#modal-validacion .btn-close, #modal-validacion .btn-secondary").click(function () {
-				$("#modal-validacion").modal('hide');
-			});
 
 
 			document.querySelector("#verificar").addEventListener("click", () => {
@@ -515,14 +646,10 @@
 						confirmButtonText: "Aceptar",
 						confirmButtonColor: "#38AD4D"
 					});
-				} else if(correoValidado != 1){
+				} else if (correoValidado != 1) {
 					validarCampos();
 				}
 			})
-
-			modal._element.addEventListener("shown.bs.modal", () => {
-				document.querySelector("#key1").focus();
-			});
 
 			window.moveToNextInput = function (currentInput, nextInputId) {
 				if (currentInput.value.length === currentInput.maxLength) {
@@ -530,8 +657,9 @@
 				}
 			}
 
-			document.querySelector("#comprobar").addEventListener("click", validarClave);
-
+			comprobarI.addEventListener('click', validarClave);
+			comprobarE.addEventListener('click', validarClave);
+			validarE.addEventListener('click', validarCodigoestudiante);
 			$("#registrar").click(validar);
 
 		});

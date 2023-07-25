@@ -277,7 +277,7 @@
             })
               .then(respuesta => respuesta.json())
               .then(datos => {
-                alert("Se actualizó su clave.. vuelva a iniicar sesión");
+                alert("Se actualizó su clave... Vuelva a Iniciar Sesión");
                 window.location.href = '../index.php';
               });
 

@@ -78,40 +78,42 @@ require_once 'permisos.php';
                     <!-- Datatable -->
                     <div style="width: 90%; margin:auto" class="mt-2">
                         <div class="card-body">
-                            <table class="table display responsive" id="tabla-prestamos">
-                                <colgroup>
-                                    <col width="5%">
-                                    <col width="25%">
-                                    <col width="10%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="20%">
-                                    <col width="25%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                </colgroup>
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Libro</th>
-                                        <th>Usuario</th>
-                                        <th>Observación</th>
-                                        <th>Registro</th>
-                                        <th>Recojo</th>
-                                        <th>Retorno</th>
-                                        <th>Cancelado</th>
-                                        <th>Cantidad</th>
-                                        <th>Reporte</th>
-                                        <th>Estado</th>
-                                        <th>Comandos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table">
+                                <table class="table display responsive" id="tabla-prestamos">
+                                    <colgroup>
+                                        <col width="5%">
+                                        <col width="25%">
+                                        <col width="10%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                        <col width="20%">
+                                        <col width="25%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                        <col width="15%">
+                                    </colgroup>
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Libro</th>
+                                            <th>Usuario</th>
+                                            <th>Observación</th>
+                                            <th>Registro</th>
+                                            <th>Recojo</th>
+                                            <th>Retorno</th>
+                                            <th>Cancelado</th>
+                                            <th>Cantidad</th>
+                                            <th>Reporte</th>
+                                            <th>Estado</th>
+                                            <th>Comandos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
