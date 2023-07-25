@@ -276,11 +276,6 @@ require_once 'permisos.php';
                                 if (accesslevel !== 'D' && accesslevel !== 'E') {
                                     comandosHtml = `
                                             <td>
-                                            <button class='btn btn-danger cancelar' data-id="${registro['idloan']}" title='Cancelar'>
-                                            <a style='color: black; font-weight:bold;'>
-                                                <i class="fa-solid fa-ban" style="color: #000000;"></i>
-                                            </a>
-                                        </button>
                                         <button class='btn btn-warning devolver' data-id="${registro['idloan']}" title='Devolver'>
                                             <a style='color: black; font-weight:bold;'>
                                                 <i class="fa-solid fa-rotate-left" style="color: #000000;"></i>

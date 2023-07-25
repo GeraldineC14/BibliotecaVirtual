@@ -36,7 +36,7 @@ require_once 'permisos.php';
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="row tex-center">
+                                        <div class="row text-center">
                                             <select id="usuario" class="form-select" size="3" multiple name="usuario">
                                                 <option value="A">Administrador</option>
                                                 <option value="D">Docente</option>

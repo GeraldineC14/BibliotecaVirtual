@@ -30,7 +30,7 @@ require_once 'permisos.php';
                 <div class="card mt-2">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
-                            <p class="mb-0">Seleccione el mes que desea generar gráfico:</p>
+                            <p class="mb-0">Seleccione el mes:</p>
                         </div>
                         <!-- Campo de texto para la suma de los amounts -->
                         <div class="d-flex">

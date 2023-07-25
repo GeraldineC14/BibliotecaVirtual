@@ -398,10 +398,14 @@
 		-- N°14 Counter dashboard/books,categorie, sub categorie
 			DELIMITER $$
 			CREATE PROCEDURE spu_list_dashboard_books()
-				SELECT 	COUNT(idbook) AS total_libros , 
-					(SELECT COUNT(idcategorie) FROM categories) AS total_categorias, 
-					(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias 
+			BEGIN
+				SELECT  COUNT(idbook) AS total_libros ,
+					(SELECT COUNT(idcategorie) FROM categories WHERE state = 1) AS total_categorias,
+					(SELECT COUNT(idcategorie) FROM subcategories WHERE state = 1) AS total_subcategorias,
+					(SELECT COUNT(*) AS total_autores
+						FROM (SELECT author FROM books GROUP BY author) AS Total) AS total_autores
 				FROM books
+				WHERE state2 = '1';
 			END $$
 			
 			CALL spu_list_dashboard_books();
@@ -409,11 +413,17 @@
 			-- N°14.1 Counter dashboard/users, docentes
 				DELIMITER $$
 				CREATE PROCEDURE spu_list_dashboard_users()
-
-					SELECT  COUNT(idusers) AS total_usuarios,
-						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes 
+				BEGIN
+					SELECT  COUNT(idusers) AS total_users,
+						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D' AND state = 1) AS total_docentes,
+						(SELECT COUNT(*) FROM loans WHERE state = 1) AS total_prestamos
 					FROM users
+					WHERE state = 1;
 				END $$
+				
+				CALL spu_list_dashboard_users()
+				
+				SELECT * FROM users
 
 				CALL spu_list_dashboard_users();
 		-- N°15 Reporte libro

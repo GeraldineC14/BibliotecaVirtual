@@ -45,7 +45,7 @@ CREATE TABLE `books` (
 /*Data for the table `books` */
 
 insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`descriptions`,`author`,`state`,`locationresponsible`,`url`,`frontpage`,`registrationdate`,`state2`,`summary`) values 
-(1,1,1,'C001','2','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
+(1,1,1,'C001','0','Probabilidad y estadística como trabajar con niños y jóvenes','Ana P, de Bressan/Oscar Bogisic','B','Biblioteca escolar',NULL,'dbc2f631ce769553c10b24bebaa1b9eb55f056f2.jpg','2023-03-21 12:04:58','1','Este libro es un viaje por la probabilidad y por la estadística, procurando que sea placentero para los docentes y alumnos de nivel primario y educación básica. Se acercan las herramientas elementales de la probabilidad y de la estadística apelando a los mismos criterios sobre el azar y la probabilidad de la vida cotidiana.Cada capítulo responde a un tema desarrollado conectando el vocabulario específico con las expresiones lingüísticas habituales. Cada tópico se recorre en detalle, con complejidad creciente y a través de ejemplos que se constituyen en modelos para la solución de situaciones.'),
 (2,1,1,'C002','2','Razones para enseñar geometría en la educación básica','Ana P, de Bressan/Beatriz Bogic','B','Biblioteca escolar',NULL,NULL,'2023-03-21 12:04:58','1','Los escasos contenidos geométricos trabajados a lo largo de la escolaridad básica se reiteran año tras año, sin grandes cambios en su extensión y complejidad y, por lo tanto, en los niveles de conceptualización de los mismos por parte de los alumnos. Variados motivos podrían dar cuenta de los hechos mencionados, pero las autoras consideran dos como de especial relevancia: - La falta de conciencia de los usos de la geometría en la vida cotidiana y de las habilidades que ella desarrolla por su naturaleza intuitiva-espacial y lógica.'),
 (3,1,1,'C003','2','Juegos y problemas para construir ideas matemáticas','Stella Ricotti','B','Biblioteca escolar',NULL,'3b08825b28740b2872e2349ca407ccb58c8c5df4.jpg','2023-03-21 12:04:58','1',' Esta obra está destinada a docentes que, ante la responsabilidad de educar matemáticamente a jóvenes de 11 a 14 años, estén dispuestos a aprender de ellos y con ellos, se entusiasmen por jugar y resolver problemas o acertijos con la convicción de que están movilizando todas las formas de razonamiento lógico y creativo, mantengan intacta su capacidad de asombro y deseen hacer de la clase de matemáticas un encuentro feliz. Las actuales tendencias en educación matemática, centradas en la resolución de problemas y en el desarrollo de destrezas y habilidades propias del pensamiento matemático, generan en los y las docentes nuevas necesidades e inquietudes. El libro pretende satisfacer algunas de ellas a partir de una selección de situaciones, ofreciendo respuestas de ayuda, orientaciones y acompañamiento didáctico que permitan una mejor interpretación para el abordaje de los contenidos curriculares.'),
 (4,1,1,'C004','2','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,'3007884158f7fa8360a2cee72c83e9855b742d55.jpg','2023-03-21 12:04:58','1','Esta edición conserva los recuadros con breves textos sobre asuntos como energía y tecnología, las ruedas de los trenes, las bandas magnéticas en las tarjetas de crédito y los trenes de levitación magnética. También aparecen recuadros sobre seudociencia, el poder de los cristales, el efecto placebo, búsqueda de mantos de agua con métodos de radiestesia, terapia magnética, ondas electromagnéticas alrededor de líneas de energía eléctrica y la fobia hacia la radiación en los alimentos y hacia cualquier objeto que ostente el adjetivo “nuclear”.'),
@@ -412,7 +412,7 @@ CREATE TABLE `commentaries` (
   KEY `fk_idusers` (`idusers`),
   CONSTRAINT `fk_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `commentaries` */
 
@@ -452,7 +452,9 @@ insert  into `commentaries`(`idcommentary`,`idbook`,`idusers`,`commentary`,`scor
 (33,157,1,'bueno',4,'2023-07-13',NULL,'1'),
 (34,21,1,'bonito',2,'2023-07-13',NULL,'1'),
 (35,21,1,'bonito',4,'2023-07-13',NULL,'1'),
-(36,4,46,'muy bueno',1,'2023-07-13',NULL,'1');
+(36,4,46,'muy bueno',1,'2023-07-13',NULL,'1'),
+(37,16,1,'PREUIBA',4,'2023-07-25',NULL,'1'),
+(38,16,1,'1',0,'2023-07-25',NULL,'1');
 
 /*Table structure for table `hzgstudentcodes` */
 
@@ -496,7 +498,7 @@ CREATE TABLE `loans` (
   KEY `fk_idusers_idusers` (`idusers`),
   CONSTRAINT `fk_idbook_idbook` FOREIGN KEY (`idbook`) REFERENCES `books` (`idbook`),
   CONSTRAINT `fk_idusers_idusers` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `loans` */
 
@@ -515,7 +517,8 @@ insert  into `loans`(`idloan`,`idbook`,`idusers`,`amount`,`registration_date`,`p
 (12,4,3,'1','2023-07-14 19:35:41','2023-07-15 00:00:00','2023-07-28 00:00:00','2023-07-18 00:40:48','',NULL,'4'),
 (13,2,1,'1','2023-06-01 15:07:02','2023-07-20 18:47:28','2023-06-18 00:00:00','2023-07-20 12:30:47','',NULL,'4'),
 (14,2,1,'1','2023-07-17 15:10:48','2023-07-20 18:53:16','2023-08-20 12:35:48',NULL,'','','4'),
-(15,16,3,'1','2023-07-18 00:42:44','2023-07-20 18:52:22','2023-08-20 12:33:09',NULL,'','fserfewfe','4');
+(15,16,3,'1','2023-07-18 00:42:44','2023-07-20 18:52:22','2023-08-20 12:33:09',NULL,'','fserfewfe','4'),
+(25,1,1,'2','2023-07-25 16:10:06','2023-07-28 00:00:00','2023-08-02 00:00:00',NULL,'aSDGF',NULL,'1');
 
 /*Table structure for table `recuperarclave` */
 
@@ -1312,13 +1315,15 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_books`()
-SELECT  COUNT(idbook) AS total_libros ,
-		(SELECT COUNT(idcategorie) FROM categories) AS total_categorias,
-		(SELECT COUNT(idcategorie) FROM subcategories) AS total_subcategorias,
-		(SELECT COUNT(*) AS total_autores
-			FROM (SELECT author FROM books GROUP BY author) AS Total) AS total_autores
-	    FROM books
-	END */$$
+BEGIN
+				SELECT  COUNT(idbook) AS total_libros ,
+					(SELECT COUNT(idcategorie) FROM categories where state = 1) AS total_categorias,
+					(SELECT COUNT(idcategorie) FROM subcategories WHERE state = 1) AS total_subcategorias,
+					(SELECT COUNT(*) AS total_autores
+						FROM (SELECT author FROM books GROUP BY author) AS Total) AS total_autores
+				FROM books
+				where state2 = '1';
+			END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_list_dashboard_users` */
@@ -1328,11 +1333,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_list_dashboard_users`()
-SELECT  COUNT(idusers) AS total_users,
-		(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D') AS total_docentes,
-		(SELECT COUNT(*) FROM loans WHERE state = 1) AS total_prestamos
-	    FROM users
-	END */$$
+BEGIN
+					SELECT  COUNT(idusers) AS total_users,
+						(SELECT COUNT(*) FROM users WHERE accesslevel LIKE 'D' and state = 1) AS total_docentes,
+						(SELECT COUNT(*) FROM loans WHERE state = 1) AS total_prestamos
+					FROM users
+					where state = 1;
+				END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_list_estado` */
@@ -2192,7 +2199,6 @@ DELIMITER $$
 				IN _accesskey	VARCHAR(100)
 			)
 BEGIN
-
 				UPDATE users SET
 					accesskey = _accesskey	
 				WHERE idusers = _idusers;
@@ -2227,7 +2233,6 @@ DELIMITER $$
 				IN _accesslevel	VARCHAR(100)
 			)
 BEGIN
-
 				UPDATE users SET
 					namess 		= _namess,
 					surnames 	= _surnames,

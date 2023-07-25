@@ -54,7 +54,7 @@
                             <th>#</th>
                             <th class='center'>Usuario</th>
                             <th class='center'>Fecha de registro</th>
-                            <th>Comentario</th>
+                            <th class='center'>Comentario</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -84,11 +84,11 @@ require_once 'permisos.php';
 
 
                     <!-- Zona Modales registro-->
-                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-subcategorias" tabindex="-1" aria-labelledby="titulo-modal-subcategorias" aria-hidden="true">
+                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-subcategorias" tabindex="-1" aria-labelledby="modal-subcategorias" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-success text-light">
-                                    <h5 class="modal-title" id="titulo-modal-libros">Registrar Subcategoría</h5>
+                                    <h5 class="modal-title" id="titulo-modal-subcategorias">Registrar Subcategoría</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span class="text-light" aria-hidden="true">&times;</span>
                                     </button>
@@ -273,7 +273,7 @@ require_once 'permisos.php';
                     alertar("Complete el formulario por favor")
                 } else {
                     Swal.fire({
-                        title: "Registro SubCategoría",
+                        title: "SubCategoría",
                         text: "¿Los datos ingresados son correctos?",
                         icon: "question",
                         footer: "Horacio Zeballos Gámez",
@@ -289,7 +289,7 @@ require_once 'permisos.php';
                                 type: 'GET',
                                 data: datos,
                                 success: function(result) {
-                                    alertarToast("Proceso completado", "La Subcategoría ha sido registrado correctamente", "success")
+                                    alertarToast("Proceso completado", "", "success")
                                     setTimeout(function() {
                                         reiniciarFormulario();
                                         $('#modal-subcategorias').modal('hide');

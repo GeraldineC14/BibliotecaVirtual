@@ -220,7 +220,7 @@ require_once './permisos.php';
                     alertar("Complete el formulario por favor")
                 } else {
                     Swal.fire({
-                        title: "Registro Categoría",
+                        title: "Categoría",
                         text: "¿Los datos ingresados son correctos?",
                         icon: "question",
                         footer: "Horacio Zeballos Gámez",
@@ -236,7 +236,7 @@ require_once './permisos.php';
                                 type: 'GET',
                                 data: datos,
                                 success: function(result) {
-                                    alertarToast("Proceso completado", "La categoría ha sido registrado correctamente", "success")
+                                    alertarToast("Proceso completado", "", "success")
                                     setTimeout(function() {
                                         reiniciarFormulario();
                                         $("#modal-categorias").modal('hide')

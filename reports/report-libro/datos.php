@@ -53,14 +53,14 @@
                     <colgroup>
                         <col width='5%'>
                         <col style='width: 6%;'>
-                        <col style='width: 10%;'>
+                        <col style='width: 5%;'>
                         <col  style='width: 50%;'>
                     </colgroup>
                     <thead>
                         <tr class='bg-danger'>
                             <th>#</th>
                             <th class='center'>Código</th>
-                            <th class='center'>Cantidad Disponible</th>
+                            <th class='center'>Stock</th>
                             <th class='center'>Libro</th>
                             <th class='center'>Autor</th>
                         </tr>
