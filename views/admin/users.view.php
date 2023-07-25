@@ -241,7 +241,7 @@ require_once './permisos.php';
                                         <button type="button" id="guardar-usuario2"
                                             class="btn btn-sm btn-primary">Guardar</button>
                                         <button type="button" id="guardar-contraseña"
-                                            class="btn btn-sm btn-primary">Guardar2</button>  
+                                            class="btn btn-sm btn-primary">Guardar</button>  
                                         <button type="button" id="editar-contraseña"
                                             class="btn btn-sm btn-primary">Editar Contraseña</button>
                                     </div>

@@ -40,7 +40,7 @@ CREATE TABLE `books` (
   KEY `fk_idsubcategorie_subcategories` (`idsubcategorie`),
   CONSTRAINT `fk_idcategorie_categories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`),
   CONSTRAINT `fk_idsubcategorie_subcategories` FOREIGN KEY (`idsubcategorie`) REFERENCES `subcategories` (`idsubcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `books` */
 
@@ -305,16 +305,57 @@ insert  into `books`(`idbook`,`idcategorie`,`idsubcategorie`,`codes`,`amount`,`d
 (258,3,7,'C258','02','Ángeles apócrifos en la América virreinal','Ramón mujica padilla','B','C.R.E',NULL,NULL,'2023-03-22 10:53:01','1',NULL),
 (259,3,7,'C259','02','Pensamiento y Acción','Ramón Remolina','B','C.R.E',NULL,NULL,'2023-03-22 10:53:01','1',NULL),
 (260,3,7,'C260','01','Ayacucho, tradiciones peruanas de ricardo palma','Tomas Santillana Cantella','B','C.R.E',NULL,NULL,'2023-03-22 10:53:01','1',NULL),
-(333,2,4,'C261','1','1','1','1','1','1','1','2023-04-21 15:27:16','1',NULL),
-(334,1,1,'C262','1','prueba ajax','ajax','b','ajax','','','2023-04-21 15:29:38','1',NULL),
-(335,2,4,'C263','1','PRUEBAS AJAX 2','AJAX 2','B','AJAX2',NULL,NULL,'2023-04-21 15:43:22','1',NULL),
-(340,2,4,'C264','2','PRUEBA SIDER','SIDER','B','SIDER','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.pdf','91d76f2217fb7b68d7b74f5b9e23aa53ae4ed94c.jpg','2023-05-05 10:29:51','1',NULL),
-(351,1,1,'C265','1','PRUEBA 10','PREUBA','B','PRUEBA',NULL,NULL,'2023-05-12 10:40:07','1',NULL),
-(352,1,1,'C266','02','Física conceptual','Paul G, Hewitt','B','Biblioteca escolar',NULL,NULL,'2023-05-15 08:15:58','1',NULL),
-(353,1,1,'C267','5','dsvs','dsfdsf','d','fdsfs','ef3ec8834b3b94bd2e9a46293d6767df453afd14.pdf','ef3ec8834b3b94bd2e9a46293d6767df453afd14.jpg','2023-06-27 16:16:16','0',NULL),
-(354,2,3,'C268','2','editar completo2','dsad','s','asdsa','90614788a754c8c9db1bee5970dba6ba20f1cfc7.pdf','0b5ce98ac0fc74ebb05d8a5377fd1d95ae9dbf32.jpg','2023-06-29 22:40:01','0',NULL),
-(355,1,1,'C269','1','eidtado','preuba','B','l','59f8f4449022d5b04aa91e84a1d0b0a954ed6d0e.pdf','cad140305096d8bff2a645e5597d4ec6a635c9be.jpg','2023-07-10 00:47:34','1',NULL),
-(356,1,1,'C270','1','PRUEBA FINAL BETA FINAL','BEYA','1','LI','a727a366c684e50c82c8ac2b39b16e7dc4c6cc0c.pdf',NULL,'2023-07-10 14:22:12','1',NULL);
+(261,4,9,'C261','8','Historia del Perú Contemporáneo','Carlos Contreras/Carlos Cueto','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:03:37','1',NULL),
+(262,4,9,'C262','2','Atlas National Geographic Índice De Topónimos N°14','National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:06:20','1',NULL),
+(263,4,9,'C263','2','Atlas National Geographic Índice De Topónimos N°13','National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:08:02','1',NULL),
+(264,4,9,'C264','2','Atlas Del Perú, Geográfica Económica Y Cultural, Tumbes Piura','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:10:05','1',NULL),
+(265,4,9,'C265','2','Atlas Del Perú, Geográfica Económica Y Cultural Lambayeque - La Libertad','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:11:49','1',NULL),
+(266,4,9,'C266','2','Atlas Del Perú, Geográfica Económica Y Cultural Cajamarca, Amazonas, San Martin','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:14:42','1',NULL),
+(267,4,9,'C267','2','Atlas Del Perú, Geográfica Económica  Y Cultural Ancash, Huánuco','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:16:33','1',NULL),
+(268,4,9,'C268','2','Atlas Del Perú, Geográfica Económica Y Cultural, Lima, Callao','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:19:20','1',NULL),
+(269,4,9,'C269','2','Atlas Del Perú, Geográfica Económica Y Cultural Huancavelica, Ica','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:20:27','1',NULL),
+(270,4,9,'C270','2','Atlas Del Perú, Geográfica Económica Y Cultural Ayacucho, Apurímac','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:21:36','1',NULL),
+(271,4,9,'C271','2','Atlas Del Perú, Geográfica Económica Y Cultural Pasco, Junín','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:25:03','1',NULL),
+(272,4,9,'C272','2','Atlas Del Perú Geográfica Económica Y Cultural Cusco Madre De Dios','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:26:06','1',NULL),
+(273,4,9,'C273','2','Atlas Del Perú Geográfica Económica Y Cultural Puno, Tacna','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:28:10','1',NULL),
+(274,4,9,'C274','2','Atlas Del Perú Geográfica Económica Y Cultural, Arequipa, Moquegua','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:29:05','1',NULL),
+(275,4,9,'C275','2','Atlas Del Perú Geográfica Económica Y Cultural, Arequipa, Moquegua','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:31:28','1',NULL),
+(276,4,9,'C276','2','Atlas Del Perú Geográfica Económica Y Cultural Ciudades Del Perú','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:32:45','1',NULL),
+(277,4,9,'C277','2','Atlas Del Perú, Geográfico Económico Y Cultural Perú Global','Editorial Comercio','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:34:30','1',NULL),
+(278,4,9,'C278','2','Historia De La Republica Del Perú 1933 - 2000','Raúl Palacios Rodríguez','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:35:51','1',NULL),
+(279,4,9,'C279','2','Historia De La República Del Perú 1822 - 1933 N° 17','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:39:57','1',NULL),
+(280,4,9,'C280','2','Historia De La República Del Perú 1822 - 1933 N° 16','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:41:06','1',NULL),
+(281,4,9,'C281','2','Historia De La República Del Perú 1822 - 1933 N° 15','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:41:52','1',NULL),
+(282,4,9,'C282','2','Historia De La República Del Perú 1822 - 1933 N° 14','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:42:58','1',NULL),
+(283,4,9,'C283','2','Historia De La República Del Perú 1822 - 1933 N° 13','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:43:48','1',NULL),
+(284,4,9,'C284','2','Historia De La República Del Perú 1822 - 1933 N° 12','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:44:36','1',NULL),
+(285,4,9,'C285','2','Historia De La República Del Perú 1822 - 1933 N° 11','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:45:13','1',NULL),
+(286,4,9,'C286','2','Historia De La República Del Perú 1822 - 1933 N° 10','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:45:43','1',NULL),
+(287,4,9,'C287','2','Historia De La República Del Perú 1822 - 1933 N° 09','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:46:16','1',NULL),
+(288,4,9,'C288','2','Historia De La República Del Perú 1822 - 1933 N° 08','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:51:12','1',NULL),
+(289,4,9,'C289','2','Historia De La República Del Perú 1822 - 1933 N° 07','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:51:41','1',NULL),
+(290,4,9,'C290','2','Historia De La República Del Perú 1822 - 1933 N° 06','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:52:16','1',NULL),
+(291,4,9,'C291','2','Historia De La República Del Perú 1822 - 1933 N° 05','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:52:46','1',NULL),
+(292,4,9,'C292','2','Historia De La República Del Perú 1822 - 1933 N° 04','Jorge Basadre Grohman','B','Biblioteca escolar',NULL,NULL,'2023-07-22 15:53:16','1',NULL),
+(293,4,9,'C293','2','Historia De La República Del Perú 1822 - 1933 N° 3','Jorge Basadre Grohoman','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:47:36','1',NULL),
+(294,4,9,'C294','2','Historia De La República Del Perú 1822 - 1933 N° 2','Jorge Basadre Grohoman','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:48:10','1',NULL),
+(295,4,9,'C295','2','Historia De La República Del Perú 1822 - 1933 N° 1','Jorge Basadre Grohoman','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:48:46','1',NULL),
+(296,4,9,'C296','2','National Geographic, España','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:50:07','1',NULL),
+(297,4,9,'C297','2','National Geographic, Oceanía, Polos – Océanos','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:50:56','1',NULL),
+(298,4,9,'C298','2','National Geographic, América Del Sur','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:52:26','1',NULL),
+(299,4,9,'C299','2','Atlas National Geographic, América Del Norte Y Central','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:53:14','1',NULL),
+(300,4,9,'C300','2','Atlas National Geographic, África I','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:55:12','1',NULL),
+(301,4,9,'C301','2','Atlas National Geographic, África II','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:55:50','1',NULL),
+(302,4,9,'C302','2','Atlas National Geographic, Asia II','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:57:10','1',NULL),
+(303,4,9,'C303','2','Atlas National Geographic, Asia I','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:57:46','1',NULL),
+(304,4,9,'C304','2','National Geographic, Europa III','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:59:13','1',NULL),
+(305,4,9,'C305','2','National Geographic, Europa II','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 12:59:54','1',NULL),
+(306,4,9,'C306','2','National Geographic, Europa I','Atlas National Geographic','B','Biblioteca escolar',NULL,NULL,'2023-07-23 13:01:01','1',NULL),
+(307,4,9,'C307','2','Historia Universal Tomo I, II','Editorial Océano','B','Biblioteca escolar',NULL,NULL,'2023-07-23 13:02:03','1',NULL),
+(308,4,9,'C308','2','Historia del mundo contemporáneo','Antonio, Fernández García','B','Biblioteca escolar',NULL,NULL,'2023-07-23 13:03:28','1',NULL),
+(309,4,9,'C309','32','La historia de Iberoamérica','Juan Acevedo','B','Biblioteca escolar',NULL,NULL,'2023-07-23 13:04:46','1',NULL),
+(310,4,10,'C310','4','Historia Universal  4°','Editorial escuela nueva','R','C.R.E',NULL,NULL,'2023-07-23 13:06:27','1',NULL),
+(311,4,10,'C311','5','Historia Universal  3°','Editorial escuela nueva','R','C.R.E',NULL,NULL,'2023-07-23 13:07:06','1',NULL);
 
 /*Table structure for table `bookschinchanos` */
 
@@ -343,21 +384,15 @@ CREATE TABLE `categories` (
   `registrationdate` datetime NOT NULL DEFAULT current_timestamp(),
   `state` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categories` */
 
 insert  into `categories`(`idcategorie`,`categoryname`,`registrationdate`,`state`) values 
-(1,'Bibliografia, Ciencias Puras','2023-03-21 09:02:08','1'),
-(2,'Bibliografia, Filología Linguística','2023-03-21 09:03:06','1'),
-(3,'Bibliografia, literatura Latina','2023-03-21 10:37:22','1'),
-(4,'edit prueba elijminar','2023-05-27 09:45:28','1'),
-(5,'PRUEBA sidebar','2023-05-27 09:50:08','0'),
-(6,'PRUEBA CON si','2023-05-27 11:05:59','0'),
-(7,'PRUEBA08','2023-07-08 11:53:07','0'),
-(8,'preubs','2023-07-08 11:57:29','0'),
-(9,'DIEGOfelipa','2023-07-09 12:26:02','0'),
-(10,'CARACHA DIEGO','2023-07-10 14:37:12','0');
+(1,'Bibliografía, Ciencias Puras','2023-03-21 09:02:08','1'),
+(2,'Bibliografía, Filología Linguística','2023-03-21 09:03:06','1'),
+(3,'Bibliografía, literatura Latina','2023-03-21 10:37:22','1'),
+(4,'Bibliografía, Historia y Geografía ','2023-07-22 14:57:42','1');
 
 /*Table structure for table `commentaries` */
 
@@ -522,7 +557,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`idsubcategorie`),
   KEY `fk_idcategorie_subcategories` (`idcategorie`),
   CONSTRAINT `fk_idcategorie_subcategories` FOREIGN KEY (`idcategorie`) REFERENCES `categories` (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `subcategories` */
 
@@ -535,12 +570,8 @@ insert  into `subcategories`(`idsubcategorie`,`idcategorie`,`subcategoryname`,`r
 (6,3,'Módulo Base Biblioteca para secundaria - Literatura latina','2023-03-22 08:16:46','1'),
 (7,3,'Obras Literarias','2023-03-22 08:16:46','1'),
 (8,3,'Lenguaje y Literatura','2023-03-22 08:16:46','1'),
-(9,6,'prueba sidebar','2023-05-27 13:10:24','0'),
-(10,3,'prueba eliminar','2023-07-08 13:43:25','0'),
-(11,4,'CATEGORIEA','2023-07-08 14:13:16','0'),
-(12,4,'LDFN','2023-07-08 14:13:31','0'),
-(13,4,'prueba finaaaa|','2023-07-08 14:17:48','1'),
-(14,4,'ds','2023-07-10 14:38:55','0');
+(9,4,'Módulo Base Biblioteca para Secundaria - Historia ','2023-07-22 14:59:04','1'),
+(10,4,'Historia y Geografía ','2023-07-23 13:05:27','1');
 
 /*Table structure for table `users` */
 

@@ -1673,13 +1673,13 @@ SELECT * FROM users
 
 
 -- SCRIPT CONTINUIDAD DE ID EN TABLAS -> agregar las tablas necesarias
-SET @nuevo_autoincremento = (SELECT MAX(idloan) FROM loans) + 1;
-SET @sql = CONCAT('ALTER TABLE loans AUTO_INCREMENT = ', @nuevo_autoincremento);
+SET @nuevo_autoincremento = (SELECT MAX(idsubcategorie) FROM subcategories) + 1;
+SET @sql = CONCAT('ALTER TABLE subcategories AUTO_INCREMENT = ', @nuevo_autoincremento);
 PREPARE stmt FROM @sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
-SELECT * FROM books;
+SELECT * FROM subcategories;
 
 
 -- DATA:	
