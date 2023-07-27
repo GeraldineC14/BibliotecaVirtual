@@ -1,6 +1,23 @@
 <?php
 require_once 'permisos.php';
 ?>
+<style>
+    /* Estilo para la clase month-year-input-field */
+    .month-year-input-field {
+        width: 250px;
+        border-radius: 6px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* Media query para la vista móvil */
+    @media (max-width: 576px) {
+        .month-year-input-field {
+            width: 180px;
+            /* Cambia el ancho del campo de entrada para la vista móvil */
+        }
+    }
+</style>
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <!-- INICIO PERFIL -->
@@ -18,7 +35,7 @@ require_once 'permisos.php';
                 </div>
                 <div class="d-grid gap-2 col-12 col-md-6 mx-auto">
                     <!-- Título oculto para pc y laptop -->
-                    <div class="d-inline-block d-md-none text-center">
+                    <div class="d-inline-block d-md-none text-center mt-2">
                         <h3 class="title-tablas2">Gráfico</h3>
                     </div>
                     <!-- Título oculto para móvil y tablet -->
@@ -28,32 +45,20 @@ require_once 'permisos.php';
                 </div>
 
                 <div class="card mt-2">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="mb-0">Seleccione el mes:</p>
+                    <div class="card mt-2">
+                        <div class="card-header d-flex flex-column justify-content-center align-items-center">
+                            <input type="text" id="sum-amounts" style="width: 100px; color: black; background-color: aquamarine;" class="form-control" readonly>
                         </div>
-                        <!-- Campo de texto para la suma de los amounts -->
-                        <div class="d-flex">
-                            <div class="ml-auto">
-                                <!-- Div alineado a la derecha -->
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group mt-2">
-                                                <input type="text" id="sum-amounts" style="width: 100px; color: black; background-color: aquamarine;" class="form-control" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <input type="month" id="month-year-input" name="month-year" class="form-control month-year-input-field" />
+                            <button class="btn btn-warning text-black mt-2" type="button" id="mostrar"><b>Mostrar</b></button>
                         </div>
                     </div>
-                    <div class="card-body text-center">
-                        <input type="month" id="month-year-input" name="month-year" style="width: 250px; border-radius: 6px; height: 40px; font-size: 16px;" />
-                        <button class="btn btn-warning text-black" type="button" id="mostrar"><b>Mostrar</b></button>
-                    </div>
+
                     <div class="card-footer text-muted">
-                        <canvas id="prestamos-chart" style="width: 400px; height: 400px;"></canvas>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="prestamos-chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

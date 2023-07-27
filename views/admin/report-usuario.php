@@ -16,7 +16,7 @@ require_once 'permisos.php';
                         &nbsp;Volver
                     </a>
                 </div>
-                <div class="d-grid gap-2 col-12 col-md-6 mx-auto">
+                <div class="d-grid gap-2 col-12 col-md-6 mx-auto mt-2">
                     <!-- Título oculto para pc y laptop -->
                     <div class="d-inline-block d-md-none text-center">
                         <h3 class="title-tablas2">Reportes</h3>

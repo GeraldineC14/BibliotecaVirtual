@@ -11,7 +11,7 @@ require_once 'permisos.php';
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <div class="d-flex justify-content-center gap-2 col-6 mx-auto">
                             <!-- Título oculto para pc y laptop -->
                             <div class="d-inline-block d-md-none text-center">
                                 <h3 class="title-tablas2">
@@ -24,29 +24,35 @@ require_once 'permisos.php';
                                     Módulo de Préstamos
                                 </h3>
                             </div>
-
                         </div>
-                        <div class="btn-group" role="group">
-                            <div class="dropdown mr-3">
-                                <a class="btn btn-warning d-none d-md-inline-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-solid fa-filter fa-xl" style="color: #000000;"></i>
-                                    &nbsp;Estados
-                                </a>
-                                <div class="dropdown-menu estado" aria-labelledby="dropdownMenuButton">
 
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-center align-items-center w-100">
+                                <div class="btn-group">
+                                    <div class="dropdown mr-2">
+                                        <a class="btn btn-warning d-none d-md-inline-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa-solid fa-filter fa-xl" style="color: #000000;"></i>
+                                            &nbsp;Estado
+                                        </a>
+                                        <div class="dropdown-menu estado" aria-labelledby="dropdownMenuButton">
+                                            <!-- Opciones del menú desplegable -->
+                                        </div>
+                                    </div>
+                                    <!-- Enlace para redirigir a la vista de reporte -->
+                                    <a href="index.php?view=report-prestamo.php" class="btn btn-danger d-none d-md-inline-block mr-2">
+                                        <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
+                                        &nbsp;Reporte
+                                    </a>
+                                    <!-- Enlace para redirigir a la vista de gráficos -->
+                                    <a href="index.php?view=grafico-prestamos.php" class="btn btn-info d-none d-md-inline-block">
+                                        <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
+                                        &nbsp;Gráfico
+                                    </a>
                                 </div>
                             </div>
-                            <!-- Enlace para redirigir a la vista de reporte -->
-                            <a href="index.php?view=report-prestamo.php" class="btn btn-danger  d-none d-md-inline-block" style="margin-right: 10px;">
-                                <i class="fas fa-solid fa-file-pdf fa-sm text-black fa-xl"></i>
-                                &nbsp;Reporte
-                            </a>
-                            <!-- Enlace para redirigir a la vista de gráficos -->
-                            <a href="index.php?view=grafico-prestamos.php" class="btn btn-info d-none d-md-inline-block">
-                                <i class="fas fa-chart-pie fa-sm text-black fa-xl"></i>
-                                &nbsp;Gráfico
-                            </a>
                         </div>
+
+
 
                         <!-- INICIO Versión Móvil -->
                         <div class="d-flex mx-auto d-md-none">
@@ -248,7 +254,11 @@ require_once 'permisos.php';
                                         </button>
                                             </td>
                                         `;
+                                } else {
+                                    // Si el accessLevel es 'D' o 'E', ocultamos los botones de comandos
+                                    comandosHtml = '<td></td>';
                                 }
+
 
                                 // Ocultar botones Devolver y Observado
                                 nuevaFila += `
@@ -283,7 +293,11 @@ require_once 'permisos.php';
                                         </button>
                                             </td>
                                         `;
+                                } else {
+                                    // Si el accessLevel es 'D' o 'E', ocultamos los botones de comandos
+                                    comandosHtml = '<td></td>';
                                 }
+
 
                                 nuevaFila += `
                                 <tr>

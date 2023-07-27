@@ -86,43 +86,7 @@
   --bs-highlight-bg: #fff3cd;
 }
 
-/* Estilos para el contenedor principal */
-.card-body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
 
-/* Estilos para cada columna de la fila */
-.col {
-  flex: 1;
-}
-
-/* Ajustar el tamaño de los controles en pantallas pequeñas */
-@media (max-width: 767px) {
-  .col {
-    flex-basis: 100%;
-  }
-}
-
-/* Estilos para el select y sus opciones */
-.form-select {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* Estilos específicos para Select2 en pantallas de laptop */
-@media (min-width: 992px) {
-  .libro + .select2-container {
-    width: 100% !important;
-  }
-  .estado + .select2-container {
-    width: 100% !important;
-  }
-}
 
 *,
 *::before,

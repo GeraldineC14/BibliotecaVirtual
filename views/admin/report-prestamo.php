@@ -40,15 +40,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row tex-center">
-                                            <div class="col">
+                                            <div class="col mt-2">
                                                 <select id="libro" class="form-select libro" multiple name="libro" required>
                                                     <!-- Agregar más opciones aquí -->
                                                 </select>
                                             </div>
-                                            <div class="col">
+                                            <div class="col mt-2">
                                                 <input type="month" name="fecha" id="fecha" class="form-control" value=" ">
                                             </div>
-                                            <div class="col">
+                                            <div class="col mt-2">
                                                 <select id="estado" class="form-select estado" multiple name="estado" required>
                                                     <!-- Agregar más opciones aquí -->
                                                 </select>
@@ -255,11 +255,11 @@
     // Select2
     $('.libro').select2({
         maximumSelectionLength: 1,
-        placeholder: 'Seleccione: '
+        placeholder: 'Seleccione libro: '
     });
 
     $('.estado').select2({
         maximumSelectionLength: 1,
-        placeholder: 'Seleccione: '
+        placeholder: 'Seleccione estado: '
     });
 </script>
